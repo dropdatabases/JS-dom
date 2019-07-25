@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin:0;
+			padding:0;
+		}
+		#box{
+			width: 800px;
+			height: 200px;
+			margin:auto;
+			border:3px solid #000;
+		}
+		#box ul{
+			height: 65px;
+			overflow: hidden;
+		}
+		#box ul li{
+			float: left;
+			list-style-type: none;
+			width: 41px;
+			height: 125px;
+		}
+	</style>
+</head>
+<body>
+	<div id="box">
+		<ul>
+			<li class="on">
+				<img src="images/0.png" class="topImg">
+				<img src="images/0.png" class="botImg">
+			</li>
+			<li class="on">
+				<img src="images/0.png" class="topImg">
+				<img src="images/0.png" class="botImg">
+			</li>
+			<li>
+				<img src="images/d.png">
+				<img src="images/d.png">
+			</li>
+			<li class="on">
+				<img src="images/0.png" class="topImg">
+				<img src="images/0.png" class="botImg">
+			</li>
+			<li class="on">
+				<img src="images/0.png" class="topImg">
+				<img src="images/0.png" class="botImg">
+			</li>
+			<li>
+				<img src="images/d.png">
+				<img src="images/d.png">
+			</li>
+			<li class="on">
+				<img src="images/0.png" class="topImg">
+				<img src="images/0.png" class="botImg">
+			</li>
+			<li class="on">
+				<img src="images/0.png" class="topImg">
+				<img src="images/0.png" class="botImg">
+			</li>
+		</ul>
+	</div>
+	<script type="text/javascript" src="js/animation.js"></script>
+	<script>
+		var aImg = document.getElementsByClassName('topImg');
+		var oBotImg = document.getElementsByClassName('botImg');
+		var oLi = document.getElementsByClassName('on');
+
+		var timer = setInterval(function(){
+			var nowTime = new Date();//获取当前时间
+
+	    	var hour = nowTime.getHours();//获取小时数
+		    var minute = nowTime.getMinutes();//获取分钟数
+		    var second = nowTime.getSeconds();//获取秒数
+		    var str = '';  //存放小时 分钟 秒钟 组成的字符串
+		    str = toTwo(hour) + toTwo(minute) + toTwo(second);
+
+
+		    nowTime.setSeconds(nowTime.getSeconds()+1);//在原来的时间戳上  加1
+
+		    var newHour = nowTime.getHours();
+		    var newMinute = nowTime.getMinutes();
+		    var newSecond = nowTime.getSeconds();
+		    var newStr = '';
+		    newStr = toTwo(newHour) + toTwo(newMinute) + toTwo(newSecond);
+
+		    for(var i=0;i<str.length;i++){
+                 aImg[i].src = "images/" + str[i] + ".png";
+		    };
+		    for(var i=0;i<newStr.length;i++){
+		    	oBotImg[i].src = "images/" + newStr[i] + ".png";
+		    }
+		    for(var i=0;i<oLi.length;i++){
+		    	if (str[i]!==newStr[i]) {//如果str[i]和newStr[i]不相等的时候，才滚动li
+                      (function(i){
+                        	animation(oLi[i],{
+                               marginTop :-65
+                            },0.5,function(){//瞬间回到初始位置
+                              this.style.marginTop = 0;
+                              aImg[i].src = "images/"+newStr[i]+".png";//aImg[i]的src
+                            });
+                      })(i);
+		    	};
+		    };
+		},1000);
+		 // 这个函数的作用是 把 1 --> 01
+		 function toTwo(num){
+		 	if (num<10) {
+		 		 return '0' + num;
+		 	}else {
+		 		 return num + ''; 
+		 	};
+		 };
+	</script>
+</body>
+</html>

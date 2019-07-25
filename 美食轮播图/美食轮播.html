@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>美食轮播</title>
+	<style>
+		*{
+			margin:0;
+			padding:0;
+		}
+		body{
+			user-select: none;
+		}
+		#banner{
+			overflow: hidden;
+			position: relative;
+			width: 380px;
+			height:275px;
+			margin:100px auto 0;
+			border:5px dashed rgba(0,0,0,.2);
+		}
+		.ImgList{
+			list-style-type: none;
+			position: absolute;
+			width:1200%;
+		}
+		.ImgList li{
+			float: left;
+		}
+		.ImgList li img{
+			display: block;
+			width: 380px;
+			height:275px;
+		}
+		.bt_left,.bt_right{
+			position: absolute;
+			top:0;
+			bottom:0;
+			width:50px;
+			height:70px;
+			margin:auto;
+			background-color: rgba(0,0,0,.4);
+			line-height: 70px;
+			text-align: center;
+			font-size: 30px;
+			color: #fff;
+			cursor: pointer;
+		}
+		.bt_right{
+			right: 0;
+		}
+		.bottom{
+			position: absolute;
+			left:0;
+			right:0;
+			bottom:15px;
+			width:68%;
+			margin:auto;
+			background-color: rgba(0,0,0,.4);
+		}
+		.bottom span{
+			float: left;
+			width:20px;
+			height:20px;
+			margin: 0 6px;
+			border-radius: 50%;
+			background-color: rgba(255,255,255,.3);
+			cursor: pointer;
+		}
+		.bottom .on{
+			position: absolute;
+			background-color: red;
+		}
+	</style>
+</head>
+<body>
+	<div id="banner">
+		<ul class="ImgList">
+			<li>
+				<img src="images/8.jpg">
+			</li>
+			<li>
+				<img src="images/1.jpg">
+			</li>
+			<li>
+				<img src="images/2.jpg">
+			</li>
+			<li>
+				<img src="images/3.jpg">
+			</li>
+			<li>
+				<img src="images/4.jpg">
+			</li>
+			<li>
+				<img src="images/5.jpg">
+			</li>
+			<li>
+				<img src="images/6.jpg">
+			</li>
+			<li>
+				<img src="images/7.jpg">
+			</li>
+			<li>
+				<img src="images/8.jpg">
+			</li>
+			<li>
+				<img src="images/1.jpg">
+			</li>
+		</ul>
+		<div class="bt">
+			<div class="bt_left">&lt;</div>
+			<div class="bt_right">&gt;</div>
+		</div>
+		<div class="bottom">
+			<span class="on"></span>
+			<span class="span"></span>
+			<span class="span"></span>
+			<span class="span"></span>
+			<span class="span"></span>
+			<span class="span"></span>
+			<span class="span"></span>
+			<span class="span"></span>
+			<span class="span"></span>
+		</div>
+	</div>
+	<script type="text/javascript" src="js/animation.js"></script>
+	<script type="text/javascript">
+		var oUl = document.getElementsByClassName('ImgList')[0];//获取oUl元素
+		var BtRight = document.getElementsByClassName('bt_right')[0];//获取BtRight元素
+		var BtLeft = document.getElementsByClassName('bt_left')[0];//获取BtLeft元素
+		var On = document.getElementsByClassName('on')[0];//获取On元素
+		var Bottom = document.getElementsByClassName('bottom')[0];//获取Bottom元素
+		var oSpan = document.getElementsByClassName('span');//获取oSpan元素
+
+		var w = 380;//存储一张图片的宽度
+		var index = 0;//存储点击次数
+		var len = oUl.children.length-2;//存储需要轮播的length长度
+
+		oUl.style.left = -w + "px";//让oUl恢复到初始位置
+
+		/*
+		 index和oUl的点击移动关系
+		   index    oUl
+		     0     -380
+		     1     -380*2
+		     2     -380*3
+		     3     -380*4
+		   index   -380*(index+1)
+
+		 index和On的点击移动关系
+		    index   On
+		      0      0
+		      1      32
+		      2      32*1
+		      2      32*2
+		      3      32*3
+		      index  32*index
+
+	    */
+
+	    var now = new Date();//获取点前时间
+		//让oUL和小红球向右移动
+		BtRight.addEventListener('click',function(){
+
+			if(new Date() - now<=300)return;//限制点击时间
+			now = new Date();//重置now时间
+
+			index ++;//点击一次正加一次点击次数
+
+			animation(oUl,{//让oUL向右移动
+				left:-w*(index+1),
+			},0.3,function(){//此回调函数的作用是让oUl跳转到第一张图片中
+				if (index==len) {
+					index = 0;//重置length
+				    this.style.left = -w +"px";
+				}
+			})
+
+			//让On向右运动
+			if (index==len) {//如果移动次数==8那么走if里面的代码
+				animation(On,{//淡出
+					left:260,
+					opacity:0,
+				},0.25,function(){//淡入
+					this.style.left = -40 + "px";
+					animation(On,{
+						left:0,
+						opacity:1,
+					},0.25)
+				})
+			}else {//正常移动
+				animation(On,{
+				   left:32*index,
+			    },0.3)
+			}
+		},false)
+
+        //让oUL和小红球向左移动
+		BtLeft.addEventListener('click',function(){
+
+			if(new Date() - now<=300)return;//限制点击时间
+			now = new Date();//重置now时间
+
+			index --;//点击一次减少一次点击次数
+
+			animation(oUl,{//让oUl向左移动
+				left:-w*(index+1),
+			},0.3,function(){//此回调函数的作用是让oUl回到所需轮播的第7张图片里
+				if (index==-1) {
+					index = len-1;//length重置
+					this.style.left = -len*w + "px";
+				}
+			})
+
+			if (index==-1) {
+				animation(On,{//淡出
+					left:-20,
+					opacity:0,
+				},0.25,function(){//淡入
+					this.style.left = 280+"px";
+					animation(On,{
+						left:224,
+						opacity:1,
+					},0.25)
+				})
+			}else {//如果不满足if的条件就走单else里
+				animation(On,{
+				   left:32*index,
+			    },0.25)
+			}
+		},false)
+
+        //原理：for循环自定义属性
+        //让oSpan属性中都存储index属性值为循环次数
+		for(var i=0;i<oSpan.length;i++){
+			oSpan[i].index = i;
+		}
+
+		Bottom.addEventListener('click',function(e){
+			e = e || e.event;//兼容事件对象
+			index = e.target.index;//重置index属性
+			if(e.target.nodeName==="SPAN"){//如果事件源对象点击的东西的nodeName==="SPAN"那么走一下代码
+
+				animation(oUl,{
+					left:-w*(index+1),
+				},0.5);
+
+			    animation(On,{
+			    	left:32*index,
+			    },0.5);
+			}
+		},false)
+	</script>
+</body>
+</html>

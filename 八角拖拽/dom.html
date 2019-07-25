@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin:0;
+			padding:0;
+		}
+		body{
+			overflow: hidden;
+			user-select: none;/*控制着用户能否选中文本*/
+			background-color: rgba(0,0,0,.2);
+		}
+		#box{
+			position: absolute;
+			width:200px;
+			height:200px;
+			border-radius: 10px;
+			background-color: red;
+			min-width:200px;
+            min-height:200px;
+            cursor: pointer;
+		}
+		#box i{
+			position: absolute;
+			width:20px;
+			height:20px;
+			border-radius: 50%;
+			background-color: green;
+		}
+		.box_a{
+			left: 50%;
+            transform: translateX(-50%);
+		}
+		.box_b{
+			right: 0;
+		}
+		.box_c{
+			top: 50%;
+            transform: translateY(-50%);
+		}
+		.box_d{
+			right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+		}
+		.box_e{
+			bottom: 0;
+		}
+		.box_h{
+			bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+		}
+		.box_u{
+			bottom: 0;
+            right: 0;
+		}
+	</style>
+</head>
+<body>
+	<div id="box">
+		<i class="box_a"></i>
+		<i class="box_b"></i>
+		<i class="box_c"></i>
+		<i class="box_d"></i>
+		<i class="box_e"></i>
+		<i class="box_f"></i>
+		<i class="box_h"></i>
+		<i class="box_u"></i>
+	</div>
+	<script type="text/javascript">
+		var oBox = document.getElementById('box');
+
+		document.body.addEventListener('mousedown',function(e){
+			e = e || window.event;
+			var target = e.target || e.srcElement;
+			var startX = e.clientX;
+			var startY = e.clientY;
+
+			var offsetLeft = target.parentNode.offsetLeft;
+			var offsetTop = target.parentNode.offsetTop;
+
+			var minWidth = oBox.clientWidth;
+			var minHeight = oBox.clientHeight;
+			var boxLeft = oBox.offsetLeft;
+			var boxTop = oBox.offsetTop;
+			document.addEventListener('mousemove',moven,false);
+			function moven(e){
+				e = e || window.event;
+				var moveX = e.clientX;
+				var moveY = e.clientY;
+				var className = target.className;
+				switch(className){
+				    case "box_b":
+				        oBox.style.width = minWidth + (moveX - startX) +"px";
+				        oBox.style.height = minHeight - (moveY - startY) + "px";
+				        oBox.style.top = boxTop + (moveY - startY) + "px";
+				        break;
+				    case 'box_d':
+				        oBox.style.width = minWidth + (moveX - startX) + "px";
+				        break;
+				    case "box_u":
+				        oBox.style.width = minWidth + (moveX - startX) + "px";
+				        oBox.style.height = minHeight + (moveY - startY) + "px";
+				        break;
+				    case "box_h":
+				        oBox.style.height = minHeight + (moveY - startY) + "px";
+				        break;
+				    case "box_e":
+				        oBox.style.width = minWidth - (moveX - startX) + "px";
+				        oBox.style.height = minHeight + (moveY - startY) + "px";
+				        oBox.style.left = boxLeft + (moveX - startX) + "px";
+				        break;
+				    case "box_c":
+				        oBox.style.width = minWidth - (moveX - startX) +"px";
+				        oBox.style.left = boxLeft + (moveX - startX) +"px";
+				        break;
+				    case "box_f":
+				        oBox.style.width = minWidth - (moveX - startX) +"px";
+				        oBox.style.height = minHeight - (moveY - startY) + "px";
+				        oBox.style.left = boxLeft + (moveX - startX) +"px";
+				        oBox.style.top = boxTop + (moveY - startY) + "px";
+				        break;
+				    case "box_a":
+				        oBox.style.height = minHeight - (moveY - startY) + "px";
+				        oBox.style.top = boxTop + (moveY - startY) + "px";
+				        break;
+				    default:
+				        oBox.style.left = boxLeft + (moveX - startX) + "px";
+				        oBox.style.top = boxTop + (moveY - startY) + "px";
+				}
+
+			}
+			document.addEventListener('mouseup',function(){
+				document.removeEventListener('mousemove',moven,false);
+				document.removeEventListener('mouseup',arguments.callee,false)
+			},false)
+		},false)
+	</script>
+</body>
+</html>
