@@ -1,0 +1,232 @@
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+ 	<meta charset="UTF-8">
+ 	<title>Document</title>
+ 	<style>
+ 		*{
+ 			margin:0;
+ 			padding:0;
+ 		}
+ 		#banner{
+ 			overflow: hidden;
+ 			position: relative;
+ 			width:538px;
+ 			height:405px;
+ 			margin: 50px auto;
+ 			border: 10px double pink;
+ 			border-radius: 20px;
+ 		}
+ 		ul{
+ 			position: absolute;
+ 			list-style-type: none;
+ 			width: 1000%;
+ 		}
+ 		.ImgList li{
+ 			float: left;
+ 		}
+ 		.ImgList li img{
+ 			display: block;
+ 			border-radius: 5px;
+ 		}
+ 		.ImgList::after{
+ 			content: '';
+ 			display: block;
+ 			clear: both;
+ 			visibility: hidden;
+ 			height: 0;
+ 		}
+ 		.btn_left,.btn_right{
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width:50px;
+            height: 70px;
+            margin: auto;
+            background-color: rgba(0,0,0,.5);
+            color: #fff;
+            font-size: 30px;
+            text-align: center;
+            line-height: 70px;
+            cursor: pointer;
+ 		}
+ 		.btn_right{
+ 			right: 0;
+ 		}
+ 		#Bottom{
+ 			position: absolute;
+ 			left: 0;
+ 			right: 0;
+ 			bottom: 20px;
+ 			width: 36%;
+ 			margin: auto;
+ 			background-color: rgba(0,0,0,.5);
+ 		}
+ 		#Bottom span{
+ 			float: left;
+ 			width: 20px;
+ 			height: 20px;
+ 			margin:  0 6px;
+ 			background-color: rgba(255,255,255,.5);
+ 			cursor: pointer;
+ 			border-radius: 50%;
+ 		}
+ 		#Bottom .on{
+ 			position: absolute;
+            background-color: red;
+ 		}
+ 	</style>
+ </head>
+ <body>
+ 	<div id="banner">
+ 		<ul class="ImgList">
+ 			<li>
+ 				<img src="images/6.jpg">
+ 			</li>
+ 			<li>
+ 				<img src="images/1.jpg">
+ 			</li>
+ 			<li>
+ 				<img src="images/2.jpg">
+ 			</li>
+ 			<li>
+ 				<img src="images/3.jpg">
+ 			</li>
+ 			<li>
+ 				<img src="images/4.jpg">
+ 			</li>
+ 			<li>
+ 				<img src="images/5.jpg">
+ 			</li>
+ 			<li>
+ 				<img src="images/6.jpg">
+ 			</li>
+ 			<li>
+ 				<img src="images/1.jpg">
+ 			</li>
+ 		</ul>
+ 		<div class="btn">
+ 			<div class="btn_left">&lt;</div>
+ 			<div class="btn_right">&gt;</div>
+ 		</div>
+ 		<div id="Bottom">
+ 			<span class="on"></span>
+ 			<span class="span"></span>
+ 			<span class="span"></span>
+ 			<span class="span"></span>
+ 			<span class="span"></span>
+ 			<span class="span"></span>
+ 			<span class="span"></span>
+ 		</div>
+ 	</div>
+ 	<script type="text/javascript" src="animation.js"></script>
+ 	<script type="text/javascript">
+ 		var oUl = document.getElementsByClassName('ImgList')[0];//获取ul元素
+ 		var BtnRigher = document.getElementsByClassName('btn_right')[0];//获取右边按钮
+ 		var BtnLeft = document.getElementsByClassName('btn_left')[0];//获取左边按钮
+ 		var on = document.getElementsByClassName('on')[0];//获取小红圆点
+ 		var Bottom = document.getElementById('Bottom');//获取Bottom元素
+ 		var aSpan = document.getElementsByClassName('span');//获取小灰圆点
+ 		var w = 538;//存储一张图片的宽度值
+ 		var index = 0;//存储图片的点击次数
+ 		var len = oUl.children.length-2;//存储图片的length值
+ 		oUl.style.left = -w + "px"//让ul元素到初始位置
+        
+        /*
+         图片的点击次数和oUl的关系
+         index    oUl
+           1     -538
+           2     -538*2
+           3     -538*3
+           4     -538*4
+           index  -538*(index+1)
+
+         图片的点击次数和小红圆点的关系
+           index       on
+             0         0
+             1         32
+             2         32*2
+             3         32*3
+             4         32*4
+             index     32*index
+        */
+        var now = new Date;//获取当前时间
+ 		BtnRigher.addEventListener('click',function(){//此回调函数的作用是让oUl向右移动
+ 			if (new Date - now<300)return;
+ 			now = new Date();
+ 			index ++;//点一次加一次
+ 			animation(oUl,{//正常点击播放
+ 				left:-w*(index+1),
+ 			},0.3,function(){//此函数的作用是瞬间到第一个美女图片
+ 				if (index==len) {
+ 					index =0;//重置index的点击次数
+ 					this.style.left = -w + "px";
+ 				}
+ 			})
+ 			//让小红球向右移动
+ 			if (index==len) {//如果等于那么就走一下代码
+ 				animation(on,{//淡出
+ 					left:200,
+ 					opacity :0,
+ 				},0.3,function(){
+ 					this.style.left = -40 + "px";//强制归位
+ 					animation(on,{//淡入
+ 						left:0,
+ 						opacity:1,
+ 					},0.3)
+ 				})
+ 			}else {//正常点击小红圆点运动
+ 				animation(on,{
+                   left:32*index,
+ 				},0.3)
+ 			}
+ 		},false)
+
+ 		BtnLeft.addEventListener('click',function(){//此回调函数的作用是让oUl向左移动
+ 			if (new Date - now<300)return;
+ 			now = new Date();
+ 			index --;//点一次减一次
+ 			animation(oUl,{
+ 				left:-w*(index+1),
+ 			},0.3,function(){
+ 				if (index==-1) {
+ 					index = len-1;//重置当前位置
+ 					this.style.left = -len*w+"px";
+ 				}
+ 			})
+
+ 			if (index==-1) {
+ 				animation(on,{
+ 					left :-40,
+ 					opacity:0,
+ 				},0.3,function(){
+ 					this.style.left = 200 + "px";//强制归位
+ 					animation(on,{//
+ 						left:160,
+ 						opacity:1,
+ 					},0.3)
+ 				})
+ 			}else {
+ 				animation(on,{
+ 					left :32*index,
+ 				},0.3)
+ 			}
+ 		},false)
+
+ 		for(var i=0;i<aSpan.length;i++){
+ 			aSpan[i].index = i;//自定义属性
+ 		}
+ 		Bottom.addEventListener('click',function(e){
+ 			index = e.target.index;
+ 			if (e.target.nodeName==='SPAN') {
+ 				animation(oUl,{
+ 					left:-w*(index+1),
+ 				},0.3)
+ 				animation(on,{
+ 					left:32*index,
+ 				},0,3)
+ 			}
+ 		},false)
+ 	</script>
+ </body>
+ </html>

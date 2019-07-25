@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>无缝轮播</title>
+	<style type="text/css">
+		*{
+			margin:0;
+			padding: 0;
+		}
+		#banner{
+			overflow: hidden;
+			position: relative;
+			width:538px;
+			height: 405px;
+			margin: 50px auto 0;
+			border: 4px solid blue;
+		}
+		#banner ul{
+			position: absolute;
+			list-style-type: none;
+			width: 1000%;
+		}
+		#banner ul li{
+			float: left;
+		}
+		#banner ul li img{
+			display: block;
+		}
+		#banner::after{
+			content: '';
+			display: block;
+			clear: both;
+			visibility: hidden;
+			height:0;
+		}
+		.btn_left,.btn_right{
+			position: absolute;
+			top:0;
+			bottom:0;
+			width:50px;
+			height:70px;
+			margin:auto;
+			background-color: rgba(0,0,0,.5);
+			color: #fff;
+			font-size: 30px;
+			text-align: center;
+			line-height: 70px;
+			cursor: pointer;
+		}
+		.btn_right{
+			right: 0;
+		}
+		#bottom{
+			position: absolute;
+			left: 0;
+			right: 0;
+			bottom:20px;
+			width:36%;
+			margin:auto;
+			background-color: rgba(255,255,255,0.5);
+		}
+		#bottom span{
+			float: left;
+			width:20px;
+			height:20px;
+			margin: 0 6px;
+			border-radius: 50%;
+			background-color:rgba(0,0,0,.5);
+			cursor: pointer;
+		}
+		#bottom .on{
+			position: absolute;
+			background-color: red;
+		}
+	</style>
+</head>
+<body>
+	<div id="banner">
+		<ul class="ImgList">
+			<li>
+				<img src="images/6.jpg">
+			</li>
+			<li>
+				<img src="images/1.jpg">
+			</li>
+			<li>
+				<img src="images/2.jpg">
+			</li>
+			<li>
+				<img src="images/3.jpg">
+			</li>
+			<li>
+				<img src="images/4.jpg">
+			</li>
+			<li>
+				<img src="images/5.jpg">
+			</li>
+			<li>
+				<img src="images/6.jpg">
+			</li>
+			<li>
+				<img src="images/1.jpg">
+			</li>
+		</ul>
+		<div class="btn">
+			<div class="btn_left">&lt;</div>
+			<div class="btn_right">&gt;</div>
+		</div>
+		<div id="bottom">
+			<span class="on"></span>
+			<span class="span"></span>
+			<span class="span"></span>
+			<span class="span"></span>
+			<span class="span"></span>
+			<span class="span"></span>
+			<span class="span"></span>
+		</div>
+	</div>
+	<script type="text/javascript" src="animation.js"></script>
+	<script type="text/javascript">
+		var oUl = document.getElementsByClassName('ImgList')[0];
+		var BtnRight = document.getElementsByClassName('btn_right')[0];
+		var BtnLeft = document.getElementsByClassName('btn_left')[0];
+		var On = document.getElementsByClassName('on')[0];
+		var Ospan = document.getElementsByClassName('span');
+		var Bottom = document.getElementById('bottom');
+		var w = 538;
+		var index = 0;
+		var len = oUl.children.length - 2;
+		oUl.style.left = -w + "px";
+
+		/*
+          index和oUl的点击关系
+            index  oUl
+              0    -538
+              1    -538*2
+              2    -538*3
+              3    -538*4
+              index -538*(index+1)
+          index和On的点击关系
+            index   On
+              0      0
+              1      32
+              2      32*2
+              3      32*3
+              index  32*index
+		*/
+		var now = new Date();
+		BtnRight.addEventListener('click',function(){
+			if(new Date - now < 300) return;
+			now = new Date();
+			index ++;
+			animation(oUl,{
+				left:-w*(index+1),
+			},0.3,function(){
+				if (index==len) {
+					index = 0;
+					this.style.left = -w + "px";
+				}
+			})
+			if (index==len) {
+				animation(On,{
+					left:200,
+					opacity:0,
+				},0.25,function(){
+					this.style.left = -40 + "px";
+					animation(On,{
+						left:0,
+						opacity:1,
+					},0.25)
+				})
+			}else {
+				animation(On,{
+				   left:32*index,
+			    },0.3)
+			}
+		},false)
+
+		BtnLeft.addEventListener('click',function(){
+			 if (new Date() - now <300) return;
+			 now = new Date();
+			 index --;
+			 animation(oUl,{
+			 	left:-w*(index+1),
+			 },0.3,function(){
+			 	if (index==-1) {
+			 		index = len-1;
+			 		this.style.left = -len*w +"px";
+			 	}
+			 })
+			 if (index==-1) {
+			 	animation(On,{
+			 		left:-20,
+			 		opacity:0,
+			 	},0.25,function(){
+			 		this.style.left = 200 + "px";
+			 		animation(On,{
+			 			left:160,
+			 			opacity:1,
+			 		},0.25)
+			 	})
+			 }else {
+			 	animation(On,{
+			 	   left:32*index,
+			    },0.25)
+			 }
+		},false)
+
+		for(var i=0;i<Ospan.length;i++){
+			Ospan[i].index = i;
+		}
+		Bottom.addEventListener('click',function(e){
+			index = e.target.index;
+			if (e.target.nodeName==='SPAN') {
+				animation(oUl,{
+					left:-w*(index+1),
+				},0.3)
+				animation(On,{
+					left:32*index,
+				},0.3)
+			}
+		},false)
+	</script>
+</body>
+</html>
