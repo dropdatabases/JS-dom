@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+   <script>
+       //isNaN练习题目
+
+    //    isNaN(true) --> isNaN(1) -->inNaN(false)
+       console.log(isNaN(true));
+
+    //    isNaN(function(){}) -->isNaN(NaN) --isNaN(true)
+       console.log(isNaN(function(){}));
+
+    //    isNaN([1,2]) --> isNaN(NaN) -->isNaN(true)
+       console.log(isNaN([1,2]));
+
+    //    isNaN([1]) -->isNaN(1) -->isNaN(false)
+       console.log(isNaN([1]));
+
+    //    isNaN('12.5px')  -->isNaN(NaN) -->isNaN(true)
+       console.log(isNaN("12.5px"));
+
+    //    isNaN(null) --> isNaN(0) --> isNaN(false)
+       console.log(isNaN(null))
+
+    //    isNaN(undefined) -->isNaN(NaN) -->isNaN(true)'
+       console.log(isNaN(undefined));
+   </script>
+</body>
+</html>

@@ -66,15 +66,34 @@ var a //声明一个变量  变量名为a
 
 ##### 关键字
 
-JS语法中已经存在的单词 **（如下图：）**
+JS语法中已经存在的单词 **（如下：）**
 
-![](C:\Users\de'l'l\Desktop\QQ截图20190726155501.png)
+| break         | do           | instanceof | typeof     |
+| :------------ | :----------- | :--------- | :--------- |
+| **case**      | **else**     | **new**    | **var**    |
+| **catch**     | **finally**  | **return** | **void**   |
+| **continue**  | **for**      | **switch** | **while**  |
+| **debugger*** | **function** | **this**   | **with**   |
+| **default**   | **if**       | **throw**  | **delete** |
+| **in**        | **try**      |            |            |
+
+
 
 ##### 保留字
 
 JS语法中现在不存在,但是以后会成为关键字的单词(替补关键词)  **（如下图：）**
 
-![](C:\Users\de'l'l\Desktop\QQ截图20190726155450.png)
+| abstract     | **enum**       | int           | short            |
+| :----------- | -------------- | ------------- | ---------------- |
+| **boolean**  | **export**     | **interface** | **static**       |
+| **byte**     | **extends**    | **long**      | **cuper**        |
+| **char**     | **final**      | **native**    | **synchronized** |
+| **class**    | **float**      | **package**   | **throws**       |
+| **const**    | **goto**       | **private**   | **transient**    |
+| **debugger** | **implements** | **protected** | **volatile**     |
+| **double**   | **import**     | **public**    |                  |
+
+
 
 ## JS中的数据类型
 

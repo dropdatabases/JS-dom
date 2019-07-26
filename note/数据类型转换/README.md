@@ -1,5 +1,3 @@
-
-
 # 数据类型转换
 
 在js中只有函数后面才能加上`()`执行
@@ -7,6 +5,12 @@
 ## 转化为字符串类型
 
 js的数据类型是可以互相转换的 `2 --> '2'`
+
+字符串(`string`)：**字符串是被一对单引号或者双引号包裹的数据**
+
+```javascript
+"huasheng"	'hell world'   'false'   "123"
+```
 
 `toString`函数(是js内置的函数) **能够把js的数据类型转换成字符串**
 
@@ -23,6 +27,8 @@ js的数据类型是可以互相转换的 `2 --> '2'`
 |       函数对象       | `function(){} --> 'function(){}'` |
 
 ## 转换为布尔类型
+
+ 布尔值(`boolean`)：**布尔数据类型只有两个值`true`和`false`用来表示逻辑**
 
 `Boolean`函数 **能够把js的其他数据类型转换成布尔值**
 
@@ -85,4 +91,71 @@ js的数据类型是可以互相转换的 `2 --> '2'`
 |     普通对象     |     Number({})  -->  Number('[object Object]')  -->  NaN     |
 |     数组对象     | Number([1])  -->  Number('1')  -->  1<br/>Number([1,2,3])  -->  Number('1,2,3')  --> NaN |
 |     函数对象     |   Number(function(){}) --> Number('function(){}')  --> NaN   |
+
+#### `isNaN`判断是不是`NaN`
+
+`isNaN`函数是js内置的一个函数
+
+**`isNaN`这个函数可以判断一个数字是不是`NaN`**
+
+- 如果是 则结果`true`
+- 如果不是 则结果 `false`
+
+如果用isNaN函数来判断其他js的数据类型 则会
+
+1. 先隐式转成数字类型
+2. 再把隐式转换好的数字类型放到`isNaN`中
+
+> 结论：`isNaN()`这个方法会先把其他类型数据转化成数字类型，之后判断是不是`NaN`
+
+`isNaN`练习题目
+
+```javascript
+   isNaN(true) --> isNaN(1) -->false
+
+   isNaN(function(){})  -->  isNaN(NaN)  --> true
+
+   isNaN([1,2])  -->  isNaN(NaN)  --> true
+
+   isNaN([1])  -->  isNaN(1)  --> false
+
+   isNaN('12.5px')  -->  isNaN(NaN)  --> true
+
+   isNaN(null) -->  isNaN(0)  --> false
+
+   isNaN(undefined)   -->  isNaN(NaN)  --> true
+```
+
+
+
+## `parseInt`和`parseFloat`函数
+
+`parseInt`和`parseFloat`把字符串中的数字提取出来提取出来的数字为`number`类型
+
+##### **`parseInt`函数**
+
+- 从左向右提取数字
+- 如果遇到数字之外（空格 小数点）的就会停止提取
+
+##### **`parseFloat`函数**
+
+- 从左向右提取数字
+- 如果遇到数字和小数点之外（空格）的就会停止提取
+
+> 如果一开始从左向右提取数字提取的时候遇见非数字，那返回的结果是`NaN`
+
+```javascript
+ Number("123huasheng")  --> NaN
+ Number(typeof  true) --> NaN
+ Number(typeof  typeof   true) --> NaN
+ Number(!NaN)  --> Number(!false) -->Number(true) -->Numbe(1)
+ parseInt("he123avn") -->NaN
+ Boolean([]) --> true
+ !!null --> !true -->false
+ ({}).toString()  --> [object Object]
+ ([23,false]).toString() --> "23,false"
+ parseInt("-20") --> -20
+ parseFloat("-20.3px") --> -20.3
+ parseFloat("px+26") --> NaN
+```
 
