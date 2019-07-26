@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        body{
+            user-select: none;
+        }
+        #banner{
+            overflow: hidden;
+            position: relative;
+            width: 464px;
+            height: 300px;
+            margin:50px auto 0 auto;
+        }
+        .listB{
+            position: absolute;
+            width: 600%;
+            list-style-type: none;
+        }
+        .listB li{
+            float: left;
+        }
+        .listB li img{
+            display: block;
+            width: 462px;
+            height: 300px;
+        }
+        .listB::after{
+            content: "";
+            display: block;
+            clear: both;
+            visibility: hidden;
+            height: 0;
+        }
+        .btn img{
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            margin:auto;
+            cursor: pointer;
+        }
+        .next{
+            position: absolute;
+            right: 0;
+        }
+        .bottom{
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 15px;
+            margin: auto;
+            width: 23%;
+            list-style-type: none;
+        }
+        .bottom li{
+            float: left;
+            width: 15px;
+            height: 15px;
+            margin-right: 15px;
+            background-color: #ddd;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .bottom .on{
+            position: absolute;
+            background-color: antiquewhite;
+        }
+    </style>
+</head>
+<body>
+    <div id="banner">
+        <ul class="listB">
+            <li>
+                <img src="img/4_01.jpg" alt="">
+            </li>
+            <li>
+                <img src="img/1_01.jpg" alt="">
+            </li>
+            <li>
+                <img src="img/2_01.jpg" alt="">
+            </li>
+            <li>
+                <img src="img/3_01.jpg" alt="">
+            </li>
+            <li>
+                <img src="img/4_01.jpg" alt="">
+            </li>
+            <li>
+                <img src="img/1_01.jpg" alt="">
+            </li>
+        </ul>
+        <div class="btn">
+            <img src="img/prev.png" alt="" class="prev">
+            <img src="img/next.png" alt="" class="next">
+        </div>
+        <ul class="bottom">
+            <li class="on"></li>
+            <li class="li"></li>
+            <li class="li"></li>
+            <li class="li"></li>
+            <li class="li" style="margin:0"></li>
+        </ul>
+    </div>
+    <script src="js/animation.js"></script>
+    <script>
+        var oUl = document.getElementsByClassName("listB")[0];
+        var Next = document.getElementsByClassName("next")[0];
+        var Prev = document.getElementsByClassName("prev")[0];
+        var On = document.getElementsByClassName("on")[0];
+        var Bottom = document.getElementsByClassName("bottom")[0];
+        var oLi = document.getElementsByClassName("li");
+        
+        var x = 461;
+        var index = 0;
+        var len = oUl.children.length-2;
+
+        oUl.style.left = -x + "px";
+        
+        var now = new Date();
+        Next.addEventListener("click",function(){
+            if(new Date() - now <= 400)return;
+            now = new Date();
+            index ++;
+            
+            animation(oUl,{
+                left:-x*(index+1),
+            },0.3,function(){
+                if(index==len){
+                    index = 0;
+                    this.style.left = -x+"px";
+                    animation(oUl,{
+                        left:-x+"px",
+                    },0.3)
+                }
+            });
+
+
+            if(index==len){
+                animation(On,{
+                    left:130,
+                    opacity:0,
+                },0.3,function(){
+                    this.style.left = -30 + "px";
+                    animation(On,{
+                        left:0,
+                        opacity:1,
+                    },0.3)
+                })
+            }else{
+                animation(On,{
+                   left:30*index,
+                },0.3)
+            }
+        },false);
+
+        Prev.addEventListener("click",function(){
+            if(new Date() - now <= 400)return;
+            now = new Date();
+
+            index --;
+            animation(oUl,{
+                left:-x*(index+1),
+            },0.3,function(){
+                if(index==-1){
+                    index = len -1;
+                    this.style.left = -len*x + "px";
+                }
+            })
+
+
+            if(index==-1){
+                animation(On,{
+                    left:-30,
+                    opacity:0,
+                },0.3,function(){
+                    this.style.left = 130 + "px";
+                    animation(On,{
+                        left:90,
+                        opacity:1,
+                    },0.3)
+                })
+            }else{
+                animation(On,{
+                    left:30*index,
+                },0.3)
+            }
+        },false)
+
+
+        for(var i=0;i<oLi.length;i++){
+            oLi[i].index = i;
+        }
+
+        Bottom.addEventListener("click",function(e){
+            e =e || window.event;
+            index = e.target.index;
+            if(e.target.nodeName==="LI"){
+                animation(oUl,{
+                    left:-x*(index+1),
+                },0.3);
+                animation(On,{
+                    left:30*index,
+                },0.3)
+            };
+        },false)
+
+    </script>
+</body>
+</html>
