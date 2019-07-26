@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    //任何数据类型转换成字符串类型
+    // 原始值
+    var number = 2;
+    console.log(number.toString());//数字类型转换字符串类型
+
+    var boolean = true;
+    console.log(boolean.toString());//布尔类型转换成字符串类型
+
+    //引用值
+    var a = {name:"xiaoming"};
+    console.log(a.toString());//普通对象转换成字符串类型
+
+    var b = [1,2,3];
+    console.log(b.toString());//数组对象转换成字符串类型
+
+    var c = function auto(){};
+    console.log(c.toString());//函数对象转换成字符串类型
+
+</script>
+</body>
+</html>
