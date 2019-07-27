@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // &&运算符
+        // true&&[1,3] -->[1,3]
+        console.log(true&&[1,3]);
+
+        // [1,3]&&typeof null  -->[1,3]&&"object" -->"object"
+        console.log([1,3]&&typeof null);
+
+        // [1,3]&&NaN&&typeof null -->NaN
+        console.log([1,3]&&NaN&&typeof null);
+
+        // ||运算符
+
+        // false||"huasheng" -->"huasheng"
+        console.log(false||"huasheng");
+
+        // null||typeof  undefined -->"undefined"
+        console.log(null||typeof undefined);
+
+        // null||typeof  undefined|| typeof  typeof undefined  -->"undefined"
+        console.log(null||typeof undefined || typeof typeof undefined);
+
+        // 练习
+        // (!!''+!!" "-!!false)&&null -->
+        // (false + true - false) &&null-->
+        // (0+1-0)&&null-->1&&null-->null
+        console.log((!!''+!!" "-!!false)&&null);
+
+        // (!!''+!!" "-!!false)||[1,2]&&null -->
+        // (false+true-false) || null-->
+        // (0+1-0) || null-->
+        //  1 || null
+        //  1
+        console.log((!!''+!!" "-!!false)||[1,2]&&null);
+    </script>
+</body>
+</html>

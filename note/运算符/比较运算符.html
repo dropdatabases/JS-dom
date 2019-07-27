@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // ==运算符
+        console.log(true=="1");//1 == 1 -->true
+        console.log(true==false);//1 == 0 -->false
+        console.log(undefined==null);
+        console.log(1==[1,2]);//"1" == "1,2" -->false
+        console.log(true==[1]);//"1" == "1" -->true
+        console.log([1,2]=={namr:"nan"});//false
+        console.log("10"==[10]);//"10" == "10" -->true
+        console.log(10==[10]);//10 == 10 -->true
+
+        // !=运算符
+        console.log(true!=1);//1 != ! -->false
+        console.log(true!=false);//1 != 0 -->true
+
+        // ===运算符
+        console.log(10===10);//true
+        console.log(10===9);//false
+        console.log(10==="10");//false
+
+        // !==运算符
+        console.log(10!==10);//false
+        console.log(10!==9);//true
+        console.log(10!==function(){});//true
+
+        // 其他比较运算符
+        // >大于号
+        console.log(10>2);//true
+        console.log(2>10);//false
+        // <小于号
+        console.log(10<2);//false
+        console.log(2<10);//true
+        // >= 大于等于
+        console.log(10>=10);//true
+        console.log(10>=20);//false
+        // >= 小于等于
+        console.log(10<=20);//true
+        console.log(10<=9);//false
+
+        // 字符串比较
+        console.log("aa">"bbb");//false
+        console.log("zz">"a");//true
+    </script>
+</body>
+</html>

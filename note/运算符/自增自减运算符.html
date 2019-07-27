@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var a = 3;
+        var b = a++ + ++a;
+        // 1.   a=4
+        // 2.   a++ -->3
+        // 3.   a=5
+        // 4.   ++a -->5
+        // 5.   3+5 = 8
+        console.log(b)
+
+        var c = 3;
+        var o = ++c + c++;
+        // 1.  c=4
+        // 2.  ++c --> 4
+        // 3.  c=5
+        // 4.  c++  --> 4
+        // 5.  4 + 4 =8
+        console.log(o);
+    </script>
+</body>
+</html>
