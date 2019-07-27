@@ -245,7 +245,7 @@ null||typeof  undefined|| typeof  typeof undefined  -->'undefined'
 
 ## 练习题目
 
-```
+```JavaScript
 1.![]     -->  false
 2.+[]     -->  +'' --> +0  -->0
 3.+![]    -->  +!true  --> +false  --> 0
