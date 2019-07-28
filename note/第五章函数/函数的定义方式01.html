@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 给变量x赋值了一个function函数
+        var x = function(){};    
+        //检查变量x是不是一个函数
+        console.log(typeof x);
+
+        // 函数表达式
+        // 定义一个具名函数表达式
+        var a = function auto(){//具名函数表达式
+            //auto是具名函数表达式的名字
+            console.log("a")
+        };
+        //定义一个匿名的函数表达式
+        var f = function(){//匿名函数表达式（常用）
+            console.log("f");
+        }
+
+        // 函数声明
+        //定义一个函数声明
+        function o(){//函数声明
+            console.log("o");
+        }
+        // 在JS中无法定义匿名的函数声明
+        // function(){
+        //     console.log("语法错误");
+        // }
+    </script>
+</body>
+</html>
