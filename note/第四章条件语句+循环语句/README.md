@@ -1,3 +1,5 @@
+[TOC]
+
 # 条件语句+循环语句
 
 ### 条件语句
@@ -261,11 +263,11 @@ num<10?console.log("烫头"):console.log("rap")
 
 
 
-#### `for`循环
+### `for`循环
 
 for循环的作用：可以让在`for`循环中的代码重复执行
 
-##### `for`循环基本结构和运行机制
+#### `for`循环基本结构和运行机制
 
 ```JavaScript
   for(var i=0;i<6;i++){
@@ -276,4 +278,227 @@ for循环的作用：可以让在`for`循环中的代码重复执行
 `for`循环基本结构
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20190608151151550.jpg)
+
+`for`循环运行机制
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20190608152539557.jpg)
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20190608151738410.jpg)
+
+- 循环条件成立就执行循环体
+- 如果不成立就跳出`for`循环
+- 在`for`循环循环起点都是数字
+
+**假设让91名同学分别去（扫地，上网，拖地，唱跳，rep）**
+
+该怎么用`for`循环来写呢
+
+```JavaScript
+for(var num=1;num<92;num++){
+    if(num>=0 && num<=20){
+          console.log("扫地")
+    }else if(num>=20 && num<=40){
+          console.log("上网")
+    }else if(num>=40 && num<=60){
+          console.log("拖地")
+    }else if(num>=60 && num<=80){
+          console.log("唱跳")
+    }else{
+          console.log("rep")
+    }
+}
+```
+
+`for`循环的循环顺序
+
+1. 循环起点
+2. 循环条件（条件为`true`真才会执行循环体）
+3. 执行循环体
+4. 执行累加器
+
+```JavaScript
+for(循环起点;循环条件;累加器){
+        循环体（重复执行的代码）
+}
+```
+
+```JavaScript
+     1 --> 2 (条件为true)--> 3 -->4
+       --> 2 (条件为true)--> 3 -->4
+       --> 2 (条件为true)--> 3 -->4
+       --> 2 (条件为true)--> 3 -->4
+
+       --> 条件为false --> 跳出for循环
+```
+
+#### 无限（死）循环
+
+***为什么不执行？***
+
+因为循环条件要的就是布尔值（`true`），`NaN`转为布尔值为`false`所以不执行
+
+```JavaScript
+  for(var i=0;NaN;i++){
+        console.log("执行代码")
+    }
+```
+
+当设置为`true`的时候，转换成布尔值，变成`true`，进入死循环（一直为`true`进行循环）
+
+```JavaScript
+for(var i=0;1;i++){
+        console.log("执行代码")
+} //当你没给一个条件作出限制时他会无限的循环
+```
+
+#### 自定义跳出循环条件 `continue` `break`
+
+***如果i是奇数就不要打印了***
+
+```JavaScript
+for(var i=0;i<10;i++){
+    if(i%2==0){
+        console.log(i);
+    }
+ }
+```
+
+***如果i是偶数就不要打印了***
+
+```JavaScript
+for(var i=0;i<10;i++){
+    if(i%2==0){
+       continue;
+    }else{
+       console.log(i);
+    }
+ }
+```
+
+***如果 i 是 0 或者是 3 都不要打印了***
+
+```JavaScript
+for(var i=0;i<10;i++){
+    if(i==0 || i==3){
+         continue;
+     }
+     console.log(i);
+ }
+```
+
+**`for`循环中的关键词**
+
+`continue`结束本轮`for`循环
+
+- 作用：`continue`下面的程序不执行,执行累加,开始下一轮循环
+- 结束本次或当前这次`for`循环不会执行后续的js代码
+
+`break`结束整个`for`循环
+
+- 作用：`break`下面的程序不执行，不累加不执行，整个`for`循环结束
+- 结束后续所有`for`循环不会执行后续的js代码
+
+`console.log`和`document.write`的区别
+
+- `console.log()`是在控制台中输出，一般用来调试程序的
+- `document.write("字符串")`这个函数能够把有标签形式的字符串解析相对应的标签
+
+#### 双层`for`循环
+
+首先会先执行**第一层循环**，执行顺序如图所示。1:**执行变量（仅执行一次）2:执行条件 3:执行代码块区域（注意，代码块中包含第二层循环） 4最后执行++。**
+
+
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20190611130004930.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0NjA3Njk0,size_16,color_FFFFFF,t_70)
+
+**当执行到第三步时**，**发现有一个for循环**，**程序会先执行完内部所有循环**，**之后返回到外部循环**，**判断外部循环是否符合条件**，**然后在继续执行内层循环**，以此类推，**待外部循环不符合条件时终止**。
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20190611125907331.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0NjA3Njk0,size_16,color_FFFFFF,t_70)
+
+```JavaScript
+ for(var i=0;i<5;i++){
+    console.log("外")
+    for(var j=0;j<10;j++){
+       console.log("内")
+    }
+ }
+```
+
+#### `while`循环
+
+`for`循环常规写法
+
+```JavaScript
+for(var i=0;i<10;i++){
+    console.log(i);
+}    
+```
+
+`for`循环不常规（变种）写法
+
+```JavaScript
+ var i = 0;
+ for(;i<10;){
+     console.log(i);
+     i++;
+ };
+```
+
+> 此方法为`for`循环变种写法：必须在循环条件前后必须加上`;`(分号)否则会显示语法错误
+
+```javascript
+for循环的变种写法
+循环起点；
+  for(;循环条件;){
+      循环体（重复执行的代码）
+      累加器；
+  }
+```
+
+**`while`循环**
+
+```javascript
+ var i=0;
+    while(i<6){
+        console.log(i);
+        i++;
+    }
+```
+
+> `while`循环跟`for`变种写法几乎**一致不同**的是（**不用再循环条件前后必须加上;(分号)**）这也是`while`循环的最大优势
+
+```JavaScript
+while循环的写法
+循环起点；
+  while(循环条件){
+      循环体（重复执行的代码）
+      累加器；
+  }
+```
+
+无论是`while`循环和`for`循环没有什么区别都是执行循环代码的(`width`循环没必要使用`while`嵌套循环)
+
+####`do while`循环
+
+```javascript
+ var i=0;
+    do{
+        console.log(i);
+        i++;
+    }while(i<0)
+```
+
+```JavaScript
+do while循环的写法
+循环起点;
+   do{
+       循环体（重复执行的代码）
+       累加器；
+   }while(循环条件)
+```
+
+- 先执行写在`do`里面的代码块
+- 如果为假(`false`)就执行一次
+- 如果为真(`true`)循环执行`do while`里面的代码块
+- `do while`循环至少执行一次
 

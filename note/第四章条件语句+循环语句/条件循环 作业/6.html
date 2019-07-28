@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+                    幼兔   小兔   成兔
+                   young  small  large
+           第一个月   1      0     0
+           第二个月   0      1     0
+           第三个月   1      0     1
+           第四个月   1      1     1
+           第五个月   2      1     2
+
+           第六个月   3      2     3
+           第七个月   5      3     5
+
+
+           本月的成兔 = 上个月的成兔 + 上个月的小兔
+           本月的小兔 = 上个月的幼兔 
+           本月的幼兔 = 本月的成兔
+         */
+         var young  = 1;//幼兔
+         var small = 0;//小兔
+         var large = 0;//成兔
+         var n = 24;//存放月数
+         for(var i=1;i<=n;i++){
+             large = large + small;//成兔
+             small = young;//小兔
+             young = large;//幼兔
+         }
+         console.log(large,small,young);
+    </script>
+</body>
+</html>
