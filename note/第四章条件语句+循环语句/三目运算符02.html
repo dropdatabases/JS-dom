@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //三目运算符
+        //是简化 if和else语句的（只能简化if else）   
+        var num = 20;
+        if(num<10){
+            console.log("烫头")
+        }else{
+            console.log("扫地")
+        }
+        // 简化成三目
+        num<10?console.log("烫头"):console.log("扫地");
+
+        //当一个代码块中有两句代码该怎么转换成三目
+        var num1 = 5;
+        if(num1<10){
+            console.log("洗脸");
+            console.log("吃饭");
+        }else{
+            console.log("买菜");
+        }
+         // 简化成三目
+         num1<10?(console.log("洗脸"),console.log("吃饭")):console.log("买菜");
+        //  像这种情况就不要有三目来简化代码
+
+        // 当if或者是else中有一个代码块是空的该怎么来简化
+        // else为空时
+        var num2 = 10;
+        if(num2<20){
+            console.log("吃饭");
+        }else{
+            console.log("洗脸")
+        };
+        // 简化成三目
+        num2<20? console.log("吃饭"):null;
+
+        // if为空时
+        if(num2<0){
+
+        }else{
+            console.log("玩电脑");
+        }
+        // 简化成三目
+        num2<0?null:console.log("玩电脑");
+
+        // 一般不用布尔值为false占位的，认识即可
+    </script>
+</body>
+</html>
