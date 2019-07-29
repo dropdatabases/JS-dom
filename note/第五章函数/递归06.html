@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //function auto(){//无限执行，自己调用自己
+            // console.log(1);
+          //  auto()
+        //}
+        //auto();
+        // 会报错表示（调用栈溢出重复执行导致内存不够）
+        
+        // 求1 - 100之内的所有偶数和
+        // 2,4,6,8,10,12,14,16....100
+        // 100,98,96,94,92,90,88,86...0
+        /*
+          100+num(98)
+          98+num(96)
+          96+num(94)
+          94+num(92)
+          92+num(90)
+          90+num(88)
+             ....
+             2+num(0)
+             0+num(-2)
+        */
+        function num(n){
+            if(n===0){//递归出口
+                return 0;
+            }
+            return n+num(n-2)
+        }
+        var a = num(100);
+        console.log(a);
+
+        // 求n的阶乘
+        
+    </script>
+</body>
+</html>

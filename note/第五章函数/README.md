@@ -1,3 +1,5 @@
+
+
 # 函数
 
 **什么是函数？？？**
@@ -187,12 +189,13 @@ function auto(a,b){
 
 ```JavaScript
  function auto (a,b,c){
-            console.log(arguments.length);
+            console.log(arguments.length);//获取实参的个数
         }
   auto(1,2,32,3,10);
+  console.log(auto.length);//获取形参的个数
 ```
 
-`arguments.length` 存放的是 **实参**的个数，它是表明当前数组有几项的
+`arguments.length` 存放的是 **实参**的个数，它是表明当前数组有几项的，`函数名.length`获取形参的个数（`function`是对象，是对象都可以用`.`操作）
 
 ```JavaScript
  function auto(a,b,c){
@@ -205,9 +208,122 @@ function auto(a,b){
  auto(1,2,32,3,10,20);
 ```
 
-*获取形参的个数*
+```JavaScript
+num = 0+arguments[0]=10    i++ i=1
+num = 10+arguments[1]=30   i++ i=2
+num = 30+arguments[2]=60   i++ i=3
+num = 60+arguments[3]=100  i++ i=4
+num = 100+arguments[4]=150 i++ i=5
+```
+
+### 实参和`arguments`的映射关系
 
 ```JavaScript
-console.log(auto.length);//获取形参的个数
+ function auto(a,b){
+     a = 20;
+     console.log(arguments[0]);
+  }
+  auto(2,3);//建立了映射关系，会映射到arguments上
 ```
+
+```javascript
+ function auto2(a,b,c){
+     c = "lalala";
+     console.log(arguments[2]);
+ }
+ auto2(2,3)//没有建立映射关系，不会映射到arguments上
+```
+
+1.通过形参修改了实参的值  必须形参和实参建立了映射关系时
+
+- 则实参的修改会映射到`arguments`上
+- 反之  不会映射到`argument`上
+
+```JavaScript
+ function auto1(a,b){
+   arguments[0] = "huasheng";
+   console.log(a);
+ }
+ auto1(2,3)//通过arguments修改实参的值，实参的修改会映射到形参上
+```
+
+2.通过`arguments`修改是实参的值
+
+- 则实参的修改会映射到形参上
+
+> 在建立映射关系上的时候没有索引2的，也就是说形参没有跟实参建立起对应的映射关系的时候是不可能通过修改形参来映射到`argument`上的
+
+## **函数的**`return`
+
+**计算`a,b`俩数在`auto`外面的和**
+
+```JavaScript
+function auto(a,b){
+     return a + b;
+}
+var result = auto(2,3);
+console.log(result);
+```
+
+**`return`也可以结束函数内部的代码**
+
+```JavaScript
+function auto(a,b){
+	return a+b;
+	var a = 10;
+	console.log(a)
+	console.log(auto)
+}
+var result = auto(2,3);
+console.log(result)
+```
+
+`return` 是函数里面的关键词 作用:
+
+1. 把JS的数据抛出，让这个JS数据可以在函数的外部使用
+2. 结束函数 不执行函数内部的代码了
+
+函数在不写`return`的情况下，程序在函数的最后一句隐式添加`return undefined`（也可以把自己给抛出去）
+
+```JavaScript
+// var a = 2;
+   console.log(a);
+```
+
+一个变量没有定义就使用  会报`ReferError`错误
+
+## 递归
+
+```JavaScript
+ function auto(){//无限执行，自己调用自己
+        // console.log(1);
+        auto();
+      }
+  auto();
+```
+
+会报错表示（调用栈溢出重复执行导致内存不够）
+
+***那什么是递归？？？***
+
+函数内部又调用了函数自身，我们把这种情况叫做递归
+
+### 用递归实现以下需求
+
+#### 求1-100之内的所有偶数和
+
+```JavaScript
+ function num(n){
+     if(n===0){//递归出口
+          return 0;
+      }
+      return n+num(n-2)
+ }
+ var a = num(100);
+ console.log(a);
+```
+
+> **使用递归做某事时**：首先是*函数内部必须是***使用自己调用自己的函数**，**但是一定要找到递归出口**（**如果找不找出口就会一直执行下去**）
+
+#### 求n的阶乘
 
