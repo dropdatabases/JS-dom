@@ -327,3 +327,103 @@ console.log(result)
 
 #### 求n的阶乘
 
+```JavaScript
+ function num(n){
+     if(n===1){
+        return 1;//递归出口
+     }
+ return n*num(n-1);
+ }
+ var a = num(5)
+ console.log(a);
+```
+
+#### 求1 - 100之内所有能被3并且被5整除的数字之和
+
+```JavaScript
+function num(n){
+    if(n===0){
+        return 0;//递归出口
+     }
+     if(n%3===0&&n%5===0){
+        return n+num(n-1);//能够被3和5整除的数
+     }
+        return num(n-1);
+}
+var a = num(100);
+console.log(a);
+```
+
+## 作用域
+
+**在JS中 变量有两个存放的区域**
+
+1. 全局作用域
+2. 函数作用域
+
+```JavaScript
+var a = 1;//全局作用域中的变量
+function auto() {
+  var b = 2;//函数作用域中的变量
+  console.log(a);
+}
+auto();
+// console.log(b);
+```
+
+
+
+> 在函数作用域中可以使用全局变量，在全局作用域中不能够使用函数中的变量
+
+### **全局作用域**
+
+- 全局变量会自动成为`window`对象的属性
+- `window`对象也可以叫做`Global Object GO`对象
+- 打开浏览器 自动生成`window`对象
+- 关闭浏览器 `window`对象就自动销毁了
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20190615212536841.jpg)
+
+打开浏览器，浏览器会**自动把全局变量储存在** `window`对象里也就是`Global Object GO`对象
+
+```JavaScript
+var b = 'heaven';
+console.log(window);
+```
+
+把变量`b`作为`GO对象`的属性名字，`值heaven`作为`GO对象属性值`把他存起来
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20190615221439588.jpg)
+
+一旦关掉浏览器`window`对象就不复存在
+
+```JavaScript
+function auto(){//-->auto是全局作用域中的变量储存在GO对象里
+  var a = 2;//函数作用域中的变量
+  console.log(2);
+}
+  auto();
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20190615215458874.jpg)
+
+```JavaScript
+var heaven = function(){//函数表达式也可以在全局变量中
+     console.log('heaven');
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20190615215545343.jpg)
+
+> 无论是变量还是函数，他都被放在全局变量当中，只要你是身处在全局
+
+***全局的预编译三步：***
+
+1. 创建`GO`对象	==> `Global Object`(GO对象)
+2. 找到变量，把变量作为`GO`对象的属性名，值是`undefined`
+3. 在全局中找到函数声明，把函数名作为`GO`对象的属性名，值是函数体
+
+预编译之后才能执行JS代码
+
+等到关闭浏览器的时候 `GO`对象就会被销毁了
+
