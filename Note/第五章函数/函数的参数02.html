@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //定义一个函数声明
+        function auto(){
+            console.log("auto")
+        };//当前函数没有启动是个死函数所有就不会console.log
+
+        //如何启动当前函数
+        function auto1(){//函数声明
+            console.log("huasheng");
+        }
+        auto1();//auto1当前函数声明的名字
+        // 在JS中：只有函数名字加上()才能执行
+
+        // 那么如何在function函数中传递参数呢
+        function auto2(a){
+            console.log(a);
+        }
+        auto2("auto2")
+
+        // 多个形参和多个实参的情况
+        function auto3(a,b){
+            console.log(a);
+            console.log(b);
+        }
+        auto3("huasheng",8)
+        //他是可以传递都给实参的，也可以用多个形参来接收所传过来的实参
+        //形参和实参是一一对应的
+
+        // 形参和实参不是一一对应的情况
+        // 实参的数量 > 形参的数量(是不会报错的)
+        function auto4(a,b,c){
+            console.log(a);
+            console.log(b);
+            console.log(c);
+        }
+        auto4("huasheng",20,true,[1,2,3]);
+        // 实参的数量 < 形参的数量 没有接受到实参的形参值是undefined
+        function auto5(a,b,c){
+            console.log(a);
+            console.log(b);
+            console.log(c);
+        }
+        auto5("huasheng",20);
+    </script>
+</body>
+</html>

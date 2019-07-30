@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+     var num = 4;
+     switch(num){
+        case 2://case可以理解为场景
+            console.log('我的学号是2');
+            break;
+        case 4:
+            console.log('我的学号是4');
+            break;
+        case 6:
+            console.log('我的学号是6');
+            break;
+        case 8:
+            console.log('我的学号是8');
+            break;
+        case '10'://变量和case后面的数据 在判断时是全等才能执行
+            console.log('我的学号是10');
+            break;
+        default://default所有条件不成立就写default
+            console.log('我的学号不是 2 4 6 8 10');
+    }
+    </script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+           A:去0
+             不去1
+           B:去0
+             不去1
+           C:去0
+             不去1
+           D:去0
+             不去1
+           E:去0
+             不去1
+           F:去0
+             不去1
+        */
+       for(var a=0;a<=1;a++){
+           for(var b=0;b<=1;b++){
+              for(var c=0;c<=1;c++){
+                for(var d=0;d<=1;d++){
+                   for(var e=0;e<=1;e++){
+                     for(var f=0;f<=1;f++){
+                        if(a+b>=1&&a+d!=2&&a+e+f==2&&b==c&&c+d==1&&d+e==0){
+                            console.log(a,b,c,d,e,f)
+                        }
+                     }
+                   }
+                }
+              }
+           }
+       }
+    </script>
+</body>
+</html>

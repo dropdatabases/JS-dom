@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var a = 1;//全局作用域中的变量
+          function auto() {
+            var b = 2;//函数作用域中的变量
+            console.log(a);
+          }
+        auto();
+        console.log(b);
+        // 在函数作用域中可以使用全局变量，在全局作用域中不能够使用函数中的变量
+    </script>
+</body>
+</html>
