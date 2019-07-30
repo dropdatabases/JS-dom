@@ -375,6 +375,21 @@ auto();
 
 > 在函数作用域中可以使用全局变量，在全局作用域中不能够使用函数中的变量
 
+##### 作用域  ===>  Js代码执行的环境
+
+***全局作用域***
+
+- 所有在`script`标签里面的代码，都处在全局作用域中
+- 全局作用域在页面打开时创建全局对象`GO(window对象)`，页面关闭时销毁`GO`对象
+- 全局作用域中的变量是`GO`对象的属性名，变量的值是`GO`对象的属性值
+
+***函数作用域***
+
+- 所有在函数里面的代码，都处在函数作用域中
+- 函数作用域在函数执行时创建`AO`对象，在函数结束时销毁`AO`对象
+- 函数作用域中的变量是`AO`对象的属性名，变量的值是`AO`对象的属性值
+- 当下一次执行函数时，会创建全新的`A0`对象
+
 ### **全局作用域**
 
 - 全局变量会自动成为`window`对象的属性
@@ -382,38 +397,52 @@ auto();
 - 打开浏览器 自动生成`window`对象
 - 关闭浏览器 `window`对象就自动销毁了
 
+```JavaScript
+var a = 1;//a是全局作用域中的变量，是声明全局的
+        console.log(window);
+```
+
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20190615212536841.jpg)
 
 打开浏览器，浏览器会**自动把全局变量储存在** `window`对象里也就是`Global Object GO`对象
 
 ```JavaScript
-var b = 'heaven';
-console.log(window);
+ var b = "huasheng";//变量b自动升为全局作用域中的变量
+ // 存储在window对象上，属性名是b,属性值是字符串huasheng
+ console.log(window);
 ```
 
-把变量`b`作为`GO对象`的属性名字，`值heaven`作为`GO对象属性值`把他存起来
+把变量`b`作为`GO对象`的属性名字，`值huasheng`作为`GO对象属性值`把他存起来
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20190615221439588.jpg)
+![QQ截图20190730193706](C:\Users\de'l'l\Desktop\QQ截图20190730193706.png)
 
 一旦关掉浏览器`window`对象就不复存在
 
+***那函数能处在全局作用域里面吗***
+
+**函数声明**
+
 ```JavaScript
 function auto(){//-->auto是全局作用域中的变量储存在GO对象里
-  var a = 2;//函数作用域中的变量
-  console.log(2);
+  var c = 2;//函数作用域中的变量
+  console.log(window);
 }
   auto();
 ```
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20190615215458874.jpg)
 
+**函数表达式**
+
 ```JavaScript
-var heaven = function(){//函数表达式也可以在全局变量中
-     console.log('heaven');
-}
+ var huasheng = function(){//函数表达式也可以在全局变量中
+     console.log("huasheng");
+ }
+ huasheng();
+ console.log(window)
 ```
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20190615215545343.jpg)
+ ![QQ截图20190730195122](C:\Users\de'l'l\Desktop\QQ截图20190730195122.png)
 
 > 无论是变量还是函数，他都被放在全局变量当中，只要你是身处在全局
 
@@ -426,4 +455,93 @@ var heaven = function(){//函数表达式也可以在全局变量中
 预编译之后才能执行JS代码
 
 等到关闭浏览器的时候 `GO`对象就会被销毁了
+
+### **函数作用域**
+
+##### Js解释引擎执行js代码的步骤
+
+***语法分析***
+
+- Js解释引擎会先扫描所有的js代码，查看代码有没有低级的语法错误，如果存在语法错误，则整个程序就不会执行,如果没有语法错误，则进入预编译阶段  
+- 报错信息:`Uncaught SyntaxError:Invalid or unexpected token`表示语法错误
+
+***函数的预编译四步***：
+
+1. **创建AO对象**	==> `Activated Object`(活动对象)【激活状态】
+2. **找到形参和变量**，把**形参和变量作为AO对象的属性名**，值是`undefined`
+3. **实参把值赋给形参**
+4. 在**函数中找到函数声明**，把**函数名作为AO对象的属性名**，**值是函数体**
+
+预编译之后才能执行JS代码
+
+等到函数执行完成后`(return)` `AO`对象就会被销毁了
+
+```javascript
+ function auto(a){
+       var b = 3;
+       console.log(a,b);
+ }
+ auto(2)
+ /*
+ GO{
+    auto:function(){}
+ }
+ AO{
+    b = undefined --> b=3
+    a = undefined --> a=2
+ }
+ console.log(2,3)
+*/
+//预先编译的环节，然后就执行函数内部的代码了
+//函数的预编译四步结束了
+//不符合条件直接跳过预编译然后就执行js代码
+```
+
+`AO对象`就像一个小型的仓库，他可以储存函数作用域中的变量，也可以查找函数中的变量
+
+```JavaScript
+function outer(){
+ /*
+  AO{
+      b = undefined --> b = 3;
+      inner:function(){}
+  }
+*/
+  function inner(){
+/*
+  AO{
+      a = undefined --> a = 4;
+      c = undefined --> c = 5;
+   }
+*/
+   var a = 4;
+   c = 5;//c已经在全局作用域中声明了变量c
+   //相当于 var c = 5;
+   console.log(a);//4 a是在inner函数作用域AO中找到的
+   console.log(b);//3 b是在函数作用域outer中找到的
+   console.log(c);//5 c是在全局作用域早到的
+   }
+   var b = 3;
+       inner();
+}
+   var a = 2;
+   outer();
+   console.log(outer);//函数体
+   /*
+     GO{
+        a = undefined --> a = 2;
+        outer:function(){};
+        c = 5
+        }
+   */
+```
+
+一个变量 ，没有`var`关键词，直接赋值，则这个变量是全局的 ，叫做**暗示全局变量**，如`  c = 5`这个变量`c`就是全局变量
+
+`GO`和`AO`都是相互独立的，如果没有相对应的变量会往父级去找，如果有就不会去父级找了
+
+**作用域有两个规则**
+
+1. 规则是用来定义变量到底储存在哪里的
+2. 如何查询
 

@@ -8,13 +8,15 @@
 </head>
 <body>
     <script>
+      // 在JS中有两个存放变量的区域
+      // 一个是全局作用域 另一个是函数作用域
         var a = 1;//全局作用域中的变量
           function auto() {
             var b = 2;//函数作用域中的变量
             console.log(a);
           }
         auto();
-        console.log(b);
+        console.log(b);//会报错，表示在全局作用域中没有定义变量b
         // 在函数作用域中可以使用全局变量，在全局作用域中不能够使用函数中的变量
     </script>
 </body>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function auto(a){
+            var b = 3;
+            console.log(a,b);
+        }
+        auto(2)
+        /*
+          GO{
+              auto:function(){}
+          }
+          AO{
+              b = undefined --> b=3
+              a = undefined --> a=2
+          }
+         console.log(2,3)
+         预先编译的环节，然后就执行函数内部的代码了
+         函数的预编译四步结束了
+         不符合条件直接跳过预编译然后就执行js代码
+        */
+        function outer(){
+            /*
+             AO{
+                 b = undefined --> b = 3;
+                 inner:function(){}
+             }
+            */
+            function inner(){
+                /*
+                 AO{
+                     a = undefined --> a = 4;
+                     c = undefined --> c = 5;
+                 }
+                */
+                var a = 4;
+                c = 5;//c已经在全局作用域中声明了变量c
+                //相当于 var c = 5;
+                console.log(a);//4 a是在inner函数作用域AO中找到的
+                console.log(b);//3 b是在函数作用域outer中找到的
+                console.log(c);//5 c是在全局作用域早到的
+            }
+            var b = 3;
+            inner();
+        }
+        var a = 2;
+        outer();
+        console.log(outer);//函数体
+        /*
+          GO{
+              a = undefined --> a = 2;
+              outer:function(){};
+              c = 5
+          }
+        */
+        /*
+          函数预编译四步：
+            1.创建AO对象 --> Activated Object(活动对象)
+            2.找到形参和变量，把形参和变量作为AO对象的属性名，值是undefined
+            3.把实参赋值给形参
+            4.在函数中找到函数声明，把函数声明作为AO对象的属性名，值是函数体
+        */
+    </script>
+</body>
+</html>
