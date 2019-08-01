@@ -18,8 +18,8 @@
               auto:function(){}
           }
           AO{
-              b = undefined --> b=3
-              a = undefined --> a=2
+              b : undefined --> b:3
+              a : undefined --> a:2
           }
          console.log(2,3)
          预先编译的环节，然后就执行函数内部的代码了
@@ -29,15 +29,15 @@
         function outer(){
             /*
              AO{
-                 b = undefined --> b = 3;
+                 b : undefined --> b : 3;
                  inner:function(){}
              }
             */
             function inner(){
                 /*
                  AO{
-                     a = undefined --> a = 4;
-                     c = undefined --> c = 5;
+                     a : undefined --> a : 4;
+                     c : undefined --> c : 5;
                  }
                 */
                 var a = 4;
@@ -55,9 +55,9 @@
         console.log(outer);//函数体
         /*
           GO{
-              a = undefined --> a = 2;
+              a : undefined --> a : 2;
               outer:function(){};
-              c = 5
+              c : 5
           }
         */
         /*

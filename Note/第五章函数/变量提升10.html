@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+       console.log(a);
+       var a = 2;//当前变量a在全局作用域中
+       /*
+         GO{
+             a:undefined
+         }
+       */
+       /*
+         系统会把变量a提升在最前面
+       */
+        var a;//先打印
+        console.log(a)
+        var a = 2;//后赋值
+        /*
+          GO{
+              a : undefined //先打印的是这个
+              a : undefined --> a : //后赋值
+          }
+        */
+        //JS系统会把var 关键词声明的变量和函数声明提升在前面
+    </script>
+</body>
+</html>

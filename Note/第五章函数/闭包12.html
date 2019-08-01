@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // function outer(){
+        //     /*
+        //       outer:AO{
+        //           inner:function(){};
+        //           b : undefined; --> b : 3 --> b:4
+        //       }
+        //     */
+        //     function inner(){
+        //         b++;
+        //         console.log(b);
+        //         /*
+        //           inner:AO{
+        //               在outer的AO中找到变量a并打印
+        //           }
+        //         */
+        //     }
+        //     var b = 3;
+        //     return inner;
+        // }
+        // var result = outer();
+        // result();
+        // /*
+        //   GO{
+        //       outer:function(){};
+        //       result : undefined; --> result:function inner(){};
+        //   }
+        //   outer的作用域链 = outer:AO + GO
+        //   inner的作用域链 = inner:AO + outer:AO + GO
+        // */
+
+        // function outer(){
+        //     var a = 4399;
+        //     function inner(){
+        //         a++;
+        //         // console.log(a);//4400
+        //     }
+        //     return inner;
+        // }
+        // var result1 = outer();
+        // result1();
+        // var result2 = outer();
+        // result2();
+        //两个不同的变量名字，执行了两次outer和inner函数是两个次不同的AO对象
+        //是开辟了两个不同的AO对象result1个result2都执行了一次是两个不同的内存泄漏
+        /*
+          GO{
+              result1:undefined; -->result1:function inner(){};
+              result2:undefined; -->result1:function inner(){};
+              outer:function(){};
+          }
+          outer:AO{ result1
+              a:undefined; --> a:4399 --> a:4400
+              inner:function(){};
+          }
+          inner:AO{ result1
+
+          }
+           outer:AO{ result2
+              a:undefined; --> a:4399 --> a:4400
+              inner:function(){};
+          }
+          inner:AO{ result2
+
+          }
+
+          这个两个是每次执行生成的新的AO对象
+        */
+        
+        function outer() {
+            var a = 4399;
+            function inner() {
+                 a++;
+                 console.log(a);//4400和4401
+            }
+            return inner;
+        }
+        var result = outer();
+        result();
+        result();
+        //两个想相同的result函数在这种情况下，会造成闭包的特性，
+        // 致result函数的AO对象不被JS系统获取导致内存泄漏是
+        // 两个相同的函数都执行一边,都会在内存泄漏的那条函数作用域链上累加的执行
+        /*
+          GO{
+              result:undefined; --> result:function inner(){}
+              outer:function(){};
+          }
+          outer:AO(1){
+              a:undefined; --> a:4399 -->a:4400
+              inner:function(){};
+          }
+          inner:AO(1){
+
+          }
+          outer:AO(1){
+              a:undefined; -->a:4400 -->a:4401
+              inner:function(){};
+          }
+          inner:AO(2){
+
+          }
+
+        */
+    
+    </script>
+</body>
+</html>

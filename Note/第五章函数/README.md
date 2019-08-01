@@ -175,9 +175,7 @@ function auto(a,b){
 
 `arguments`是函数内部的关键词
 
-![QQ截图20190728231827](C:\Users\de'l'l\Desktop\QQ截图20190728231827.png)
-
-这种东西叫**类数组合**（现在可以理解为是一个数组）
+`arguments`是**类数组合**（现在可以理解为是一个数组）
 
 索引0表示实参数字`2`就被接收实参的形参`a`，索引1表示实参字符串`height`就被接收实参的形参`b`，索引3表示实参字符串`[1,2,3]`就是没有接收到的形参他是被`arguments`放在类数组中给存起来了
 
@@ -487,8 +485,8 @@ function auto(){//-->auto是全局作用域中的变量储存在GO对象里
     auto:function(){}
  }
  AO{
-    b = undefined --> b=3
-    a = undefined --> a=2
+    b : undefined --> b:3
+    a : undefined --> a:2
  }
  console.log(2,3)
 */
@@ -503,15 +501,15 @@ function auto(){//-->auto是全局作用域中的变量储存在GO对象里
 function outer(){
  /*
   AO{
-      b = undefined --> b = 3;
+      b : undefined --> b : 3;
       inner:function(){}
   }
 */
   function inner(){
 /*
   AO{
-      a = undefined --> a = 4;
-      c = undefined --> c = 5;
+      a : undefined --> a : 4;
+      c : undefined --> c : 5;
    }
 */
    var a = 4;
@@ -529,9 +527,9 @@ function outer(){
    console.log(outer);//函数体
    /*
      GO{
-        a = undefined --> a = 2;
+        a : undefined --> a : 2;
         outer:function(){};
-        c = 5
+        c : 5
         }
    */
 ```
@@ -540,8 +538,420 @@ function outer(){
 
 `GO`和`AO`都是相互独立的，如果没有相对应的变量会往父级去找，如果有就不会去父级找了
 
+预编译之后才能执行JS代码
+
+等函数执行完成后，`AO`对象就会被销毁了
+
 **作用域有两个规则**
 
 1. 规则是用来定义变量到底储存在哪里的
 2. 如何查询
+
+##### 补充变量提升
+
+```JavaScript
+ console.log(a);
+ var a = 2;//当前变量a在全局作用域中
+```
+
+结果是`undefined`他是怎么来的呢？？？
+
+**变量提升**
+
+- 系统会自动地把变量`var a = 2;`提升到前面变为`var a;`
+- js会把`var`**关键词声明的变量**，和**函数声明**的提升到前面
+
+```JavaScript
+ var a;//先打印
+ console.log(a)
+ var a = 2;//后赋值
+ /*
+   GO{
+       a : undefined //先打印的是这个
+       a : undefined --> a : 2 //后赋值
+    }
+ */
+```
+
+### 函数作用域链
+
+```JavaScript
+ function outer(){ 
+    var a = 2;
+    function inner(){
+        console.log(a);
+    }
+    inner();
+ }
+ outer();
+       /*
+         GO{
+             outer:function(){};
+         }
+         AO{ --> outer
+             a : undefined --> a : 2;
+             inner:function(){};
+         }
+         AO{ --> inner
+             console.log(a)
+             自己没有变量a会往父级的AO中去找变量a
+         }
+       */
+```
+
+这个变量`a`是是从`outer`函数的`AO`中找到的，不是从自己的`AO`中找到的,为什么可以从父级`AO`找到变量？？
+
+#### 为什么可以在父级`AO`中找到变量`a`???
+
+函数是一个对象，其中有些属性我们可以访问，比如`name`,`length`,`arguments.`但有些不可以，这些属性仅供Js解释引擎存取，`[[scope]]`就是其中一个。`[[scope]]`这个属性指的就是常说的作用域,其中存储了`AO`对象的集合。
+
+```javascript
+function outer() {
+     var a = 2;
+     function inner() {
+         console.log(a);
+     }
+     inner();
+}
+outer();
+console.dir(outer)//把函数的详细信息打印出来
+```
+
+`console.dir(函数)`  可以把函数的详细信息打印出来
+
+函数的`[[Scopes]]`这个属性 存放在函数的作用域链
+
+那为什么可以去父级`AO`中去找变量`a`呢，是因为`inner`函数里面没有自己要的变量，我会顺着作用域链去`outer`的`AO`里面找变量`a`，如果`outer`里面还没有对应的变量，那就去`GO`中找有没有变量`a`那如果有就是有，如果没有那就是没有。(只要函数有作用域链)
+
+#### 函数作用域链
+
+```javascript
+function outer() {
+     var a = 2;
+     function inner() {
+         console.log(a);
+     }
+     inner();
+}
+outer();
+```
+
+作用域链是分两种情况的
+
+1. 死函数（函数名后面没有加上`()`执行的函数）
+2. 激活函数（函数名后面有加上`()`执行的函数）
+
+***`inner`函数的作用域链***
+
+> **`inner`函数未执行（死函数）**
+>
+> `inner`函数的作用域链  =  `outer:AO + GO`
+
+
+
+> **`inner()`函数执行（激活的函数）**
+>
+> `inner`函数的作用域链  = `inner:AO + outer:AO + GO`
+
+***`outer`函数的作用域链***
+
+> **`outer`函数未执行（死函数）**
+>
+> `outer`函数的作用域链  = `GO`
+
+
+
+> **`outer()`函数执行（激活的函数）**
+>
+> `outer`函数的作用域链  =` outer:AO + GO`
+
+作用域链：当函数执行时会生成`AO`对象，并且把这个`AO`对象放在`[[scope]]`的最顶端，和函数创建时的环境，形成链式结构，我们把这种链式结构叫做作用域链。
+
+**作用域链** **=** **函数执行时的**`AO`**对象** **+** **函数创建时的环境**
+
+**变量查找规则：沿着作用域链顶端，自上而下寻找变量**
+
+***`AO`是一个对象，是对象就会占据空间，如果空间占据很多的话那该怎么办***
+
+那就让JS系统来解决这个问题
+
+> JS内部存在垃圾回收机制：每隔一段时间就会清理掉不使用的数据（垃圾）
+
+#### 实例
+
+```javascript
+        function outer(){
+            /*
+              AO{
+                  b : undefined; --> b : 3;
+                  inner:function(){};
+              }
+            */
+            function inner(){
+                /*
+                  AO{
+                      a : 2; --> a : 4;//个变量a重新赋值
+                  }
+                */
+                var a = 4;
+                c = 5;//变量提升，暗示全局变量
+                console.log(a);//4；在自己的AO中找到的
+                console.log(b);//3；在outer的AO中找到的
+                console.log(c);//5；在全局GO中找到的
+            }
+            var b =3;
+            inner();
+        }
+        var a = 2;
+        outer();
+        /*
+          GO{
+              a : undefined; --> a : 2;
+              outer:function(){};
+              c : 5;
+          }
+          outer的函数作用域链 = outer:AO + GO
+          inner的函数作用域链 = inner:AO + outer:AO + GO
+        */
+```
+
+![QQ截图20190801142723](C:\Users\de'l'l\Desktop\QQ截图20190801142723.png)
+
+![QQ截图20190801142811](C:\Users\de'l'l\Desktop\QQ截图20190801142811.png)
+
+在查找变量`a` `b`  `c`时，从作用域链顶端从上到下开始寻找对应的变量，分别找到的是
+
+`inner`函数`AO`中的`a`是4，`outer`函数`AO`中的`b`是3，还有全局作用域GO的`c`是5
+
+## 闭包
+
+```JavaScript
+       function outer(){
+            /*
+              outer:AO{
+                  inner:function(){};
+                  b : undefined; --> b : 3 --> b:4
+              }
+            */
+            function inner(){
+                b++;//给b+1
+                console.log(b);
+                /*
+                  inner:AO{
+                      在outer的AO中找到变量a并打印
+                  }
+                */
+            }
+            var b = 3;
+            return inner;
+        }
+        var result = outer();
+        result();
+        /*
+          GO{
+              outer:function(){};
+              result : undefined; --> result:function inner(){};
+          }
+          outer的作用域链 = outer:AO + GO
+          inner的作用域链 = inner:AO + outer:AO + GO
+        */
+```
+
+### 闭包的特点
+
+![QQ截图20190801154244](C:\Users\de'l'l\Desktop\QQ截图20190801154244.png)
+
+在`outer`函数执行结束前把`inner`函数抛出，并且把`inner`函数赋值给`result`,所以`result===inner`
+
+![QQ截图20190801154840](C:\Users\de'l'l\Desktop\QQ截图20190801154840.png)
+
+现在的变量`b`是在外部被使用的，`inner`函数被抛出来了并且在外部接收这`inner`，就是相当于在外部通过`result`变量的执行修改了内部`outer`函数的值，通过全局的一些代码修改了`outer`函数内部的一些值由原本的3变成4。
+
+全局作用域的代码不能访问函数作用域的代码，但是通过一些全局的代码修改了函数作用域的代码而这种情况就叫做闭包
+
+那么如何实现这种闭包呢，就通过`return`把一个函数给抛出去，用外界的一个变量给接收这，因为你抛出函数的同时还要把函数的作用域链给抛出来了，而函数的作用域链存储了不仅仅是自己的`AO`中的变量还有父级`AO`中的变量。
+
+把这个函数给抛出来之后还把函数的作用域链给抛出，所有在外界用一个新的变量给他接收了之后，新的变量执行了就相当于执行了`inner`函数，就相当于在全局的情况下执行了`inner`函数，在外界执行了`inner`函数修改了`outer`函数内部的值这种情况就构成了闭包
+
+***什么是闭包：***
+
+> 当内部函数被保存在外部时，由于内部函数的作用域链上存在内部函数创建时的环境(即父级
+>
+> 函数和祖先函数的`AO`对象，全局对象`GO`)，导致内部函数可以顺着作用域链寻找变量，所以形成了
+>
+> 闭包，同时内部函数的作用域链上(即父级函数和祖先函数的`AO`对象，全局对象`GO`)无法被垃圾回
+>
+> 收机制回收，导致了内存泄漏
+
+### 验证闭包的机制
+
+***闭包1***
+
+```JavaScript
+        function outer(){
+            var a = 4399;
+            function inner(){
+                a++;
+                // console.log(a);//4400
+            }
+            return inner;
+        }
+        var result1 = outer();
+        result1();
+        var result2 = outer();
+        result2();
+        //两个不同的变量名字，执行了两次outer和inner函数是两个次不同的AO对象
+        //是开辟了两个不同的AO对象result1个result2都执行了一次是两个不同的内存泄漏
+        /*
+          GO{
+              result1:undefined; -->result1:function inner(){};
+              result2:undefined; -->result1:function inner(){};
+              outer:function(){};
+          }
+          outer:AO{ result1
+              a:undefined; --> a:4399 --> a:4400
+              inner:function(){};
+          }
+          inner:AO{ result1
+
+          }
+           outer:AO{ result2
+              a:undefined; --> a:4399 --> a:4400
+              inner:function(){};
+          }
+          inner:AO{ result2
+
+          }
+
+          这个两个是每次执行生成的新的AO对象
+        */
+```
+
+***闭包2***
+
+```JavaScript
+ 	   function outer() {
+            var a = 4399;
+            function inner() {
+                 a++;
+                 console.log(a);//4400和4401
+            }
+            return inner;
+        }
+        var result = outer();
+        result();
+        result();
+        //两个想相同的result函数在这种情况下，会造成闭包的特性，
+        // 致result函数的AO对象不被JS系统获取导致内存泄漏是
+        // 两个相同的函数都执行一边,都会在内存泄漏的那条函数作用域链上累加的执行
+        /*
+          GO{
+              result:undefined; --> result:function inner(){}
+              outer:function(){};
+          }
+          outer:AO(1){
+              a:undefined; --> a:4399 -->a:4400
+              inner:function(){};
+          }
+          inner:AO(1){
+
+          }
+          outer:AO(1){
+              a:undefined; -->a:4400 -->a:4401
+              inner:function(){};
+          }
+          inner:AO(2){
+
+          }
+
+        */
+```
+
+***闭包的用处：***
+
+1. 实现累加器  ===>对父级函数内部变量的操作
+2. 可以做缓存
+3. 构建模块化实例
+4. 对象的变量私有化
+
+## 函数表达式和函数声明之间的转换
+
+***定义一个函数表达式***
+
+```JavaScript
+ var x = function(){//函数表达式
+       console.log("花生")
+ }
+ x();//函数表达式执行
+```
+
+### 函数声明转换函数表达式的方法
+
+***用`!`号，把函数声明转换成函数表达式***
+
+```JavaScript
+!function auto(){
+    console.log("name");
+ }();
+```
+
+***用`~`号，把函数声明转换成函数表达式***
+
+```JavaScript
+~function auto(){
+    console.log("name")
+}();
+```
+
+***用`+`号，把函数声明转换成函数表达式***
+
+```JavaScript
++function auto(){
+     console.log("name")
+}();
+```
+
+***用`-`号，把函数声明转换成函数表达式***
+
+```JavaScript
+-function auto(){
+     console.log("name");
+}();
+```
+
+***把函数声明整体放置在`()`的方法，把函数声明转换成函数表达式***
+
+```javascript
+(function auto(){
+     console.log("name")
+}())
+```
+
+***那具名的函数表达式名字的作用是什么？***？
+
+```JavaScript
+ var fn = function x(){
+      console.log(x)
+ };
+```
+
+**那具名函数表达式的意义是什么？？？**
+
+具名函数表达式的名字是可以在函数内部使用
+
+**从作用域角度的话可以这样理解**
+
+> 具名函数表达式他的名字是绑定在函数内部的，只有在函数的内部使用，不可以在函数的外部使用（否则会报错）只能在当前的函数作用域里面使用
+
+***立即执行函数：***
+
+1. 立即执行函数是一次性的，在执行一次后，`AO`对象立马被销毁，不能重复使用，一般用在初始化工作。
+2. 只有函数表达式才可以被立即执行
+3. `!`、`~ ` 、`+`、`-`、把函数声明整体放置在`()` ，都可以把函数声明变成函数表达式
+4. 函数表达式默认是匿名函数，即使函数表达式有名字，也会被系统当做匿名的
+
+***重要结论:***
+
+1. 函数表达式的名字只能在自身作用域中使用，不能在外部作用域里面使用
+2. 只有函数表达式后面跟上`()`才能执行，后面跟着的`()` 是用来传实参的
 
