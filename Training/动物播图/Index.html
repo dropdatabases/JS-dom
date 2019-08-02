@@ -84,19 +84,19 @@
                 <img src="img/4_01.jpg" alt="">
             </li>
             <li>
-                <img src="img/4_01.jpg" alt="">
+                <img src="img/1_01.jpg" alt="">
+            </li>
+            <li>
+                <img src="img/2_01.jpg" alt="">
+            </li>
+            <li>
+                <img src="img/3_01.jpg" alt="">
             </li>
             <li>
                 <img src="img/4_01.jpg" alt="">
             </li>
             <li>
-                <img src="img/4_01.jpg" alt="">
-            </li>
-            <li>
-                <img src="img/4_01.jpg" alt="">
-            </li>
-            <li>
-                <img src="img/4_01.jpg" alt="">
+                <img src="img/1_01.jpg" alt="">
             </li>
         </ul>
         <div class="btn">
@@ -201,9 +201,9 @@
             oLi[i].index = i;
         }
 
-        Bottom.addEventListener("mouseover", function (e) {
+        Bottom.addEventListener("click", function (e) {
              e = e || window.event;
-             if(e.target.nodeName === "UL") return;
+             if(e.target.nodeName === "UL")return;
              index = e.target.index;
              if (e.target.nodeName === "LI") {
                 animation(oUl, {
