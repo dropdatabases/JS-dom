@@ -1,5 +1,0 @@
---disable-web-security --user-data-dir
-
-http://jsonplaceholder.typicode.com/  提供假数据的网址
-
-https://www.showapi.com/

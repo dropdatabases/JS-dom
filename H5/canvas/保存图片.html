@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        canvas {
+            display: block;
+            border: 2px solid blue;
+            margin: 50px auto;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="canvas" width="500" height="500"></canvas>
+    <script>
+        /*
+          canvas是画布的概念 
+          画布他是一张图片
+          那么我们可以把这张图片右键保存(把canvas以图片的形式保存)
+          保存的图片格式是png(底部的透明的) 
+          上面的是手动下载
+        */
+
+        //用js代码下载canvas图片
+        var canvas = document.getElementById('canvas');
+        var cxt = canvas.getContext('2d');
+
+        //绘画一个圆
+        cxt.beginPath();
+        cxt.arc(250,250,250,0,Math.PI*2);
+        cxt.fill();
+
+        
+        //这个函数的功能是下载canvas图片
+
+        // 方法一 通过todataURL转换成base64位的字符串赋值给了href(缺点base65位的字符串太大了)
+        // download();
+        // function download(){
+        //     //创建一个a标签
+        //     var link = document.createElement('a');
+
+        //     // canvas.toDataURL()函数执行时 返回结果是base64位的字符串 这些字符串的结果就是一张图片
+
+        //     //把a标签的href属性赋值到canvas图片的地址
+        //     link.href = canvas.toDataURL();
+        //     // 通过a标签的download属性修改下载图片的名字
+        //     link.download = 'canvas.png';
+        //     //让a标签的click函数，直接下载图片
+        //     link.click();//这句代码的作用就是相当于手动点击a标签
+        // };
+
+        //方法二 通过Bole构造函数生成一个图片对象在进行操作
+        downBolb()
+        function downBolb(){
+            //canvas.toBlob函数能够把这个画布变成Bolb数据
+            //canvas.toBlob()函数执行时内部支持回调函数 第一参数就存储着当画布被转换成Bolb数据时就把Bolb数据个这个参数
+            
+            //当画布转换成Blob数据时触发回调函数
+            canvas.toBlob((blob)=>{
+                //把blob传递到URL.createObjectURL生成一个URL
+                var url = URL.createObjectURL(blob);
+
+                //创建一个a标签
+                var link = document.createElement('a');
+                //把a标签的href属性赋值到生成好了的url
+                link.href = url;
+
+                //通过a标签的download属性修改下载图片的名字
+                link.download = 'blob.png';
+                //让a标签的click函数，直接下载图片
+                link.click();
+            })
+        }
+    </script>
+</body>
+</html>

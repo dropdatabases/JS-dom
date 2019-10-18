@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<!-- type类型是file的input标签表示上传文件 
+		 multiple让file上传多张图片
+	-->
+	<input type="file" multiple>
+	<script>
+		/*
+         单纯的上传图片只能出现一个文件名字
+         但是我想显示上传图片是显示上传的文件(不要显示文件的名字)在计算机本地的文件显示到网页当中
+		*/
+
+		//文件读取对象
+		var input = document.querySelector('input');
+
+		//点击上传图片存触发一个事件
+		//触发了input的onchange事件，但你从本地上传了一张图片触发了input节点的onchange事件
+
+		//当文件上传时 会触发回调函数
+		// input.onchange = function(){
+
+			// files 这个属性存储了 上传文件的集合
+
+			//理论上一张图片他是一组波数据，通过file类型的input把本地的图片作为数据上传到了JS引擎中(被JS引擎存储起来了)
+
+			//图片的数据其实存储在一个属性当中的
+			//存储到input节点中的files属性中的第0项存储了(当前图片的数据)索引0的位子有一个文件对象存储了图片的数据
+			//name图片的名字 size子节/1024 type图片的格式  lastModified上一次所更新的时间
+			//一个索引项表示一张图片的数据
+
+			// console.dir(this.files);//返回结果是一个类数组当前数据原型是FileList(他是一个构造函数)
+		// }
+
+
+
+		//有了数据我要把的数据上传到页面当中(预览)
+		input.onchange = function(){
+			//把数据转换成图片
+
+			var file = this.files[0];//获取图片的数据
+
+			//通过new启动了一个FileReader构造函数，这个构造函数是H5给原生JS内置的一个新的构造函数
+
+			//生成一个有读取文件能力的对象
+			var reader = new FileReader();
+
+			//只要是通过new启动了FileReader构造函数就会返回一个对象，这个对象他是能够拥有读取文件能力的一个对象
+
+			//设置文件的格式
+			//读取图片请使用readAsDataURL(图片的数据)
+			// 读取文件对象吧file图片给读取出来了，读取出来的是一个URL(格式)
+			reader.readAsDataURL(file);//异步
+			//图片有大有小是读取URL是一个异步操作
+			
+			//当你把图片的数据读取出来在做一些事情
+			//等文件读取对象 读完了file的数据之后  会触发onload事件
+			reader.onload = function(){
+
+				console.log(this.result)
+
+
+				//读取出来的数据存储在文件读取对象中的result属性上面
+				// console.log(this.result);//返回结果是一些字符，这些字符就是一张图片(把图片用base64位的字符拼成一张图片)用base64给不同的字符表示一张图片
+
+				// base64用字符来表示图片
+				//创建img节点 和 document.createElement('img')方式完全一致的
+				var oImg = new  Image();
+
+
+				//等图片的资源加载完毕值在添加到body元素当中
+				oImg.src = this.result;//把URL路径给到src属性上面(异步代码)
+				oImg.width = 200;
+
+				//等图片加载完成添加到body节点内
+				oImg.onload = function(){
+					document.body.appendChild(this);
+				}
+
+				/*
+                   把点前的图片用base64位展示的图片以字符串形式的方式打印出来
+
+                   原本的图片大小>用base64位展示图片
+
+                   这就是用base64位展示图片的缺陷
+				*/
+			};
+		};
+	</script>
+</body>
+</html>

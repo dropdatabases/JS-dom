@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //load函数的作用是能兼容大多数浏览器的JS问价异步加载
+        function loadScript(url,callBack){
+            var oScript = document.createElement('script');//创建script节点
+            oScript.src = url;//把oScript节点赋值src属性
+            document.body.appendChild(oScript);//插入节点
+
+            if(oScript.onload===null){//在谷歌 火狐 IE高本版 中使用的事件默认是是null(事件也是对象) 
+                // null===nulltrue为真走一下代码
+                oScript.onload = function(){//当JS文件下载完毕启动资源事件
+                    callBack();
+                }
+            }else{
+                oScript.onreadystatechange = function(){ // 当JS文件下载完毕启动资源事件 
+                    // IE低版本获取状态码是onreadystatechange事件
+                    if(oScript.readyState=== 'complete'){//如果获取的状态码===complete获取成功那么会走一下代码
+                        callBack();
+                    }
+                }
+            }
+        }
+        loadScript('检查loadScript函数.js',function(){//预防auto报错，就是用匿名函数包裹auto就是匿名函数执行就是auto函数执行
+            auto();
+        });    
+    </script>
+</body>
+</html>

@@ -1,0 +1,148 @@
+*{
+	margin:0;
+	padding: 0;
+}
+
+body {
+    user-select: none;
+    background: #000;
+}
+/*游戏界面*/
+#box {
+    overflow: hidden;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 512px;
+    height: 768px;
+    margin: auto;
+    /*background-image: url(../images/bg_1.jpg);*/
+}
+/*游戏标题*/
+#box .title{
+    text-align: center;
+    line-height: 200px;
+    font-size: 30px;
+    font-weight: inherit;
+    color: #fff;
+}
+/*游戏选项*/
+#box ul li {
+    list-style-type: none;
+    width: 200px;
+    height: 40px;
+    margin: 70px auto;
+    line-height: 40px;
+    text-align: center;
+    background-color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+    transition: .2s;
+    cursor: pointer;
+}
+
+#box ul li:hover {
+    background-color: pink;
+}
+/*我军小飞机*/
+#box .plane {
+    position: absolute;
+    width: 60px;
+    height: 48px;
+    background: url('../images/plane_1.png') 0 0/cover;
+    cursor: pointer;
+}
+/*我军子弹*/
+#box .bullet {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: url('../images/fire.png') 0 0/cover;
+}
+/*敌机*/
+#box .enemy {
+    position: absolute;
+    top: 0;
+    width: 54px;
+    height: 40px;
+    background: url(../images/enemy_small.png) 0 0/cover;
+}
+
+/*敌机爆炸*/
+#box .boom {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background: url('../images/boom_small.png') 0 0/cover;
+}
+
+/*我军爆炸*/
+#box .planeBoom {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background: url('../images/boom_big.png') 0 0/cover;
+}
+/*游戏结束后弹窗的窗口*/
+#box .interFace {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    top: 200px;
+    width: 300px;
+    height: 350px;
+    background-color: rgba(0, 0, 0, .5);
+    animation: bling 1s infinite alternate;
+}
+/*游戏结束后弹出窗口的按钮*/
+#box .interFace button {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 100px;
+    height: 30px;
+    margin: auto;
+    color: #000;
+    cursor: pointer;
+}
+/*飞机大战分数栏*/
+#box .Minute {
+    position: absolute;
+    width: 100%;
+    height: 60px;
+    text-align: center;
+    line-height: 60px;
+    color: #fff;
+    font-size: 20px;
+}
+#box .ControLI{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 100px;
+    height: 57px;
+    margin:auto;
+    background-color: pink;
+    border-radius: 20px;
+    text-align: center;
+    line-height: 57px;
+    cursor: pointer;
+    color: orange;
+}
+/*游戏结束后弹出的窗口的动画*/
+@keyframes bling {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: .7;
+    }
+}

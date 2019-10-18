@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        html,
+        body {
+            width: 100%;
+            user-select: none;
+        }
+
+        #box {
+            width: 80%;
+            margin: 20px auto;
+        }
+
+        #tips{
+            height: 500px;
+            background-color: #aaa;
+        }
+    </style>
+</head>
+
+<body>
+
+<div id="box">
+    <div id='tips'>请把图片拖放到该区域</div>
+    <div id="info">
+        当前累计图片<span id='num'>0</span>张,
+        一共<span id='size'>0</span>M<br>
+        <input type="file" multiple>
+    </div>
+</div>
+	<script>
+		var oTips = document.getElementById('tips');
+		var oNum = document.getElementById('num');
+		var oSize = document.getElementById('size');
+		var input = document.querySelector('input');
+		var imgArr = [];//储存所有的图片
+
+		//当元素进入目标区域里面触发dragenter事件
+		oTips.addEventListener('dragenter',function(){
+			//当里面的文本是请把图片拖放到该区域这些文本就清空
+			if (this.innerText === '请把图片拖放到该区域') {
+				//清空里面的文本
+			    this.innerText = '';
+			};
+
+		},false)
+		//清除浏览器的默认事件 激活ddrop事件
+		oTips.addEventListener('dragover',function(e){
+			e = e || window.event;
+			e.preventDefault();
+		},false);
+
+		//给元素绑定drop事件让图片到目标元素抬起时做些事情
+		oTips.addEventListener('drop',function(e){
+			//当拖拽图片的时候，在一个网页中默认情况下浏览器会打开这个图片
+			e = e || window.event;
+			//阻止浏览器默认打开图片的默认事件
+			//拖着图片在网页中 浏览器会默认打开
+			e.preventDefault();
+
+			//存放使用的上传图片
+			var files = e.dataTransfer.files;
+			//拖拽图片的时候图片本身就可以作为一波数据，所有拖拽图片的数据自动存储在dataTransfer这个对象中的files属性当中
+
+			appendImg(files);
+			count();
+		},false);
+
+		//读取图片中的数据，并且添加图片
+		function appendImg(files){
+			for(var i=0;i<files.length;i++){
+				//把图片的数据放在Blob中生成一个blob对象
+				var blob =  new Blob([files[i]]);
+
+				imgArr.push(files[i]);//往数组里面存储图片的数据
+
+				var url = URL.createObjectURL(blob);
+				var oImg = new Image();
+				oImg.src = url;//异步代码
+				oImg.width = 200;
+				oImg.height = 200;
+
+				//当把图片的src属性加载完毕才会把图片放在页面当中
+				oImg.onload = function(){
+					oTips.appendChild(this);
+				};
+			};
+		};
+
+		//计算上传的图片有多少个 多少M
+		function count(){
+            oNum.innerText = imgArr.length;//表示有多少张图片
+
+			//计算图片的大小
+			var result = imgArr.reduce((prev,next)=> prev + next.size,0)/1024/1024;
+			//每个图片默认的是字节要/1024/1024才能变成
+
+			//数字.toFixed()保留两位小数
+			oSize.innerText = result.toFixed(2);
+		};
+
+		//当点击type类型是file的input框时触发change事件
+		//当上传文件时就会触发回调函数
+		input.addEventListener('change',function(){
+			if(oTips.innerText=='请把图片拖放到该区域'){
+                oTips.innerText = '';
+            };
+
+			//files类型的input上面的file属性的索引0位置存储了你上传文件的数据
+			var files = this.files;//存放上传的图片数据
+
+			appendImg(files);
+			count();
+		},false);
+	</script>
+</body>
+</html>

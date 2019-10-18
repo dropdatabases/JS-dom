@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>选项卡切换</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            width: 800px;
+            margin: 50px auto;
+        }
+
+        .container .option-list {
+            height: 40px;
+            border-bottom: 1px solid #ccc;
+            border-left: 1px solid #ccc;
+        }
+
+        .container .option-list li {
+            float: left;
+            padding: 0 20px;
+            height: 39px;
+            border-top: 1px solid #ccc;
+            border-right: 1px solid #ccc;
+            line-height: 40px;
+            background-color: #eee;
+            cursor: pointer;
+        }
+
+        .container .option-list li.current {
+            height: 40px;
+            background-color: #fff;
+        }
+
+        .container .card-list{
+            border: 1px solid #ccc;
+            border-top: none;
+        }
+
+        .container .card-list li {
+            display: none;
+            height: 300px;
+            padding: 20px;
+
+        }
+
+        .container .card-list li.current {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <ul class="option-list">
+        <li class='current'>新闻频道</li>
+        <li>军事频道</li>
+        <li>体育频道</li>
+        <li>娱乐频道</li>
+        <li>音乐频道</li>
+    </ul>
+    <ul class="card-list">
+        <li class='current'>这是新闻频道</li>
+        <li>这是军事频道</li>
+        <li>这是体育频道</li>
+        <li>这是娱乐频道</li>
+        <li>这是音乐频道</li>
+    </ul>
+</div>
+<script src='./jquery-3.4.1.js'></script>
+<script>
+    $(document).ready(function(){//设置jQuery的入口代码
+    	//利用事件委托给所有li绑定点击事件
+    	$('.option-list').on('click','li',function(){
+    		//在用addClass方法给li添加类名并用siblings方法找到li的相邻兄弟在用removeClass去除类名
+    		$(this).addClass('current').siblings().removeClass('current');
+    		//查询li的index值赋值给一个变量
+    		var $index = $(this).index();
+    		//给类名是card-list的ul里面的li,用eq方法筛选出来在添加类名用siblings找到同级兄弟在删除类名
+    		$('.card-list li').eq($index).addClass('current').siblings().removeClass('current');
+    	})
+    })
+</script>
+</body>
+
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="./font/iconfont.css">
+</head>
+<body>
+	<!-- 每个浏览器的视频控件都是不一样的
+		 我们希望视频的控件是所有浏览器都的展示是一样的(不希望对每个浏览器有不同的对待)
+	-->
+ <div id="wrap">
+    <h2>视频播放器</h2>
+    <div class="player">
+        <i class='iconfont icon-jiazai wait'></i>
+        <video src="./video/许廷铿 - 面具.mp4" ></video>
+        <div class="controls">
+            <a href="javascript:void(0);" class='pause switch iconfont icon-zanting1'></a>
+            <!-- javascript:void(0) 表示阻止了当前a标签的默认事件(阻止了a标签的默认跳转事件不会有任何的动作) -->
+            <!-- 而href里面写了#号是表示a标签跳转到了页面的最上面 -->
+            <div class="progress">
+                <div class="line"></div>
+                <div class="bar"></div>
+            </div>
+            <div class="time">
+                <span class="current">00:00:00</span>/
+                <span class="total">00:00:00</span>
+            </div>
+            <a href="javascript:void(0)" class='full screen icon-Shapecopy iconfont'></a>
+        </div>
+     </div>
+  </div>
+
+  <script>
+  	 //当前变量$是一个箭头函数 里面选择到元素 就是相当于封装了一个函数来获取元素
+     var $ = select=>document.querySelector(select);
+
+     //当视频加载完成，i标签加载就结束 并且视频显示
+     $('video').oncanplay = function(){
+     	setTimeout(()=>{
+     		//隐藏 加载动画
+     	    $('.wait').style.display = 'none';
+     	    //显示视频
+     	    this.style.display = 'block';
+
+     	    //当视频加载完毕时把视频的总时间显示出来
+     	    $('.total').innerText = handleTime(this.duration);//设置视频的总时间
+     	},1000);
+     };
+
+     //处理时间 把以秒展现的时间处理一下 能以 小时 分钟 秒展现的数字
+     function handleTime(time){
+     	//1小时 = 3600秒(s)
+     	var h = Math.floor(time/3600);//计算小时 并且向下取整
+     	var m = Math.floor(time%3600/60);//计算分钟并且向下取整
+     	var s = Math.floor(time%60);//获取秒钟并且向下取整
+
+     	return toTwo(h) + ':' + toTwo(m) + ':' + toTwo(s);//返回结果是最终的视频的时间
+     }
+
+     //如果你传递的参数小于10 那就把你变成两位数
+     function toTwo(num){
+     	//有位数字变成两位数字
+     	return num < 10 ? '0' + num : num;
+     }
+
+     //点击 暂停按钮
+     $('.pause').onclick = function(){
+     	//点击变成播放按钮  点击变成暂停按钮
+
+     	//判断类名 如果有就变成播放按钮
+     	if (this.classList.contains('icon-zanting1')) {
+     		//删除类名
+     		this.classList.remove('icon-zanting1');
+     		//添加类名
+     		this.classList.add('icon-zanting');
+     		//播放视频
+     		$('video').play();
+     	}else {//判断类名 如果没有就变成暂停按钮
+     		//删除类名
+     		this.classList.remove('icon-zanting');
+     		//添加类名
+     		this.classList.add('icon-zanting1');
+     		//暂停视频
+     		$('video').pause();
+     	};
+     };
+
+     //当视频播放(视频时间方式变化)的时候 触发回调函数
+     //当视频上面的currentTime属性发生变化的的时候就会触发ontimeupdate事件
+     $('video').ontimeupdate = function(){
+     	//this.currentTime表示获取每次视频播放的时间
+        
+        //设置视频的播放时间
+     	$('.current').innerText = handleTime(this.currentTime);
+
+     	//当你视频播放的时候，视频的滚动条滚动
+
+     	/*
+     	  this.currentTime/this.duration = bar.width / line.width
+     	*/
+     	// var width = this.currentTime*$('.line').clientWidth/this.duration + 'px';
+     	var width = (this.currentTime/this.duration)*100+'%';
+
+     	$('.bar').style.width = width;
+     	//交叉相乘奇相等(数学)
+     };
+
+     //通过事件委托的形式 把bar和line的点击事件委托给父级元素progress
+     $('.progress').onclick = function(e){
+     	  /*
+     	    currentTime/duration = e.offsetX/line.width 
+     	  */
+     	  //人为手动的修改了currentTime属性
+     	  var currentTime =  e.offsetX * $('video').duration/$('.line').clientWidth;
+
+     	  $('video').currentTime = currentTime;
+     };
+
+     //点击全屏按钮
+     $('.full').onclick = function(){
+     	//判断类名 如果有就变成进入全屏按钮
+     	if (this.classList.contains('icon-Shapecopy')) {
+     		//添加类名
+     		this.classList.add('icon-tuichuzhuanhuan');
+     		//删除类名
+     		this.classList.remove('icon-Shapecopy');
+
+     		//让视频全屏显示 并且兼容大多数的浏览器 (能力检测)
+     		if($('.player').webkitRequestFullScreen){//谷歌浏览器
+               $('.player').webkitRequestFullScreen()
+            }else if($('.player').mozRequestFullScreen){//火狐浏览器
+               $('.player').mozRequestFullScreen()
+            }else if($('.player').oRequestFullScreen){//欧朋浏览器
+               $('.player').oRequestFullScreen()
+            }else{//IE浏览器
+               $('.player').msRequestFullScreen()
+            }
+     		 
+     	}else {//判断类名 如果没有就变成退出全屏按钮
+     		//添加类名
+     		this.classList.add('icon-Shapecopy');
+     		//删除类名
+     		this.classList.remove('icon-tuichuzhuanhuan');
+
+     		//视频退出全屏显示 并且兼容大多数的浏览器 (能力检测)
+     		if (document.webkitCancelFullScreen) {//谷歌浏览器
+        		document.webkitCancelFullScreen();
+        	}else if (document.mozCancelFullScreen) {//火狐浏览器
+        		document.mozCancelFullScreen();
+        	}else if (document.oCancelFullScreen) {//欧朋浏览器
+        		document.oCancelFullScreen();
+        	}else {//IE浏览器
+        		document.msCancelFullScreen();
+        	};
+     	};
+     };
+
+     //当视频播放结束的时候触发 回调函数
+     $('video').onended = function(){
+     	//重置视频的时间 让视频的播放时间归0
+     	this.currentTime = 0;
+
+     	//去除类名
+     	$('.pause').classList.remove('icon-zanting');
+     	//添加类名
+     	$('.pause').classList.add('icon-zanting1');;
+     };
+  </script>
+</body>
+</html>

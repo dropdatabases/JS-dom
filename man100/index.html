@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>是男人就下100层</title>
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <script type="text/javascript">
+    	
+   		document.addEventListener('plusready', function(){
+   			//console.log("所有plus api都应该在此事件发生后调用，否则会出现plus is undefined。"
+   			
+   		});
+   		
+    </script>
+</head>
+<body>
+	<div class="main" id="js_main" tabindex="-1">
+		<canvas id="canvas" width="380" height="650"></canvas>
+		
+		<div class="life"><label id="js_life"></label></div>
+		
+		<div class="level">第<span id="js_level">0</span>层</div>
+		
+		<div class="">
+			<input type="button" onclick="" style="position: absolute;z-index:2;left:80px;top:500px;width: 60px;height: 30px;" value="左" />
+			<input type="button" onclick="" style="position: absolute;z-index:2;left:250px;top:500px;width: 60px;height: 30px;" value="右" />
+		</div>
+		
+		<div class="start_flush" id="js_start_flush">
+           	<a href="javascript:void(0)" id="js_start_btn" style="display:none;" class="start_btn" onclick="Main.start()"></a>
+           	<span id="js_start_loading" style="position:absolute;left:180px;top:620px;font-size:16px;font-weight:bolder;">加载中...</span>
+		</div>
+		
+		<div class="end_flush" id="js_end_flush">
+			<span class="icon"></span><p></p>
+			<a href="javascript:void(0)" class="replay_btn" onclick="Main.replay()"></a>
+		</div>
+	</div>
+	
+    <script type="text/javascript" src="js/wfn.js"></script>
+    <script type="text/javascript" src="js/person.js"></script>
+    <script type="text/javascript" src="js/block.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+</body>
+</html>

@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+	<script>
+	   // 例子一 封装函数 检查字符串的结尾
+	   /*
+	     第一步 用字符串中的slice方法截取target.length个字符(变值)
+	     第二步 用截取完成的字符和target作比较
+	     第三步 是第一个字符串和第二个字符串的后target位
+	     相同是true 反之 false
+	   */
+	   // function  confirmEnding(str,target){
+    //       //slice字符串方法:截取字符str.slice(-2)表示截取到后2位,之前的全部截取掉
+    //       //slice第一个参数表示从索引几开始截取
+    //       //slice第二个参数表示截取到第几个字符(不写第二个参数表示全部截取)
+    //       // if (str.slice(-target.length)===target) {
+    //       // 	 return true;
+    //       // }else {
+    //       // 	 return false;
+    //       // }
+
+    //       return str.slice(-target.length) === target;//把作比较的结果抛出来
+    //    }
+    //    confirmEnding("He has to give me a new name", "me")  //true
+    //    confirmEnding("He has to give me a new name", "meca") //false
+    //    confirmEnding("He has to give me a new name", "na")  //false
+
+     // 例2： 封装函数 用来反转数字 
+     /*
+        第一步用toString方法把数组num转换成字符串 '12345'
+        第二步用split方法把字符串分割成数组(split字符串方法) ['1','2','3','4','5']
+        第三步用reverse方法把这个数组倒序(reverse数组方法) ['5','4','3','2','1']
+        第四步用join方法用指定字符""转换成字符串(数组方法) 然后用一元运算符+转化成数字 '54321' -> 54321
+     */
+    // function  reverseNumber(num){
+    //      return +num.toString().split("").reverse().join('');
+    // }
+    // reverseNumber(12345)  		 
+
+    // 例3： 封装函数 来检测传入的字符串是否为回文
+    /*
+        第一步把arr字符串用split方法用""给分割成数组(字符串方法) ['h','e','l','l','o'] 
+        第二步在用reverse方法把这个把分割好出来的数组倒序(数组方法) ['o','l','l','e','h']
+        第三步在用join方法用""拼接转换成字符串(字符串方法) "olleh"
+        第四步把处理好的字符串和原字符串作===比较如果是true是全等，反之false
+    */
+        // function  isPalindrome(str){
+        //    return  str === str.split("").reverse().join("");
+        // }
+        // isPalindrome('hello'); 		 
+        // isPalindrome('madam'); 
+        
+        
+    // 例4： 写一个函数对传入的字符串中每个单词的首字母大写
+    /* 
+        第一步用用arr存储着split函数分割出来的字符串(字符串方法)
+        第二步用for循环遍历这个arr字符串
+        第三步用replace中的方法让每一项字母都大写 replace和toUpperCase(字符串方法)
+        第四步在用join方法把遍历完成的数组进行拼接 join(数组方法)
+    */
+       	// function myCap(str) {
+        //     var arr = str.split(' ');
+        //     for(var i=0;i<arr.length;i++){
+        //         arr[i] = arr[i].replace(arr[i][0],arr[i][0].toUpperCase());
+        //     }
+        //     return arr.join('');
+        // }
+        // myCap('the quick brown fox'); 
+
+    // 例5: 写一个函数找出传入的字符串中最长的单词
+    /*
+        第一步用split(" ")方法分割字符串等到的是一个数组
+        第二步用max变量存储着最大的length长度
+        第三步遍历用split分割的字符串 在做length长度自己的判断
+        第四步把遍历完成的结果return抛出去
+
+    */
+          // function findLongest(str){
+          // 	   var arr = str.split(" ");
+          // 	   var max = str[0];
+          // 	   for(var i=0;i<arr.length;i++){
+          // 	   	 if (max.length<arr[i].length) {
+          // 	   	       max = arr[i];
+          // 	   	 }
+          // 	   }
+          // 	   return max;
+          // }
+          // findLongest('Web Development Tutorial'); 
+
+       // 例6：封装函数  实现toUpperCase方法
+           /*
+            1
+           */
+           // function myUpperCase(str){
+           //     var Newstr = "";
+           //     for(var i=0;i<str.length;i++){
+           //       var CodeAt = str.charCodeAt(i);//获取遍历完成的Unicode码
+           //       if (CodeAt>=97&&CodeAt<=122) {//让小写字符的Unicode码之内的走进来
+           //          Newstr += String.fromCharCode(CodeAt-32);//小写字符的Unicode和大小字符的Unicode字符差是32
+           //       }else {//大写字母走进来不该变原来的字母
+           //          Newstr += str[i] 
+           //       }
+           //     }
+           //     return Newstr
+           // }
+           // myUpperCase("hEllo");      
+
+      // 例7：封装函数  重复输出字符串
+           // function repeat(str, num) {
+           //      var newStr = "";
+           //      if (num<0) {
+           //        return str;
+           //      }
+           //      for(var i=0;i<num;i++){
+           //          newStr+= str;
+           //      }
+           //      return newStr;
+           // }
+           // repeat("abc", -2);   
+           // repeat("abc", 3);    
+           // repeat("abc", 2);   
+
+
+     // 例8：比较字符串，如果第一个字符串中包含了第二个字符串的所有字母，则返回true，否则返回false 
+           /*
+             第一步获取第二个字符串的字符
+             第二步在用获取好了的字符和第一个字符做indexOf判断
+           */
+           // function compare(arr) {
+           //     for(var i=0;i<arr[1].length;i++){
+           //        if (arr[0].indexOf(arr[1][i])===-1) { 
+           //           //第一个字符和第二个字符做indexOf判断如何===-1表示是false(-1是字符不在indexOf判断的第二个字符里面)
+           //           return false;
+           //        }
+           //     }
+           //     return true;
+           // }
+           // compare(["hello", "haeo"]);     
+           // // compare(["hello", "neo"]);    
+
+           // function compare([arr,arr1]){
+           //     for(var i=0;i<arr1.length;i++){
+           //         if(arr.indexOf(arr1[i])===-1){
+           //            return false;
+           //         }
+           //     }
+           //     return true
+           // }
+           // compare(["hello","hell"])
+
+        // 例9： 封装函数  用指定字符串替换字符串的
+        // function replaceStr(str, origin, target) {
+        // 	 if(str.indexOf(origin)===-1){
+        // 	 	return str;
+        // 	 }
+        // 	 return replaceStr(str.replace(origin,target),origin,target)
+        // }
+        // replaceStr('l am heaven', 'heaven', 'sixsixsixx') 
+
+         // function replaceStr(str, origin, target) {
+        	//    var oStr = str.split(' ').join('');
+        	//    for(var i=0;i<oStr.length;i++){
+        	//        oStr =  oStr.replace(origin,target)
+        	//    }
+        	//    return oStr;
+         // }
+         // replaceStr('l am heaven heaven', 'heaven', '2') 
+
+         // 例10: 封装函数  删除数组中的假值
+         /*
+           遍历arr这个数组在做if判断如果是假值这走进这个if代码块中
+           在用数组方法splice删除数组中的第i项
+           这样就照成了数组坍塌的问题(在数组中删除某项而for循环还在继续循环导致漏掉的数组中的某一项)
+           这就造成了数组坍塌，解决方法是i--让这个数组length长度在被splice的时候正常
+         */
+           // function bouncer(arr) {
+           //     for(var i=0;i<arr.length;i++){
+           //     	  if (!arr[i]) {
+           //     	  	 arr.splice(i,1);//删除数组中的第i项
+           //     	  	 i--;//预防数组坍塌
+           //     	  }
+           //     }
+           //     return arr;
+           // }
+           // bouncer([7, "ate", "", false, 9,undefined,null,"huasheng",NaN]);    
+
+        // 例11:  封装函数  查找出第一个次出现一次的字符
+        /* 
+            用字符串方法indexOf和lastIndexOf这个两个函数做判断 
+            结果是一样的说明只出现过一会
+        // */
+          // function unquie(str){
+          // 	 for(var i=0;i<str.length;i++){
+          // 	 	if(str.indexOf(str[i])===str.lastIndexOf(str[i])){
+          // 	 		return str[i]
+          // 	 	}
+          // 	 }
+          // }
+          // unquie("heavenhyeaven");   
+
+        // 例12： 封装函数  实现字符串去重 
+        /*  方法一
+            先用字符串split方法用""剪切成数组
+            遍历数组 在用indexOf和lastIndexOf方法配合使用
+            在用数组splice方法剪切掉数组重复的项 预防数组坍塌
+            在用join方法拼成字符串 在return抛出去
+        */
+        // function deweightStr(str){
+	       // var arr = str.split("");
+	       // for(var i=0;i<arr.length;i++){
+	       // 	  if(arr.indexOf(arr[i])!=arr.lastIndexOf(arr[i])){
+	       // 	  	  arr.splice(i,1)
+	       // 	  	  i--;//预防数组坍塌(一旦数组被剪切了就要预防数组坍塌)
+	       // 	  }
+	       // }
+	       // return arr.join('')
+        // }
+        // deweightStr("heaven");
+        /* 
+         方法二
+           声明一个新的字符串 在遍历str里面做if判断用字符串indexOf如果newStr里面没有字符就走进来
+           然后就加上循环的字符串最后return抛出去
+        */
+        //  function deweightStr(str){
+	       //  var newStr = "";
+	       //  for(var i=0;i<str.length;i++){
+	       //  	if (newStr.indexOf(str[i])==-1) {//-1表示newStr里面没有重复的字符
+	       //  		newStr += str[i];
+	       //  	}
+	       //  }
+	       //  return newStr;
+        // }
+        // deweightStr("heaven");
+
+        /* 
+          方法三
+          用字符串split方法分割str字符串变成一个数组
+          遍历这个数组 在用slice方法截取字符在用indexOf方法查询字符
+          如果是—1就表示这个数组中的字符没有重复的
+          然后在用splice方法截取字符 在防止数组坍塌在影join方法拼接成字符串
+        */
+         // function deweightStr(str){
+	        //  var arr = str.split("");
+	        //  for(var i=0;i<arr.length;i++){
+	        //  	 if(arr.slice(i+1).indexOf(arr[i])!==-1){
+	        //  	 	 arr.splice(i,1);
+	        //  	 	 i--;
+	        //  	 }
+	        //  }
+	        //  return arr.join("");
+         // }
+         // deweightStr("heaven");
+         
+         // 例13： 封装函数  实现数组去重
+         /*
+            利用对象属性名不能重复的特点，给数组排序
+         */
+         // function deweightArr(arr){
+         //    var obj = {};
+         //    for(var i=0;i<arr.length;i++){
+         //    	 obj[arr[i]] = arr[i];
+         //    }
+         //    var newArr = [];
+         //    for(var key in obj){
+         //    	newArr.push(obj[key])
+         //    }
+         //    return newArr;
+         // }
+         // deweightArr([1,4,6,3,4,6,2]);  	
+
+         /*
+            例14：封装函数 输出指定字符串的长度：
+
+	       提示：1. 一个中文占2个字节，一个英文占一个字节
+
+		   2.如果Unicode编码值小于等于255是英文，如果unicode编码值大于255是中文
+
+		   首先声明一个变量存储着字符串的字节长度(length) 在变量str这个字符串
+		   声明一个变量获取索引i的字符编码存储在charCode变量里
+		   如果charCode<=5lenght就加一 如果在这个之外就lenght+=2 最后把这个存储这个lenght抛出去
+         */
+          // 方法一
+           // function byteLen(str){
+           // 	  var lenght = str.length;//存储输出字符串的字节长度
+           // 	  for(var i=0;i<str.length;i++){
+           // 	  	 var charCode = str.charCodeAt(i);//获取每一个字符的字符编码
+           // 	  	 if(charCode>255){//如果是中文
+           // 	  	 	 lenght++;
+           // 	  	 }
+           // 	  }
+           // 	  return lenght
+           // }
+           // byteLen('heav地方en');   
+
+           // 方法二
+           // function byteLen(str){
+           // 	   var lenght = 0;
+           // 	   for(var i=0;i<str.length;i++){
+           // 	   	 var charCode = str.charCodeAt(i);
+           // 	   	 if (charCode<=255) {
+           // 	   	 	 lenght++;
+           // 	   	 }else {
+           // 	   	 	lenght+=2;
+           // 	   	 }
+           // 	   }
+           // 	   return lenght;
+           // }
+           // byteLen('heav地方en');   
+
+           // 例15：封装函数 获取浏览器url中的数据    要求：函数返回值是一个对象
+         //  function getUrl(str){
+	        //   var arr = str.split('?')[1].split('&');
+	        //   var obj = {};
+	        //   for(var i=0;i<arr.length;i++){
+	        //   	 var newArr = arr[i].split('=');
+	        //   	 obj[newArr[0]] = newArr[1]
+	        //   }
+	        //   return obj;
+         // }
+         // var url = "https://www.baidu.com/s?ie=utf-8&f=3&rsv_bp=1&tn=baidu&wd=海文	&rsv_pq=becd1331000082fd&rsv_t=0f84&rqlang=cn&rsv_enter=1&rsv_sug3=14&rsv_sug1=12&rsv_sug7=100&rsv_sug2=0&rsp=0&inputT=9344&rsv_sug4=3518432";
+         // getUrl(url)["rsv_sug7"] 	
+
+         // 例16： 封装函数  实现push方法   
+           // var arr = [1,2,3]
+           // function myPush(){
+           //     for(var i=0;i<arguments.length;i++){
+           //     	  this[this.length] = arguments[i];
+           //     }
+           //     return this;
+           // }
+           // myPush.call(arr,'huasheng');//把函数内部的this指向改为arr
+
+        // 例17：写一个函数对传入的字符串重新按字母排序
+        /*
+             用split函数用""分割函数转换为数组,在用sort函数让数组排序
+             再用join函数把数组拼成字符串,最后return抛出去
+
+
+             sort{
+	            改变原来的数组
+	            如果是数组按照第一个数字从大到小排列  数字一样的话按照第二个数字开始排列
+	            如果sort()按照字母的A-Za-z排列
+             }
+        */
+            // function reorderStr(str){
+            //     return str.split("").sort().join("");
+            // }
+            // reorderStr('webmaster');  
+
+          // 例18.：写一个函数对传入的字符串输出所有子字符串组合
+
+             // function substrings(str){
+             //       var arr = [];
+             //       for(var i=0;i<str.length;i++){
+             //       	  for(var j=i;j<str.length;j++){
+             //       	  	 arr.push(str.slice(i,j+1))
+             //       	  }
+             //       }
+             //       return arr
+             // }
+             // substrings('dog'); 			// ['d', 'do', 'dog', 'o', 'og', 'g']
+
+           // 例19：封装函数  实现数组sort的方法（参考冒泡排序）
+           //冒泡排序 (相邻两个数字相减 如果是正值 那就交换位置 ，反之不交换位置)
+            /*
+                2  33  41  10  5
+    *        -->  2  33 10 41 5
+    *        -->   2  33 10 5 41
+    *
+    *       2  33 10 5 41
+    *             --> 2  10 33 5 41
+    *             --> 2  10 5 33 41
+    *
+    *       2  10 5 33 41
+    *             --> 2 5 10 33 41
+    *
+    *       JS交换值
+    *       var a = 2;
+    *       var b = 3;
+    *       var c = b;  //c先存放b  c--> 3
+    *       b = a  //  b-->2
+            a = c  // a--> 3
+           */
+           // function  mySort(arr){
+           //     for(var i=0;i<arr.length;i++){
+           //     	  for(var j=0;j<arr.length;j++){
+           //     	  	if (arr[j]>arr[j+1]) {
+           //     	  		var temp = arr[j+1];
+           //     	  		arr[j+1] = arr[j];
+           //     	  		arr[j] = temp;
+           //     	  	}
+           //     	  }
+           //     }
+           //     return arr;
+           // }
+           // mySort([2,33,41,10,5])		//[2,5,10,33,41]
+        /*
+    *   例20： 封装函数  获取字符串中的数字，并按照数组输出
+    *   1.把所有的字母都替换成统一的字符  *  数字不变
+    * */
+
+    function returnArr(str){
+        for(var i=0;i<str.length;i++){
+            if(isNaN(str[i])){  //如果是英文字符 那就把英文字符替换成*
+              str = str.replace(str[i], '*');
+            }
+        }
+
+        var arr = str.split('*');
+        for(var i=0;i<arr.length;i++){
+            if(arr[i]){ //如果arr[i]是真
+                arr[i] = +arr[i]
+            }else{  //如果arr[i]是假
+                arr.splice(i,1);
+                i--;
+            }
+        }
+        return arr;
+
+     }
+     returnArr('shdkfh1234cxj5665sdkj2121') //[1234,5665,2121]
+	         
+	</script>
+</body>
+</html>

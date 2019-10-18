@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<input type="file" multiple>
+	<script>
+		//用base64为展示图片的缺陷
+		//解决方案把图片的数据用Blob构造函数处理一下
+		var input = document.querySelector('input');
+
+		//上传图片触发了onchange事件
+		input.onchange = function(){
+			//把数据转换成图片
+			var file = this.files[0];//获取图片的数据
+
+			var blob = new Blob([file]);//把要处理的数据放在在一个数组当中，当做Blob参数传递去(必须是以数组的形式放置数据)
+			/*
+              通过Blob函数把图片对象file  解析成blob
+            */
+
+			//把图片的数据放在在，用new 生成Blob构造函数当中 参数用一个数组里面放在数据 
+			console.log(blob)
+
+			var url = window.URL.createObjectURL(blob);
+			//通过window.URL.createObjectURL把生成好了的blob对象传递去生成一个网址
+			//这个生成的网址(字符串)就是一张图片
+			
+			/*
+              把生成的blob对象传入到  createObjectURL函数中 生成一个url
+            */
+			console.log(url)
+
+			var oImg = new Image();
+			oImg.src = url;
+			oImg.width = 200;
+
+			//等图片加载完毕添加到body当中
+			oImg.onload = function(){
+				document.body.appendChild(oImg);
+			};
+		}
+	</script>
+</body>
+</html>

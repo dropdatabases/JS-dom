@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+
+		// 第一题
+		/*
+		   JS的任务的分类
+		         同步任务  
+		            Promise的回调函数
+		         异步任务  
+		            定时器的回调函数
+		            then的回调函数
+		            ajax
+		            then的回调函数
+		            catch的回调函数
+		*/
+		// const promise = new Promise ((resolve,reject)=>{
+		// 	console.log(1)
+		// 	resolve();//resolve表示成功之后会执行下面代码他会执行完整个回调函数中的代码的
+		// 	console.log(2)
+		// 	//Promise的回调函数是同步代码
+		// })
+
+		// promise.then(()=>{//等Promise是成功状态下触发then的回调函数
+		// 	console.log(3)
+		// 	//then的回调函数是异步代码
+		// })
+
+		// console.log(4); // 1 2 4 3
+
+		// 第二题
+		// // Promise 机器只有一个状态也是最早确定的状态
+		// const promise = new Promise((resolve,reject)=>{
+		// 	//当Promise中是多个状态时那么就会先定最前面的状态，即使后面还定义的别的状态那么也不会替换
+		// 	resolve('success1');
+		// 	reject('error');
+		// 	resolve('success2')
+		// });
+
+		// promise.then((res)=>{//Promise状态是成功的触发then函数的第一个回调
+		// 	//res是接收成功状态下的机器中的信息
+		// 	console.log('then',res);//then success1
+		// }).catch((err)=>{
+		// 	console.log('catch',err)
+		// })
+
+		// 第三题
+	 /*
+     *   成功状态的promise  会自动触发then的回调函数
+     *   如果then中 不是回调函数
+     *   则会穿透到下一个then的回调函数
+         这种情况叫做Promise的穿透
+     * */
+		// Promise.resolve(1)//resolve定义了一台成功状态下的Promise 一旦成功就会自动触发then的回调函数
+		// 	.then(2)//Promise是成功状态下会触发第一个then函数,现在then里面没有回调函数是原始值是非函数，他就不会看这个then了会触发下面then的回调函数
+		// 	.then(Promise.resolve(3))//这是一台成功状态下的Promise机器不是回调函数不会触发这个then会走下一个then函数
+		// 	.then(console.log)//console是一个大的对象通过点查询log函数，console.log是一个函数现在他就是then的回调函数了，把成功状态下的信息传递给console.log函数中
+		// //console是对象 log是函数 通过console对象查询log函数
+
+
+		//题目四
+    /*
+        红灯1000ms亮一次，
+        黄灯500ms亮一次；
+        绿灯300ms亮一次，
+        如何让三个灯不断交替重复亮灯？
+    */
+
+     // function red(){
+     // 	console.log('红灯亮了')
+     // }
+
+     // function green(){
+     // 	console.log('绿灯亮了')
+     // }
+
+     // function yellow(){
+     // 	console.log('黄灯亮了')
+     // }
+
+     // function fn(callBack,time){
+     // 	return new Promise(function(res,rej){
+     // 		setTimeout(()=>{
+     // 			callBack()
+     // 			res()
+     // 		},time)
+     // 	})
+     // }
+
+     // function promiseThen(){
+     // 	fn(red,1000).then(()=>{
+     // 	   return fn(green,500)
+     //    }).then(()=>{
+     // 	   return fn(yellow,300)
+     //    }).then(promiseThen)
+     // }
+     // promiseThen()
+
+     // 第五题
+      /*
+        人为触发的事件处理函数和ajax不算 宏任务和微任务里面
+    *   异步任务的分类
+    *       宏任务  macro task
+    *           setInterval  setTimeout
+    *       微任务  micro task
+    *           then的回调
+    *           catch的回调
+    *
+    *   先执行同步
+    *   再执行微任务
+    *   等微任务执行完之后
+    *   再执行闳任务
+    *
+    * */
+     const first = () => new Promise((resolve, reject) => {
+        console.log(3);
+        let p = new Promise((resolve, reject) => {
+            console.log(7);
+            setTimeout(() => {
+                console.log(5);
+            }, 0)
+            resolve(1);
+        });
+        resolve(2);
+        p.then((arg) => {
+            console.log(arg);
+        });
+    });
+
+    first().then((arg) => {
+        console.log(arg);
+    });
+    console.log(4);
+    //3 7 4 1 2 5
+	</script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin:0;
+			padding:0;
+		}
+		canvas{
+			display: block;
+			border: 2px solid blue;
+			margin: 50px auto;
+		}
+	</style>
+</head>
+<body>
+	<canvas id="canvas" width="500" height="400"></canvas>
+	<canvas id="canvas1" width="500" height="400"></canvas>
+	<script>
+		var canvas = document.getElementById('canvas');
+		var canvas1 = document.getElementById('canvas1');
+		var cxt = canvas.getContext('2d');
+		var cxt1 = canvas1.getContext('2d');
+
+		//绘制图片
+		var oImg = new Image();
+		oImg.src = '1.png';//异步代码
+		//等图片加载完毕触发回调函数
+		oImg.onload = function(){
+			//画出图片
+
+			//当前图片是500*400个像素拼出来的一张图片
+			cxt.drawImage(this,0,0,500,400);//draw(画)
+			
+			//返回结果是一个对象 是一个图片像素数据对象
+			//获取图片数据
+			var imgaeData = cxt.getImageData(0, 0, 500, 400);
+
+
+			// 让图片以10个像素的固定颜色形式填充的图片
+			// 让第一个像素点的 r值 g值 b值 a值 到第十个像素点 的rgba值一样 以此类推
+			/*
+			  马赛克
+			  	    每十个像素点的 r g b a值都一样
+					0-10 r g a b 都一样
+					11-20 r g a b 都一样
+					21-30 r g a b 都一样
+			*/
+			var num = 40;
+			for(var i=0;i<imgaeData.data.length;i+=num){
+				/*
+				  i=0 
+				     j=1
+						data[0+4*1] = data[0]
+						data[0+1+4*1] = data[1]
+						data[0+2+4*1] = data[2]
+						data[0+3+4*1] = data[3]
+
+				  每个4个点就再次跟新下一个点的值
+				*/
+				for(var j=1;j<num/4;j++){
+					imgaeData.data[i + 4 * j] = imgaeData.data[i];
+					imgaeData.data[i + 1 + 4 * j] = imgaeData.data[i + 1];
+					imgaeData.data[i + 2 + 4 * j] = imgaeData.data[i + 2];
+					imgaeData.data[i + 3 + 4 * j] = imgaeData.data[i + 3];
+				}
+			}
+			cxt1.putImageData(imgaeData, 0, 0);
+		}
+	</script>
+</body>
+</html>

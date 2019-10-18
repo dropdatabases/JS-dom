@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;
+            padding:0
+        }
+        body{
+            display: flex;
+            justify-content: space-between;
+        }
+        div{
+            width: 150px;
+            height: 150px;
+            border :2px solid blue;
+        }
+        p{
+            height:30px;
+            background: hotpink;
+            text-align: center;
+            line-height: 30px;
+            user-select: none;  /*禁止选中文本*/
+        }
+
+    </style>
+</head>
+<body>
+    <div id="left">
+        <p id="item1" draggable="true">拖拽元素1</p>
+        <p id="item2" draggable="true">拖拽元素2</p>
+        <p id="item3" draggable="true">拖拽元素3</p>
+        <p id="item4" draggable="true">拖拽元素4</p>
+    </div>
+    <!-- 文字默认状态下是可以被拖拽的 -->
+    <div id="middle"></div>
+    <div id="right"></div>
+
+	<script>
+		//当刚开始拖拽元素的时候就把拖拽的元素给存储起来
+
+		//当天是用一个全局变量obj存储着拖拽元素
+		var obj = null;//初始是null
+		document.addEventListener('dragstart',function(e){
+			e = e || window.event;
+
+			//一按下就记录的拖拽的元素
+			obj = e.target;//一旦运动就把this存储在obj里面
+		},false);
+
+		//清除默认事件
+		document.addEventListener('dragover',function(e){
+			e = e || window.event;
+
+			//阻止掉浏览器的默认行为 让drop事件生效(这种是一套组合)
+			e.preventDefault();
+		},false);
+		
+		//当拖拽元素到目标元素抬起时
+		document.addEventListener('drop',function(e){
+			e = e || window.event;
+
+            if (e.target.nodeName==='BODY'||e.target.nodeName==='HTML') return;
+
+			//一旦鼠标在目标区域里面抬起就把obj添加到里面
+			e.target.appendChild(obj);
+		},false);
+	</script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+
+		// // 第一题
+		 
+		// const promise = new Promise ((resolve,reject)=>{
+		// 	console.log(1)
+		// 	resolve(); 
+		// 	console.log(2)
+		 
+		// })
+
+		// promise.then(()=>{
+		// 	console.log(3)
+			 
+		// })
+
+		// console.log(4);  
+
+		// 第二题
+		 
+		// const promise = new Promise((resolve,reject)=>{
+		 
+		// 	resolve('success1');
+		// 	reject('error');
+		// 	resolve('success2')
+		// });
+
+		// promise.then((res)=>{ 
+		 
+		// 	console.log('then',res); 
+		// }).catch((err)=>{
+		// 	console.log('catch',err)
+		// })
+
+		// // 第三题
+		// Promise.resolve(1) 
+		// 	.then(2) 
+		// 	.then(Promise.resolve(3)) 
+		// 	.then(console.log)
+
+
+		//题目四
+    /*
+        红灯1000ms亮一次，
+        黄灯500ms亮一次；
+        绿灯300ms亮一次，
+        如何让三个灯不断交替重复亮灯？
+    */
+
+     // function red(){
+     // 	console.log('红灯亮了')
+     // }
+
+     // function green(){
+     // 	console.log('绿灯亮了')
+     // }
+
+     // function yellow(){
+     // 	console.log('黄灯亮了')
+     // }
+
+     // function fn(callBack,time){
+     // 	return new Promise(function(res,rej){
+     // 		setTimeout(()=>{
+     // 			callBack()
+     // 			res()
+     // 		},time)
+     // 	})
+     // }
+
+     // function promiseThen(){
+     // 	fn(red,1000).then(()=>{
+     // 	   return fn(green,500)
+     //    }).then(()=>{
+     // 	   return fn(yellow,300)
+     //    }).then(promiseThen)
+     // }
+     // promiseThen()
+
+     // 第五题
+    //  const first = () => new Promise((resolve, reject) => {
+    //     console.log(3);
+    //     let p = new Promise((resolve, reject) => {
+    //         console.log(7);
+    //         setTimeout(() => {
+    //             console.log(5);
+    //         }, 0)
+    //         resolve(1);
+    //     });
+    //     resolve(2);
+    //     p.then((arg) => {
+    //         console.log(arg);
+    //     });
+    // });
+
+    // first().then((arg) => {
+    //     console.log(arg);
+    // });
+    // console.log(4);
+  
+	</script>
+</body>
+</html>
