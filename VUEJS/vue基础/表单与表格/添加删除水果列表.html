@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-model="newModel">
+        <button v-on:click="sayName">添加</button>
+        <ul>
+            <li v-for="(value,index) in arr">
+                {{value}}
+                <span v-on:click="spliceArr(index)">删除</span>
+            </li>
+        </ul>
+    </div>
+    <script src="../vue.js"></script>
+    <script>
+        new Vue({
+            el:"#app",
+            data:{
+                arr:["香蕉","苹果","西瓜","榴莲"],
+                newModel:"",
+            },
+            methods:{
+                sayName:function(){
+                    this.arr.push(this.newModel);
+                },
+                spliceArr:function(index){
+                    this.arr.splice(index,1);
+                }
+            }
+        })
+    </script>
+</body>
+</html>

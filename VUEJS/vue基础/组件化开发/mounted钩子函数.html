@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <app></app>
+    </div>
+    <script src="../vue.js"></script>
+    <script>
+        Vue.component("app",{
+            template:`
+                <div>
+                    <btn v-bind:text="btnTetx"></btn>
+                </div>
+            `,
+            mounted:function(){
+                alert("加载组件时执行mounted函数")
+            },
+            data:function(){
+                return{
+                    btnTetx:"hello mounted钩子函数",
+                }
+            }
+        });
+
+        Vue.component("btn",{
+            props:["text"],
+            template:`<h3>{{text}}</h3>`,
+        })
+        new Vue({
+            el:"#app",
+        })
+    </script>
+</body>
+</html>

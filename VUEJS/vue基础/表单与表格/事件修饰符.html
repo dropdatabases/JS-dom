@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <button v-on:click.once="sayName">点击</button>
+    </div>
+    <script src="../vue.js"></script>
+    <script>
+        /*
+        .prevent 阻止submit事件触发后重新加载页面。
+        .stop    阻止事件冒泡
+        .once    当事件触发一次后将不再触发
+        */   
+        new Vue({
+            el:"#app",
+            methods:{
+                sayName:function(){
+                    alert("点击弹出");
+                }
+            }
+        })
+    </script>
+</body>
+</html>

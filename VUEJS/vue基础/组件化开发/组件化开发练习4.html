@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <app></app>
+    </div>
+    <script src="../vue.js"></script>
+    <script>
+        var ous = new Vue();
+
+        Vue.component("app",{
+            template:`<div>
+                <A></A>    
+                <B></B>
+            </div>`,
+        })
+
+        Vue.component("A",{
+            template:`<h1>组件A{{this.txt}}</h1>`,
+            mounted:function(){
+                var self = this;
+                ous.$on("sayEmit",function(data){
+                    self.txt = data;
+                })
+            },
+            data:function(){
+                return{
+                    txt:"",
+                }
+            }
+        })
+
+        Vue.component("B",{
+            template:`<h1 v-on:click="sayName">组件B（点击我可以更改组件A的数据）</h1>`,
+            methods:{
+                sayName:function(){
+                    ous.$emit("sayEmit","（我是组件A的数据）");
+                }
+            }
+        })
+        new Vue({
+            el:"#app",
+        })
+    </script>
+</body>
+</html>

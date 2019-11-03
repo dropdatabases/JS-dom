@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <app></app>
+    </div>
+    <script src="../vue.js"></script>
+    <script>
+        Vue.component("app",{
+            template:`
+                <div>
+                    <h1>{{count}}</h1>
+                    <btn v-on:btnAddTj="sayAdd" v-on:btnRmovJs="sayRmove"></btn>
+                </div>
+            `,
+            methods:{
+                sayAdd:function(){
+                    this.count++;
+                },
+                sayRmove:function(){
+                    this.count--;
+                }
+            },
+            data:function(){
+                return{
+                    count:0,
+                }
+            }
+        })
+
+        Vue.component("btn",{
+            template:`
+                <div>
+                    <button v-on:click="btnAdd">+</button>
+                    <button v-on:click="btnRmov">-</button>
+                </div>
+            `,
+            methods:{
+                btnAdd:function(){
+                    this.$emit("btnAddTj");
+                },
+                btnRmov:function(){
+                    this.$emit("btnRmovJs");
+                }
+            }
+        })
+        new Vue({
+            el:"#app",
+        })
+    </script>
+</body>
+</html>

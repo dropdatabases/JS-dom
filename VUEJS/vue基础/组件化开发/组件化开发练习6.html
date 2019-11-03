@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <app></app>
+    </div>
+    <script src="../vue.js"></script>
+    <script>
+        var ous = new Vue();
+
+        Vue.component("app",{
+            template:`
+              <div>
+                 <titl></titl>
+                 <list></list>
+                 <fom></fom>
+              </div>`,
+        })
+
+        Vue.component("titl",{
+            template:`<h3>{{tit}}</h3>`,
+            data:function () {
+                return {
+                    tit: "水果列表",
+                }
+            }
+        })
+
+        Vue.component("list",{
+            template:`<ul>
+                         <li v-for="(value,index) in arr">
+                            {{value}}
+                            <span v-on:click="spliceArr(index)">{{dele}}</span>
+                        </li>
+                      </ul>`,
+            mounted:function(){
+                var self = this;
+                ous.$on("sayPush",function(data){
+                    if(data==="")return;
+                    self.arr.push(data);
+                })
+            },
+            methods:{
+                spliceArr:function(index){
+                    this.arr.splice(index,1);
+                }
+            },
+            data:function(){
+                return{
+                    arr: ["香蕉", "西瓜", "苹果", "荔枝"],
+                    dele:"删除",
+                }
+            }
+        })
+
+        Vue.component("fom",{
+            template:`
+                <div>
+                   <form v-on:submit.prevent="sayName">
+                       <input type="text" v-model="newModel">
+                       <input type="submit" value="添加">
+                   </form>
+                </div>`,
+            methods:{
+                sayName:function(){
+                    ous.$emit("sayPush",this.newModel);
+                },
+            },
+            data:function(){
+                return{
+                    newModel:"",
+                }
+            }
+        })
+        new Vue({
+            el:"#app",
+        })
+    </script>
+</body>
+</html>

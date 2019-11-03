@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <app></app>
+    </div>
+    <script src="../vue.js"></script>
+    <script>
+        Vue.component("app",{
+            template:`
+                <div>
+                    <btn v-bind:btnText="text" v-on:sayNameEmit="sayNameApp"></btn>
+                </div>
+            `,
+            methods:{
+                sayNameApp:function(data){
+                    alert(data)
+                }
+            },
+            data:function(){
+                return{
+                    text:"点击按钮",
+                }
+            }
+        })
+
+        Vue.component("btn",{
+            props:["btnText"],
+            template:`<button v-on:click="sayName">{{btnText}}</button>`,
+            methods:{
+                sayName:function(){
+                    this.$emit("sayNameEmit",this.str);
+                }
+            },
+            data:function(){
+                return{
+                    str:"hello props and emit",
+                }
+            }
+        })
+        new Vue({
+            el:"#app",
+        })
+    </script>
+</body>
+</html>

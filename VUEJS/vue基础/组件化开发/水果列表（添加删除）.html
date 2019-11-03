@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <app></app>
+    </div>
+    <script src="../vue.js"></script>
+    <script>
+        Vue.component("app",{
+            template:`
+                <div>
+                    <tit v-bind:message="mess"></tit>
+                    <list v-bind:arr="arrPus">
+                        <dale></dale>
+                    </list>
+                    <fom></fom>
+                </div>
+             `,
+             data:function(){
+                 return{
+                     mess:"水果列表",
+                     arrPus:["香蕉","鸭梨","苹果"],
+                 }
+             }
+        });
+        Vue.component("tit",{
+            props:["message"],
+            template:`<h3>{{message}}</h3>`
+        })
+        Vue.component("list",{
+            props:["arr"],
+            template:`<ul>
+                        <li v-for="(value,index) in arr">
+                            {{value}}
+                            <span v-on:click="spliceArr(index)">删除</span>
+                        </li>
+                      </ul>
+                      `,
+            methods:{
+                spliceArr:function(index){
+                    this.arr.splice(index,1);
+                },
+            }
+        });
+        Vue.component("fom",{
+            template:`
+                      <form v-on:click.prevent="sayName">
+                        <input type="text" v-model="newModel">
+                        <button>添加</button>
+                      </form>
+                    `,
+            data:function(){
+                return{
+                    newModel:"",
+                }
+            },
+            methods:{
+                sayName:function(){
+                    console.log(this.newModel)
+                }
+            }
+        })
+        new Vue({
+            el:"#app",
+        })
+    </script>
+</body>
+</html>

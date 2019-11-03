@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <app></app>
+    </div>
+    <script src="../vue.js"></script>
+    <script>
+        Vue.component("app",{
+            template:`<div>
+                        <tit></tit>
+                        <list></list>
+                     </div>`,
+        })
+        Vue.component("tit",{
+            template:"<h3>水果列表</h3>",
+        })
+        Vue.component("list",{
+            template:`
+                      <ul>
+                         <li>香蕉</li>
+                         <li>苹果</li>
+                         <li>鸭梨</li>
+                      </ul>
+                     `,
+        })
+        new Vue({
+            el:"#app",
+        })
+    </script>
+</body>
+</html>

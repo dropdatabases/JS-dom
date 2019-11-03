@@ -1,0 +1,149 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    user-select: none;
+}
+.title{
+    margin-left: 858px;
+    margin-top: 30px;
+    color: #0000ff;
+    font-size: 50px;
+}
+.btn{
+    width: 520px;
+    height: 73px;
+    margin-left: 700px;
+    margin-top: 65px;
+}
+.btn div{
+    float: left;
+    width: 248px;
+    height: 73px;
+    color: #606266;
+    font-size: 23px;
+    border-radius: 5px;
+    line-height: 73px;
+    text-align: center;
+    cursor: pointer;
+}
+.btn .btn_left{
+    background-color: #f0f9eb;
+    border: 1px solid #c2e7b0;
+}
+.btn .btn_right{
+    margin-left: 18px;
+    background-color: #fdf6ec;
+    border: 1px solid #f5dab1;
+}
+.clear::after{
+    content: "";
+    display: block;
+    clear: both;
+    visibility: hidden;
+    height: 0;
+}
+.addition{
+    width: 88px;
+    height: 49px;
+    margin-top: 40px;
+    background-color: #409eff;
+    color: #fff9ff;
+    font-size: 17px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+.table{
+    width: 45%;
+    padding-left: 14px;
+}
+.trTitle{
+    height: 58px;
+}
+.table th{
+    width: 285px;
+    color: #9e9399;
+    font-size: 17px;
+    text-align: left;
+}
+.imglog{
+    width: 18px;
+    height: 16px;
+}
+.tr{
+    width: 578%;
+    height: 68px;
+}
+.tr td:nth-child(1){
+    width: 258px;
+}
+.tr td:nth-child(2){
+    width: 200px;
+}
+.tr img{
+    position: relative;
+    top: 2px;
+}
+.tr span{
+    margin-left: 10px;
+    line-height: 68px;
+    color: #786266;
+}
+.grade{
+    overflow: hidden;
+    width: 102px;
+    height: 35px;
+    font-size: 13px;
+    text-align: center;
+    line-height: 35px;
+    background-color: #ecf5ff;
+    color: #409eff;
+    border-radius: 5px;
+    cursor: default;
+}
+.tdBtn button{
+    width: 70px;
+    height: 34px;
+    font-size: 13px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.tdBtn .tdBtn_left{
+    background-color: #ffffff;
+    border: 1px #dcdfe6 solid;
+    color: #606266;
+}
+.tdBtn .tdBtn_right{
+    background-color: #f56c6c;
+    border: none;
+    color: #fff;
+    margin-left: 15px;
+}
+.nameTable{
+    width: 116%;
+    padding-left: 14px;
+}
+.nameTable th{
+    width: 189px;
+    color: #9e9399;
+    font-size: 17px;
+    text-align: left;
+}
+.trName{
+    height: 68px;
+}
+.trName td span{
+    margin-left: 10px;
+    line-height: 68px;
+    color: #786266;
+}
+.name{
+    position: absolute;
+    top: 236px;
+}
+.on{
+    color:#6e7274;
+    font-size: 17px;
+}

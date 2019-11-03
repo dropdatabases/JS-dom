@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <app></app>
+    </div>
+    <script src="../vue.js"></script>
+    <script>
+        var ous = new Vue();
+
+        Vue.component("app",{
+            template:`
+            <div>
+                <h2>{{count}}</h2>
+                <btnLn v-bind:btnL="btnL"></btnLn>
+                <btnRn v-bind:btnR="btnR"></btnRn>
+            </div>`,
+            mounted:function(){
+                var self = this;
+                ous.$on("sayLeftBtn",function(){
+                    self.count++;
+                });
+                ous.$on("sayRightBtn",function(){
+                    self.count--;
+                })
+            },
+            data:function(){
+                return{
+                    count:0,
+                    btnL:"+",
+                    btnR:"-",
+                }
+            }
+        })
+
+        Vue.component("btnLn",{
+            props:["btnL"],
+            template:`<button v-on:click="sayLeft">{{btnL}}</button>`,
+            methods:{
+                sayLeft:function(){
+                    ous.$emit("sayLeftBtn");
+                },
+            }
+        })
+
+        Vue.component("btnRn",{
+            props:["btnR"],
+            template:`<button v-on:click="satRight">{{btnR}}</button>`,
+            methods:{
+                satRight:function(){
+                    ous.$emit("sayRightBtn");
+                }
+            }
+        })
+        new Vue({
+            el:"#app",
+        })
+    </script>
+</body>
+</html>
