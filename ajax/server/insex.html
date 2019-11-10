@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <button>获取数据</button>
+    <script>
+        //xhr实现数据请求
+        document.querySelector("button").onclick = function(){
+            var xhr = new XMLHttpRequest();
+            xhr.open("get","http://jsonplaceholder.typicode.com/posts");
+            xhr.send();
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState === 4 && xhr.status === 200){
+                    document.write(xhr.responseText)
+                }
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 编程式导航 -->
+    <div id="app">
+        <button @click="goHome">首页</button>
+        <button @click="goUser">用户中心</button>
+        <button @click="goBack">返回上一页</button>
+        <router-view></router-view>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <script>
+        //局部注册组件
+        let home = {
+            template:'<div>首页</div>',
+        }
+        let user = {
+            template:'<div>用户中心</div>',
+        }
+
+        //注册路由和组件映射表
+        let routes = [
+            {path:'/home',name:'homelink',component:home},
+            {path:'/user/b',name:'userlink',component:user},
+            //redirect 重定向
+            {path:'*',redirect:'/home'},
+        ];
+
+        //实例化路由对象
+        let router = new VueRouter({
+            routes,
+        })
+
+        let vm = new Vue({
+            el:"#app",
+            router,
+            methods:{
+                goHome(){
+                    //通过JS代码实现跳转
+
+                    //this.$router里面有许多的方法
+                    //this.$router.push(路径)表示跳转到当前路径的路由上面
+                    this.$router.push({
+                        //点击按钮跳转到首页并且传递一些数据
+                        path:'/home',
+                        query:{a:1},
+                    });
+                },
+                goBack(){
+                    //this.$router.back()表示返回上一次跳转路由的页面
+                    // this.$router.back();
+                    this.$router.go(-1);//表示往回跳转一张页面
+                },
+                goUser(){
+                    this.$router.push({
+                        //必须通过name方式来实现
+                        name:'userlink',
+                        params:{
+                            //路由表中的path:'/user/值必须会属性名一致
+                            b:2,
+                        }
+                    });
+                }
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <button>点击按钮获取数据</button>
+    <script>
+        function myajax(method,url,next){
+            return new Promise(function(resolve){
+                var xhr = new XMLHttpRequest();
+                xhr.open(method,url);
+                xhr.send();//可以向后台传输数据
+                xhr.onreadystatechange = function (){
+                    if(xhr.readyState === 4 && xhr.status === 200){
+                        resolve(xhr.responseText);
+                    }
+                }
+            })
+        }
+
+        //使用封装的ajax
+        document.querySelector("button").onclick = function(){
+            var p = myajax("get","http://jsonplaceholder.typicode.com/posts");
+            p.then(function(data){
+                //then方法提供一个供自定义的回调函数，若传入非函数，则会忽略当前then方法。
+                //回调函数中会把上一个then中返回的值当做参数值供当前then方法调用。
+                //then方法执行完毕后需要返回一个新的值给下一个then调用（没有返回值默认使用undefined）。
+                //每个then只可能使用前一个then的返回值。
+                 console.log(data);
+            })
+        }
+    </script>
+</body>
+</html>

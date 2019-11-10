@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app"></div>
+    <script src="vue.js"></script>
+    <!-- 引入axios -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        new Vue({
+            el:"#app",
+            created(){
+                axios.get("http://jsonplaceholder.typicode.com/posts").then(function(res){
+                    /*
+                       {
+                            data:{},
+                            status:200,
+                            //从服务器返回的http状态文本
+                            statusText:'OK',
+                            //响应头信息
+                            headers: {},
+                            //`config`是在请求的时候的一些配置信息
+                            config: {}
+                       }
+                    */
+                    //返回的数据
+                    console.log(res)
+                    console.log(res.data)//请求的数据
+                    console.log(res.status)//输出请求状态
+                    console.log(res.statusText)//从服务器返回的http状态文本
+                    console.log(res.headers) //响应头信息
+                    console.log(res.config)//`config`是在请求的时候的一些配置信息
+                })
+            }
+        })
+    </script>
+</body>
+</html>

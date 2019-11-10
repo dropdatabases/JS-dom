@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0
+        }
+
+        #app {
+            position: relative;
+            width: 800px;
+            height: 500px;
+            border: solid;
+            margin: 50px auto;
+        }
+
+        #app .navlist {
+            overflow: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            line-height: 40px;
+            height: 40px;
+            text-align: center;
+        }
+
+        #app .navlist a {
+            float: left;
+            width: 20%;
+
+            box-shadow: 0 0 10px 0 blue inset;
+
+        }
+
+        #app .about {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 60px;
+            width: 100%;
+            margin: auto;
+            height: 440px;
+            box-shadow: 0 0 10px 0 blue inset
+        }
+
+        #app .about ul {
+            float: left;
+        }
+
+        #app .about li {
+            list-style-type: none;
+            width: 162px;
+            height: 40px;
+            margin: 20px 0;
+            box-shadow: 0 0 10px 0 blue inset;
+        }
+
+        #app .about .heaven {
+            float: right;
+            width: 500px;
+            height: 400px;
+            box-shadow: 0 0 10px 0 blue inset
+        }
+
+        .active{
+            background-color:rgba(0,0,0,.5)
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <!-- event选项默认是当点击的时候就可以跳转 event="事件类型" -->
+    <router-link :to="{path:'/home'}" event="mouseenter">首页</router-link>
+    <router-link :to="{path:'/user'}" event="mouseenter">用户中心</router-link>
+    <!-- exact精确匹配添加子元素的类名 (有子路由和父路由的嵌套关系) -->
+    <router-link :to="{path:'/about'}" event="mouseenter" exact>关于我们</router-link>
+    <router-link :to="{path:'/login'}" event="mouseenter">登陆</router-link>
+    <router-link :to="{path:'/register'}" event="mouseenter">注册</router-link>
+
+    <router-view></router-view>
+</div>
+
+<template id="about">
+    <div class="about">
+        <ul>
+            <li>
+                <router-link to="/about/concat">联系我们</router-link>
+            </li>
+            <li>
+                <router-link to="/about/partner">合作伙伴</router-link>
+            </li>
+            <li>
+                <router-link to="/about/address1">公司地址</router-link>
+            </li>
+        </ul>
+        <router-view class="heaven"></router-view>
+    </div>
+</template>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+<script>
+    // vur-router做的是单页面要用(切换组件) single page application SPA
+
+    //局部定义组件
+    let  home = {
+        template:'<div>首页</div>',
+        created(){
+            document.title = this.$route.meta.title;
+        }
+    }
+    let user = {
+        template:'<div>用户中心</div>',
+        created(){
+            document.title = this.$route.meta.title;
+        }
+    }
+    let about = {
+        template:'#about',
+        created(){
+            document.title = this.$route.meta.title;
+        }
+    }
+    let login = {
+        template:'<div>登陆</div>',
+        created(){
+            document.title = this.$route.meta.title;
+        }
+    }
+    let register = {
+        template:'<div>注册</div>',
+        created(){
+            document.title = this.$route.meta.title;
+        }
+    }
+    let concat = {
+        template:'<div>advaadv5141504vav</div>',
+        created(){
+            document.title = this.$route.meta.title;
+        }
+    }
+    let partner = {
+        template:'<div>阿里云大学</div>',
+        created(){
+            document.title = this.$route.meta.title;
+        }
+    }
+    let address1 = {
+        template:'<div>湖南省长沙市XXX区</div>',
+        created(){
+            document.title = this.$route.meta.title;
+        }
+    }
+
+    /*
+        一级路由是可以写/home的
+        二级路由是不可以写/home而是 home
+    */
+    //设置路由和组件的映射表
+    let routes = [
+        {
+            path:'/home',
+            component:home,
+            meta:{//属性存储了组件的元信息
+                title:'首页',
+            }
+        },
+        {
+            path:'/user',
+            component:user,
+            meta:{
+                title:'用户中心',
+            }
+        },
+        {
+            path:'/about',
+            component:about,
+            meta:{
+                title:"关于我们",
+            },
+            children:[//children这个选项是可以配置子路由的
+                {
+                    path:'concat',
+                    component:concat,
+                    meta:{
+                        title:"关于我们-联系我们"
+                    }
+                },
+                {
+                    path:'partner',
+                    component:partner,
+                    meta:{
+                        title:"关于我们-合作伙伴"
+                    }
+                },
+                {
+                    path:'address1',
+                    component:address1,
+                    meta:{
+                        title:"关于我们-公司地址"
+                    }
+                },
+            ]
+        },
+        {
+            path:'/login',
+            component:login,
+            meta:{
+                title:"登陆"
+            }
+        },
+        {
+            path:'/register',
+            component:register,
+            meta:{
+                title:"注册",
+            }
+        },
+    ];
+
+    /*
+        点击用router-link生成的标签会出现两个类名
+            router-link-exact-active 确切的激活了
+            router-link-active 激活了
+    */
+
+    //实例化路由对象 并且把映射表注册到路由对象上面
+    let router = new VueRouter({
+        routes:routes,
+        //自定义精确匹配类名
+        linkExactActiveClass:'active'
+    })
+
+    let vm = new Vue({
+        el:"#app",
+        //把路由对象注册到根实例上面
+        router,
+    })
+</script>
+</body>
+</html>

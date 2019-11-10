@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app"></div>
+    <script src="vue.js"></script>
+    <!-- 引入axios -->
+    <script src="https://cdn.bootcss.com/qs/6.7.0/qs.min.js"></script>
+    <!-- 引入Qs方便post请求传递数据 -->
+    <script src="https://cdn.bootcss.com/axios/0.18.0/axios.min.js"></script>
+    <script>
+        new Vue({
+            el:"#app",
+            created(){
+                let data =  Qs.stringify({a:1,b:2});
+                axios.post("http://jsonplaceholder.typicode.com/posts",data)
+                    .then(function(response){
+                        //请求成功
+                        console.log(response.data)
+                    }).catch(function(error){
+                        //请求失败
+                        alert("请求失败");
+                    })
+
+                //多个请求同时发送
+                function axiosOne(){
+                    return axios.get("http://jsonplaceholder.typicode.com/posts");
+                };
+                function axiosTwo(){
+                    return axios.get("http://jsonplaceholder.typicode.com/comments");
+                };
+                // 如果我们需用在两个接口同时完成后，然后在执行一些逻辑,我们可以使用axios.all处理并发请求
+                axios.all([axiosOne(),axiosTwo()])
+                     // 让后在then的第一个参数调用axios.spread方法并且内部的第一个参数是一个个请求数据...
+                     .then(axios.spread(function(acct,perms){
+                         console.log(acct.data);//请求第一个的结果
+                         console.log(perms.data);//请求第二个的结果
+                     }))
+
+            }
+        })
+    </script>
+</body>
+</html>

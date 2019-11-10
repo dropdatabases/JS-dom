@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 编程式导航 -->
+    <div id="app">
+        <router-link :to="{name:'articlelink',params:{page:1}}">第一篇文字</router-link>
+        <router-link :to="{name:'articlelink',params:{page:2}}">第二篇文字</router-link>
+        <router-link :to="{name:'articlelink',params:{page:3}}">第三篇文字</router-link>
+        <router-view :key="Math.random()"></router-view>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <script>
+        //局部注册组件
+        let article = {
+            template: '<div>第{{$route.params.page}}篇文字</div>',
+            //解决方案二在router-view内部添加标记 :key='随机数'(Math.random)
+            //就能让这个组件是不同的 然后就可以无限触发created
+            created(){
+                alert(`获取第${this.$route.params.page}的数据`);
+            },
+
+            //解决方案一
+            // //用watch对象观察 $route这个方法内部的值的变化
+            // watch:{
+            //     $route(){
+            //          alert(`获取第${this.$route.params.page}的数据`);
+            //     }
+            // }
+        }
+
+        //注册路由和组件映射表
+        let routes = [
+            {path:'/article/:page',name:"articlelink",component:article},
+        ];
+
+        //实例化路由对象
+        let router = new VueRouter({
+            routes,
+        })
+
+        let vm = new Vue({
+            el: "#app",
+            router,
+        })
+    </script>
+</body>
+
+</html>

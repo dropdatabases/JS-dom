@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- :to="{path:'./home/1'}" 
+             可以匹配path:'/home/:id'
+             这个动态的路由
+
+             path:'/home/任何的数据都可以匹配这个路由
+             :to="{path:'./home/任何数据都匹配这个路由'}"
+         -->
+         <!-- path是不可以的name是可以发送动态路由的 -->
+        <router-link :to="{name:'homelink',params:{id:1}}" tag="button">首页</router-link>
+        <router-view></router-view>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <script>
+        //局部注册组件
+        let home = {
+            template:'<div>首页</div>',
+            created(){
+                console.log(this.$route.query)
+            }
+        }
+
+        //配置路由和组件的映射表
+        let routes = [
+            //id表示一个变量名字
+            {path:'/home/:id',name:"homelink",component:home},
+        ]
+
+        //实例化路由对象
+        let router = new VueRouter({
+            routes,
+        })
+
+        let vm = new Vue({
+            el:"#app",
+            //把路由对象注册到Vue实例上面
+            router,
+        })
+    </script>
+</body>
+</html>

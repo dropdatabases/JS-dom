@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- 
+            当输入/home他会从你的路由和组件的映射表中
+            就去激活当前path:"/home"这个路由
+            然后就会查找到component:home这个组件
+            查找到home这个组件就会渲染这个组件，
+            渲染的位置是router-view这个标签内
+            router-view和router-link是Vue路由提供的全局组件
+         -->
+         <!--
+             router-link渲染出来是a标签
+             router-view渲染出来是div标签
+
+             router-link组件的属性(必传属性)
+             to属性表示传递的路径(必须)改变组件在页面中的种类
+             tag属性表示渲染出来的标签种类(形式)如p button 指定跳转的地址
+             
+             to属性
+                第一种to="/home"
+                第二种:to="{path:'/user'} 动态绑定属性的形式(如果是对象)
+                第三种:to="{name:'homelink'}"绑定对应的路由的名字
+                可以跳转到path值和name值对应的路由属性
+
+                query:{a:1}表示通过查询字符串的方式传递数据
+        -->
+        <!-- 声明式导航 -->
+        <router-link :to="{name:'homelink',query:{a:1}}" tag="button">首页</router-link>
+        <router-link :to="{name:'userlink'}" tag="button">用户中心</router-link>
+        <router-view></router-view>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <script>
+        //局部注册组件
+        let home = {
+            template:'<div>首页</div>',
+            created(){
+                console.log(this.$route.query)
+            }
+        }
+        let user = {
+            template:'<div>用户中心<div>'
+        }
+
+        /*
+          注册路由的步骤
+            1.先要设置一个路由和组件的映射表
+               path(路径)是必须的 component(组件)是必须的
+            2.实例化一个路由对象
+               然后要把路由和组件的映射表注册到路由对象上面
+            3.还要把路由对象注册到Vue的实例上面
+        */
+
+        /*
+          path属性(必须)表示路由的地址
+          name属性 表示路由的名字
+          component属性(必须)表示激活该路由
+        */
+        let routes = [
+            {path:'/home',name:"homelink",component:home},
+            {path:'/user',name:"userlink",component:user},
+            //redirect 重定向
+            {path:'*',redirect:'/home'},//可以理解是设置默认值
+            //*表示所有 当你的路由是跟路由那么就*从新定向(redirect)'/home'这个路由
+        ]; //路由和组件的映射表
+
+        //实例化路由对象
+        let router = new VueRouter({
+            //routes选项(必须) 值是定义好的路由组件映射表
+            routes,
+        })
+
+        let vm = new Vue({
+            el:"#app",
+            //把路由对象注册到跟实例上面
+            router,//往根实例上面注册路由
+        })
+    </script>
+</body>
+</html>

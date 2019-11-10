@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <button>点击按钮获取数据</button>
+    <script>
+        //封装一个myajax的ajax方法 结果返回的是一个promise对象
+        function myajax(method,url,next){
+            return new Promise(function(res,rej){
+                let xhr = new XMLHttpRequest();
+                xhr.open(method,url);
+                xhr.send();
+                xhr.onreadystatechange = function(){
+                    if(xhr.readyState === 4 && xhr.status === 200){
+                       res(xhr.responseText);
+                    }
+                }
+            })
+        }
+
+        //点击按钮触发获取函数调研myajax方法获取数据 返回是一个promise对象触发then函数并且打印数据
+        document.querySelector("button").onclick = function(){
+            async function myAj(){
+                let p = myajax("get","http://jsonplaceholder.typicode.com/posts");
+                await p.then(function(data){
+                    console.log(data)
+                });
+            };
+            myAj();
+        };
+    </script>
+</body>
+</html>
