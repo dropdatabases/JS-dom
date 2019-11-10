@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        #big{
+            position:absolute;
+            left:30px;
+            top:50px;
+            /*margin-left:50px;*/
+            /*margin-top:20px;*/
+            /*padding-top:10px;*/
+            width:100px;
+            height:100px;
+            background-color: pink;
+            overflow:scroll;
+        }
+        #middle{
+            /*position:absolute;*/
+            /*left:30px;*/
+            /*top:30px;*/
+            /*margin-top:20px;*/
+            width:200px;
+            height:200px;
+            /*border-top:10px solid red;*/
+            /*border-left:30px solid red;*/
+            background-color: green;
+        }
+    </style>
+</head>
+<body>
+<div id="big">
+
+    <div id="middle">我是海文我是海文我是海文我是海文
+        我是海文我是海文我是海文我是海文
+        我是海文我是海文我是海文我是海文</div>
+</div>
+<script>
+    /*
+      获取元素的位置   只能读取不能设置
+
+        dom.offsetParent      获取dom的定位父级
+
+        dom.offsetLeft  获取dom到定位父级的水平距离
+        dom.offsetTop  获取dom到定位父级的竖直距离
+
+        dom.clientLeft  获取dom左边框的宽度
+        dom.clientTop   获取dom上边框的宽度
+
+
+        dom.scrollLeft   获取dom里面的内容的水平滚动距离
+        dom.scrollTop   获取dom里面的内容的竖直滚动距离
+    * */
+    var oBig = document.getElementById('big');
+    var oMiddle = document.getElementById('middle');
+
+
+    oMiddle.offsetTop = '100px';
+    //console.log(oMiddle.offsetTop);
+    // console.log(oMiddle.clientTop);
+
+
+    /*获取元素相对于文档的坐标  返回一个对象 {x:水平距离,y:竖直距离}*/
+    function getElementPosition(dom){
+        if(dom.offsetParent===document.body){
+            return {
+                x:dom.offsetLeft,
+                y:dom.offsetTop
+            }
+        }else{
+            return {
+                x:dom.offsetLeft+getElementPosition(dom.offsetParent).x,
+                y:dom.offsetTop+getElementPosition(dom.offsetParent).y
+            }
+        }
+        /*
+        *       oMiddle.offsetParent === document.body
+        *
+        *       {
+                    x:oMiddle.offsetLeft+getElementPosition(oBig).x,
+                    y:oMiddle.offsetTop+getElementPosition(oBig).y
+                }
+
+                oBig.offsetParent === document.body
+
+                {
+                    x:oBig.offsetLeft,
+                    y:oBig.offsetTop
+                }
+        *
+        * */
+    }
+
+   // console.log(getElementPosition(oMiddle));;
+
+</script>
+</body>
+</html>

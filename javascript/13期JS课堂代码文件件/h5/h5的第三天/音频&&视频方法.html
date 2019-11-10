@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<video src="video/1.mp4"
+         width="500"
+         controls
+	></video>
+	<button id="btn01">play</button>
+	<button id="btn02">pause</button>
+	<button id="btn03">load</button>
+	<script> 
+		// H5这套规范有提供了许多的API来操控音频视频
+
+		// 在别的浏览器上面的视频/音频控件都是不一样的(不统一)
+
+		// 我们是有必要，统一在不同浏览器上面的控件样式
+
+		var video = document.querySelector('video');
+
+		//视频/音频上面的方法
+		/*
+		    play    让视频播放
+		    pause   让视频暂停
+		    load    重载视频
+		*/
+
+		//点击btn01按钮让视频播放
+		btn01.onclick = function(){
+			video.play();//play让视频播放
+		}
+
+		//点击btn02按钮让视频暂停
+		btn02.onclick = function(){
+			video.pause();//pause让视频暂停
+		}
+
+		//点击btn03按钮让视频从新加载
+		btn03.onclick = function(){
+			video.load();//load重载视频
+		}
+
+		//视频/音频上面的属性
+		/*
+		    duration        获取视频的周期
+		    currentTime     获取/设置视频的播放时间
+		    playbackRate    获取/设置视频的播放速度
+		    volume          获取视频/音频播放的当前音
+		    ended		    当前视频/音频是否播放完成
+		*/
+
+		//duration表示当前这个视频播放时间有多长(以秒为单位)
+		console.log(video.duration)//获取视频的周期 当前的分数换算成秒 = 当前视频的周期
+
+		//video.currentTime表示获取这个视频当前播放的时间(以秒为单位)
+		console.log(video.currentTime);//查询当时视频的播放时间
+		video.currentTime = 200;//设置当前视频播放的时间(先让这个视频播放过)
+
+		//playbackRate表示设置视频的播放速度(默认情况下视频是1秒钟播放一次)
+		console.log(video.playbackRate)//查询当前播放的速度
+		video.playbackRate = 10;//设置当前的播放速度
+
+		// volume表示设置当前视频的音量的播放速度(默认情况下是1表示当前音量是100%)
+		console.log(video.volume);//获取当前视频的音量
+		video.volume = 0.1;//设置当前视频的音量
+		// 0.1表示中音量的10%
+
+		//ended表示当前视频是否播放完毕
+		console.log(video.ended)//true表示播放完毕 false表示没有播放完毕
+	</script>
+</body>
+</html>

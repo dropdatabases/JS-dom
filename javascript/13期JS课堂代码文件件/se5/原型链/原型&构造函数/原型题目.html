@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+
+    /*第一题*/
+    // function Person(){
+    //     /*
+    //     *   {
+    //     *       __proto__:Person.prototype,
+    //     *   }
+    //     * */
+    // }
+    //
+    // /*
+    // *   Person.prototype:{
+    // *       name:'oldsix'
+    // *   }
+    // * */
+    //Person.prototype.name = 'heaven';
+    // var person1 = new Person();
+    //Person.prototype.name = 'oldsix';
+    // console.log(person1.name);
+
+    /*第二题*/
+
+    // function Person(){
+    //     /*
+    //     *   {
+    //     *       __proto__:Person.prototype  (1)
+    //     *   }
+    //     * */
+    // }
+    //
+    // /*
+    // *   Person.prototype={  (1)
+    // *       name:'heaven'
+    // *   }
+    // *
+    // *    Person.prototype={  (2)
+    // *       name:'oldsix'
+    // *   }
+    // * */
+    // Person.prototype.name = 'heaven';
+    // var person1 = new Person();
+    // Person.prototype = {
+    //     name:'oldsix'
+    // }
+    // console.log(person1.name);
+
+    /*第三题*/
+    function Person(){
+        /*
+        *   {
+        *       __proto__:Person.prototype(2)
+        *   }
+        * */
+
+    }
+
+    /*
+    *   Person.prototype={ (1)
+    *       name:'heaven'
+    *   }
+    *
+    *   Person.prototype={ (2)
+    *       name:'oldsix'
+    *   }
+    *
+    * */
+    // Person.prototype.name = 'heaven';
+    // Person.prototype = {
+    //     name:'oldsix'
+    // }
+    //
+    // var person1 = new Person();
+    //
+    // console.log(person1.name);
+
+    /*第四题*/
+
+    // function Person(){
+    //     /*  __proto__这个属性记录person1的原始模型
+    //     *   this:{
+    //     *       __proto__:Person.prototype(1)
+    //     *   }
+    //     *
+    //     *   return this
+    //     * */
+    // }
+    // /*
+    // *  Person.prototype = {   (1)给原始模型设置name属性
+    // *       name:'heaven'  -->  '小明'
+    // *  }
+    // *
+    // *  Person.prototype = {   (2)
+    // *       name:'oldsix'
+    // *  }
+    // * */
+    // Person.prototype.name = 'heaven';
+    // var person1 = new Person();
+    // Person.prototype = {
+    //     name:'oldsix'
+    // }
+    // person1.__proto__.name = '小明';
+    // console.log(Person.prototype.name);
+
+
+    /*第五题*/
+    // function Person(){
+    //     /*  __proto__这个属性记录person1的原始模型
+    //     *   this:{
+    //     *       __proto__:Person.prototype(1)
+    //     *   }
+    //     *
+    //     *   return this
+    //     * */
+    // }
+    // /*
+    // *  Person.prototype = {   (1)
+    // *      name:'oldsix'  --> 'heaven'  -->'小明'
+    // *  }
+    // *
+    // * */
+    // Person.prototype = {
+    //     name:'oldsix'
+    // }
+    // var person1 = new Person();
+    // Person.prototype.name = 'heaven';
+    // person1.__proto__.name = '小明';
+    // console.log(Person.prototype.name);
+
+
+    // function Person(){
+    //     /*
+    //     *   {   人为打乱__proto__的指向
+    //     *       __proto__:Person.prototype(1)
+    //     *       __proto__:{     (2)
+    //                 name:'我把你的指向搞乱了'
+    //             }
+    //     *
+    //     *   }
+    //     *
+    //     *
+    //     * */
+    // }
+    // Person.prototype = {
+    //     name:'oldsix'
+    // }
+    //
+    //
+    // var person1 = new Person()
+    //
+    // person1.__proto__ = {
+    //     name:'我把你的指向搞乱了'
+    // }
+    // console.log(person1.name)
+
+    /*第六题*/
+    // function Person(){
+    //     /*
+    //     *   this:{
+    //     *       __proto__:Person.prototype(1)
+    //     *   }
+    //     *
+    //     *
+    //     *   return this
+    //     * */
+    // }
+    //
+    // /*
+    // *    Person.prototype = {(1)
+    // *       name:'heaven' -->'xiaoming'
+    // *    }
+    // *
+    // * */
+    // Person.prototype.name = 'heaven';
+    // var person1 = new Person();
+    // person1.__proto__.name = 'xiaoming';
+    // console.log(Person.prototype.name);
+
+    /*第七题*/
+    function Person(){
+        /*
+        *   this:{
+        *       __proto__:Person.prototype(1)
+        *       __proto__: {            (3)
+                    name:'xiaoming'
+                }
+        *   }
+        *   return this
+        * */
+    }
+
+    /*
+    *    Person.prototype = {  (1)
+    *       name:'heaven'
+    *    }
+    *
+    *    Person.prototype = {  (2)
+    *       name:'oldsix'
+    *    }
+    * */
+    Person.prototype.name = 'heaven';
+    var person1 = new Person();
+    Person.prototype = {
+         name:'oldsix'
+    }
+    person1.__proto__ = {
+        name:'xiaoming'
+    }
+
+    console.log(person1.name);
+
+</script>
+</body>
+</html>

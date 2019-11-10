@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;
+            padding: 0;
+        }
+
+        canvas{
+            display: block;
+            border:2px solid blue;
+            margin:50px auto;
+        }
+    </style>
+</head>
+<body>
+    <canvas width="500" height="400" id="canvas"></canvas>
+    <!-- 不可以直接在canvas标签里面写文字和标签 -->
+    <script>
+    	/*
+    	 cxt.fillText(文字,绘制文字的x位置,绘制文字的y位置)绘制实心文字
+    	*/
+    	//获取画布
+    	var canvas = document.getElementById('canvas');
+    	//获取画笔
+    	var cxt = canvas.getContext('2d');
+
+    	//画笔.font = '设置字体大小 和 字体的系列'
+    	cxt.font = '20px 微软雅黑';
+
+    	//设置文字和绘制文字的x水平位置的对齐方式
+    	// cxt.textAlign = 'center';//居中对齐 常用 
+    	// cxt.textAlign = 'left';//左对齐 默认
+    	// cxt.textAlign = 'right';//右对齐 
+
+    	//设置文字和绘制文字的y位置的对齐方式
+        // cxt.textBaseline = 'bottom'
+            //  文字的最低部和绘制文字的y位置对齐
+        // cxt.textBaseline = 'middle'   常用
+            //  文字的最中间和绘制文字的y位置对齐
+        // cxt.textBaseline = 'top'
+            //  文字的最顶间和绘制文字的y位置对齐
+        // cxt.textBaseline = 'hanging'
+            //  文字的最顶间和绘制文字的y位置对齐
+
+        //设置文字阴影的水平偏移量
+        cxt.shadowOffsetX = 10
+
+        //设置文字阴影的竖直偏移量
+        cxt.shadowOffsetY = 10
+
+        //设置文字阴影的颜色
+        cxt.shadowColor = 'rgba(255,0,0,0.5)'
+
+        //设置文字阴影的模糊程度
+        cxt.shadowBlur = 0.8;
+
+    	//画笔.fillText(要绘制的文字,距离画布的水平位置,距离画布的竖直位置)
+    	cxt.fillText('花生',250,30);//表示让这个画笔写实心的文字
+    </script>
+</body>
+</html>

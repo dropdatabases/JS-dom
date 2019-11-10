@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin:0;
+			padding:0;
+		}
+		canvas{
+			display: block;
+			margin: 50px auto;
+			border: 2px  blue solid;
+		}
+	</style>
+</head>
+<body>
+	<!-- canvas表示画布的意思(在画布中可以化你任意想化的画) -->
+	<!-- canvas标签默认是行元素(display:inline) -->
+	<!-- canvas标签默认就有高度和宽度的样式
+		 canvas标签可以支持所有的CSS样式
+	 -->
+	 <!-- 那为什么一个display:inline行元素他可以支持宽高呢 
+	 因为canvas是一个替换元素他就可以支持宽高(行内元素可以设置宽高叫做替换元素)
+	 -->
+	<canvas width="500" height="400" id="canvas"></canvas>
+
+	<script>
+		//获取画布
+		var canvas = document.getElementById('canvas');
+
+		//获取画笔
+		// canvas.getContext('2d');//最常用的是2d画笔
+		//画布.getContext('2d') 就可以获取到画笔了 当前这个画笔是2d画笔
+		// canvas.getContext('webgl');获取3d画笔但是兼容性不是很好(不常用)一般是做不出来的
+		var cxt = canvas.getContext('2d');
+		
+		//有两种方式在页面当中绘制长方形
+		/*
+		  第一种方式
+		  定义图形的轨迹
+		  cxt.rect(x,y,w,h)
+
+
+		  cxt.stroke()绘制空心图形
+		  cxt.fill()绘制实心图形
+
+		  第二种方式
+		  绘制实心长方形
+		  cxt.fillRect(x,y,w,h)  
+
+		  绘制空心长方形
+		  cxt.strokeRect(x,y,w,h)  
+		*/
+
+		//第一种方式
+
+		//画笔上面有rest这个方法
+		//定义长方形的轨迹
+		// cxt.rect(10,20,100,150);
+		//cxt.rect(距离画布左上角的距离,距离画布右上角的距离,绘制图形的宽度,绘制图形的高度)
+
+		/*
+		  点前cxt.rect表示
+		  表示你要在距离画布水平方向10像素竖直方向20像素这个点开始绘制长方形，绘制长方形的大小是宽度为100高度为150的一个长方形
+
+		  cxt.rect(10,20,100,150)这个函数是用来绘制一个在x,y这个点开始绘制指定宽度和高度的长方形(绘制一个轨迹)
+		*/
+		//绘制图形
+		// cxt.stroke();//绘制空心的长方形
+
+		// cxt.fill();//获取实心长方形图形
+		//fill表示充满的意思
+
+
+
+		//第二种方式
+
+		//绘制实心长方形
+		// cxt.fillRect(10,20,100,150);
+		//表示file(填充) Rect(矩形) 通过画笔用fillRect绘制一个充满的实心的长方形
+		// cxt.fillRect(距离画笔左上角的距离,距离画布右上角的距离,绘制图形的宽度,绘制图形的高度)
+
+		cxt.strokeStyle = 'pink'
+		//绘制空心长方形
+		cxt.strokeRect(10,20,100,150);
+		//表示stroke(空心) Rect(矩形)通过画笔用strokeRect绘制一个空心的长方形
+		// cxt.strokeRect(距离画笔左上角的距离,距离画布右上角的距离,绘制图形的宽度,绘制图形的高度)
+	</script>
+</body>
+</html>

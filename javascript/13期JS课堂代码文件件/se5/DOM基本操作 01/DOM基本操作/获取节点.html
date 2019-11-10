@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>heaven</title>
+    <style>
+        #box{
+
+        }
+        .box{
+
+        }
+        div{
+
+        }
+
+        .box ul li{
+
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+    </ul>
+    <input type="radio" name="sex" value="男">男
+    <input type="radio" name="sex" value="女">女
+</div>
+
+<div>我是海文</div>
+<script>
+    /*
+    *   获取元素
+    *       document.getElementById  通过id名字获取节点
+    *
+    *       document.getElementsByClassName
+    *           通过class名字获取节点  获取的是一个数组
+    *
+    *       document.getElementsByTagName
+    *           通过标签名字获取节点   获取的是一个数组
+    *
+    *       document.querySelectorAll
+    *           通过复合选择器获取节点  获取的是一个数组
+    *
+    *       document.querySelector
+    *           通过复合选择器获取符合条件的第一个节点
+    *
+    *       document.getElementsByName
+    *           通过name属性获取节点  获取的是一个数组
+    *
+    *       document.head  获取head标签
+    *       document.body   获取body标签
+    *       document.documentElement 获取html标签
+    *
+    * */
+    //var oBox = document.getElementById('box');
+
+    //var oBox = document.getElementsByClassName('box')[1]
+
+    //var aBox = document.getElementsByTagName('div');
+
+    //var aLi = document.querySelectorAll('.box ul li');
+
+    //var oLi = document.querySelector('.box ul li');
+
+    var aInput = document.getElementsByName('a')
+    //console.log(aInput);
+
+    // console.log(document.head);
+    // console.log(document.body);
+    //console.log(document.documentElement);
+    console.log(document);
+</script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" id="a">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        #box{
+
+        }
+
+
+    </style>
+</head>
+<body>
+    <div id="box">海文
+        <!--heaven-->
+        <span>heaven</span>
+        <p>啦啦啦</p>
+        <h2>测试标题</h2>
+    </div>
+<script>
+    /*
+    *   JS的组成
+    *       1.JS语法 --> ECMAScript
+    *       2.DOM  --> Document Object Model(文档对象模型)  可以操作html+css
+    *       3.BOM  --> Browser Object Model(浏览器对象模型)
+    *                DOM树
+    *
+    *             document  (DOM树的根节点)
+    *               html
+    *
+    *       head          body
+    *
+    *  meta  title      script  div
+    *                           span
+    *
+    *
+    *基于节点树的查询
+    *   childNodes      查询所有的子节点们
+    *   firstChild      查询第一个子节点
+    *   lastChild       查询最后一个子节点
+    *
+    *   parentNode      查询父节点
+    *   nextSibling     查询下面的相邻的兄弟节点
+    *   previousSibling  查询上面的相邻的兄弟节点
+    *
+        基于元素节点树的查询
+    *   children      查询所有的元素子节点们
+    *   firstElementChild      查询第一个元素子节点
+    *   lastElementChild       查询最后一个元素子节点
+    *
+    *   parentElement      查询父元素节点
+    *   nextElementSibling     查询下面的相邻的兄弟元素节点
+    *   previousElementSibling  查询上面的相邻的兄弟元素节点
+    *
+    * */
+
+    var oBox = document.getElementById('box');  //通过id名字获取节点
+
+    console.log(oBox.previousElementSibling);
+
+    console.log(document.getElementById('a').parentNode)
+</script>
+</body>
+</html>

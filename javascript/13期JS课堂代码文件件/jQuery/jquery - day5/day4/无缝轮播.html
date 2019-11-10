@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .banner {
+            overflow: hidden;
+            position: relative;
+            width: 400px;
+            height: 180px;
+            margin: 50px auto;
+            border: 1px solid red;
+        }
+
+        .banner .imgList {
+            position: absolute;
+        }
+
+        .banner .imgList li {
+            float: left;
+            width: 400px;
+        }
+
+        .banner .imgList li img {
+            display: block;
+            width: 100%;
+        }
+
+        .banner .btn {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 30px;
+            height: 60px;
+            margin: auto;
+            background-color: rgba(0, 0, 0, .5);
+            font-size: 20px;
+            color: #fff;
+            text-align: center;
+            line-height: 60px;
+            cursor: pointer;
+        }
+
+        .banner .btn-right {
+            right: 0;
+        }
+
+        .banner .btnList {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 0
+        }
+
+        .banner .btnList span {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            margin: 3px;
+            background-color: #fff;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .banner .btnList .current {
+            position: absolute;
+            background-color: #f60;
+        }
+    </style>
+</head>
+
+<body>
+<div class="banner">
+    <ul class='imgList'>
+        <li ><img src="images/1.jpg" alt=""></li>
+        <li ><img src="images/2.jpg" alt=""></li>
+        <li ><img src="images/3.jpg" alt=""></li>
+        <li ><img src="images/4.jpg" alt=""></li>
+    </ul>
+    <a class="btn btn-left">&lt;</a>
+    <a class="btn btn-right">&gt;</a>
+    <div class="btnList">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+</div>
+
+<script src='./jquery-3.4.1.js'></script>
+<script>
+    $(document).ready(function () {
+        var $li = $('.imgList li');
+        var $imgList = $('.imgList')
+        var $first = $li.first().clone()
+        var $last = $li.last().clone()
+        var $length = $li.length //4
+        var $width = $li.first().width();
+        var $index = 0; //存放索引
+
+        //创建一个圆点
+        $('<span>').addClass('current').prependTo('.btnList')
+
+        var $current = $('.btnList .current')
+
+        //获取圆点到定位父级的水平距离
+        var $left = $current.position().left;
+        console.log($left);
+
+
+        //往$imgList首尾各添加一张图片
+        $imgList.append($first).prepend($last).css({
+            width:($length+2)*$width,
+            left:-$width
+        })
+
+        //存储当前的时间
+        var nowTime = new Date;
+        /*
+        *   函数节流
+        *       预留足够的时间让函数内部的逻辑代码执行完毕
+        *       如果函数内部的代码逻辑还没有执行完毕 就再一次执行函数 会导致程序紊乱
+        * */
+
+        //点击向右按钮
+        $('.btn-right').click(function(){
+            //如果两次点击的时间间隔小于1000ms  那就不执行这个回调函数
+            if(new Date-nowTime<1000)return
+
+            nowTime = new Date;  //存储最新的时间
+            $index++;
+            $imgList.animate({
+                left:-($index+1)*$width
+            },600,function(){
+
+                if($index==$length ){
+                    console.log($index)
+                    $index = 0; //修正index值
+                    $imgList.css({
+                        left:-$width
+                    })
+                }
+
+            })
+
+           if($index==$length){
+               $current.animate({
+                   left:$left+$length*22,
+                   opacity:0
+               },300,function(){
+                   //瞬间切换到最左边
+                   $current.css({
+                       left:$left-20,
+                   })
+
+                   $current.animate({
+                       left:$left,
+                       opacity:1
+                   },300)
+               })
+           }else{
+               $current.animate({
+                   left:$left+$index*22
+               },600)
+           }
+
+
+        })
+
+        //点击向左按钮
+        $('.btn-left').click(function(){
+            //如果两次点击的时间间隔小于1000ms  那就不执行这个回调函数
+            if(new Date-nowTime<1000)return
+
+            nowTime = new Date;  //存储最新的时间
+            $index--;
+            $imgList.animate({
+                left:-($index+1)*$width
+            },600,function(){
+                if($index==-1 ){
+                    $index = $length-1; //修正index值
+                    $imgList.css({
+                        left:-($index+1)*$width
+                    })
+                }
+
+            })
+
+
+            if($index==-1){
+                $current.animate({
+                    left:$left-20,
+                    opacity:0.5
+                },300,function(){
+                    //瞬间切换到最后面
+                    $current.css({
+                        left:$left+$length*22,
+                    })
+
+                    $current.animate({
+                        left:$left+($length-1)*22,
+                        opacity:1
+                    },300)
+                })
+            }else{
+                $current.animate({
+                    left:$left+$index*22
+                },600)
+            }
+
+        })
+
+
+        //点击小圆点  通过事件委托
+        $('.btnList').on('click','span:not(.current)',function(){
+
+            $index = $(this).index() - 1
+
+            console.log($index);
+            //控制$imgList运动
+            $imgList.animate({
+                left:-($index+1)*$width
+            })
+
+            //控制小圆点运动
+            $current.animate({
+                left:$left+$index*22
+            })
+
+
+        })
+
+    })
+
+</script>
+</body>
+
+</html>

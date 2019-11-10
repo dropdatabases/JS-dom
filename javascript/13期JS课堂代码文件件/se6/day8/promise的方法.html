@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    let p1 = new Promise(function (res,rej) {
+        setTimeout(()=>{
+            res('p1成功了');
+        },1000)
+    })
+
+    let p2 = new Promise(function (res,rej) {
+        setTimeout(()=>{
+            res('p2成功了');
+        },500)
+    })
+
+    let p3 = new Promise(function (res,rej) {
+        setTimeout(()=>{
+            res('p3成功了');
+        },300)
+    })
+
+    /*
+    *   Promise.all([p1,p2,p3...])
+    *
+    *   如果所有的promise机器状态都是resolved  则all函数的返回结果就是resolved
+    *   如果有一个promise机器状态是rejected   则all函数的返回结果就是rejected
+    *
+    *
+    *   Promise.race([p1,p2,p3...])
+    *   返回的是最早有状态的promise机器
+    *
+    *
+    *   Promise.resolve(参数)  生成一个resolved状态的机器
+    *   Promise.reject(参数)  生成一个rejected状态的机器
+    * */
+
+    let p = Promise.all([p1,p2,p3])
+    // let p = Promise.race([p1,p2,p3])
+
+
+    // let p = Promise.reject('海文')
+
+
+    //如果不想promise机器报错  必须把错误信息catch
+    // p.catch( (data)=>{
+    //     console.log(data);
+    // } )
+
+
+</script>
+</body>
+</html>

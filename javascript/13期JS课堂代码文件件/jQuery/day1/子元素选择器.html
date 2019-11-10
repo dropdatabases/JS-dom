@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="box">我是box</div>
+<ul>
+    <li class="item1">1</li>
+    <li>2</li>
+    <li class="item2">3</li>
+    <li>4</li>
+    <li>5</li>
+    <div>1</div>
+    <div>2</div>
+</ul>
+<script src="./jquery-3.4.1.js"></script>
+
+<script>
+    /*
+    *   $(选择器)  可以获取到jquery dom元素
+    *
+    *
+    *
+    *   jquery dom元素 是原生dom的集合
+    *
+    *
+    *
+    * */
+    //jquery的入口
+    $(document).ready(function(){
+        //选到到第n个子元素
+        console.log($('ul :nth-child(6)'));
+        //选到第一个li
+        // console.log($('li:first-child'));
+        //选到同样标签类型的第一个
+        //console.log($('ul :first-of-type'));
+        //选到同样标签类型的最后一个
+        //console.log($('ul :last-of-type'));
+
+    })
+</script>
+</body>
+</html>

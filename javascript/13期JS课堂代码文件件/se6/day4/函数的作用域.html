@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+
+    /*
+        es5  暗示全局变量的补充
+            当一个变量没有声明就赋值  会从父函数中查找该变量
+            如果有该变量  则这个变量就是父级函数的  -->  暗示父级变量
+
+    *   当函数的默认值生效  则()就会生成一个独立的作用域
+    * */
+    // function heaven(x,y=2){
+    //     console.log(x,y);
+    // }
+    //
+    // heaven(2)
+
+    // var x = 1;
+    //
+    // function f(x, y = x) {
+    //     console.log(y);
+    // }
+    //
+    // f(2)
+
+    // var x = 1;
+    //
+    // function foo(x = x) {
+    //     console.log(x);
+    // }
+    //
+    // foo();
+
+    // function fn1(){
+    //     var x;
+    //     function fn2(){
+    //         x = 2;
+    //     }
+    //
+    //
+    //     fn2();
+    //
+    //     console.log(x);
+    // }
+    //
+    // fn1();
+
+    /*
+    *   GO{
+    *       x:1,
+    *       foo:function
+    *   }
+    * */
+    // var x = 1;
+    //
+    // function foo(x, y = function() { x = 2; }) {
+    //
+    //     var x = 3;
+    //     y();
+    //     console.log(x);
+    // }
+    //
+    // foo()
+    // console.log(x)
+
+
+
+    /*
+    *   函数的length属性 存储的是形参的个数（设置默认值的形参会被剔除掉）
+    *
+    *   ...args
+    *       可以利用...收集数据的作用
+    *       把实参收集到args中
+    * */
+
+    function heaven(a,...args){
+        console.log(arguments);
+        console.log(a,args);
+    }
+
+    heaven(1,2,3)
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,246 @@
+<!doctype html><!--声明文档类型 网页文档-->
+<html><!--根目录标签  父级-->
+	<head><!--网页的头部 用户看不见的-->
+		<meta charset='UTF-8'><!--国际编码 字符的编码格式-->
+		
+		<!--网页三要素  title  keywords  description-->
+		<title>69期开班典礼</title><!--网页的标题-->
+		<meta name='keywords' content='开班典礼,69期'><!--让搜索引擎找到我们的网页-->
+		<meta name='description' content='这是69期要配置的模板文件'><!--网页的描述-->
+		<style>
+			*{
+				margin:0;
+				padding:0;
+			}
+		</style>
+	</head>
+	<body><!--网页的身体  用户可视化区域-->
+		<script>
+			//第一题
+
+			// var obj = {
+			// 	foo:'bar',
+			// 	fun:function(){
+			// 	    /*
+			// 	    * 	AO{
+			// 	    *	self:obj,
+			// 	    *	this:obj
+			// 	    * }
+			// 	    *
+			// 	    * */
+			// 		var self = this;
+			// 		console.log('this.foo='+this.foo);	//'this.foo=bar'
+			// 		console.log('self.foo='+self.foo);	//'self.foo=bar'
+			// 		(function(){
+			// 		    /*
+			// 		    * 	AO{
+			// 		    * 	this:window
+			// 		    * }
+			// 		    * */
+            //             console.log('this.foo='+this.foo);	//'this.foo=undefined'
+            //             console.log('self.foo='+self.foo);	//'self.foo=bar'
+            //         })()
+			// 	}
+			// }
+			// obj.fun();
+
+
+			
+			//第二题
+			// (function(){
+			//     /*
+			//     	GO{
+			//     		b:3
+			//     	}
+			//     * 	AO{
+			//     *		a:3,
+			//     *		this:window
+			//     * }
+			//     * */
+            //     // b = 3;
+			//     // var a = b;
+			//
+			// 	var a = b = 3;
+			// })()
+			//
+			// //检测一个不存在的变量  结果是 'undefined'
+			// console.log(typeof a !=='undefined');	// 'undefined'!=='undefined'  --> false
+			// console.log(typeof b !=='undefined');	//'number'!=='undefined'  --> true
+			//
+			//
+
+			/*
+			*GO{
+			*	a:1,
+			*	add:function add(n){
+			*	AO{
+			*		n:5
+				*  }
+					return n=n*5;
+				},
+				y:5,
+				z:5
+			* }
+			*
+			* */
+			// var a = 1;
+			// function add(n){
+			// 	return n=n+3;
+			// }
+			// y = add(a);
+			// function add(n){
+			// 	return n=n*5;
+			// }
+			// z = add(a);
+			// console.log(y,z);
+			//
+			//
+			//
+			// //第三题
+			// var	result = false===1;
+			// console.log(result);
+			// if(typeof c&&-true+ (+undefined)+''){
+			//     /*		typeof c  -->  'undefined'
+			//     		-true   -->  -1
+			//     		+undefined -->  NaN
+			//
+			//     		'undefined'&&-1+NaN+''
+			//
+			//     		'undefined'&&'NaN'
+			//
+			//     		'NaN'
+			//     *
+			//     * */
+			// 	console.log('l am ok');
+			// }
+			// if(22+'33'*2==88){
+			// 	console.log('我还能做十道');
+			// }
+			// !!' ' + !!'' - !!false || console.log('我选择go die');
+			//  true+false-false||console.log('我选择go die');
+			//  1||console.log('我选择go die');
+			// //第四题
+
+			/*
+			* 	GO{
+			* 		length:10,
+			* 		fn:function fn(){},
+			* 		obj:{}
+			* }
+			* */
+			// var length = 10;
+			//
+			// function fn(){
+			//     /*
+			//     * 	AO{this:window}  line :152
+			//     *
+			//     *
+			//     *  AO{
+			//     *  	this:arguments
+			//     *  }
+			//     *
+			//     * */
+			// 	console.log(this.length);
+			// }
+			// var obj = {
+			// 	length:5,
+			// 	method:function(fn){
+			// 	    /*
+			// 	    * AO{
+			// 	    * 	fn:function fn(){},
+			// 	    * 	this:obj,
+			// 	    * }
+			// 	    * */
+			// 		console.log(this.length);	//5
+			// 		fn();			//10
+			// 		/*
+			// 		* 	arguments  -->  [function fn(){},1]
+			// 		* */
+            //         console.log(arguments);
+            //         arguments[0]();
+			// 	}
+			// }
+			//
+			// obj.method(fn,1,3,34);
+			//
+			//
+			// //第五题
+			/*
+			* 	GO{
+			* 	 	x:10,	--> 2
+			* 	 	a:function(){},
+			* 	 	y:function(){
+			* 	 		AO{  }
+						x = 2;
+					}
+				}
+			* */
+			var x = 10;
+			function a(){
+			    /*
+			    * 	AO{
+			    * 		this:window,
+			    	}
+			    * */
+				y = function(){
+					x = 2;
+				}
+				console.log(this);	//window
+				return function(){
+				    /*
+				    * 	AO{
+				    * 		x:3,
+				    * 		this:window
+				    	}
+				    * */
+					var x = 3;
+					y();
+					console.log(this.x);		//2
+				}.apply(this)
+			}
+			a();
+			console.log(y);
+			//
+			//
+			// /*第六题*/
+			// ++[[]][+[]] + [+[]]
+			//
+			// ///第七题
+			// var name = "The Window";
+			// var object = {
+			// 	name : "My Object",
+			// 	getNameFunc : function(){
+			// 		return function(){
+			// 			return this.name;
+			// 		};
+			// 	}
+			// };
+			// var result = object.getNameFunc();
+			// console.log( result() );
+			//
+			// //第八题
+			//
+			// var name = "The Window";
+			// var object = {
+			// 	name : "My Object",
+			// 	getNameFunc : function(){
+			// 		var that = this;
+			// 		return function(){
+			// 			return that.name;
+			// 		};
+			// 	}
+			// };
+			// var result = object.getNameFunc();
+			// console.log( result() );
+			//
+			//
+			//
+			// /*第九题*/
+			// var a = { n:1 };
+			// var b = a;
+			// a.n = a = { m:1 };
+			// console.log(a);
+			// console.log(b);
+		</script>
+	</body>
+</html>

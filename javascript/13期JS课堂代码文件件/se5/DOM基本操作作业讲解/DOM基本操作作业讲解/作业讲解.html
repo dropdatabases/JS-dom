@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="box">
+    <!--<p>我是p</p>-->
+    <!--<span id="text">我是span</span>-->
+    <h1>我是h1</h1>
+    <h2>我是h2</h2>
+    <h3>我是h3</h3>
+    <h4>我是h4</h4>
+    <h5>我是h5</h5>
+    <h6>我是h6</h6>
+</div>
+<script>
+
+    var oText = document.getElementById('text');
+    var oBox = document.getElementById('box')
+
+    /*
+        封装函数，返回元素的第n层祖先元素
+    *   dom 节点
+    *   n   第几层祖先
+    * */
+    function getParent(dom,n){
+        for(var i=0;i<n;i++){
+            if(dom.parentNode===null){
+                return dom;
+            }
+            dom = dom.parentNode;
+        }
+        return dom;
+    }
+    // console.log(getParent(oText, 3));
+
+    // console.log(oBox.children);
+    /*
+        封装myChildren函数,实现系统的children功能
+    *   dom 节点
+    *   返回一个有dom的元素子节点组成的数组
+    * */
+    function myChildren(dom){
+        var arr = [];
+        for(var i=0;i<dom.childNodes.length;i++){
+            if(dom.childNodes[i].nodeType===1){ //如果是元素节点
+                arr.push(dom.childNodes[i])
+            }
+        }
+        return arr;
+    }
+
+    // console.log(myChildren(oBox));
+    /*
+        封装hasChildren函数,要求不能使用children属性
+    *   dom 是要判断的节点
+    *     返回布尔值 如果dom有元素子节点 就返回true
+    *               反之false
+    * */
+    function hasChildren(dom){
+        for(var i=0;i<dom.childNodes.length;i++){
+            if(dom.childNodes[i].nodeType===1){ //如果是元素节点
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // console.log(hasChildren(oBox));
+
+    /*
+    *   封装insertAfter函数,功能和insertBefore类似
+    *       把A插入到B后面 就相当于把A插入到B的相邻兄弟的前面
+    *
+    * */
+    var oDiv = document.createElement('div');
+    function insertAfter(A,B){
+        console.log(B.nextElementSibling);
+        B.parentNode.insertBefore(A,B.nextElementSibling)
+    }
+    // insertAfter(oDiv,oText)
+
+    /*
+    *   封装remove函数,使child.removeChild()能够删除自身
+    *   dom 表示删除的节点
+    *   函数执行后 dom移除
+    * */
+    // function remove(dom) {
+    //     dom.parentNode.removeChild(dom);
+    // }
+    //
+    // remove(oText)
+
+    function reverse(dom){
+        // for(var i=0;i<dom.children.length-1;i++){
+        //     /*
+        //     *   i=0  dom.children[dom.children.length-2-i]
+        //     *   i=1  dom.children[dom.children.length-2-i]
+        //     *   i=2  dom.children[dom.children.length-2-i]
+        //     *   i=3  dom.children[dom.children.length-2-i]
+        //     *   i=4  dom.children[dom.children.length-2-i]
+        //     *
+        //     *   y=kx+4  y=-x+4
+        //     *   3=k+4 k=-1
+        //     * */
+        //     dom.appendChild(dom.children[dom.children.length-2-i])
+        // }
+
+        for(var i=dom.children.length-2;i>=0;i--){
+            /*
+            *   i=0  dom.children[dom.children.length-2-i]
+            *   i=1  dom.children[dom.children.length-2-i]
+            *   i=2  dom.children[dom.children.length-2-i]
+            *   i=3  dom.children[dom.children.length-2-i]
+            *   i=4  dom.children[dom.children.length-2-i]
+            *
+            *   y=kx+4  y=-x+4
+            *   3=k+4 k=-1
+            * */
+            dom.appendChild(dom.children[i])
+        }
+    }
+
+    reverse(oBox)
+
+
+
+
+
+
+</script>
+</body>
+</html>

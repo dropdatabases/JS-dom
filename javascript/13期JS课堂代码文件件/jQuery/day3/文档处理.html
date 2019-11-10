@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;
+            padding: 0;
+        }
+        #box{
+            position: absolute;
+            width:200px;
+            height:200px;
+            background-color: green;
+        }
+
+
+    </style>
+</head>
+<body>
+<!--<div id="box">-->
+    <!--<p>我是一波段落</p>-->
+<!--</div>-->
+
+<ul>
+    <li class="item">
+
+        <div></div>
+    </li>
+    <li>2</li>
+    <li>3</li>
+</ul>
+<script src="./jquery-3.4.1.js"></script>
+<script>
+    $(document).ready(function(){
+        //原生js 创建dom节点
+        // var oDiv = document.createElement('div')
+        // console.log(oDiv);
+
+        /*
+            创建jquery dom节点  $('<div>')
+        *       把标签格式的字符串放到$函数中执行
+        *
+        *    $('#box').append(节点)
+        *       把节点插入到box的子元素的最后面
+        *
+        *    节点.appendTo('#box')
+        *       把节点插入到box的子元素的最后面
+        *
+        *
+        *    $('#box').prepend(节点)
+        *       把节点插入到box的子元素的最前面
+        *
+        *    节点.prependTo('#box')
+        *       把节点插入到box的子元素的最后面
+        *
+        *
+        *
+        *     $('#box').after(节点)
+        *       把节点插入到box元素的后面
+        *
+        *     节点.insertAfter('#box')
+        *       把节点插入到box元素的后面
+        *
+        *
+        *      $('li').wrap(节点)
+        *       创建节点  包裹住每个li
+        *
+        *      $('li').wrapAll(节点)
+        *       创建节点  包裹住所有的li
+        *
+        *
+        *
+        *       $('#box').unwrap()
+        *           把box的包裹去除掉
+        *
+        *
+        *      $('#box').remove()
+        *           删除box这个节点
+        *
+        *      $('ul').empty()
+        *           删除ul的所有子节点
+        *
+        *
+        *
+        * */
+
+        //$('#box').append( $('<p>').text('我是后添加的p标签') );
+
+
+        //$('<p>').text('我是后添加的p标签').appendTo('#box')
+
+
+        // $('#box').prepend('<img src="./1.jpg">')
+
+        // $('<div>').prependTo('#box')
+
+        //$('#box').after( $('<div>').text('我是创建的div 并且作为box的同级兄弟') )
+        // $('<div>').insertAfter('#box')
+
+        // $('#box').before('<div>')
+        //$('<div>').insertBefore('#box')
+
+        // $('li').wrap('<div>')
+        // $('li').wrapAll('<div>')
+        // $('#box').unwrap()
+
+        // $('li').replaceWith('<div>')
+
+        // $('<div>').replaceAll('li')
+
+        // $('li').remove()
+
+        // $('ul').empty()
+
+        //console.log($('li').clone());
+
+        $('ul').append( $('li').clone() )
+
+
+    })
+</script>
+</body>
+</html>

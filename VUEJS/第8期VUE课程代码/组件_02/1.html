@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<div id="app">
+    <p ref="heaven">我是一波段落</p>
+    <p ref="heaven">我是一波段落</p>
+    <span ref="xiaoming">啦啦啦</span>
+    <son ref="son"></son>
+
+    <!--<ul>-->
+        <!--<li v-for="item in 5" ref="admin"></li>-->
+    <!--</ul>-->
+</div>
+
+<template id="son">
+    <div>{{msg}}</div>
+</template>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+<script>
+
+    let son = {
+        template:'#son',
+        data(){
+            return {
+                msg:'我是子组件的数据'
+            }
+        },
+        // created(){
+        //     console.log('son 组件创建 created');
+        // },
+        mounted(){
+
+            // this.msg =
+            //console.log('son 组件创建 mounted');
+        }
+    }
+    let vm = new Vue({
+        // el:'#app',
+        components:{
+            son
+        },
+        // created(){
+        //     console.log('根 组件创建 created');
+        // },
+        mounted(){
+            console.log(this.$refs)
+            //console.log('根 组件创建 mounted');
+        }
+    }).$mount('#app')
+
+    /*
+    *   this.$refs
+    *       1.获取所有含有ref标记的单个节点
+    *       2.如果使用v-for获取相同的ref标记  则会获取到多个节点
+    *       3.如果ref标记到组件上  则获取的是整个组件
+    *
+    *
+    *   vm.$set(对象，属性，初始值)
+    *
+    *   this.$mount
+    *   this.$nextTick(回调函数)  等dom更新完成后执行回调
+    *   vm.$destroy()
+    *   vm.$data
+    *   this.$el
+    * */
+</script>
+
+</body>
+</html>

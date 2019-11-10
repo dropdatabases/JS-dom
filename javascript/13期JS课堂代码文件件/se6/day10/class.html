@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    // function Person(name) {
+    //     this.name = name;
+    // }
+    //
+    // var person = new Person('heaven')
+
+    /*
+    *   使用class关键词可以定义一个类
+    *   类的数据类型是function
+    *
+    *   只要通过new启动了类 就会自动执行constructor这个函数
+    * */
+    class Person{   //类  只能写函数
+        // 而且这些函数(没有使用static关键词)会自动挂到Person.prototype上 这些方法成为动态方法
+        //有static 关键词修饰的函数 会挂载到类上  这些方法叫做静态方法
+        constructor(name,age){      //构造函数
+            this.name = name;
+            this.age = age
+        };
+
+        sayName(){
+            console.log(this.name)
+        }
+
+        sayAge(){
+            console.log(this.age)
+        }
+
+        static hello(){
+            console.log('hello')
+        }
+    }
+
+    var person = new Person('heaven',28)
+
+
+
+</script>
+</body>
+</html>

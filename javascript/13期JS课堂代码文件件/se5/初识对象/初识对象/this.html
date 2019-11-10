@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    /*
+    *   this和arguments一样都是函数内部的关键词
+    *    函数的预编译四步：
+         1.创建AO对象	==> Activated Object(活动对象)
+         2.找到形参和变量，把形参和变量作为AO对象的属性名，值是undefined
+         3.实参把值赋给形参
+         4.在函数中找到函数声明，把函数名作为AO对象的属性名，值是函数体
+
+         this -- > window (默认)
+         this是一个对象，它指向了调用函数的那个对象
+         1.只要是函数名字加上()执行  this  -->window
+         2.通过对象调用了函数  this-->  调用函数的对象
+
+
+         执行JS代码
+    *
+    *   auto:AO{
+    *       a:2,
+    *       this:window(GO)
+    *   }
+    *   heaven:AO{
+    *       this:window(GO)
+    *   }
+    * */
+
+    // window{
+    //     a:2,
+    //     auto:function(){}
+    //
+    //
+    // }
+
+    var a = 2;
+
+    function auto(a){
+        // console.log(a)
+
+        console.log(this);  //window
+        function heaven(){
+            console.log(this);  //window
+        }
+        heaven()
+    }
+    auto(2);
+
+    var obj = {
+        name:'我是obj',
+        a:auto
+    }
+    obj.a();
+</script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="box">我是box</div>
+<h1></h1>
+<h3></h3>
+<h2></h2>
+<h4></h4>
+<h5></h5>
+<h6></h6>
+<ul>
+    <li class="item1">1</li>
+    <li>2</li>
+    <li class="item2">3</li>
+    <li>4</li>
+    <li>5</li>
+</ul>
+
+<li style="visibility: hidden;">1</li>
+
+<!-- autofocus 自动获取焦点 -->
+<input type="text" autofocus>
+
+<script src="./jquery-3.4.1.js"></script>
+
+<script>
+    /*
+    *   $(选择器)  可以获取到jquery dom元素
+    *
+    * */
+    //jquery的入口
+    $(document).ready(function(){
+        //选到 页面中可以见到的元素
+        //console.log($('li:visible'));
+
+        //选到 页面中不可见到的元素
+        console.log($('li:hidden'));
+
+    })
+</script>
+</body>
+</html>

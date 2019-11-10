@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    // var person1 = {};/*字面量*/
+    // person1.name = 'heaven';
+    // person1.age = 28;
+    // person1.sayName = function(){
+    //     console.log(this.name)
+    // }
+    //
+    // var person2 = {};/*字面量*/
+    // person2.name = '海文';
+    // person2.age = 26;
+    // person2.sayName = function(){
+    //     console.log(this.name)
+    // }
+    //
+    //
+    // var person3 = {};/*字面量*/
+    // person3.name = '牛肝菌';
+    // person3.age = 25;
+    // person3.sayName = function(){
+    //     console.log(this.name)
+    // }
+    //
+    // var person4 = {};/*字面量*/
+    // person4.name = '一念';
+    // person4.age = 18;
+    // person4.sayName = function(){
+    //     console.log(this.name)
+    // }
+
+
+    // function person(name,age){  //工厂模式
+    //     var obj = {};         //原料
+    //     obj.name = name;      //加工
+    //     obj.age = age;
+    //     obj.sayName = function(){
+    //         console.log(this.name)
+    //     }
+    //     return obj;             //出厂
+    // }
+    //
+    // var person1 = person('海文',28);
+    // var person2 = person('heaven',26);
+    // var person3 = person('牛肝菌',25);
+    // var person4 = person('一念',18);
+
+
+    function Person(name,age){  //构造函数
+        /*
+        *   new关键词的作用
+        *      1.生成一个 {}
+        *      2.this 指向 生成的{}
+        *      3.return this
+        *
+        *      但是如果人为的显式return
+        *           则原始值不会被抛出
+        *           引用值会被抛出
+        * */
+        this.name = name;
+        this.age = age;
+        this.sayName = function(){
+            console.log(this.name)
+        }
+
+         return 2;
+    }
+    var person1 = new Person('海文',28);
+
+
+
+
+    function car(width,height,brand){  //工厂模式
+        var obj = {};         //原料
+        obj.width = width;      //加工
+        obj.height = height;
+        obj.brand = brand;
+        return obj;             //出厂
+    }
+
+    var car1 = car(250,200,'大众');
+    var car2 = car(220,180,'奔驰')
+
+
+    function phone(brand,color,price){  //工厂模式
+        var obj = {};         //原料
+        obj.brand = brand;      //加工
+        obj.color = color;
+        obj.price = price;
+        return obj;             //出厂
+    }
+
+    var phone1 = phone('iphone','黑色',5000);
+    var phone2 = phone('华为','白色',6000);
+
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

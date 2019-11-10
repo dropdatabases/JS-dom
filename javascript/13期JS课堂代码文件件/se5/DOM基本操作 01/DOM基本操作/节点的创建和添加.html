@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div id="box">
+    <h2>我是标题2</h2>
+    <span>我是海文</span>
+    <h3>我是标题3</h3>
+</div>
+<script>
+    /*
+    *   节点的创建
+    *       document.createElement  创建元素节点
+    *       document.createTextNode 创建文本节点
+    *       document.createComment  创建注释节点
+    *       document.createDocumentFragment  创建文档片段节点
+    *
+    *
+    *   节点的添加   剪切操作
+    *       parentNode.appendChild(子节点)  把子节点插入到父节点的最后面
+    *       parentNode.insertBefore(A,B)    把节点A添加到节点B之前
+    *
+    * */
+    var oBox = document.getElementById('box');
+    var oSpan = document.getElementsByTagName('span')[0];
+    // var oDiv = document.createElement('div');
+    var oH3 = document.getElementsByTagName('h3')[0];
+    oBox.appendChild(oH3);//把oDiv插入到oBox的最后面
+
+    //oBox.insertBefore(oSpan,oH3)
+
+
+    // var oP = document.createElement('p');
+    // oBox.appendChild(oP);//把oP插入到oBox的最后面
+    //
+    // var oText = document.createTextNode('heaven');
+    // oBox.appendChild(oText);
+    //
+    // var oComment = document.createComment('我是注释的内容')
+    // oBox.appendChild(oComment);
+    //
+    // var fragment = document.createDocumentFragment();
+    // console.log(fragment.nodeType);
+
+</script>
+</body>
+</html>

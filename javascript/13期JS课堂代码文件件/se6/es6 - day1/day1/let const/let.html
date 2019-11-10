@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+    /*
+        JS的组成部分
+    *       ECMAScript --> es5  -->es6
+    *       DOM  --> document object model
+    *       BOM  --> browser object model
+    *
+    *       var和let/const的区别
+    *        1.  var能够在同一个作用域中重复声明变量
+    *            let不能够在同一个作用域中重复声明变量
+    *
+    *        2.  全局作用域中var声明的变量，会自动成为window对象的属性
+    *            全局作用域中let声明的变量，不会自动成为window对象的属性
+
+             3.  var  有变量提升
+                 let  有变量提升
+                      在该变量之前称为暂时性死区  ==>TDZ（Template Dead  Zone）
+                      暂时性死区的本质是变量已经在当前作用域中了，但是不能够使用
+             4.  var 关键词不能够让{}生成块级作用域
+                 let 关键词可以让{}生成块级作用域
+
+    *
+    * */
+
+    // console.log(typeof a);
+    // var a = a;    //es5 声明变量的关键词
+    // console.log(a);
+    //
+    // var a = 2;
+    // console.log(window.a);
+
+    // console.log(typeof b);
+    // let b = b;
+    // console.log(b);
+    // function auto(){
+    //     let b = 2;
+    //     console.log(b)
+    // }
+    // auto();
+    //
+    // console.log(window.b)
+
+
+    // if(true){
+    //     var a = 2;
+    // }
+    // console.log(a);
+    //
+    // if(true){
+    //     let b = 2;
+    // }
+    //
+    // console.log(b);
+
+    for(
+        let i = ( setTimeout( function(){ console.log(i) },2000 ) , 0 );
+        i < 2;
+        i++
+    ) {
+
+    }
+
+
+
+
+</script>
+</body>
+</html>

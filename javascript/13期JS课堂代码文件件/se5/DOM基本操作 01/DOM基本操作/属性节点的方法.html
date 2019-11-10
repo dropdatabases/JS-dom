@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div id="box"></div>
+<script>
+    /*
+        属性节点的方法
+            元素节点.setAttribute(属性节点名,属性节点值)
+                设置指定的属性节点
+            元素节点.getAttribute(属性节点名)
+                获取指定属性节点名称的值
+            元素节点.removeAttribute(属性节点名)
+                删除指定属性节点
+
+            元素节点.hasChildNodes
+                判断元素节点有没有子节点
+
+    * */
+    var oBox = document.getElementById('box');
+
+    // console.log(oBox.children[0].attributes[0]);
+    // oBox.children[0].setAttribute('class','heaven')
+
+    //console.log(oBox.children[0].getAttribute('class'));
+    // oBox.children[0].removeAttribute('class')
+
+    console.log(oBox.hasChildNodes());
+
+</script>
+</body>
+</html>

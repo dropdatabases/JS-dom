@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<div id="app">
+    <son ref="son"></son>
+</div>
+
+<template id="son">
+    <div>{{msg}}</div>
+</template>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+<script>
+
+    let son = {
+        template:'#son',
+        data(){
+            return {
+                msg:'我是子组件的数据'
+            }
+        },
+        mounted(){
+            this.msg = 'xxx';   //修改msg
+        }
+    }
+    let vm = new Vue({
+        el:'#app',
+        components:{
+            son
+        },
+        mounted(){
+            this.$nextTick(()=>{
+                console.log(this.$refs.son.$el.innerText);
+            })
+        }
+    })
+
+</script>
+
+</body>
+</html>

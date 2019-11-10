@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    /*
+        无论是表达式还是元字符 都只能匹配一个字符
+    *   量词：表示数量  尽可能多匹配字符 （贪婪匹配）
+    *       在量词后面加上 ? 就能够取消贪婪匹配
+    *       {x}     匹配x个字符
+    *       {x,y}   匹配[x,y]个字符
+    *       {x,}    匹配至少x个字符
+    *       x+      匹配至少一个字符
+    *       x*      匹配至少0个字符
+    *       x?      匹配[0,1]个字符
+    * */
+
+
+    var str = 'h12ea3422323v1e34n';
+    var reg = /\d{2,3}?/g;
+    console.log(str.match(reg));
+</script>
+</body>
+</html>

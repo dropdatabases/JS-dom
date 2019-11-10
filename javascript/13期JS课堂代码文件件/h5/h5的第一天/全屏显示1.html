@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		/*
+           检测当前浏览器是什么浏览器，有能力执行对应的全屏的方法(检测这个方法有没有在对应浏览器上面的方法)，这种方式叫做浏览器的能力检测
+		*/
+		#box{
+			width: 200px;
+			height: 200px;
+			background-color: pink;
+		}
+		img{
+			width: 200px;
+			height: 800px;
+			background-color: pink;
+		}
+    /*全屏伪类选择器 一旦元素全屏就会触发伪类选择器*/
+    /*选择到全屏下的box  全屏状态激活这个选择器 这个伪类选择器也要加兼容前缀*/
+    #box:-webkit-full-screen{
+      background-color: blue;
+    }
+	</style>
+</head>
+<body>
+	<!-- <div id="box"></div> -->
+	<div id="box">
+		<img src="1.png">
+	    <button id="full">全屏显示</button>
+	    <button id="cancel">退出全屏</button>
+	    <button id="isfull">是否全屏</button>
+	</div>
+	<script>
+		//HTML新增的API是放在移动端的 IE低版本浏览器就不要去考虑了(H5一般是在做移动端)
+        //全屏显示
+        /*
+          HTML5(HTML的第五套规范) 规定了任何元素都可以全屏显示
+        */
+        //获取HTML的元素
+        var oFull = document.getElementById('full');
+        var oImg = document.querySelector('img');
+
+        var oBox = document.getElementById('box');
+
+        //点击按钮让box全屏显示
+        oFull.onclick = function(){ 
+        	/*
+             元素.requestFullscreen()表示请求这个元素全屏显示
+
+        	 requestFullScreen() 这个方法各个浏览器都有自己的方法来实现
+             所以让要让元素全屏显示  必须加上不同的浏览器的兼容前缀
+
+             requestFullscreen()让元素全屏显示的兼容前缀
+
+             谷歌浏览器  webkit
+             火狐浏览器  moz
+             欧朋        o
+             IE          ms
+        	 
+        	*/
+
+        	// oBox.webkitRequestFullscreen();
+        	//谷歌浏览器的兼容写法加上webkit兼容前缀，需要写驼峰写法才能符合代码规范
+
+        	//在全屏中退出全屏按键盘上的Esc键即可
+
+        	//兼容浏览器让所用浏览器的元素全屏显示
+        	//浏览器的能力检测
+            if(oBox.webkitRequestFullScreen){//谷歌浏览器
+               oBox.webkitRequestFullScreen()
+            }else if(oBox.mozRequestFullScreen){//火狐浏览器
+               oBox.mozRequestFullScreen()
+            }else if(oBox.oRequestFullScreen){//欧朋浏览器
+               oBox.oRequestFullScreen()
+            }else{//IE浏览器
+               oBox.msRequestFullScreen()
+            }
+
+          // oBox.webkitRequestFullscreen();
+        };
+
+        var oCancel = document.getElementById("cancel");
+
+        // cancelFullScreen 这个方法可以取消全屏显示,这个方法只能是document这个对象调用
+
+        //点击按钮让全屏元素退出全屏
+        oCancel.onclick = function(){
+        	//不是让元素退出全屏 而是让docuemnt退出全屏
+        	
+        	//兼容所有浏览器退出全屏显示
+        	if (document.webkitCancelFullScreen) {//谷歌浏览器
+        		document.webkitCancelFullScreen();
+        	}else if (document.mozCancelFullScreen) {//火狐浏览器
+        		document.mozCancelFullScreen();
+        	}else if (document.oCancelFullScreen) {//欧朋浏览器
+        		document.oCancelFullScreen();
+        	}else {//IE浏览器
+        		document.msCancelFullScreen();
+        	}
+        }
+
+        var isfull = document.getElementById('isfull');
+
+        //判断当前是否全屏状态下
+        isfull.onclick = function(){
+        	alert(document.webkitIsFullScreen);//也要加对应的兼容前缀
+        };
+	</script>
+</body>
+</html>

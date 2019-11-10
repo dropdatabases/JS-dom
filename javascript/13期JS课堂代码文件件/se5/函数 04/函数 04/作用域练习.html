@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+
+    // function foo(){
+    //     console.log('海文');
+    // }
+    //
+    // function bar(){
+    //     console.log('海文');
+    // }
+    //
+    // function host(){
+    //     console.log(typeof foo);
+    //     console.log(typeof bar);
+    //     foo();
+    //     bar();
+    //     function foo(){
+    //         console.log('heaven');
+    //     };
+    //     var bar = function () {
+    //         console.log('heaven');
+    //     }
+    // }
+    //
+    // host()
+
+    /*
+    *   GO{
+    *       name:'world',
+    *       fn:function(){}
+    *   }
+    *
+    *   fn:AO{
+    *       name:'Jack'
+    *   }
+    * */
+    // var name = 'world';
+    // function fn(){
+    //     if(typeof name==='undefined'){
+    //         var name = 'Jack';
+    //         console.log(name);
+    //     }else{
+    //         console.log('hello'+name);
+    //     }
+    // }
+    // fn();
+
+    /*
+    *   如果用typeof 检测一个不存在的变量 结果是 'undefined'
+    * */
+    // var x = 1;
+    // if(function(){}){
+    //
+    //     x = x + typeof fn;
+    // }
+    //
+    // console.log(x)
+
+
+   /*
+   *    GO{
+   *        arr:[
+   *            function(){  -->  AO+GO
+   *                AO{
+   *
+   *                }
+   *            },
+   *            function(){},  -->  AO+GO
+   *            function(){},  -->  AO+GO
+   *            function(){},  -->  AO+GO
+   *            function(){},  -->  AO+GO
+   *            function(){},  -->  AO+GO
+   *        ],
+   *        i:6
+   *    }
+   * */
+    var arr = [];
+    for(var i=0;i<6;i++){
+        (function(i){
+            /*
+            *   i=0 AO{ i:0}
+            *   i=1 AO{i:1}
+            * */
+            arr[i] = function () {  //auto:AO+GO
+                console.log(i)
+            }
+        })(i)
+    }
+
+    for(var j=0;j<6;j++){
+        arr[j]();
+    }
+    /*
+    *   j=0  arr[0]()
+    *
+    *   j=1 arr[1]()
+    *
+    *   j=2  arr[2]()
+    *
+    *   j=3 arr[3]()
+    *   j=2  arr[4]()
+    *
+    *   j=3 arr[5]()
+    *
+    * */
+</script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    /*
+        console.dir(函数)  把函数的详细信息打印出来
+    *   GO{
+    *       outer:function(){}
+    *   }
+    *
+    *   outer:AO{
+    *       a:2,
+    *       inner:function(){}
+    *   }
+    *   inner:AO{
+    *
+    *   }
+    * a是从outer函数的AO中找到的，
+    * 不是从自己的AO中找到的
+    * 为什么可以从父级AO找到变量？？
+    *
+    *
+    * 函数也是对象  ，对象是由属性名和属性值组成的数据  {name:'heaven'}
+    *
+    * 函数的[[Scopes]]这个属性 存放在函数的作用域链
+    *
+    * inner函数未执行（死函数）
+    * inner函数的作用域链  =  outer:AO + GO
+    *
+    * inner() -->inner函数执行（激活的函数）
+    * inner函数的作用域链  = inner:AO + outer:AO + GO
+    *
+    *
+    * outer函数未执行
+    * outer函数的作用域链  = GO
+    *
+    * outer()函数执行
+    * outer函数的作用域链  = outer:AO + GO
+    *
+    *
+    *
+    * JS内部存在垃圾回收机制：每隔一段时间就会清理掉不使用的数据（垃圾）
+    *
+    * */
+
+    function outer(){
+        var a = 2;
+        function inner(){
+            console.log(a);
+        }
+        inner();
+        inner();
+        inner();
+        inner();
+        inner();
+        inner();
+        inner();
+        inner();
+    }
+    outer();
+
+    console.dir(outer)
+
+
+</script>
+</body>
+</html>

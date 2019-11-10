@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    Array.prototype.myInterator = function(){
+        var i = 0;
+        //返回一个对象
+        return {
+            next:function(){
+                var value = this[i];
+                if(this[i++]!==undefined){
+                    done = false
+                }else{
+                    done = true
+                }
+                return {
+                    value,
+                    done,
+                }
+            }.bind(this)
+        }
+    }
+
+    var arr = [1,0,3];
+    var iterator = arr['myInterator']();
+    console.log(iterator.next());
+
+
+</script>
+</body>
+</html>

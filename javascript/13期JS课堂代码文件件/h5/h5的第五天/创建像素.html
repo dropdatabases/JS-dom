@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        canvas {
+            display: block;
+            border: 2px solid blue;
+            margin: 50px auto;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="canvas" width="500" height="400"></canvas>
+    <script>
+        var canvas = document.getElementById('canvas');
+        var cxt = canvas.getContext('2d');
+
+        //创建像素点
+        // cxt.createImageData(图片的宽度,图片的高度)
+        //自定义一个空的图片像素数据对象
+        var imageData = cxt.createImageData(500, 400);
+        // 100*100 = 10000个像素点有已rgab来表示 10000*4 = 40000
+
+        //当前是我们认为创建的一个像素点是没有任何像素的
+        //随机生成像素点
+        for(var i=0;i<imageData.data.length;i++){
+            imageData.data[i] = Math.floor(Math.random() * 256);
+        }
+        cxt.putImageData(imageData,0,0);
+    </script>
+</body>
+
+</html>

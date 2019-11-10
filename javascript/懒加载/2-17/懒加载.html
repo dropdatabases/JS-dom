@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <title>50-js</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            user-select: none;
+        }
+
+        html,
+        body,
+        #wrap {
+            width: 100%;
+        }
+
+        #wrap ul {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrap">
+        <ul>
+
+        </ul>
+    </div>
+    <script>
+        const res = {
+            count: 0,
+            init() {
+                this.wrap = document.getElementById("wrap")
+                this.img = document.getElementsByTagName("img")
+                this.load()
+                this.start()
+                window.addEventListener("mousewheel", this.throttle.call(this, this.start, 500, 1000))
+                // 监听页面刷新事件
+                window.addEventListener("beforeunload", e => {
+                    document.documentElement.scrollTop = 0
+                })
+            },
+            load() {
+                let str = ""
+                for (let i = 0; i < 1000; i++) {
+                    str += `<li><img src="" data-src="./images/girl.jpg" width=200 height=200></li>`
+                }
+                this.wrap.firstElementChild.innerHTML = str
+            },
+            start() {
+                let clientHeight = document.documentElement.clientHeight
+                let scrollHeight = document.documentElement.scrollTop || document.body.scrollTop
+                for (let i = this.count, len = this.img.length; i < len; i++) {
+                    if (this.img[i].offsetTop < clientHeight + scrollHeight) {
+                        if (!this.img[i].getAttribute("src")) {
+                            this.img[i].src = this.img[i].dataset.src
+                        }
+                        this.count = i + 1
+                    }
+                }
+            },
+            //函数截流
+            throttle(cb, delay, time) {
+                let timeout = null,
+                    startTime = new Date(),
+                    that = this
+                return function () {
+                    let args = Array.prototype.slice.call(arguments)
+                    let curTime = new Date()
+                    clearTimeout(timeout)
+                    // 如果达到了规定的触发时间间隔，触发 handler
+                    if (curTime - startTime >= time) {
+                        cb.apply(that, args);
+                        startTime = new Date();
+                        // 没达到触发间隔，重新设定定时器
+                    } else {
+                        timeout = setTimeout(function () {
+                            console.log(this)
+                            cb.apply(that, args);
+                        }, delay);
+                    }
+                }
+            }
+
+        }
+        res.init()
+    </script>
+</body>
+
+</html>

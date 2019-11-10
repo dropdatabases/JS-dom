@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        body{
+            text-align:center;
+        }
+        #box{
+            position:relative;
+            width:300px;
+            height:300px;
+            border:solid;
+            margin:50px auto;
+        }
+        #ball{
+            position:absolute;
+            right:-10px;
+            top:140px;
+            width:20px;
+            height:20px;
+            background-color:pink;
+            border-radius:50%;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="box">
+        <i id='ball'></i>
+    </div>
+    <input type="button" id='btn1' value='run'>
+    <input type="button" id='btn2' value='stop'>
+<script>
+    var oRun = document.getElementById('btn1');
+    var oStop = document.getElementById('btn2');
+    var oBox = document.getElementById('box');
+    var oBall = document.getElementById('ball');
+    var r = oBox.clientWidth/2; //半径
+    var x = 0;  //小球旋转的角度值
+    var timer = 0;//储存定时器的序列号
+    oRun.onclick = function(){
+        //清除掉上次的定时器
+        clearInterval(timer);
+        timer = setInterval(function(){ //小球运动
+            x++;    //小球的旋转角度变大
+            oBall.style.left = r-10+r*Math.cos(Math.PI*x/180)+'px';
+            oBall.style.top = r-10-r*Math.sin(Math.PI*x/180)+'px';
+        },20)
+    }
+
+    oStop.onclick = function(){
+        clearInterval(timer);
+    }
+
+    /*
+    *   180°=π
+    *   1° = π/180
+    *   x° = π*x/180
+    * */
+</script>
+</body>
+</html>

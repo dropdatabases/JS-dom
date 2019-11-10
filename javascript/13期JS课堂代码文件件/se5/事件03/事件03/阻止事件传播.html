@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        #big{
+            width:300px;
+            height:300px;
+            background: pink;
+        }
+        #small{
+            width:200px;
+            height:200px;
+            margin-left:400px;
+            background: blue;
+        }
+    </style>
+</head>
+<body>
+<div id="big">
+    <div id="small"></div>
+</div>
+
+<script>
+    var oBig = document.getElementById('big');
+    var oSmall = document.getElementById('small');
+
+    /*
+    *   阻止事件传播
+    *       e.stopPropagation() 谷歌浏览器
+    *       e.cancelBubble = true  IE低版本
+    *
+    * */
+
+    oBig.addEventListener('click',function(){
+        console.log('big 冒泡阶段被点击了');
+    },false)
+
+    oSmall.addEventListener('click',function(e){
+        console.log(e.clientX,e.clientY);
+        //e.stopPropagation();阻止事件传播
+        stopBubble(e)
+        console.log('small 被点击了');
+    },false)
+
+    // oBig.addEventListener('click',function(e){
+    //     e.stopPropagation();//阻止事件传播
+    //     console.log('big 捕获阶段被点击了');
+    // },true)
+    //
+    // oSmall.addEventListener('click',function(){
+    //
+    //     console.log('small 被点击了');
+    // },true)
+
+
+    /*
+    *   这个函数的作用是阻止事件传播 并且兼容不同的浏览器
+    * */
+    function stopBubble(e){
+        if(e.stopPropagation){  //谷歌
+            e.stopPropagation()
+        }else{      //IE低版本
+            e.cancelBubble = true
+        }
+    }
+</script>
+</body>
+</html>

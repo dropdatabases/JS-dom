@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;
+            padding: 0;
+        }
+        #box{
+            border:solid;
+        }
+        img{
+            width:300px;
+            padding:20px;
+            margin:20px;
+            border:20px solid blue;
+        }
+        button{
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+    <img src="./1.jpg" alt="">
+    <img src="./1.jpg" alt="">
+    <img src="./1.jpg" alt="">
+</div>
+<button id="btn01">hide</button>
+<button id="btn02">show</button>
+
+<button id="btn03">toggle</button>
+
+<button id="btn04">slideUp</button>
+<button id="btn05">slideDown</button>
+
+<button id="btn06">slideToggle</button>
+
+<button id="btn07">fadeOut</button>
+<button id="btn08">fadeIn</button>
+
+<button id="btn09">fadeToggle</button>
+<button id="btn10">fadeTo</button>
+<script src="./jquery-3.4.1.js"></script>
+<script>
+    $(document).ready(function(){
+
+        $('#btn01').click(function(){
+            /*
+            *   hide  让元素隐藏  最终状态dispaly none
+            *       改变的是 width height padding margin opacity
+            *
+            *
+            *   show  让元素显示  最终状态dispaly block
+            *       改变的是 width height padding margin opacity
+            *
+            *
+            *   slideUp  让元素隐藏  最终状态dispaly none
+            *       改变的是 height 上下padding 上下margin
+            *   slideDown  让元素显示  最终状态dispaly block
+            *       改变的是 height 上下padding 上下margin
+            *
+            *
+            *   fadeOut  让元素隐藏  最终状态dispaly none
+            *       改变的是 opacity
+            *   fadeIn  让元素显示  最终状态dispaly block
+            *       改变的是 opacity
+            *   fadeTo( 时间,透明度,回调函数 )
+            *       改变的是opacity 最终状态不会display none
+            *
+            *
+            * */
+            $('img').hide(1000)
+        })
+
+
+        $('#btn02').click(function(){
+            $('img').show(1000,function(){
+                alert('show函数执行完成')
+            })
+        })
+
+        $('#btn03').click(function(){
+            $('img').toggle(1000,function(){
+                alert('toggle执行结束');
+            })
+        })
+
+        $('#btn04').click(function(){
+            $('img').slideUp(1000)
+        })
+
+
+        $('#btn05').click(function(){
+            $('img').slideDown(1000)
+        })
+
+        $('#btn06').click(function(){
+            $('img').slideToggle(1000)
+        })
+
+
+        $('#btn07').click(function(){
+            $('img').fadeOut(1000)
+        })
+
+        $('#btn08').click(function(){
+            $('img').fadeIn(1000)
+        })
+
+        $('#btn09').click(function(){
+            $('img').fadeToggle()
+        })
+
+        $('#btn10').click(function(){
+            $('img').fadeTo(1000,0.2,function(){
+                console.log(this);
+            })
+        })
+    })
+</script>
+</body>
+</html>

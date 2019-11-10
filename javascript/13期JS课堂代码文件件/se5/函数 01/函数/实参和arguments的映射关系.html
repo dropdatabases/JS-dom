@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+
+    /*
+    *   1.通过形参修改了实参的值  必须形参和实参建立了映射关系时
+    *       则实参的修改会映射到arguments上
+    *       反之  不会映射到argument上
+    *
+    *
+    *   2.通过arguments修改是实参的值
+    *       则实参的修改会映射到形参上
+    * */
+    function auto(a,b,c){
+        // a = 20;
+        // console.log(arguments[1])
+
+        c = 'lalala';
+        // console.log(arguments[2])
+        // console.log(c)
+
+        // arguments[0] = 'heaven';
+        arguments[3] = 'heaven'
+        console.log(arguments[3])
+        // console.log(a);
+    }
+
+    auto(2,3,4,5);
+
+
+</script>
+</body>
+</html>

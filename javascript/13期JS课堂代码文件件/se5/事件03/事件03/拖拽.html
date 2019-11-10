@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        img{
+            position:absolute;
+            left:0;
+            top:0;
+            width:200px;
+        }
+    </style>
+</head>
+<body>
+<img src="images/1.jpg" alt="">
+<script>
+    /*
+    *   拖拽使用的三个事件
+    *       onmousedown
+    *       onmousemove
+    *       onmouseup
+    * */
+    var oImg = document.getElementsByTagName('img')[0];
+
+    oImg.onmousedown = function(e){
+        e = e||winodw.event;  //兼容事件对象
+        var startX = e.clientX; //记录鼠标按下时的水平位置
+        var startY = e.clientY; //记录鼠标按下时的竖直位置
+        var startLeft = this.offsetLeft; //记录鼠标按下时的图片的初始水平位置
+        var startTop = this.offsetTop; //记录鼠标按下时的图片的初始竖直位置
+        document.onmousemove = function(e){
+            e = e||winodw.event;  //兼容事件对象
+            var moveX = e.clientX; //记录鼠标移动时的水平位置
+            var moveY = e.clientY; //记录鼠标移动时的竖直位置
+            oImg.style.left = startLeft + moveX - startX +'px';
+            oImg.style.top = startTop + moveY - startY +'px';
+        }
+        oImg.onmouseup = function(){
+            document.onmousemove = null;//解除onmousemove的事件处理函数
+        }
+
+        return false;//阻止浏览器的默认行为
+
+    }
+</script>
+</body>
+</html>

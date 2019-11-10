@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    /*
+    *   在函数内部  重复调用函数自身  这个情况叫做递归
+    * */
+    // function auto(){
+    //     console.log(1);
+    //     auto();
+    // }
+    //
+    // auto();
+
+    /*
+    *   1.求1-100之内的所有偶数和
+    *    2+4+6+8+10+...100
+    *
+    *    100+98+96+...+4+2
+    *
+        *   n=100
+        *       sum(100)
+        *       100+sum(98)
+        *           98+sum(96)
+        *               96+sum(94)
+        *                   94+sum(92)
+        *                   ...
+        *                   ...
+        *                       4+sum(2)
+        *                           2+sum(0)
+        *
+        *
+        *   n=4
+        *       4+sum(2)  4+2
+        *   n=2
+        *       2+sum(0)  2+0
+        *   n=0
+        *       0
+        *
+        * */
+
+    // function sum(n){
+    //     if(n==0){
+    //         return 0
+    //     }
+    //     return n+sum(n-2)
+    // }
+    // var result = sum(100);
+    // console.log(result);
+
+
+
+    /*求n的阶乘
+        5! = 5*4*3*2*1
+           = 5*4!
+               4*3!
+                  3*2!
+                    2*1!
+                       1
+
+        7! = 7*6*5*4*3*2*1
+        n! = n*(n-1)*(n-2)*(n-3)*...2*1
+
+        n=5
+           fn(5)
+           5*fn(4)
+               4*fn(3)
+                   3*fn(2)
+                     2*fn(1)
+    *
+    *
+    * */
+
+    // function fn(n){
+    //     if(n==1){//递归出口
+    //         return 1;
+    //     }
+    //     return n*fn(n-1)  当n=5时 这个return 必须等到5*fn(4)的结果算出来之后 才能结束函数
+    // }
+    //
+    // var result = fn(5);
+    // console.log(result);
+
+
+    /*
+    *
+    *   求1-100之内所有能被3并且被5整除的数字之和
+    *
+    *
+    *   fn(100)
+    *   fn(99)
+    *   fn(98)
+    *   ...
+    *   fn(90)
+    *   90+fn(89)
+    *       fn(88)
+    *       fn(87)
+    *       ...
+    *       fn(75)
+    *       75+fn(74)
+    *           fn(73)
+    *           ...
+    *           fn(60)
+    *           60+fn(59)
+    *           ...
+    *           fn(45)
+    *              45+fn(44)
+    *              ...
+    *              fn(30)
+    *              30+fn(29)
+    *               ...
+    *              fn(15)
+    *               15+fn(14)
+    *               ...
+    *               fn(2)  0
+    *               fn(1)  0
+    *               fn(0)  0
+    *
+    *
+    *
+    *
+    * */
+
+    function fn(n){
+        if(n==0){
+            return 0
+        }
+        if(n%3==0&&n%5==0){    //能够被3 和 5整除的数字
+            return n+fn(n-1)
+        }
+        return fn(n-1)
+    }
+
+    var result = fn(100);
+    console.log(result)
+</script>
+</body>
+</html>

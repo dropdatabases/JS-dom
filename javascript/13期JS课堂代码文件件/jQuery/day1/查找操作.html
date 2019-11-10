@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #box{
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+    <ul>
+        <li class="item1">1</li>
+        <li>2</li>
+        <li class="item2">3</li>
+        <li>6</li>
+        <li class="item3">4</li>
+        <li>5</li>
+    </ul>
+</div>
+
+<!-- autofocus 自动获取焦点 -->
+<input type="text" autofocus>
+
+<script src="./jquery-3.4.1.js"></script>
+
+<script>
+    /*
+    *   $(选择器)  可以获取到jquery dom元素
+    *
+    * */
+    //jquery的入口
+    $(document).ready(function(){
+        //console.log($('.item2'));
+
+        //返回指定元素的后面一个元素
+        // console.log($('.item2').next());
+
+        //返回指定元素的后面所有元素
+        //console.log($('.item2').nextAll())
+
+        //console.log($('.item2').nextUntil('.item3'));
+        //返回指定元素的前面一个元素
+        //console.log($('.item2').prev('.item1'));
+
+        //返回指定元素的前面所有元素
+        //console.log($('.item2').prevAll('.item1'));
+
+        //console.log($('.item2').siblings('.item1'));
+
+        //获取ul的所有子元素
+        //console.log($('#box').children('li'));
+
+        //获取ul的所有后代元素
+        // console.log($('#box').find('li'));
+
+        //获取父元素
+        // console.log($('.item2').parent());
+
+        //获取祖先元素
+        // console.log($('.item2').parents());
+
+        //获取直到指定祖先元素的  所有元素
+        console.log($('.item2').parentsUntil('body'));
+
+        //获取有定位属性的父元素
+        console.log($('.item2').offsetParent())
+
+    })
+</script>
+</body>
+</html>

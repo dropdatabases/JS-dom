@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var person = {
+        name:'heaven',
+        age:28,
+        fav:['cycle','run'],
+        wife:{
+            age:28,
+            name:'lalala',
+            fav:['cycle','run'],
+        }
+    }
+
+    /*
+    *   clone函数的作用是克隆origin
+    * */
+    function clone(origin,target){
+        for(var key in origin){
+            var toString = Object.prototype.toString.call(origin[key]);
+            //如果是数组
+            if(toString==='[object Array]'){
+                target[key] = clone(origin[key],[])
+            }else if(toString==='[object Object]'){
+                target[key] = clone(origin[key],{})
+            }else{
+                target[key] = origin[key];
+            }
+        }
+        return target;
+    }
+
+    var result = clone(person,{})
+
+
+</script>
+</body>
+</html>

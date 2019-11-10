@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    /*
+    *   JS数据的分类
+    *       原始值  储存在栈区
+    *           number
+    *           string
+    *           null
+    *           undefined
+    *           boolean
+    *       引用值   储存在堆区
+    *                我们声明的变量是在栈区中引用数据的地址
+    *           普通对象
+    *           函数对象
+    *           数组对象
+    *
+    * */
+
+
+    // var a = 2;
+    // var b = a;
+    // a = 333;
+    // console.log(b);
+
+    var arr = [1,2,3];
+    var arr1 = arr;
+    arr1.push(4);
+    console.log(arr)
+
+</script>
+</body>
+</html>

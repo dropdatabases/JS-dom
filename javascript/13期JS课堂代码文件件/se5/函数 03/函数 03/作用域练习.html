@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+
+    /*
+    *   GO{
+    *      auto: function(){}
+    *   }
+   *   AO{
+   *       b:function(){},
+   *       a:2
+   *   }
+    */
+    // function auto(b){
+    //
+    //     var a = 2;
+    //     console.log(b); //function
+    //
+    //     function b(){}
+    // }
+    //
+    // auto(2);
+
+
+    /*
+    *   GO{
+    *       a:2,
+    *       auto:function(){}
+    *   }
+    *
+    *   AO{
+    *       a:undefined,
+    *   }
+    * */
+    // var a = 2;
+    // function auto(a){
+    //
+    //     if(typeof a){  //typeof a --> 'undefined'
+    //         console.log('海文');
+    //     }else{
+    //         console.log('heaven');
+    //     }
+    //     var a;
+    // }
+    // auto();
+
+
+    /*
+    *   GO{
+    *      auto:function(){}
+    *   }
+    *
+    *   AO{
+    *      a:undefined
+    *   }
+    *
+    *
+    * */
+    // function auto(a){
+    //     if(a){
+    //         console.log('海文');
+    //     }else{
+    //         var a;
+    //         console.log('heaven');
+    //     }
+    //     var a;
+    // }
+    // auto(undefined)
+
+
+    /*
+    *   GO{
+    *       auto:function(){}
+    *   }
+    *
+    *   AO{
+    *       a:function(){}
+    *   }
+    *
+    * */
+    // function auto(a){
+    //     console.log(a); //function(){}
+    //     function a(){};
+    //     var a = 2;
+    //     console.log(a); //2
+    // }
+    // auto('undefined');
+
+
+    /*
+    * GO{
+    *   scareMe:function(){
+    *       AO{   }
+            console.log('Double');
+        }
+    * }
+    *
+    *
+    * AO{
+    *
+    * }
+    * */
+    var scareMe = function(){
+        console.log('Boo'); //'Boo'
+        scareMe = function(){
+            console.log('Double');
+        }
+    }
+    scareMe();
+    scareMe();
+
+    // function outer(){
+    //     function inner(){
+    //         var a = 4;
+    //         c = 5;
+    //         console.log(a);
+    //         console.log(b);
+    //         console.log(c);
+    //     }
+    //     var b = 3;
+    //     inner();
+    // }
+    // var a = 2;
+    // outer();
+    //
+    // console.log(outer);
+
+
+    // var name = 'world';
+    // function fn(){
+    //     if(typeof name==='undefined'){
+    //         var name = 'Jack';
+    //         console.log(name);
+    //     }else{
+    //         console.log('hello'+name);
+    //     }
+    // }
+    // fn();
+
+
+    // var x = 1;
+    // if(function(){}){
+    //     x += typeof fn;
+    // }
+    //
+    // console.log(x)
+</script>
+</body>
+</html>

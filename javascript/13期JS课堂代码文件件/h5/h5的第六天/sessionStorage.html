@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        localStorage.setItem('person',JSON.stringify({
+            name:'huahsneg',
+            age:20,
+        }))
+        // Application面板 中的Session Storage选项就显示存储在浏览器中的数据了
+        /*
+          sessionStorage.setItem他也会往本地存储了一个数据
+            为什么sessionStorage.setItem不会在关闭浏览器中存储数据
+             当前加载JS脚本的时候内部是空的 使用说在上一次sessionStorage.setItem存储的数据 在你关闭浏览器的时候已经被清除掉了
+             然后当前JS脚本没有存储任何的数据自然也就是空的了
+          
+          localStorage和sessionStorage存储的数据刷新页面也会依然存在数据
+          用var 关键词声明的变量 刷新数据就不复存在了(刷新页面表示再次运行对应的文件)
+
+          localStorage即使你关掉浏览器数据依然存在
+          sessionStorage我关掉浏览器存储在本地的数据就不复存在了
+        */
+
+            /*
+        *   sessionStorage.setItem(属性名,属性值)
+        *   sessionStorage.getItem(属性名)
+        *   sessionStorage.removeItem(属性名) 调用一次只能删除存在本地的一个数据
+        *   sessionStorage.clear()        删除存在本地的所有数据
+        *
+        *   localStorage  和  sessionStorage的区别(面试常问)
+        *     localStorage存储数据的生命周期 是永久的(没有卸载谷歌浏览器)
+        *     sessionStorage存储数据的生命周期 在当前的这次页面没有被关闭 会一直存在
+        *
+        *     
+        *     这两种方式都是数据持久化的方式(把数据存储在本地)
+        *
+        * */
+
+        sessionStorage.setItem('name','huasheng');
+        sessionStorage.setItem('age',28);
+
+        console.log(sessionStorage.getItem('name'), sessionStorage.getItem('age'))
+
+        sessionStorage.setItem('person',JSON.stringify({
+            name:'huahseng',
+            age:20,
+        }));
+        console.log(JSON.parse('person'));
+        sessionStorage.removeItem('name');
+        sessionStorage.clear();
+    </script>
+</body>
+</html>

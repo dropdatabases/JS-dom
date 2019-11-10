@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="./1.js" async></script>
+    <link rel="stylesheet" href="./1.css">
+</head>
+<body>
+
+<div>heaven</div>
+<img src="./1.gif" alt="">
+
+
+<script>
+
+    /*
+    *   为什么script标签要作为body标签的最后一个子标签
+    *           document  （DOM树的根节点）
+    *
+    *           html
+    *
+    *
+    *       head                            body
+    *
+    *    meta  title script  link     div  img  script  div
+    *
+    *
+    *   DOM树的生成规则：深度优先
+    *
+    *
+    *   style img  iframe link解析节点之后就挂载到DOM树中  对应的资源会和DOM树的生成并行
+    *   script  解析节点之后挂在到DOM树中  下载对应的资源 会阻碍DOM树的解析
+    *
+    *
+    *   为什么script节点会阻碍DOM树的解析？？？
+    *   因为如果script内部有增删节点的代码 会导致DOM树解析的紊乱
+    *
+    *
+    * 在谷歌中 async 可以让script请求的文件异步加载
+    * 在IE低版本中 defer  可以让script请求的文件异步加载
+    * */
+    console.log('我是script');
+</script>
+
+<div></div>
+</body>
+</html>
+
+

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- 
+        在键盘按下F12 在点击Toggle device toolbar切换到移动设备上面
+        在里面可以切换任何的手机型号等
+     -->
+     
+    <!--
+        width=device-width  表示视口的宽度和设备等宽
+        user-scalable=no    不支持双击放大页面
+    -->
+
+    <!-- 移动端默认的视口是980 -->
+    <!-- 我希望我视口的宽度和我的手机的视口宽度是一样的 这就是做适配了  -->
+    <!-- viewport表示视口的意思 device是宽度的意思 表示当前的宽度等于设备的宽度-->
+    <!-- 当前视口的宽度和适配的宽度等宽了(宽度和设备等宽) -->
+
+    <!-- 在默认情况下移动端的页面双击时是可以放大的 -->
+
+    <meta name="viewport" content="width=device-width , user-scalable=no">
+    <link rel="stylesheet" href="./css/移动端布局.css">
+    <title>Document</title>
+    <style>
+        /* box在移动端个个手机型号上面的宽度高度显示不一致的
+           
+           写移动端页面的时候必须要做移动端的适配
+           我们写的页面要适应不同设备的宽度
+        */
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        div{
+            width: 100%;
+            height: 37px;
+            background-color: pink;
+        }
+        #box2{
+            width: 50%;
+            height: 37px;
+            background-color: blue;
+        }
+    </style>
+</head>
+<body>
+    <div id="box"></div>
+    <div id="box2"></div>
+    <!-- 如何从谷歌开发者工具上面获取移动端的设计图
+         如果通过火狐浏览器获取移动端页面中的图片
+     -->
+    <script>
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        .mask{
+            position:fixed;
+            width:100%;
+            height:100%;
+            left:0;
+            top:0;
+            background-color:rgba(0,0,0,.35);
+        }
+        .mask .show{
+            position: absolute;
+            left:0;
+            right:0;
+            top:0;
+            bottom: 0;
+            width:600px;
+            height:350px;
+            margin:auto;
+            background: #fff;
+        }
+        .mask .show button{
+            position: absolute;
+            right:0;
+        }
+    </style>
+</head>
+<body>
+
+<div id="app" >
+    <heaven></heaven>
+    <xiaoming></xiaoming>
+</div>
+
+
+<template id="heaven">
+    <div @click="fn"> {{msg}}</div>
+</template>
+
+<template id="xiaoming">
+    <div @click="fn"> {{msg}} </div>
+</template>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+
+    let eventBus = new Vue();
+    let heaven = {
+        template:'#heaven',
+        data(){
+            return {
+                msg:'我是heaven'
+            }
+        },
+        created(){
+           eventBus.$on('xxx',(msg)=>{   //heaven组件先订阅一个事件
+                console.log('xxx事件已经触发了  我监控到了',msg)
+            });
+        },
+        methods:{
+            fn(){
+                eventBus.$emit('yyy',this.msg)
+            }
+        }
+    }
+    let xiaoming = {
+        template:'#xiaoming',
+        data(){
+            return {
+                msg:'我是xiaoming'
+            }
+        },
+        created(){
+            eventBus.$on('yyy',(msg)=>{
+                console.log('yyy事件已经触发了  我监控到了',msg)
+            });
+        },
+        methods:{
+            fn(){
+                eventBus.$emit('xxx',this.msg)
+            }
+        }
+    }
+    let vm = new Vue({
+        el:'#app',
+        components:{
+            heaven,
+            xiaoming
+        }
+
+    })
+</script>
+</body>
+</html>

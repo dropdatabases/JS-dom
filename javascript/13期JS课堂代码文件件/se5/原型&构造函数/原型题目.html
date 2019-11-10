@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+
+    /*第一题*/
+    // function Person(){
+    //     /*
+    //     *   {
+    //     *       __proto__:Person.prototype,
+    //     *   }
+    //     * */
+    // }
+    //
+    // /*
+    // *   Person.prototype:{
+    // *       name:'oldsix'
+    // *   }
+    // * */
+    //Person.prototype.name = 'heaven';
+    // var person1 = new Person();
+    //Person.prototype.name = 'oldsix';
+    // console.log(person1.name);
+
+    /*第二题*/
+
+    // function Person(){
+    //     /*
+    //     *   {
+    //     *       __proto__:Person.prototype  (1)
+    //     *   }
+    //     * */
+    // }
+    //
+    // /*
+    // *   Person.prototype={  (1)
+    // *       name:'heaven'
+    // *   }
+    // *
+    // *    Person.prototype={  (2)
+    // *       name:'oldsix'
+    // *   }
+    // * */
+    // Person.prototype.name = 'heaven';
+    // var person1 = new Person();
+    // Person.prototype = {
+    //     name:'oldsix'
+    // }
+    // console.log(person1.name);
+
+    /*第三题*/
+    function Person(){
+        /*
+        *   {
+        *       __proto__:Person.prototype(2)
+        *   }
+        * */
+
+    }
+
+    /*
+    *   Person.prototype={ (1)
+    *       name:'heaven'
+    *   }
+    *
+    *   Person.prototype={ (2)
+    *       name:'oldsix'
+    *   }
+    *
+    * */
+    Person.prototype.name = 'heaven';
+    Person.prototype = {
+        name:'oldsix'
+    }
+
+    var person1 = new Person();
+
+    console.log(person1.name);
+</script>
+</body>
+</html>

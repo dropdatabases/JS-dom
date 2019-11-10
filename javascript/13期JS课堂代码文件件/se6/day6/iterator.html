@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+
+    /*
+    *   for...of 循环可以遍历的数据  必须有Symbol.iterator属性
+    *       数组
+    *       字符串
+    *       arguments
+    *
+    *
+    *       for...of循环的工作原理
+    *           1.查看遍历数据有没有Symbol.iterator这个属性
+    *               有就生成iterator对象
+    *               没有就报错
+    *           2.调用iterator对象的next函数
+    *           该函数返回一个对象 符合下面两种情况
+    *               {value:数据,done:false}
+    *               {value:undefined,done:true}
+    *
+    *  */
+    let str = 'heaven';
+    let obj = {
+        name:'heaven',
+        age:28
+    }
+
+    let obj1 = {
+        0:'heaven',
+        1:28,
+        length:2,
+        [Symbol.iterator]:Array.prototype[Symbol.iterator]
+    }
+
+
+    let arr = [1,2,3];
+    for(let key of arr){
+        console.log(key);
+    }
+</script>
+</body>
+</html>

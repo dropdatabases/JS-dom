@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <div id="btn">点击获取数据</div>
+    <div id="content"></div>
+
+    <script src="./ajax.js"></script>
+    <script>
+
+        var oBtn = document.getElementById('btn');
+        var oContent = document.getElementById('content');
+        oBtn.addEventListener('click',handleClick,false)
+
+        function handleClick(){
+            ajax({
+                method:'get',
+                url:'https://www.shiguangkey.com/api/homePage/recommendFloor',
+                success:function(res){
+                    console.log(res)
+                    var str = '';
+                    for(var i=0;i<res.length;i++){
+                        str += '<h3>'+res[i].title+'</h3><img src="'+res[i].thumbnailUrl+'"><span>第'+res[i].id+'张</span>'
+                    }
+                    oContent.innerHTML = str;
+                },
+                error:function(status){
+                    alert(status)
+                }
+            });
+        }
+    </script>
+</body>
+</html>

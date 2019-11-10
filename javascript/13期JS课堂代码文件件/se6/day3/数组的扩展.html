@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div></div>
+<div></div>
+<div></div>
+<script>
+
+    /*
+        类数组
+            document.getElementsByClassName()
+            document.getElementsByTagName()
+            arguments    函数内部关键词
+
+    *   ...后面跟的是rest参数  专门接受剩余的所有数据
+    *   ...需要打散的数据  此时...叫做扩展运算符
+    *
+    *   ...的作用
+    *       1.专门收集数据并放置在变量中
+    *       2.打散数组/字符串/类数组()  并且还需要放置在数组/对象中
+    * */
+    // let [a,...b] = [1,2,3,4]
+    // console.log(a,b)
+
+    //取数组最大值   [1,35,25,10]
+
+    // es6的方法
+    // var arr = [1,35,25,10];
+    // console.log(Math.max(...[1, 35, 25, 10]));
+    // console.log(Math.min(...[1, 35, 25, 10]));
+
+
+    //es5的方法
+    //console.log(Math.max.apply(null, [1, 35, 25, 10]));;
+
+    // console.log(Math.min.apply(null, [1, 35, 25, 10]));
+
+    /*
+    *   es5 复制数组
+    *       arr.concat()
+    *       arr.slice()
+    *       arr.slice(0)
+    *
+    *   es6
+    *       [...arr]
+    * */
+
+    var arr = [1,2,3];
+    var arr1 = [...arr];
+
+
+    /*
+    *   合并数组
+    *       es5
+    *           arr.concat([1,2,3],[3,2,1])
+    *
+    *       es6
+    *           [...[1,2,3],...[4,5,6]]
+    * */
+
+
+
+
+</script>
+</body>
+</html>

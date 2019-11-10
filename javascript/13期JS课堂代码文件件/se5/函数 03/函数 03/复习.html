@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    /*
+         函数的预编译四步：
+         1.创建AO对象	==> Activated Object(活动对象)
+         2.找到形参和变量，把形参和变量作为AO对象的属性名，值是undefined
+         3.实参把值赋给形参
+         4.在函数中找到函数声明，把函数名作为AO对象的属性名，值是函数体
+
+        预编译之后才能执行JS代码
+        等到函数执行完成后(return)   AO对象就会被销毁了
+
+
+         全局的预编译三步：
+         1.创建GO对象	==> Global Object(GO对象)
+         2.找到变量，把变量作为GO对象的属性名，值是undefined
+         3.在全局中找到函数声明，把函数名作为GO对象的属性名，值是函数体
+
+         预编译之后才能执行JS代码
+         等到关闭浏览器的时候 GO对象就会被销毁了
+     *
+     * */
+
+    function outer(){
+        /*
+        *   AO{
+        *       b:3,
+        *       inner:function(){}
+        *   }
+        * */
+        function inner(){
+            /*
+            *   AO{
+            *      a: 4,
+            *   }
+            * */
+            var a = 4;
+            c = 5;  //一个变量没有用var关键词声明  则这个变量就会被认为是全局环境的（暗示全局变量）
+            console.log(a); //4  在inner函数的AO对象中找到的
+            console.log(b); //3  在outer函数的AO对象中找到的
+            console.log(c); //5  在GO中找到的
+
+        }
+        var b = 3;
+        inner();
+    }
+    var a = 2;
+    outer();
+
+    /*
+    * GO{
+    *  a:2,
+    *  outer:function(){},
+    *  c:5
+    * }
+    * */
+
+
+
+</script>
+</body>
+</html>

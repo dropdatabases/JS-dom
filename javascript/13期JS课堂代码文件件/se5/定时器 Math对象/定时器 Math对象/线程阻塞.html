@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    /*
+    *   线程阻塞
+            前面的任务死循环或者耗时过长导致后面代码不能被执行，
+            这种情况叫做线程阻塞
+
+    * */
+    // for(var i=0;i<1000;i++){
+    //     console.log(1);
+    // }
+    // setTimeout(function(){
+    //     console.log(2);
+    // },10)
+
+
+    for(var i=0;i<5;i++){
+        /*
+        * i=0  向异步队列中放一个异步任务
+        * i=1  向异步队列中放一个异步任务
+        * i=2  向异步队列中放一个异步任务
+        * i=3  向异步队列中放一个异步任务
+        * i=4  向异步队列中放一个异步任务
+        * i=5  执行异步队列的任务
+        * */
+        (function(i){
+            //AO{i:0}
+            //AO{i:1}
+            //AO{i:2}
+            setTimeout(function(){
+                //i=0  AO{i:0}+GO
+                //i=1  AO{i:1}+GO
+                //i=2  AO{i:2}+GO
+                console.log(i);
+            },1000)
+        })(2)
+    }
+</script>
+</body>
+</html>

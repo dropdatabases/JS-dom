@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        #big{
+            width:300px;
+            height:300px;
+            background: pink;
+        }
+        #small{
+            width:200px;
+            height:200px;
+            margin-left:400px;
+            background: blue;
+        }
+    </style>
+</head>
+<body>
+<div id="big">
+    <div id="small"></div>
+</div>
+<script>
+    /*
+    *   当一个dom节点触发事件后，
+    *       该事件会按照HTML结构在根节点和这个元素节点之间传播
+    *       路径上所有的节点都会收到该事件
+    *
+    *        false 表示事件处理函数在冒泡阶段会触发
+    *        true  表示事件处理函数在捕获阶段会触发
+    *
+    *        DOM0级事件都是在冒泡阶段触发
+    *
+    *        事件处理模型 是先捕获 再冒泡
+    *
+    * */
+    var oBig = document.getElementById('big');
+    var oSmall = document.getElementById('small');
+
+
+    oBig.addEventListener('click',function(){
+        console.log('big 冒泡阶段被点击了');
+    },false)
+
+
+
+    oSmall.addEventListener('click',function(){
+        console.log('small 捕获阶段被点击了');
+    },true)
+
+    oSmall.addEventListener('click',function(){
+        console.log('small 冒泡阶段被点击了');
+    },false)
+
+    oBig.addEventListener('click',function(){
+        console.log('big 捕获阶段被点击了');
+    },true)
+
+    document.body.addEventListener('click',function(){
+        console.log('document.body 捕获阶段被点击了');
+    },true)
+
+    oBig.onclick = function(){
+        console.log('big  DOM0级事件');
+    }
+    document.body.onclick = function(){
+        console.log('document.body  DOM0级事件');
+    }
+    oSmall.onclick = function(){
+        console.log('small  DOM0级事件');
+    }
+
+    document.body.addEventListener('click',function(){
+        console.log('document.body 冒泡阶段被点击了');
+    },false)
+</script>
+</body>
+</html>

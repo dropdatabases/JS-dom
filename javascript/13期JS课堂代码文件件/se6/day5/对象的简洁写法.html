@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+
+    /*
+    *   当对象的属性名 和要使用的变量名完全一致   则可以简写
+    *
+    *   Object.is解决 两个数据一样就相等的问题
+    *   Object.assign(实参1，实参2.。。)
+     *      用来合并对象 并且把合并后的新对象赋值给assign的第一个实参
+        Object.keys(对象)
+            获取对象键名组成的数组
+
+        Object.values(对象)
+           获取对象键值组成的数组
+
+        Object.entries(对象)
+           获取对象键名 键值组成的数组
+
+    * */
+    // var name = 'heaven';
+    // var age = 28;
+
+    // var obj = {
+    //     name,
+    //     age,
+    //     sayName(){
+    //         console.log(this)
+    //     },
+    // }
+
+    // obj.sayName();
+
+    var a = 'sex'
+    var person = {
+        name:'heaven',
+        age:28,
+        [a]:'male',
+        ['hello'](){
+            console.log('我是函数')
+        }
+    }
+
+    console.log(person.name);
+    console.log(person['age']);
+</script>
+</body>
+</html>

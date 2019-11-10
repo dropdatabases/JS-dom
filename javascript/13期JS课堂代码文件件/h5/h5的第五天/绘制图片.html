@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;
+            padding: 0;
+        }
+
+        canvas{
+            display: block;
+            border:2px solid blue;
+            margin:50px auto;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas" width="500" height="400"></canvas>
+
+    <script>
+    	var canvas = document.getElementById('canvas');
+
+    	var cxt = canvas.getContext('2d');
+
+    	//创建img节点
+    	var oImg = new Image();
+    	//等图片请求完在赋值给节点上面的src(会下载这张图片)
+    	oImg.src = '../h5的第一天/QQ截图20190929121951.png';//异步代码
+
+    	//等图片加载完毕触发onload事件
+    	oImg.onload = function(){
+
+    /*
+        绘制图片
+    *   cxt.drawImgae(图片节点,x,y,w,h)
+    *
+    *   裁切图片
+    *   cxt.drawImage(图片节点,sx,sy,sw,sh,x,y,w,h)
+           从图片的左上角开始裁切  裁切的起点sx,sy  裁切的区域是sw*sh
+           从画布的左上角开始绘制  绘制的起点x,y    绘制的区域是w*h
+
+    *
+    * */
+
+    		//图片加载完成用canvas方法绘制出来
+
+    		//绘制图片
+    		// cxt.drawImage(绘制图片的节点,距离画布的X方向绘制图片,距离画布的Y方向绘制图片,绘制图片的宽度,绘制图片的高度)
+    		// cxt.drawImage(oImg,0,0,canvas.width,canvas.height);
+
+    		//裁剪图片
+    		// cxt.drawImage(裁剪图片的节点,要裁剪图片的水平距离,要裁剪图片的竖直距离,要裁剪图片的宽度,要裁剪图片的高度,要绘制图片的水平方向(距离画布),要绘制图片的竖直方向(距离画布),要绘制图片的宽度,绘制图片的高度) 
+    		// 前四个数值是开始裁剪图片的区域 后四个数值是绘制图片的区域
+    		cxt.drawImage(oImg,400,200,560,470,100,100,200,500);
+    	};
+    </script>
+</body>
+</html>

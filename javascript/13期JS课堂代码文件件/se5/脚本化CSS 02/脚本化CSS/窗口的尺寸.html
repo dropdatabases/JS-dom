@@ -1,0 +1,51 @@
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    /*
+        IE8以上
+    *   window.innerWidth  获取浏览器窗口的宽度值
+    *   window.innerHeight  获取浏览器窗口的高度值
+    *
+    *   IE8 以下
+    *   document.documentElement.scrollLeft
+        document.documentElement.scrollTop
+
+        document.body.scrollLeft
+        document.body.scrollTop
+        在IE8以下兼容性比较混乱,在使用时两个值相加，因为这两对值不能同时存在
+    *
+    * */
+
+    console.log(window.innerHeight)
+
+    /*函数执行后返回{w:浏览器宽度,h:浏览器高度}*/
+    function getViewportOffset(){
+        if(window.innerWidth){  //IE8以上
+            return {
+                w:window.innerWidth,
+                h:window.innerHeight
+            }
+        }else{      //IE8以下
+            if(document.compatMode=='BackCompat'){   //兼容模式
+                return {
+                    w:document.body.clientWidth,
+                    h:document.body.clientHeight
+                }
+            }else{  //标准模式
+                return {
+                    w:document.documentElement.clientWidth,
+                    h:document.documentElement.clientHeight
+                }
+            }
+
+        }
+    }
+    console.log(getViewportOffset());
+</script>
+</body>
+</html>

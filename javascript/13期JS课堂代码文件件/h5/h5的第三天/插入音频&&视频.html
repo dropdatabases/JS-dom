@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	 <!-- video 可以在页面中插入一个视频 -->
+    <!--  audio 可以在页面中插入一个音频 -->
+
+
+	<!-- video标签可以在页面中插入一个视频 src表示插入视频的路径 -->
+	<video src="video/1.mp4" 
+		   width="500" 
+		   controls
+		   autoplay
+		   muted
+		   poster="../h5的第一天/QQ截图20190929121951.png"
+		   loop
+	></video>
+	<!-- video设置了width值没有设置height那么他的高度会等比例缩放的(不用管高度) -->
+	
+	<!-- 
+		controls   显示视频的所有控件(这些控件是可以控制视频的一些状态的)
+
+		autoplay   让视频自动播放(高版本浏览器加上这个属性也是不能自动播放的) 
+
+		高版本浏览器需要加上muted属性能让视频自动播放并且静音
+
+		poster       给视频添加海报(广告)
+
+		loop         让视频循环播放
+	 -->
+	 <!-- 音频和视频的用法是一样的 -->
+</body>
+</html>

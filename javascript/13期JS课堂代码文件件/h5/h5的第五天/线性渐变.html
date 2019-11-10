@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin: 0;
+			padding:0;
+		}
+		canvas{
+			display: block;
+			border: 2px solid blue;
+			margin: 50px auto;
+		}
+	</style>
+</head>
+<body>
+	<canvas id="canvas" width="500" height="400"></canvas>
+	<!-- 在写canvas宽高的时候尽量在标签里面写canvas的宽高 -->
+
+	<script>
+		var canvas = document.getElementById('canvas');
+
+		var cxt = canvas.getContext('2d');//cxt这个变量名字是canvas里面的画笔的专属变量名 cxt是getContext单词的缩写
+
+		//绘制一条线段 让这个线段的宽度是10 颜色是蓝色
+		// cxt.lineWidth = 10;
+		// cxt.strokeStyle = 'blue';
+		// cxt.beginPath();
+		// cxt.moveTo(100,100);
+		// cxt.lineTo(300,100);
+		// cxt.stroke();
+
+		//那么如何绘制渐变的矩形呢
+		//CSS渐变是一张图片 canvas渐变是一个颜色
+
+		//创建线性渐变 这个函数返回结果是一个颜色对象
+		// cxt.createLinearGradient(开始渐变X方向,开始渐变Y方向,结束渐变X方向,结束渐变Y方向);两个直线确定一条直线 这个直线就是渐变的方向
+		var color = cxt.createLinearGradient(200,100,300,300);
+
+		//add(添加) color(颜色) stop(停止的点)
+		//添加渐变的颜色终止点(也可以写多个)  0-1表示的是 渐变起点-渐变终点
+		// color.addColorStop(渐变的范围,渐变的颜色);
+		color.addColorStop(0,'red');
+		color.addColorStop(0.5,'green');
+		color.addColorStop(1,'blue');
+
+		//让画笔的颜色应用线性渐变对象
+		cxt.fillStyle = color;
+
+		cxt.fillRect(200,100,200,200);
+	</script>
+</body>
+</html>

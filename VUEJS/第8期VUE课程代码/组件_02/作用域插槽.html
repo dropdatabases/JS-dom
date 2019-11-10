@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+    <son>
+        <!--<h1 slot="heaven">测试标题</h1>-->
+        <!--<p slot="six">测试内容</p>-->
+
+        <!-- 必须要用template标签  必须要用slot-scope属性 -->
+        <!--<template slot='admin' slot-scope="result">-->
+            <!--<ul>-->
+                <!--<li v-for="(item,index) in result.admin">-->
+                    <!--{{index}}&#45;&#45;{{item}}-->
+                <!--</li>-->
+            <!--</ul>-->
+        <!--</template>-->
+    </son>
+
+    <!--<son>-->
+        <!--<h1 slot="heaven">测试标题</h1>-->
+        <!--<p>测试内容</p>-->
+        <!--<template slot-scope="result">-->
+
+            <!--<span v-for="(item,index) in result.admin">-->
+                <!--{{index}}&#45;&#45;{{item}}-->
+            <!--</span>-->
+
+        <!--</template>-->
+    <!--</son>-->
+</div>
+
+<template id="son">
+    <div>
+        <slot :admin="arr" name="admin"></slot>
+        <slot name="la"></slot>
+        我是子组件的数据
+    </div>
+</template>
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<script>
+    let son = {
+        template:'#son',
+        data(){
+            return {
+                a:'子组件的数据',
+                arr:['抽烟','喝酒','烫头']
+            }
+        },
+        mounted(){
+            console.log(this)
+            console.log(this.$slots);
+        }
+    }
+    let vm = new Vue({
+        el:'#app',
+        data:{
+          a:'父组件的数据'
+        },
+        components:{
+            son
+        },
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        #big{
+            /*position:relative;*/
+            left:20px;
+            top:20px;
+            width:300px;
+            height:300px;
+            background: pink;
+        }
+        #small{
+            width:200px;
+            height:200px;
+            margin-left:400px;
+            background: blue;
+        }
+    </style>
+</head>
+<body>
+<div id="big">
+    <div id="small"></div>
+</div>
+<script>
+    var oBig = document.getElementById('big');
+    var oSmall = document.getElementById('small');
+
+
+    /*
+    *   当dom节点的事件被触发时，
+    *   系统会向事件处理函数中传入一个对象，这个对象一般用e/event来表示，
+    *   这个对象记录了事件触发时的重要信息，
+    *   例如触发时的鼠标位置等等
+    *
+    *
+    *   在IE的低版本中 window.event 存储着事件对象
+    *   e.clientX    鼠标距离浏览器左上角的水平距离
+    *   e.clientY    鼠标距离浏览器左上角的竖直距离
+    *
+    *   e.offsetX    鼠标距离自身元素左上角的水平距离
+    *   e.offsetY    鼠标距离自身元素左上角的竖直距离
+    *
+    *   e.layerX    鼠标距离有定位属性父级元素的左上角的水平距离
+    *   e.layerY    鼠标距离有定位属性父级元素的左上角的竖直距离
+    *
+    *   e.screenX    鼠标距离电脑左上角的水平距离
+    *   e.screenY    鼠标距离电脑左上角的竖直距离
+    * */
+    oSmall.onclick = function (e) {
+        e = e||window.event;    //兼容谷歌和IE低版本
+        // console.log(e.clientX,e.clientY)
+        // console.log(e.offsetX,e.offsetY)
+        // console.log(e.layerX,e.layerY)
+        console.log(e.screenX,e.screenY)
+    }
+
+</script>
+</body>
+</html>

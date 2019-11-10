@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    /*
+    *   定时器的作用：每隔一段时间执行对应的代码
+    *   定时器的回调函数中  this-->window
+    *
+    *   JS有两类定时器
+    *       setTimeout  延迟定时器(回调函数执行一次)
+    *       setInterval 循环定时器(回调函数执行无数次)
+
+    * */
+
+    // setTimeout(function(a){
+    //     console.log('函数执行')
+    // },3000,2)
+
+    //setInterval(auto,1000,'我是回调函数执行时传递的实参',2)
+
+    // function auto(a,b){
+    //     // console.log(a,b);
+    //     console.log(this);
+    //     // console.log('函数执行')
+    // }
+
+    setTimeout('console.log([1,22])',1000)
+</script>
+</body>
+</html>

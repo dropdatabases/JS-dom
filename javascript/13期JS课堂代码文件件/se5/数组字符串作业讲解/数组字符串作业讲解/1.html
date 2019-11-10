@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+
+    /*
+    *   例1：封装函数 检查字符串结尾
+    *
+    *      1.截取字符串1的后两位
+    *           str.slice(-2)   截取str的后两位
+    *      2.截取出的后两位的字符串 和字符串2比较
+    *      3.相等则返回true  反之false
+    * */
+    // function confirmEnding(str,target){
+    //     // if(str.slice(-target.length)==target){
+    //     //     return true
+    //     // }else{
+    //     //     return false
+    //     // }
+    //     return str.slice(-target.length)==target
+    // }
+
+    /*
+    *   例2： 封装函数 用来反转数字
+    *       1.把数字变成字符串  '12345'
+    *       2.使用split('')    ['1','2','3','4','5']
+    *       3.数组reverse()    ['5','4','3','2','1']
+    *       4.使用join('')       '54321'
+    *       5.  把字符串变成数字  +'54321'
+    * */
+    // function  reverseNumber(num){
+    //    return +num.toString().split('').reverse().join('')
+    // }
+    // reverseNumber(12345)  		//54321
+
+    /*例3： 封装函数 来检测传入的字符串是否为回文
+    *   1.使用split('')把str变成数组  ['h','e','l','l','o']
+    *   2.使用reverse()函数         ['o','l','l','e','h']
+    *   3.使用join('')函数拼出来新的字符串         'olleh'
+    *   4.新的字符串和str比较
+    *   5.相等则返回true 反之false
+    *
+    * */
+
+    function isPalindrome(str){
+        return str==str.split('').reverse().join('')
+    }
+
+    /*
+    *   例6： 写一个函数对传入的字符串中每个单词的首字母大写
+    *   1.使用split(' ')把str变成数组 ['the','quick','brown','fox']
+    *   2.遍历数组的每项，把每项的首字母变成大写的
+    *   3.每项中首字母 用大写的字母代替   'the'  -->  'The'
+     *      ['The','Quick','Brown','Fox']
+    *
+    * */
+    // function myCap(str){
+    //     var arr = str.split(' ');
+    //     for(var i=0;i<arr.length;i++){  //把每项的首字母变成大写的
+    //         console.log(arr[i])
+    //         arr[i] = arr[i].replace(arr[i][0],arr[i][0].toUpperCase())
+    //     }
+    //     return arr.join(' ')
+    //
+    // }
+
+    /*
+    *   例7: 写一个函数找出传入的字符串中最长的单词
+    *
+    *   1.使用split('')函数 把字符串变成数组  ['Web','Development','Tutorial']
+    *   2.
+    *
+    * */
+    // function findLongest(str){
+    //     var arr = str.split(' ');
+    //     var max = arr[0];   //存放长度最大的单词
+    //     for(var i=1;i<arr.length;i++){
+    //         if(max.length<arr[i].length){
+    //             max = arr[i]
+    //         }
+    //     }
+    //     return max;
+    //
+    // }
+    // findLongest('Web Development Tutorial'); // Development
+
+    /*
+    *   例8：封装函数  实现toUpperCase方法
+    *   1.把小写的字符变成大写的字符
+    *   2.如果是大写字符 就不变了
+    * */
+
+    function myUpperCase(str){
+        var newStr = '';
+        for(var i=0;i<str.length;i++){
+            var charCode = str.charCodeAt(i);   //存放每个字符的Unicode码
+            if(charCode>=97&&charCode<=122){    //如果是小写字母
+                newStr = newStr + String.fromCharCode(charCode - 32)
+            }else{
+                newStr = newStr + str[i]
+            }
+        }
+        return newStr
+    }
+
+
+    /*
+    *  例10：封装函数  重复输出字符串
+    * */
+
+    function repeat(str, num) {
+        var newStr = '';
+        if(num<0){
+            return str
+        }
+        for(var i=0;i<num;i++){
+            newStr = newStr+str;
+        }
+        return newStr;
+    }
+
+    /*
+    * 例12：比较字符串，如果第一个字符串中包含了第二个字符串的所有字母，
+    *       则返回true，否则返回false
+    *
+    *       1.遍历第二个字符串
+    *       2.看看第一个字符串中有没有包括第二个字符串的某一个字符
+    * */
+
+    function compare(arr) {
+        for(var i=0;i<arr[1].length;i++){
+            // console.log(arr[1][i]);
+
+            if(arr[0].indexOf(arr[1][i])===-1){
+                //判断arr[0]里面有没有arr[1][i]
+                /* 如果是-1
+                 * arr[0]里面就没有arr[1][i]
+                 * 如果不是-1
+                 * arr[0]里面就有arr[1][i]
+                 * */
+                return false;
+            }
+        }
+        return true;
+    }
+    compare(["hello", "heo"]);    //true
+    //compare(["hello", "neo"]);    //false
+
+    /*
+    *   例13： 封装函数  用指定字符串替换字符串
+    *      replaceStr('l am heaven heaven heaven','heaven','six')
+    *               --> 'l am six heaven heaven'
+    *
+    *      replaceStr('l am six heaven heaven','heaven','six')
+    *               --> 'l am six six heaven'
+    *
+    *      replaceStr('l am six six heaven','heaven','six')
+    *               -->l am six six six'
+    * */
+    function replaceStr(str,origin,target){
+        if(str.indexOf(origin)===-1){   //如果最终的str中不存在origin 则替换完成 返回str
+            return str;
+        }
+        return replaceStr(str.replace(origin,target),origin,target)
+    }
+    replaceStr('l am heaven heaven','heaven','six')	// 'l am  six'
+
+
+</script>
+</body>
+</html>

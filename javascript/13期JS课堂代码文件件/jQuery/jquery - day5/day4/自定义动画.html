@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;
+            padding: 0;
+        }
+        #box{
+            border:solid;
+        }
+        img{
+            position:relative;
+            width:300px;
+            padding:20px;
+            margin:20px;
+            border:20px solid blue;
+            background:rgba(255,255,0,1);
+        }
+        button{
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+    <img src="./1.jpg" alt="">
+    <img src="./1.jpg" alt="">
+    <img src="./1.jpg" alt="">
+</div>
+<button id="btn01">animate</button>
+<button id="btn02">stop</button>
+<button id="btn03">finsih</button>
+<script src="./jquery-3.4.1.js"></script>
+<script>
+    $(document).ready(function(){
+
+        $('#btn01').click(function(){
+            $('img').animate({
+                width:100,
+            },3000)
+        })
+
+        $('#btn02').click(function(){
+            /*
+            *   stop  停止动画
+            *   delay 延迟动画  写在某个动画的前面 让delay后面的动画延迟执行
+            *   finish 让动画立马结束
+            * */
+            $('img').stop()
+        })
+
+        $('#btn03').click(function(){
+            $('img').finish()
+        })
+
+
+        console.log($.fx.interval)
+
+
+    })
+</script>
+</body>
+</html>

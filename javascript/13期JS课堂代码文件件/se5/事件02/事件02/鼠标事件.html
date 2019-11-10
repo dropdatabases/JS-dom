@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        #box{
+            width:200px;
+            height:200px;
+            background-color:pink;
+        }
+    </style>
+</head>
+<body>
+<div id="box"></div>
+<script>
+    var oBox = document.getElementById('box');
+    console.log(oBox);
+
+    //onclick = onmousedown + onmouseup
+    /*鼠标点击左键 并且鼠标抬起时触发*/
+    // oBox.onclick = function(){
+    //     console.log('我被点击了');
+    // }
+
+
+    /*鼠标的任意键在按下时会触发*/
+    // oBox.onmousedown = function(){
+    //     console.log('鼠标在oBox上按下了，我检测到了');
+    // }
+
+    /*鼠标的任意键在按下时  并且抬起来时会触发*/
+    // oBox.onmouseup = function(){
+    //     console.log('鼠标在oBox上按下了，我检测到了');
+    // }
+
+    /*当鼠标右键按下 并且抬起时触发*/
+    // oBox.oncontextmenu = function(){
+    //     console.log('鼠标右键点击了，我检测到了');
+    // }
+
+    /*当鼠标进入到dom节点内部 就会触发事件处理函数*/
+    // oBox.onmouseenter = function(){
+    //     console.log('鼠标进来了，我检测到了mouseenter');
+    // }
+
+    /*当鼠标进入到dom节点内部 就会触发事件处理函数*/
+    // oBox.onmouseover = function(){
+    //     console.log('鼠标进来了，我检测到了mouseover');
+    // }
+
+    /*当鼠标在dom节点内部移动时 就会持续触发事件处理函数*/
+    // oBox.onmousemove = function(){
+    //     console.log('鼠标在oBox里面移动了，我检测到了');
+    // }
+
+    /*当鼠标离开到dom节点内部 就会触发事件处理函数*/
+    oBox.onmouseleave = function(){
+        console.log('鼠标离开了，我检测到了  mouseleave');
+    }
+
+    /*当鼠标离开到dom节点内部 就会触发事件处理函数*/
+    oBox.onmouseout = function(){
+        console.log('鼠标离开了，我检测到了  mouseout');
+    }
+
+    // oBox.addEventListener('mouseleave',function(){
+    //     console.log('鼠标离开了，我检测到了');
+    // },false)
+
+    /*
+    *   onmouseenter  <--> onmouseleave 这是一组
+    *
+    *   onmouseover   <--> onmouseout   这也是一组
+    * */
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

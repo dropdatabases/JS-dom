@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function Person(name,age){
+        /*
+        *   {
+        *       __proto__:Person.prototype,
+        *       name:'海文',
+        *       age:28
+        *   }
+        * */
+        this.name = name;       //特性
+        this.age = age;         //特性
+    }
+
+    /*Person.prototype 是原型（原始模型）是一个对象*/
+    Person.prototype.sayName = function(){      //共性
+        console.log(this.name);
+    }
+    var person1 = new Person('海文',28);
+    var person2 = new Person('heaven',30);
+
+    console.log(person1.sayName === person2.sayName);
+
+    /*
+    *   1.为什么person1 person2 有sayName方法
+    *   2.为什么person1.sayName === person2.sayName
+    *   对象查找属性的规则
+    *       1.先查找自身上面有没有指定属性
+    *       2.如果没有在自身上找到指定属性 那就从__proto__属性中查找有没有指定属性
+    *
+    * */
+
+
+</script>
+</body>
+</html>

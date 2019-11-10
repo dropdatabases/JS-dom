@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="">
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        #box{
+            width:800px;
+            height:200px;
+            margin:auto;
+            border:3px solid #000;
+        }
+        #box ul{
+            height: 65px;
+            overflow: hidden;
+        }
+        #box ul li{
+            list-style: none;
+            float:left;
+            width:41px;
+            height:125px;
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+
+    <ul>
+        <li class="on">
+            <img src="images/0.png" class='topImg' alt="">
+            <img src="images/0.png" class='botImg' alt="">
+        </li>
+        <li class="on">
+            <img src="images/0.png" class='topImg' alt="">
+            <img src="images/0.png" class='botImg' alt="">
+        </li>
+        <li>
+            <img src="images/d.png" alt="">
+            <img src="images/d.png" alt="">
+        </li>
+        <li class="on">
+            <img src="images/0.png" class='topImg' alt="">
+            <img src="images/0.png" class='botImg' alt="">
+        </li>
+        <li class="on">
+            <img src="images/0.png" class='topImg' alt="">
+            <img src="images/0.png" class='botImg' alt="">
+        </li>
+        <li>
+            <img src="images/d.png" alt="">
+            <img src="images/d.png" alt="">
+        </li>
+        <li class="on">
+            <img src="images/0.png" class='topImg' alt="">
+            <img src="images/0.png" class='botImg' alt="">
+        </li>
+        <li class="on">
+            <img src="images/0.png" class='topImg' alt="">
+            <img src="images/0.png" class='botImg' alt="">
+        </li>
+    </ul>
+</div>
+<!--外链JS文件-->
+<script src="./animation.js" ></script>
+
+<script>
+
+    var aImg = document.getElementsByClassName('topImg');
+    var aBotImg = document.getElementsByClassName('botImg');
+    var aLi = document.getElementsByClassName('on');
+    console.log(aImg);
+
+    var timer = setInterval(function(){
+        var nowTime = new Date();   //获取当前的时间
+        var hour = nowTime.getHours();//获取小时数
+        var minute = nowTime.getMinutes();//获取分钟数
+        var second = nowTime.getSeconds();//获取秒钟数
+        var str = '';       //存放小时 分钟 秒钟 组成的字符串
+        str = toTwo(hour) + toTwo(minute) + toTwo(second);
+
+
+        nowTime.setSeconds(nowTime.getSeconds() + 1);//在原来的时间戳上 加1
+
+        var newHour = nowTime.getHours();//获取小时数
+        var newMinute = nowTime.getMinutes();//获取分钟数
+        var newSecond = nowTime.getSeconds();//获取秒钟数
+        var newStr = '';       //存放小时 分钟 秒钟 组成的字符串
+        newStr = toTwo(newHour) + toTwo(newMinute) + toTwo(newSecond);
+
+        for(var i=0;i<str.length;i++){
+            aImg[i].src = "images/" + str[i] + ".png"
+        }
+        for(var i=0;i<newStr.length;i++){
+            aBotImg[i].src = "images/" + newStr[i] + ".png"
+        }
+
+
+        for(var i=0;i<aLi.length;i++){
+            if(str[i]!==newStr[i]){ //如果str[i] 和newStr[i]不相等的时候 才滚动li
+                (function(i){       //使用闭包 储存i
+                    animation(aLi[i],{
+                        marginTop:-65
+                    },0.5,function(){   //瞬间回到初始位置 为下一次margin-top 65px 做准备
+                        this.style.marginTop = 0;
+                        aImg[i].src = 'images/'+newStr[i]+'.png';//修改aImg[i]的src
+                    })
+                })(i)
+            }
+        }
+
+    },1000)
+
+
+
+    /*
+    * 这个函数的作用是 把 1 --> 01
+    * */
+    function toTwo(num){
+        if(num<10){
+            return '0' + num;
+        }else{
+            return num + '';
+        }
+    }
+</script>
+</body>
+</html>

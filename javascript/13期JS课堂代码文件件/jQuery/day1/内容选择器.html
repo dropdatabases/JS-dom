@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="box">我是box</div>
+    <ul>
+        <li class="item1">h231231</li>
+        <li>
+            <div class="item1"></div>
+        </li>
+        <li class="item2"></li>
+        <li>4</li>
+        <li>5</li>
+    </ul>
+    <ul>
+        <li>qweqw1</li>
+    </ul>
+
+    <script src="./jquery-3.4.1.js"></script>
+    <script>
+        $(document).ready(function(){
+            //选到包含指定文本内容的元素
+            //console.log($('li:contains("1")'));
+
+            //选到没有任何内容的元素
+            //console.log($('li:empty'));
+
+            //选到有文本内容的元素
+            // console.log($('li:parent'));
+
+            //选择到含有指定选择器
+            console.log($('li:has(".item1")'));
+        })
+    </script>
+</body>
+</html>

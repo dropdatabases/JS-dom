@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+        var str = 'heaven';
+        var reg = /e/g;
+        /*
+        *   reg.lastIndex  记录下次要匹配的索引位置（可读可写）
+        *
+        *   reg.exec(str) 从索引lastIndex位置开始匹配符合正则规则的字符
+        *
+        *
+        *   想要匹配正则中有特殊意义的符号
+        *       必须使用转移符号\ 必须把特殊意义转义掉
+        * */
+
+        console.log(reg.lastIndex)
+        console.log(reg.exec(str));
+        console.log(reg.lastIndex)
+        console.log(reg.exec(str));
+        console.log(reg.lastIndex)
+        console.log(reg.exec(str));
+        console.log(reg.lastIndex)
+        console.log(reg.exec(str));
+        console.log(reg.lastIndex)
+
+
+</script>
+</body>
+</html>

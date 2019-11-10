@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+        /*
+        *   一元运算符   + -  该运算符只操作一个数据
+        *
+        *   +2  正号  对一个数字取正   如果操作的是非数字类型 则会隐式转换成数字类型
+        *
+        *   +false  -->  +0  --> 0
+        *   +[1,23] --> +NaN  --> NaN
+        *
+        *   -2  负号 对一个数字取负     如果操作的是非数字类型 则会隐式转换成数字类型
+        *   -1==>-1
+        *
+        *
+        *   -true+false  -1+0   -->  -1
+            +null+function(){}  一元运算符和算术运算符  谁先算？
+                    猜测  先算一元运算符
+              1.  0+function(){}
+              2.  0+'function(){}'
+              3.  '0function(){}'
+
+                    结论：一元运算符 的优先级高于 算术运算符
+
+
+
+            null+-true
+        *
+        * */
+
+</script>
+</body>
+</html>

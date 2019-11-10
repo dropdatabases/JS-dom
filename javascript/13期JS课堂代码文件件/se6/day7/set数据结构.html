@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+
+    /*
+        set数据结构的特点:
+            1.数据不能够重复
+            2.索引和数据是一致的
+    *   set的操作方法
+    *       add(数据)         向set结构中填充数据
+    *       delete(数据)      删除set结构中的指定数据
+    *       has(数据)         判断set结构中有没有指定数据
+    *       clear()           清空set结构中的所有数据
+    *
+    *   set的属性
+    *       size            存放set结构数据的长度
+    *
+
+    *   set的遍历方法
+    *       forEach
+    *
+    *
+    *
+    *    new Set(参数)
+    *       1.数组
+    *       2.字符串
+    *
+    * */
+    //利用set结构 实现数组去重
+    var arr = [1,2,2,3,3];
+    var s1 = new Set(arr);
+    var newArr = [...s1];
+
+
+    //利用set结构 实现字符串去重
+    var str = 'hello';
+    var s2 = new Set(str);
+    var newStr = [...s2].join('');
+
+
+</script>
+</body>
+</html>

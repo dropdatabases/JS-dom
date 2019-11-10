@@ -1,0 +1,165 @@
+<!DOCTYPE html><html><head><title>21-第二十一章-css3 响应式布局</title><meta charset='utf-8'><link href='https://dn-maxiang.qbox.me/res-min/themes/marxico.css' rel='stylesheet'><style>
+.note-content  {font-family: 'Helvetica Neue', Arial, 'Hiragino Sans GB', STHeiti, 'Microsoft YaHei', 'WenQuanYi Micro Hei', SimSun, Song, sans-serif;}
+
+</style></head><body><div id='preview-contents' class='note-content'>
+                        
+                    
+
+
+
+<h1 id="21-第二十一章-css3-响应式布局">21-第二十一章-css3 响应式布局</h1>
+
+<p></p>
+
+<hr>
+
+
+
+<h2 id="一媒体类型">一、媒体类型</h2>
+
+<blockquote>
+  <p><code>all</code>      所有媒体 <br>
+  <code>screen</code>    彩屏设备 <br>
+  <code>print</code>    用于打印机和打印预览 <br>
+  speech  应用于屏幕阅读器等发声设备 <br>
+  braille     应用于盲文触摸式（已废弃 ） <br>
+  embossed    用于打印的盲人印刷设备（已废弃 ） <br>
+  projection  用于投影设备（已废弃 ） <br>
+  tty         不适用像素的设备（已废弃 ） <br>
+  tv          电视（已废弃 ）</p>
+</blockquote>
+
+<hr>
+
+
+
+<h2 id="二关键字">二、关键字</h2>
+
+<blockquote>
+  <p><code>and</code>  并且 <br>
+  not         用来排除某种制定的媒体类型 <br>
+  <code>only</code>      (限定某种设备)某种特定的媒体类型</p>
+</blockquote>
+
+<hr>
+
+
+
+<h2 id="三媒体特性">三、媒体特性</h2>
+
+<blockquote>
+  <p>(<code>width:600px</code>)        宽 <br>
+  (<code>max-width:600px</code>)         最大宽度 &lt;=600 <br>
+  (<code>min-width: 480px</code>)        最小宽度    &gt;=480 <br>
+  (<code>orientation:portrait</code>)        竖屏 <br>
+  (<code>orientation:landscape</code>)   横屏</p>
+</blockquote>
+
+<hr>
+
+
+
+<h2 id="四媒体查询">四、媒体查询</h2>
+
+<p>1、方式一 媒体查询：<code>@media [not|only] mediatype [and] (media feature)  { <br>
+                CSS-Code; <br>
+        }</code></p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs css"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>@<span class="hljs-keyword">media</span> screen  and (min-width:<span class="hljs-number">400px</span>) and  (max-width:<span class="hljs-number">500px</span>)  {<span class="hljs-selector-class">.box</span> {<span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span> auto;}}
+</div></code></pre>
+
+<p>//值与值之间需要有空格</p>
+
+<hr>
+
+<p>2、 方式二：<code>@import url('index.css') [not|only]  mediatype [and] (media feature) [and] (media  <br>
+feature);</code>需顶行写</p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs cpp"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>@<span class="hljs-function"><span class="hljs-keyword">import</span> <span class="hljs-title">url</span><span class="hljs-params">(<span class="hljs-string">"css/reset.css"</span>)</span>  screen</span>;
+</div></code></pre>
+
+<hr>
+
+<p>3、方式三：样式引入</p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs lasso"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>&lt;<span class="hljs-keyword">link</span> rel=<span class="hljs-string">""</span> <span class="hljs-keyword">type</span>=<span class="hljs-string">""</span> href=<span class="hljs-string">"A.css"</span>  media=<span class="hljs-string">"screen and (min-width: 800px)"</span>&gt;
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>&lt;<span class="hljs-keyword">link</span> rel=<span class="hljs-string">""</span> <span class="hljs-keyword">type</span>=<span class="hljs-string">""</span> href=<span class="hljs-string">"B.css"</span>  media=<span class="hljs-string">"screen and (min-width: 600px) and (max-width: 800px)"</span>&gt;
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>&lt;<span class="hljs-keyword">link</span> rel=<span class="hljs-string">""</span> <span class="hljs-keyword">type</span>=<span class="hljs-string">""</span> href=<span class="hljs-string">"C.css"</span>   media=<span class="hljs-string">"screen and (max-width: 600px)"</span>&gt;
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>&lt;<span class="hljs-keyword">link</span> rel=<span class="hljs-string">'stylesheet'</span> media=<span class="hljs-string">'all and (orientation:portrait)'</span> href=<span class="hljs-string">'portrait.css'</span>&gt;
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>&lt;<span class="hljs-keyword">link</span> rel=<span class="hljs-string">'stylesheet'</span> media=<span class="hljs-string">'all and (orientation:landscape)'</span> href=<span class="hljs-string">'landscape.css'</span>&gt;
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>&lt;<span class="hljs-keyword">link</span> rel=<span class="hljs-string">'stylesheet'</span> <span class="hljs-keyword">type</span>=<span class="hljs-string">'text/css" media="print" href='</span>print.css<span class="hljs-string">'  /&gt;</span>
+</div></code></pre>
+
+
+
+<h2 id="五viewport视口">五、viewport视口</h2>
+
+<p><code>&lt;meta name="viewport" content="" /&gt;</code>视口的作用：在移动浏览器中，当页面宽度超出设备，浏览器内部虚拟的一个页面容器，将页面容器缩放到设备这么大，然后展示</p>
+
+<blockquote>
+  <p><code>width</code>        [pixel_value | device-width]  例如width = 640 <br>
+  <code>height</code>        [pixel_value | device-height] <br>
+  <code>initial-scale</code>         初始比例 <br>
+  <code>minimum-scale</code>     允许缩放的最小比例 <br>
+  <code>maximum-scale</code>     允许缩放的最大比例  <br>
+  <code>user-scalable</code>     是否允许缩放 （yes || no 或 1 | 0）</p>
+</blockquote>
+
+<p>兼容</p>
+
+<p>Edge 模式告诉 IE 以最高级模式渲染文档，也就是任何 IE 版本都以当前版本所支持的最高级标准模式渲染，避免版本升级造成的影响。简单的说，就是什么版本 IE 就用什么版本的标准模式渲染</p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs xml"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">http-equiv</span>=<span class="hljs-string">"X-UA-Compatible"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"IE=edge"</span>&gt;</span>
+</div></code></pre>
+
+<p>使用以下代码强制 IE 使用 Chrome Frame 渲染</p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs xml"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">http-equiv</span>=<span class="hljs-string">"X-UA-Compatible"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"chrome=1"</span>&gt;</span>
+</div></code></pre>
+
+<p>提示 IE 用户安装 Google Frame</p>
+
+<hr>
+
+<p>最佳的兼容模式方案，结合考虑以上两种：</p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs xml"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">http-equiv</span>=<span class="hljs-string">"X-UA-Compatible"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"IE=edge,chrome=1"</span>&gt;</span>
+</div></code></pre>
+
+
+
+<h2 id="六rem公式">六、rem公式</h2>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs scheme"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>(<span class="hljs-name">function</span>(<span class="hljs-name">win</span>,doc){
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>        var docEl = doc.documentElement || document.body<span class="hljs-comment">;//获取HTML标签</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>        //判断是移动端设备还是PC,移动 就采用<span class="hljs-symbol">'orientationchange</span>',横竖屏事件，PC端就采用onresize，窗口改变时间
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>        var resize = <span class="hljs-symbol">'orientationchange</span>' in win ? <span class="hljs-symbol">'orientationchange</span><span class="hljs-symbol">':</span><span class="hljs-symbol">'resize</span>'<span class="hljs-comment">;</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>        function rem(){
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>            var w = docEl.clientWidth/720&gt;1?720:docEl.clientWidth<span class="hljs-comment">;</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span>            docEl.style.fontSize= <span class="hljs-number">100</span>*(<span class="hljs-name">w/720</span>)+<span class="hljs-symbol">'px</span>'<span class="hljs-comment">;</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span>        }
+</div><div class="hljs-line"><span class="hljs-comment line-number">11.</span>        doc.addEventListener(<span class="hljs-symbol">'DOMContentLoaded</span>',rem,false)<span class="hljs-comment">;</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">12.</span>        //监听<span class="hljs-symbol">'DOMContent事件:DOM加载完成执行</span>,如果DOMContent事件，那么执行rem函数
+</div><div class="hljs-line"><span class="hljs-comment line-number">13.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">14.</span>        win.addEventListener(<span class="hljs-name">resize</span>,rem,false)<span class="hljs-comment">;</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">15.</span>        //win下监听resize事件,如果resize事件，那么执行rem函数
+</div><div class="hljs-line"><span class="hljs-comment line-number">16.</span>    })(<span class="hljs-name">window</span>,document)
+</div></code></pre></div></body></html>

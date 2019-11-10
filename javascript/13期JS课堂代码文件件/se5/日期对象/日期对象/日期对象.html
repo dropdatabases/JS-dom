@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    /*
+    *   日期对象 Date
+    *
+    *   date.toLocaleString()
+    *       获取本地日期字符串
+    *   date.toLocaleDateString()
+    *       ==>	获取本地(年/月/日)形式的字符串
+        date.toLocaleTimeString()
+            ==>	获取本地(时/分/秒)形式的字符串
+
+         date.getFullYear()     获取年份
+         date.getMonth()        获取月份  0-11
+         date.getDate()         获取日期
+
+         date.getHours()        获取小时
+         date.getMinutes()      获取分钟
+         date.getSeconds()      获取秒钟
+         date.getMilliseconds		==>获取毫秒
+         date.getDay()		==>获取星期几
+                            (0-6)	星期天是0
+
+         date.getTime()
+            ==>获取当前时间到1970年1月1日午夜的毫秒数
+         date.getTimezoneOffset()
+            ==>	获取当前时区的偏移时间  东8区是-480 单位是分钟
+
+
+
+        date.setFullYear()      设置年份
+        date.setMonth()         设置月份
+        date.setDate()          设置日期
+        date.setHours()         设置小时
+        date.setMinutes()       设置分钟
+        date.setSeconds()       设置秒钟
+
+
+
+    * */
+
+
+    var date = new Date();
+    var newDate = new Date(2020,6,28,10,20,20)
+
+    console.log(newDate-date);
+        /*
+        *   new Date() 获取当前的时间
+        *   new Date(2019,2,5) 设置时间为 2019年3月5日 小时 分钟 秒钟是默认
+        *   两个时间戳 相减 结果是毫秒数
+        * */
+
+        //获取世界时间
+        date.setHours(date.getHours()+date.getTimezoneOffset()/60)
+    console.log(date.toLocaleString());
+
+
+</script>
+</body>
+</html>

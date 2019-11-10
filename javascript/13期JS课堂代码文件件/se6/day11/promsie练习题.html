@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    //题目1
+    /*
+    *   JS的任务分类
+    *       同步任务  Promise的回调函数
+    *       异步任务
+    *           定时器的回调函数
+    *           事件处理函数
+    *           ajax
+    *           then的回调函数
+    *           catch的回调函数
+    *
+    * */
+    // const promise = new Promise((resolve, reject) => {
+    //     console.log(1);
+    //     resolve();
+    //     console.log(2);
+    // })
+    //
+    // promise.then(() => {
+    //     console.log(3);
+    // })
+    //
+    // console.log(4);
+
+    //题目二
+
+    /*
+    *   promise 机器只有一个状态
+    * */
+    // const promise = new Promise((resolve, reject) => {
+    //     resolve('success1');
+    //     reject('error');
+    //     resolve('success2');
+    // });
+    //
+    // promise.then((res) => {
+    //     console.log('then:', res);
+    // }).catch((err) => {
+    //     console.log('catch:', err);
+    // })
+
+    //题目三
+    /*
+    *   成功状态的promise  会自动触发then的回调函数
+    *   如果then中 不是回调函数
+    *   则会穿透到下一个then的回调函数
+    * */
+    // Promise.resolve(1)
+    //     .then(2)
+    //     .then(Promise.resolve(3))
+    //     .then(console.log)
+
+
+
+    //题目四
+    /*
+        红灯1000ms亮一次，
+        黄灯500ms亮一次；
+        绿灯300ms亮一次，
+        如何让三个灯不断交替重复亮灯？
+    */
+
+    function red(){
+        console.log('红灯亮')
+    }
+
+
+    function yellow(){
+        console.log('黄灯亮')
+    }
+
+    function green(){
+        console.log('绿灯亮')
+    }
+
+    function fn(callBack,time){
+        return new Promise(function(res,rej){
+            setTimeout(function(){
+                callBack();
+                res();
+            },time)
+        })
+    }
+
+    function step(){
+        fn(red,1000).then( ()=>{
+            return fn(yellow,500)
+        } ).then( ()=>{
+            return fn(green,300)
+        } ).then( step )
+    }
+
+    // step();
+
+    //题目五
+    /*
+
+    *   异步任务的分类
+    *       宏任务  macro task
+    *           setInterval  setTimeout
+    *       微任务  micro task
+    *           then的回调
+    *           catch的回调
+    *
+    *   先执行同步
+    *   再执行微任务
+    *   等微任务执行完之后
+    *   再执行闳任务
+    *
+    * */
+    const first = () => new Promise((resolve, reject) => {
+        console.log(3);
+        let p = new Promise((resolve, reject) => {
+            console.log(7);
+            setTimeout(() => {
+                console.log(5);
+            }, 0)
+            resolve(1);
+        });
+        resolve(2);
+        p.then((arg) => {
+            console.log(arg);
+        });
+    });
+
+    first().then((arg) => {
+        console.log(arg);
+    });
+    console.log(4);
+
+    //   374125
+
+
+</script>
+</body>
+</html>

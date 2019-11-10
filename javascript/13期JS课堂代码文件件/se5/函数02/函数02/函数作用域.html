@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+
+    // function auto(a){
+    //     /*
+    //     *   AO{
+    //     *       a:2
+    //     *       b:3
+    //     *   }
+    //     *
+    //     * */
+    //     // var b = 3;
+    //     // var b;
+    //     // b = 3;
+    //
+    //     console.log(a,b);
+    //     console.log(a+b)
+    // }
+    // auto(2);
+
+    /*
+           函数的预编译四步：
+           1.创建AO对象	==> Activated Object(活动对象)
+           2.找到形参和变量，把形参和变量作为AO对象的属性名，值是undefined
+           3.实参把值赋给形参
+           4.在函数中找到函数声明，把函数名作为AO对象的属性名，值是函数体
+
+
+           全局的预编译三步：
+           1.创建GO对象	==> Global Object(GO对象)
+           2.找到变量，把变量作为GO对象的属性名，值是undefined
+           3.在全局中找到函数声明，把函数名作为GO对象的属性名，值是函数体
+       *
+       * */
+    function outer(){
+        /*
+        * AO{
+        *   b:3,
+        *   inner:function(){}
+        * }
+        * */
+        function inner(){
+            /*
+            *   AO{
+            *       a:4
+            *   }
+            * */
+            var a = 4;
+            c = 5;  //一个变量  没有var关键词 直接赋值 则这个是全局的  叫做暗示全局变量
+            console.log(a);     //4  inner的AO中找到变量a
+            console.log(b);     //3  outer的AO中找到变量b
+            console.log(c);     //5  GO中找到变量c
+
+        }
+        var b = 3;
+        inner();
+    }
+    var a = 2;
+    outer();
+
+    // console.log(outer);
+
+    /*
+    *   GO{
+    *       a:2,
+    *       outer:function(){},
+    *       c:5
+    *   }
+    *
+    * */
+
+</script>
+</body>
+</html>

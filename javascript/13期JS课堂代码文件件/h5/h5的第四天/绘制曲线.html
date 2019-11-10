@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;
+            padding: 0;
+        }
+
+        canvas{
+            display: block;
+            border:2px solid blue;
+            margin:50px auto;
+        }
+    </style>
+</head>
+<body>
+<canvas width="500" height="400" id="canvas"></canvas>
+
+<script>
+	//两点之间确定一条直线 但是不一定确定一条直线也可以是曲线(不常用)
+
+    /*
+        绘制二次贝塞尔曲线  只有一个控制点
+        cxt.quadraticCurveTo(控制点的x,控制点的y,曲线终点的x,曲线终点的y)
+
+        绘制三次贝塞尔曲线  有两个控制点
+        cxt.quadraticCurveTo(第一个控制点的x,
+                            第一个控制点的y,
+                            第二个控制点的x,
+                            第二个控制点的y,
+                            曲线终点的x,
+                            曲线终点的y)
+    * */
+
+    //获取画布
+    var canvas = document.getElementById('canvas');
+    //获取2D画笔
+    var cxt = canvas.getContext('2d');
+
+    //绘制二次贝塞尔曲线(只有一个控制点叫做二次贝塞尔曲线)
+    cxt.beginPath();
+    // //绘制线段起点
+    cxt.moveTo(20,20);
+
+    // //画笔.quadraticCurveTo(控制点的X坐标,控制点的Y坐标,线段的终点X轴位置,线段的终点Y轴位置)表示绘制曲线
+    cxt.quadraticCurveTo(40,40,100,200);
+    // //绘制二次贝塞尔曲线你要有 moveTo()起点  cxt.quadraticCurveTo(控制点,终点) 这些条件才能绘制曲线
+
+    // cxt.stroke();
+
+
+    //绘制三次贝塞尔曲线(有两个控制点叫做三次贝塞尔曲线)
+    cxt.beginPath();
+    //绘制线段起点
+    cxt.moveTo(20,20);
+    cxt.quadraticCurveTo(100,20,300,200,400,400);
+    cxt.stroke();
+</script>
+</body>
+</html>

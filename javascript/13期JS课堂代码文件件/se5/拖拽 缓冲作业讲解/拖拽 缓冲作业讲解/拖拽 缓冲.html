@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        body{
+            user-select:none;
+            background-color:#6ccff5;
+        }
+        .content{
+            position:fixed;
+            left:0;
+            right:0;
+            top:0;
+            bottom:0;
+            width:320px;
+            height:245px;
+            margin:auto;
+        }
+        .content ul{
+            list-style-type:none;
+        }
+        .content ul li{
+            position:absolute;
+        }
+        .content ul li img{
+            display:block;
+            width:300px;
+            border:10px solid #a5bc25;
+            cursor:pointer;
+        }
+    </style>
+
+</head>
+<body>
+
+<div class="content">
+    <ul>
+        <li><img src="images/1.jpg" alt="" /></li>
+        <li><img src="images/2.jpg" alt="" /></li>
+        <li><img src="images/3.jpg" alt="" /></li>
+        <li><img src="images/4.jpg" alt="" /></li>
+        <li><img src="images/5.jpg" alt="" /></li>
+    </ul>
+</div>
+
+<script>
+    var aLi = document.getElementsByTagName('li');
+
+    var leftMin;
+    var topMin;
+
+    //监听浏览器尺寸变化  每次浏览器窗口尺寸变化的时候 该更新左边界 上边界
+    // window.onresize = (function(){
+    //     leftMin = -(window.innerWidth - 320) / 2;
+    //     topMin = -(window.innerHeight - 245) / 2;
+    //     console.log(arguments.callee);
+    //     return arguments.callee; //返回匿名函数的引用
+    // })();
+
+    // window.onresize = getSize;
+    getSize();
+    function getSize(){
+        leftMin = -(window.innerWidth - 320) / 2;
+        topMin = -(window.innerHeight - 245) / 2;
+        console.log(1);
+    }
+
+    var zIndex= 1;//存储层级
+    document.body.addEventListener('mousedown',function(e){
+        e = e||window.event;//兼容事件对象
+        getSize();
+        var startX = e.clientX;//存放鼠标按下时的起始水平位置
+        var startY = e.clientY;//存放鼠标按下时的起始竖直位置
+
+        var target = e.target||e.srcElement;//兼容事件源对象
+        var parent = target.parentNode;//存放父节点
+        parent.style.zIndex = ++zIndex; //设置li的层级
+        var startLeft = parent.offsetLeft;  //存放li的初始水平位置
+        var startTop = parent.offsetTop;    //存放li的初始竖直位置
+        var fn = null;
+        cancelHandler(e);   //阻止默认事件
+
+        var nowLeft = 0;    //存储li最新的left值
+        var nowTop = 0;    //存储li最新的top值
+        document.addEventListener('mousemove',function(e){
+            fn = arguments.callee;//把匿名函数的引用赋值给fn
+            e = e||window.event;//兼容事件对象
+            var moveX = e.clientX; //记录鼠标移动时的水平位置
+            var moveY = e.clientY; //记录鼠标移动时的竖直位置
+            nowLeft = startLeft+moveX-startX;
+            nowTop = startTop+moveY-startY;
+            // if(nowLeft<leftMin){    //如果当前的left值小于左边界
+            //     nowLeft = leftMin
+            // }
+
+            // if(nowLeft>leftMax){
+            //     nowLeft = leftMax
+            // }
+
+            nowLeft = Math.max(nowLeft,leftMin);//在两个变量中取较大的值
+            nowLeft = Math.min(nowLeft,-leftMin);//在两个变量中取较小的值
+
+            nowTop = Math.max(nowTop,topMin);//在两个变量中取较大的值
+            nowTop = Math.min(nowTop,-topMin);//在两个变量中取较小的值
+            parent.style.left = nowLeft+'px';
+            parent.style.top = nowTop+'px';
+        })
+
+
+        //鼠标抬起的时候 清除掉mousemove的事件处理函数
+        parent.addEventListener('mouseup',function(){
+            document.removeEventListener('mousemove',fn)
+        })
+
+
+    },false)
+
+
+    function cancelHandler(e){
+        if(e.preventDefault){  //谷歌
+            e.preventDefault()
+        }else{              //IE低版本
+            e.returnValue = false
+        }
+    }
+</script>
+
+</body>
+</html>

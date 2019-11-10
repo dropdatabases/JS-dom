@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    class Person{   //父类
+        constructor(name){
+            this.name = name;
+        };
+
+        sayName(){
+            console.log(this.name)
+        }
+    }
+
+    //student 类继承 Person类
+    /*
+    *   如果不在类中写constructor函数  系统会自动加上
+    *
+    *
+    *   super的指向
+    *      1   在子类的所有方法中
+    *          把super当做对象使用
+    *          则super表示父类的原型对象
+    *      2   在子类的constructor中
+    *          当做函数使用
+    *          则super就指向父类的constructor
+    *      3   在子类的方法中
+    *          把super当做对象使用 并且赋值
+    *          则super指向this
+    *
+    * */
+    // class Student extends Person{
+    //     constructor(name){
+    //         super(name);    //继承父类constructor函数中的属性
+
+
+    //     }
+    //     sayName(){      //在执行子类的方法的同时  还需要执行父类的同名方法
+    //         super.sayName()
+    //         console.log('子类的方法');
+    //     }
+    // }
+    //
+    // var student = new Student('heaven')
+
+
+    class A {       //父类
+        constructor() {
+            this.x = 1;
+        }
+        sayName(){
+
+        }
+        x(){
+
+        }
+    }
+
+    var a = new A()
+
+    class B extends A {     //子类
+        constructor() {
+            super();        //父类的构造函数  继承父类中constructor函数中的私有属性
+            this.x = 2;
+            super.x = 3;   //如果通过super对某个属性赋值，这时super就是this
+            console.log(super.x);       //undefined
+            console.log(this.x);        //3
+        }
+
+    }
+
+    let b = new B();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        button{
+            width:80px;
+        }
+    </style>
+</head>
+<body>
+<script>
+
+    /*
+    *   1.  求100之内的所有奇数的和
+    *   99+97+95+93+...+3+1
+    *    var sum = 0;
+        for(var i=1;i<=100;i+=2){
+            // if(i%2!==0){
+            //     sum = sum + i;
+            // }
+            sum = sum + i;
+        }
+        console.log(sum);
+
+        function sum(n){
+        *   sum(99) = 99+sum(97)
+        *
+        *   sum(97) = 97+sum(95)
+        *
+        *   sum(95) = 95+sum(93)
+        *
+        *   ...
+        *   sum(3) = 3+sum(1)
+        *
+        *   sum(1) = 1
+        if(n==1){
+            return 1;
+        }
+        return n+sum(n-2)
+        }
+
+        var result = sum(99);
+
+        console.log(result);
+    * */
+
+    /*
+    *   2.100之内的所有偶数的积
+    *   100*98*96*94...*6*4*2
+    *
+    *   function mul(n){
+        if(n==2){
+            return 2;
+        }
+        return n*mul(n-2);
+    }
+
+    var result = mul(10);
+    console.log(result);
+    * */
+
+    /*
+    *   输出斐波那契数列的第n项
+    *       第n项=第n-1项+第n-2项的和
+    *   fn(5)=3+2
+    *   fn(4) = 2+1
+    *   fn(3) = 1+1
+    * function fn(n){
+        if(n==1||n==2){
+            return 1;
+        }
+        return fn(n-1)+fn(n-2)
+    }
+
+    var result = fn(10);
+    console.log(result);
+    * */
+
+
+
+    /*
+    *   九九乘法表
+    *
+    *  function heaven(n){
+        for(var i=1;i<=n;i++){
+            for(var j=1;j<=i;j++){
+                // console.log(i,j)
+                //document.write('<button>'+j+'*'+i+'='+j*i+'</button>')
+                document.write('<button>'+i+'*'+j+'='+j*i+'</button>')
+            }
+            document.write('<br>')
+        }
+    }
+    heaven(8);
+    * */
+
+    /*求100之内含有7或者是7的倍数的数字*/
+    // function heaven(n){
+    //     for(var i=1;i<=100;i++){
+    //         /* 7 14 21   17 27 37  71 72 73 74..79*/
+    //         if(i%n==0||i%10==n||parseInt(i/10)==n){
+    //             console.log(i);
+    //         }
+    //
+    //     }
+    // }
+    // heaven(8);
+    // heaven(6);
+
+
+    // for(var i=1;i<=100;i++){
+    //     /*如果 i=13  */
+    //     var num = 0;
+    //     console.log(i);
+    //     for(var j=1;j<=i;j++){
+    //         if(i%j==0){ //判断 13  能不能被1 2 3..12 13
+    //             num++;
+    //         }
+    //     }
+    //     if(num==2){
+    //         console.log(i);
+    //     }
+
+
+    /*
+    *   输出任意数组里面值是奇数的平均数
+    * */
+
+    // var arr = [1,2,3,7,10,34,25];       //任意数组
+    // function heaven(a){
+    //     var sum = 0;    //求奇数的和
+    //     var num = 0;    //求奇数的个数
+    //
+    //     for(var i=0;i<a.length;i++){
+    //         if(a[i]%2!=0){
+    //             // console.log(arr[i]);
+    //             num++;
+    //             sum = sum + a[i]
+    //         }
+    //     }
+    //     return sum/num;
+    // }
+    //
+    // var result = heaven(arr);
+
+
+    /*
+    *   输出数组最大值及其索引
+    *          最小值及其索引
+    *
+    * */
+
+    var arr = [1,-1,-2,-3,-7,-10,-34,2,-25];
+    function heaven(a){
+        var max = a[0];    //存放数组里面的最大值
+        var maxIndex = 0;    //存放数组里面的最大值的索引
+        var min = a[0];    //存放数组里面的最小值
+        var minIndex = 0;   //存放数组里面的最小值的索引
+
+        for(var i=0;i<a.length;i++){
+
+            if(max<a[i]){
+                max = a[i];
+                maxIndex = i;
+            }
+
+            if(min>a[i]){
+                min = a[i];
+                minIndex = i;
+            }
+        }
+        return [max,maxIndex,min,minIndex]
+    }
+
+    var result = heaven(arr);
+    console.log(result);
+</script>
+</body>
+</html>

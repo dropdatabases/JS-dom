@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    /*
+    *   例5：写一个函数对传入的字符串重新按字母排序
+    *       1.使用str.split()把str变成数组
+    *       2.数组使用sort函数 按照字母a-z排序
+    *       3.把排好序的数组join()拼成字符串
+    *       4.抛出来
+    * */
+
+    function reorderStr(str){
+        // var arr = str.split('');
+        // return arr.sort().join('');
+        return str.split('').sort().join('');
+    }
+
+    /*
+    * 例4.：写一个函数对传入的字符串输出所有子字符串组合
+    * */
+
+    function substrings(str){
+       var arr = [];//存放str的所有子串
+       for(var i=0;i<str.length;i++){
+            for(var j=i;j<str.length;j++){
+                /*
+                *   i=0  str.slice(0,0+1) 'd'
+                *        str.slice(0,1+1) 'do'
+                *        str.slice(0,2+1) 'dog'
+                *
+                *   i=1  str.slice(1,1+1)   'o'
+                *        str.slice(1,2+1)   'og'
+                *
+                *   i=2  str.slice(2,2+1)   'g'
+                *
+                *   i=3
+                * */
+                arr.push(str.slice(i,j+1))
+            }
+       }
+       return arr;
+    }
+
+    /*
+    *   例9：封装函数  实现数组sort的方法（参考冒泡排序）
+    *   相邻两个数字相减  如果是正值  那就交换位置 反之不交换
+    *   2  33  41  10  5
+    *       -->  2  33 10 41 5
+    *       -->   2  33 10 5 41
+    *
+    *    2  33 10 5 41
+    *       --> 2  10 33 5 41
+    *       --> 2  10 5 33 41
+    *
+    *    2  10 5 33 41
+    *       --> 2 5 10 33 41
+    *
+    *   JS交换值
+    *   var a = 2;
+    *   var b = 3;
+    *   var c = b;  //c先存放b  c--> 3
+    *   b = a  //  b-->2
+    *   a = c  // a--> 3
+    * */
+
+    function  mySort(arr){
+        for(var i=0;i<arr.length;i++){
+           for(var j=0;j<arr.length;j++){
+                if(arr[j]>arr[j+1]){    //如果第j项比第j+1项大 那就交换位置
+                    var temp = arr[j+1];
+                    arr[j+1] = arr[j];
+                    arr[j] = temp;
+                }
+           }
+        }
+        return arr;
+    }
+    mySort([2,33,41,10,5]) //[2,5,10,33,41]
+
+
+    /*
+    *   例15： 封装函数  获取字符串中的数字，并按照数组输出
+    *   1.把所有的字母都替换成统一的字符  *  数字不变
+    * */
+
+    function returnArr(str){
+        for(var i=0;i<str.length;i++){
+            if(isNaN(str[i])){  //如果是英文字符 那就把英文字符替换成*
+              str = str.replace(str[i], '*');
+            }
+        }
+
+        var arr = str.split('*');
+        for(var i=0;i<arr.length;i++){
+            if(arr[i]){ //如果arr[i]是真
+                arr[i] = +arr[i]
+            }else{  //如果arr[i]是假
+                arr.splice(i,1);
+                i--;
+            }
+        }
+        return arr;
+
+    }
+    returnArr('shdkfh1234cxj5665sdkj2121') //[1234,5665,2121]
+
+</script>
+</body>
+</html>

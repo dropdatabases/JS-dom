@@ -1,0 +1,133 @@
+<!doctype html><!--声明文档类型:html-->
+<html><!--超文本标记语言  根目录节点标签-->
+	<head><!--头部:给浏览器看的-->
+		<meta charset="utf-8"><!--字符编码:国际编码-->
+		<!--网页三要素 标题 关键词 描述-->
+		<title>网页文档的标题-海文老师</title>
+		<meta name="description" content="描述:对网页文档的大概的介绍">
+		<!--关键词:提供给搜索引擎搜索网站使用-->
+		<meta name="keywords" content="关键词1,关键词2">
+		<style type="text/css">
+			*{
+				margin:0;
+				padding:0;
+			}
+			body{
+				height:2000px;
+			}	
+			#box{
+				position:absolute;
+				left:0;
+				right:0;
+				bottom:50px;
+				width:100px;
+				height:100px;
+				margin:auto;
+				background:pink;
+				user-select:none;
+			}
+
+		</style>
+	</head>
+	<body><!--身体 网页上可见的区域-->
+		<!-- <a href="" id='a'>百度</a> -->
+		<div id="box"></div>	
+		<script>
+			var x = 'fkhsafh';
+			var reg1 = /x/gi;//  字面量形式
+
+	
+			var newReg = new RegExp(x,'gi');
+			
+			//1.检测一个数据是否是数字     数字中有整数，小数，负数等
+			
+			var str = '-10.25';  //  25 
+			var reg = /^-?\d+(\.\d+|)$/
+
+			//console.log(str.match(reg))
+
+
+			//2.检测是否是本地电话    000-12345678    0000-12345678
+			var str2 = '0000-12345678';
+			var reg2 = /^\d{3,4}-\d{8}$/;
+			//console.log(str2.match(reg2))
+
+			//3. get-element-by-id			转换成  getElementById
+			var str3 = 'get-element-by-id';
+			var reg3 = /-[a-z]/g;
+
+			/*console.log(str3.replace(reg3,function(){
+				return arguments[0][1].toUpperCase()
+			}))*/
+
+			//4.  aaabbbccc		cccbbbaaa			转换成  CCCBBBAAA  
+
+			var str4 = 'aaabbbccc';
+
+			var reg4 = /(\w)\1\1(\w)\2\2(\w)\3\3/;
+
+			//console.log(str4.replace(reg4,'$3$3$3$2$2$2$1$1$1').toUpperCase())
+
+
+			
+			//5.把www.tain.com				转换成  www.tanzhou.com
+			
+			var str5 = 'www.tianmao.com';
+			var reg5 = /\.[a-z]+\./;
+			//console.log(str5.replace(reg5,'.tanzhou.'))
+
+
+
+			//6 封装函数 用'Batman'替换'ABC'	"ABC is an great man, which means ABC is great"
+
+			var str6 = 'ABC is an great man, which means ABC is great';
+
+			function heaven(s,origin,target){
+				//var reg6 = /origin/g;
+				var reg = new RegExp(origin,'g');
+
+				return s.replace(reg,target)
+			}
+			console.log(heaven(str6,'great','heaven'))
+			//console.log(str6.replace(reg6,'Batman'))
+
+			//7  "<p class='on'>我是海文</p>"		转换成   '我是海文'
+			
+			var str7  = '<p class="on">heaven</p>';
+
+			//var reg7 = /<[^>]+>/g;
+			var reg7 = /(?<=>).+(?=<)/
+
+			//console.log(str7.replace(reg7,''))
+
+			//console.log(str7.match(reg7)[0]) 
+
+
+
+			//8  把'div#heaven.on'		转换成    "<div id='heaven' class='on'></div>"
+			
+			var str8 = 'div#heaven.heaven';
+			var reg8 = /(\w+)#(\w+)\.(\w+)/;
+
+			str8.replace(reg8,'<$1 id="$2" class="$3"></$1>')
+	
+			//str8.replace(/#(\w+)/,' id="$1"').replace(/\.(\w+)/,' class="$1"').replace(/(\w+)(.+)/,'<$1$2></$1>');
+
+			
+			//9  检测密码 密码必须包含大小写字母数字特殊符号 
+
+			var str9 = 'cdVb1231a!!'
+
+			//var reg9 = /[0-9][A-z][\$\~\(\)\*\@\&\%\#\!]/
+		
+			//console.log(/[0-9]{3,5}/.test(str9)&&/[A-Z]+/.test(str9)&&/[a-z]+/.test(str9)&&/[\$\~\(\)\*\@\&\%\#\!]/.test(str9))
+			
+			//10  8888888888   转换成		8,888,888,888
+				
+			var str10 = '888888888888';
+
+			var reg10 = /(?=\B(\d{3})+$)/g;//后面紧跟着3个数字的空串
+			
+		</script>
+	</body>
+</html>

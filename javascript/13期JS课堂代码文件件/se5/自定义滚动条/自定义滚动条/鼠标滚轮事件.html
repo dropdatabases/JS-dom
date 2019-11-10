@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        #box{
+            width:200px;
+            height:200px;
+            background:green;
+        }
+    </style>
+</head>
+<body>
+    <div id="box"></div>
+<script>
+
+    var oBox = document.getElementById('box');
+
+    /*当鼠标滚轮在oBox上滚动时 会触发事件处理函数*/
+    // oBox.onmousewheel = function () {
+    //     console.log('鼠标滚轮滚动了')
+    // }
+
+    // oBox.addEventListener('mousewheel', function (e) {
+    //     /*
+    //     *       谷歌:判断鼠标滚轮的方向
+    //     *           e.wheelDelta 120的倍数  向前
+    //     *           e.wheelDelta -120的倍数 向后
+    //     *       火狐:判断鼠标滚轮的方向
+    //                  e.detail   -3     向前
+    //                  e.detail   3      向后
+    //     *
+    //     * */
+    //     console.log(e.wheelDelta);
+    // })
+    // oBox.addEventListener('DOMMouseScroll', function (e) {
+    //     console.log(e.detail)
+    // })
+
+
+    /*这个函数可以兼容 谷歌 火狐 IE的鼠标滚轮事件*/
+    function mousewheel(dom,callBack){
+        var type = 'mousewheel';   //在谷歌浏览器中事件名
+        if(dom.onmousewheel===undefined){   //火狐浏览器中的事件名
+            type = 'DOMMouseScroll'
+        }
+
+        if(dom.addEventListener){//如果是谷歌和火狐
+            dom.addEventListener(type,callBack)
+        }else{    //如果是IE低版本
+            dom.attachEvent('on'+type,function(){
+              callBack.call(dom)
+            })
+        }
+
+    }
+
+    /*执行mousewheel函数*/
+    mousewheel(oBox,function(){
+        console.log(this);
+        console.log('鼠标滚轮滚动了')
+    })
+
+
+
+
+</script>
+</body>
+</html>

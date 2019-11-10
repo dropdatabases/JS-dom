@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: #6ccff5;
+        }
+
+        #box {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: pink;
+            min-width:200px;
+            min-height:200px;
+        }
+
+        #box i {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: red;
+        }
+
+        #box .top {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        #box .rtop {
+            right: 0;
+        }
+
+        #box .left {
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        #box .right {
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        #box .lbottom {
+            bottom: 0;
+        }
+
+        #box .bottom {
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        #box .rbottom {
+            bottom: 0;
+            right: 0;
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+    <i class="ltop"></i>
+    <i class="top"></i>
+    <i class="rtop"></i>
+    <i class="left"></i>
+    <i class="right"></i>
+    <i class="lbottom"></i>
+    <i class="bottom"></i>
+    <i class="rbottom"></i>
+</div>
+
+<script>
+    var oBox = document.getElementById('box');
+
+    document.body.addEventListener('mousedown', function (e) {
+        e = e || window.event;//兼容事件对象
+        var target = e.target || e.srcElement;//兼容事件源对象
+        // console.log(target);
+        e.preventDefault();//阻止默认事件
+        var startX = e.clientX;//记录鼠标按下时的水平位置
+        var startY = e.clientY;//记录鼠标按下时的竖直位置
+        var startLeft = target.offsetLeft;//记录鼠标按下时的初始水平位置
+        var startTop = target.offsetTop;//记录鼠标按下时的初始竖直位置
+
+        var startWidth = oBox.clientWidth;  //存储oBox的宽度
+        var startHeight = oBox.clientHeight;  //存储oBox的宽度
+        var boxLeft = oBox.offsetLeft;  //存储oBox的水平位置
+        var boxTop = oBox.offsetTop;  //存储oBox的竖直位置
+        document.addEventListener('mousemove', move)
+
+        function move(e) {   //改变box的宽高 位置
+            var className = target.className;//存储target的类名
+            console.log(className);
+            var x_ = e.clientX - startX;//存储鼠标的水平变化量
+            var y_ = e.clientY - startY;//存储鼠标的竖直变化量
+            // if (className === 'rbottom') {  //如果是右下角
+            //     oBox.style.width = startWidth + x_ + 'px';
+            //     oBox.style.height = startHeight + y_ + 'px'
+            // } else if (className === 'right') { //如果是右边中点
+            //     oBox.style.width = startWidth + x_ + 'px'
+            // } else if (className === 'ltop') {   //如果是左上角
+            //     oBox.style.width = startWidth - x_ + 'px'
+            //     oBox.style.height = startHeight - y_ + 'px'
+            //     oBox.style.left = boxLeft + x_ + 'px'
+            //     oBox.style.top = boxTop + y_ + 'px'
+            // } else if (className === 'top') {   //如果是上边中点
+            //     oBox.style.height = startHeight - y_ + 'px'
+            //     oBox.style.top = boxTop + y_ + 'px'
+            // }
+
+            switch(className){
+                case 'rbottom':
+                    oBox.style.width = startWidth + x_ + 'px';
+                    oBox.style.height = startHeight + y_ + 'px'
+                    break;
+                case 'right':
+                    oBox.style.width = startWidth + x_ + 'px'
+                    break;
+                case 'ltop':
+                    oBox.style.width = startWidth - x_ + 'px'
+                    oBox.style.height = startHeight - y_ + 'px'
+                    oBox.style.left = boxLeft + x_ + 'px'
+                    oBox.style.top = boxTop + y_ + 'px'
+                    break;
+                case 'top':
+                    oBox.style.height = startHeight - y_ + 'px'
+                    oBox.style.top = boxTop + y_ + 'px'
+                    break;
+                case 'rtop':
+                    oBox.style.width = startWidth + x_ + 'px'
+                    oBox.style.height = startHeight - y_ + 'px'
+                    oBox.style.top = boxTop + y_ + 'px';
+                    break;
+                case 'left':
+                    oBox.style.width = startWidth - x_ + 'px'
+                    oBox.style.left = boxLeft + x_ + 'px'
+                    break;
+                case 'lbottom':
+                    oBox.style.width = startWidth - x_ + 'px'
+                    oBox.style.height = startHeight + y_ + 'px'
+                    oBox.style.left = boxLeft + x_ + 'px'
+                    break;
+                case 'bottom':
+                    oBox.style.height = startHeight + y_ + 'px'
+                    break;
+                default:    //如果target是oBox
+                    oBox.style.left = boxLeft+x_+'px'
+                    oBox.style.top = boxTop + y_ + 'px';
+            }
+
+        }
+
+        document.addEventListener('mouseup', function () {
+            //清除document的mousemove的事件处理函数
+            document.removeEventListener('mousemove', move);
+            //清除document的mouseup的事件处理函数
+            document.removeEventListener('mouseup', arguments.callee)
+        })
+    })
+
+
+</script>
+</body>
+</html>

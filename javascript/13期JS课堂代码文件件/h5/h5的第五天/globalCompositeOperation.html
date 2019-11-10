@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        canvas {
+            display: block;
+            border: 2px solid blue;
+            margin: 50px auto;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="canvas" width="500" height="400"></canvas>
+     
+    <script>
+        var canvas = document.getElementById('canvas');
+        var cxt = canvas.getContext('2d');
+        // //设置画布的透明度
+        // //cxt.globalAlpha(0-1)透明度
+        // console.log(cxt.globalAlpha);//查询当前画布的透明度(默认是1)
+        // cxt.globalAlpha = 0.2;//设置当前画布的透明度 
+
+        // cxt.fillRect(0,0,100,100);
+
+        // cxt.beginPath();
+        // cxt.fillStyle = 'pink';
+        // cxt.arc(100,100,100,0,Math.PI*2);
+        // cxt.fill();
+
+
+
+
+        //globalCompositeOperation表示融合的部分 Composite(融合) Operation(操作活动)
+        //可以通过通过属性来设置两个图片融合的部分
+        //globalCompositeOperation 设置两个图片的重合部分的显示情况
+
+        //黑色的长方形被粉色的圆所覆盖了
+        // cxt.fillRect(0,0,100,100);//目标图像
+        
+        /*
+          以cxt.globalCompositeOperation这句代码为分割点
+          上面的一个图形(路径)叫做目标图像
+          下面的一个图形(路径)叫做源图像
+        */
+        //一般写在beginPath之前的
+        /*
+        *   cxt.globalCompositeOperation  设置两个图片的重合部分的显示情况
+        *       source-over 默认  源图像在上面
+        *
+        *       source-atop     超过目标图像的源图像全都不可见  目标图像是可见的
+        *       source-in       只有在目标图像之内的源图像是可见的 目标图像是不见的
+        *       source-out      只有在目标图像之外的源图像是可见的 目标图像是不见的
+    
+        *       destination-over  目标图像在上面
+        *
+        *       destination-atop  超过源图像的目标图像全都不可见  源图像是可见的
+        *       destination-in    只有在源图像之内的目标图像是可见的 源图像是不见的
+        *       destination-out   只有在源图像之外的目标图像是可见的 源图像是不见的
+    
+                xor               设置两个图像重合的部分透明
+        * */
+
+        // cxt.globalCompositeOperation('source-over'); //source-over原图像在上面(默认值)   source(表示源) over(上面)
+        // cxt.globalCompositeOperation('source-atop');//source-atop目标图像超过原图像的部分都不可见  atop(上顶)
+        // cxt.globalCompositeOperation('source-in');//source-in 只要在目标之内的源图像是可见的  in(在..内)
+        // cxt.globalCompositeOperation('source-out'); //source-out  超过目标图像之外的源图像是可见的  out(出来)
+
+
+
+        // cxt.globalCompositeOperation('destination-over'); //destination-over目标图像在上面 destination(目的地)
+        // cxt.globalCompositeOperation('destination-atop'); //destination-atop 超过源图像的目标图像全都不可见
+        // cxt.globalCompositeOperation('destination-in'); // destination-in   只有在源图像之内的目标图像是可见的 源图像是不见的
+        // cxt.globalCompositeOperation('destination-out'); //destination-out  只有在源图像之外的目标图像是可见的 源图像是不见的
+        
+        // cxt.globalCompositeOperation('xor');         // xor设置两个图像重合的部分透明
+
+
+        // cxt.beginPath();
+
+        // // 源图形
+        // cxt.fillStyle = 'pink';
+        // cxt.arc(100,100,100,0,Math.PI*2);
+        // cxt.fill();
+    </script>
+    
+</body>
+</html>

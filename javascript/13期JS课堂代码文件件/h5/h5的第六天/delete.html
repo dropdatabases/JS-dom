@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- html5规范 非法属性以data开头 -->
+    <!-- 节点上面的所有非法属性 都存储在 dom.dataset -->
+    <div class="box" data-fn='lala' data-huasheng='lll'></div>
+    <script>
+        /*
+            div p ul li w3c制定的原生的标签
+            当前的class id title属性也是w3c制定的合法属性
+
+            当前fn是非法属性 w3c根本没有给div制定fn这个属性
+            非法属性也能是显示到页面当中的
+        */
+        // 但是你这样写谁知道你写的是非法属性呢？？
+        // HTML5这套规范你觉得你这样写有点乱 就想把这些非法属性整合到一块去
+        // 让你一看就知道是非法属性(给非法属性打上标记)
+        // 就是让某些非法属性以某些字母开头的 非法属性为了区分合法属性我在写法上就专门的以某个字母开头
+
+        //HTML5规范只要是非法属性前面开头必须加上data 这样就是一个非法属性了
+        //HTML5规范了非法属性以data开头 为了区分合法属性
+
+        //那该怎么获取这些非法属性呢
+        var oDiv = document.querySelector('div');
+        //节点上面的所有的非法属性都存储在节点.dataset对象当中
+        //找到非法属性的集合获取fn的属性
+        console.dir(oDiv.dataset.fn);//获取非法属性名
+
+        //设置非法属性名
+        oDiv.dataset.fn = '我是通过dataset方法设置的fn属性名';//就是相当于操作对象的属性名字
+        
+        // //删除对象的属性名字是delete就跟删除非法属性名一样
+        // var obj = {
+        //     name:'huasheng',
+        //     age:20,
+        // }
+        // delete obj.name;//通过delete操作符删掉属性名
+        //删除非法属性名
+        delete oDiv.dataset.fn;
+        console.log(oDiv.dataset);
+
+        //增加非法属性名
+        //new为正加的新的非法属性名字
+        oDiv.dataset.new = '我是正加的一个新的非法属性名字';
+    </script>
+</body>
+</html>

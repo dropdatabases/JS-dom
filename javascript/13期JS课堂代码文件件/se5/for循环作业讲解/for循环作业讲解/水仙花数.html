@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    for(var i=100;i<=999;i++){
+        var a = i%10;   //个数
+        var b = (i-a)/10%10; //十位
+        var c = parseInt(i/100);    //百位
+
+        if(a*a*a+b*b*b+c*c*c==i){
+            console.log(i);
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    // var x = function(){
+    //     console.log('我是函数表达式');
+    // }
+    //
+    // x();
+
+    /*
+    *   当箭头函数只有一个形参  则()可以去掉
+    *
+    *   当箭头函数的代码块 只有一句return时  则{}可以省略
+    *
+    *
+    *   箭头函数的this指向了 箭头函数所在的环境
+    *   箭头函数内部也没有arguments
+    * */
+    // var fn = a=>{
+    //     return 2
+    // };
+    //
+    // var result = fn(2);
+    //
+    // console.log(result);
+
+    //es5
+    // var obj = {
+    //     name:'heaven',
+    //     sayName:function(){
+    //         console.log(this.name)
+    //     }
+    // }
+    //
+    // obj.sayName()
+
+    //箭头函数 this指向练习
+    //第一题
+    // var name = '海文';
+    // var obj = {
+    //     name:'heaven',
+    //     sayName:()=>{
+    //         console.log(this.name)
+    //     }
+    // }
+    //
+    // obj.sayName()
+
+    //第二题
+    // let a = 11;
+    // function Test(){
+    //     /*
+    //     *   this:{
+    //     *       a:22
+    //     *   }
+    //     * */
+    //     this.a = 22;
+    //     let b = function(){
+    //         /*
+    //         *   AO{
+    //         *       this:window
+    //         *   }
+    //         * */
+    //         console.log(this.a);
+    //     }
+    //     b();
+    // }
+    // let x = new Test();
+
+    //第三题
+    // var a = 11;
+    // function test1(){
+    //     /*
+    //     *   this:{
+    //     *       a:22
+    //     *   }
+    //     * */
+    //     this.a = 22;
+    //     let b = ()=>{
+    //         console.log(this.a);
+    //     }
+    //     b();
+    // }
+    //
+    // let x = new test1();
+
+    //第四题
+    // var a = 11;
+    // function test2 (){
+    //     /*
+    //     *   this:{
+    //     *      a:22
+    //     *   }
+    //     * */
+    //     this.a = 22;
+    //     return ()=>{
+    //         console.log(this.a)
+    //     }
+    // }
+    //
+    // var x = new test2()();
+
+    //第五题
+    // var obj = {
+    //     say: function () {
+    //         /*
+    //         *   AO{
+    //         *       this:obj
+    //         *   }
+    //         * */
+    //         var f1 = ()=>{
+    //             console.log(this,1);  //obj 1
+    //             setTimeout(() => {
+    //                 console.log(this,2);  //obj 2
+    //             },20)
+    //         }
+    //         f1();
+    //     }
+    // }
+    // obj.say()
+
+    //第六题
+    // var obj = {
+    //     say: function () {
+    //         /*
+    //         *   AO{
+    //         *       this:obj
+    //         *   }
+    //         * */
+    //         var f1 = function (){
+    //
+    //             /*
+    //             *   AO{
+    //             *      this: window
+    //             *   }
+    //             * */
+    //             console.log(this);  //window
+    //             setTimeout(()=>{
+    //                 console.log(this);   //window
+    //             })
+    //         }
+    //         f1();
+    //     }
+    // }
+    // obj.say()
+
+    //第七题
+    var obj = {
+        fn:function(){
+            console.log(this);  //obj
+        },
+        f:()=>{
+            console.log(this);      //window
+        }
+    }
+
+    var o = {
+        f:function(){
+            /*
+            *   AO{
+            *       this:o
+            *   }
+            * */
+            obj.f();
+            obj.fn();
+        }
+    }
+
+    o.f();
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

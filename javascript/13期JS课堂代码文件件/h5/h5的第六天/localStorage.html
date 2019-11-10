@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //当打开浏览器解析标签和脚本做的一些事情
+        //当是通过谷歌浏览器打开了html页面解析了内部的使用标签和js脚本
+        //在js脚本中发现当前声明了一个变量a，肯定是在内存中开辟空间存储着变量a中的数据1
+        //然后就是console.log(a) 向内存中的变量a去取值发现存储变量a存储1那就会在控制台中打印1
+        
+        //打开浏览器执行JS脚本会生成一个GO对象
+        //然后GO对象中有一个变量a中的数字1是存储在内存中的
+        //console.log a就是相当于 console.logGO对象中的a的值 发现是数字1我取出来了 然后就打印1
+        
+        //当关闭浏览器GO对象就会被销毁
+        // var a = 1;
+        // console.log(a);
+        //当前变量a只能在当前的页面生成的时间内可以使用变量a(浏览器关闭就不能使用变量a了)
+
+        /*
+          es5中当浏览器的页面被关闭之后  JS脚本的所有数据都会从内存中销毁
+
+        */
+        //在es5中JS脚本中的数据的生命周期只能在，当前这次页面存在时 那该怎么让这些数据关掉浏览器时依然存在呢？？
+
+        /*
+          查看存储到浏览器中的数据(即使你关闭浏览器他还会存在) Application面板 中的Local Storage选项就显示存储在浏览器中的数据了
+          Local Storage选项中的clear AII 就可以清楚掉使用存储在浏览器中的数据了
+
+          localStorage是JS中的内置对象，对象中的setItem他是一个函数 当函数执行他会接收两个参数
+          localStorage.setItem(属性名,属性值) 设置任意属性名值的属性值 数据存储在本地
+          localStorage.getItem(属性名) 获取指定存储在本地的属性值
+        */
+
+
+        //即使关掉浏览器数据依然存在
+        // localStorage.setItem('key','value');//一旦执行了localStorage.getItem()这个函数 就是相当于你现在设置了一个变量把value值存在浏览器中 即使下一次浏览器关闭了这个值也依然存在
+        // localStorage.setItem('name','huasheng');
+        // //取出存储在本地的数据的值
+        // console.log(localStorage.getItem('key'),localStorage.getItem('name'));
+        
+
+        //当往本地存储值的时候，存储引用值的时候 引用值会被隐式类型转换成一个字符串
+        // localStorage.setItem('person',{
+        //     name:"huasheng",
+        //     age:28,
+        // })
+        // localStorage.setItem('fn',function auto(){});
+        // localStorage.setItem('arr',[1,2,3]);
+
+        //当在本地存储的是引用值时那该怎么取出本地的数据
+        //在把引用值存储在本地的时候需要 
+        //1.用JSON.stringif(数据)方法作为存储数据的属性值
+        //2.然后在用JSON.parse(localStorage.getItem(属性名))调出存储好了的数据
+        /*
+        储存到本地
+        存储到本地的数据  会有隐式转换成字符串 所以在存储数据之前需要使用JSON.stringify(数据)
+        在用到存储的数据是引用值是在调用JSON.parse(数据)转换成可以使用的数据
+        */
+        // localStorage.setItem('person',JSON.stringify({
+        //      name: "huasheng",
+        //      age:28,
+        // }))
+        // 用JSON.stringify把对象变成对象形式的字符串了 ，但是这个字符串仍然保留着对象的格式
+        // 不在是[Object,object]了 我们把这种字符串存储在本地
+        // console.log(JSON.parse(localStorage.getItem('person')));//获取本地存储的数据
+        // 在用JSON.parse函数把对象格式的字符串转换成对象
+        // localStorage.setItem('arr',JSON.stringify([1,2,3]));
+        // console.log(JSON.parse(localStorage.getItem('arr')));
+
+
+        //删除存储在本地的数据
+        /*
+           localStorage.removeItem(属性名) 调用一次只能删除存在本地的一个数据
+        */
+        // localStorage.setItem('key',JSON.stringify({
+        //     name:'huahseng',
+        //     age:20,
+        // }))
+        // localStorage.removeItem('key');//删除对应属性名的数据 一个属性名只能删除一次
+
+        //删除本地的所有数据
+        /*
+         localStorage.clear()        删除存在本地的所有数据
+        */
+        localStorage.setItem('key',JSON.stringify({
+            name:"huasheng",
+            age:20,
+        }));
+        localStorage.setItem("arr",JSON.stringify([1,2,3]));
+        localStorage.clear();//删除所有存储在本地的数据
+        
+        //学vue react框架的时候需要用到这些把某些数据存储在本地
+    </script>
+</body>
+</html>

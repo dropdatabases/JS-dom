@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    //页面资源全部加载完成之后触发
+    window.onload = function(){
+        console.log('页面资源加载完成');
+        console.log(document.readyState)
+    }
+
+    //dom树解析完成之后触发
+    document.addEventListener('DOMContentLoaded',function(){
+        console.log('dom树解析完成');
+        console.log(document.readyState)
+    })
+
+    //当状态码发生改变是触发函数
+    document.onreadystatechange = function(){
+        console.log(document.readyState)
+    }
+    console.log(document.readyState)
+
+</script>
+
+</body>
+</html>

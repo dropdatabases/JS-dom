@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        #box{
+            width:200px;
+            height:200px;
+            background-color:pink;
+        }
+    </style>
+</head>
+<body>
+<div id="box"></div>
+<script>
+    /*
+    * 事件是可以被 JavaScript 检测到的用户行为
+    *
+    *
+    *   事件的分类
+    *       鼠标事件
+    *       滚轮事件
+    *       键盘事件
+    * */
+
+    var oBox = document.getElementById('box');
+    console.log(oBox);
+    //给oBox绑定了一个点击事件  等号右侧是事件处理函数
+    /*
+    *   通过事件监听的形式 dom元素可以有多个事件处理函数  则这种形式叫做DOM2级事件
+    * */
+    /*给oBox这个节点添加事件监听器*/
+    oBox.addEventListener('click',function(){
+        console.log(this);  //指定oBox
+        // console.log('我被点击了');
+    },false)
+
+    // oBox.addEventListener('click',function(){
+    //     console.log('heaven');
+    // },false)
+
+
+</script>
+</body>
+</html>

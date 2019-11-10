@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;
+            padding: 0;
+        }
+        #box{
+            position:absolute;
+            left:0;
+            top:0;
+            padding:20px 50px;
+            border:solid;
+        }
+
+    </style>
+</head>
+<body>
+<div id="box">
+    输入用户名:<input type="text" id="text">
+</div>
+<script src="./jquery-3.4.1.js"></script>
+<script>
+    $(document).ready(function(){
+
+        /*
+        *   focus input获取焦点时触发
+        *   blur  input失去焦点时触发
+        *
+        *   focusin  绑定给可以获取焦点的父元素  当获取焦点时触发
+        *   focusout  绑定给可以获取焦点的父元素  当失去焦点时触发
+        *
+        * */
+        // $(':text').focus(function(){
+        //     console.log('获取焦点了');
+        // })
+        //
+        // $(':text').blur(function(){
+        //     console.log('失去焦点了');
+        // })
+
+
+        // $('#box').focusin(function(){
+        //     console.log(this)
+        //     $(this).css({
+        //         background:'pink'
+        //     })
+        // })
+        //
+        // $('#box').focusout(function(){
+        //     $(this).css({
+        //         background:'transparent'
+        //     })
+        // })
+
+
+
+        // document.getElementById('text').onfocus = function(){
+        //     console.log('获取焦点了');
+        // }
+        //
+        // document.getElementById('text').onblur = function(){
+        //     console.log('失去焦点了');
+        // }
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+/*
+*   一个对象A 要使用对象B的属性和方法
+*
+*   JS中实现继承的方式
+*       原型链继承  弊端：继承了太多无关的属性
+*       借用构造函数 弊端：每次构造函数执行都会多执行一次借用构造函数
+*       共享原型 弊端：可以修改共享原型上的引用数据
+*
+* */
+/* 继承的第一种方式：原型链  */
+/* 继承的第二种方式：借用构造函数  */
+// function Father(lastName,province){
+//     this.lastName = lastName;
+//     this.province = province;
+// }
+//
+// //var father = new Father('李','安徽')
+//
+//
+// function Son(lastName,province,name){
+//     // this.lastName = lastName;
+//     // this.province = province;
+//     Father.call(this,lastName,province);
+//     this.name = name;
+// }
+//
+// var son1 = new Son('李','安徽','heaven');
+// var son2 = new Son('李','安徽','heaven');
+
+/* 继承的第三种方式：共享原型  */
+
+// function Father(){}
+//
+// Father.prototype = {
+//     name:'father',
+//     age:40,
+//     fav:['beauty','cycle','food']
+// }
+// var father = new Father();
+//
+//
+// function Son(){
+//     this.name = 'son';
+//     /*
+//     *   {
+//     *      name:'son',
+//     *      __proto__:Son.prototype
+//     *   }
+//     * */
+// }
+//
+// Son.prototype = Father.prototype;
+//
+// var son = new Son();
+// son.fav.push('打篮球');
+// console.log(son.fav);
+// console.log(father.fav);
+
+/*第四种  圣杯模式*/
+
+
+function Father(){}
+
+Father.prototype = {
+    name:'father',
+    age:40,
+    fav:['beauty','cycle','food']
+}
+var father = new Father();
+
+
+// Son.prototype = Father.prototype;
+
+function Buffer(){   //缓冲函数
+    /*
+    *  this:{       (1)
+    *       __proto__:Buffer.prototype
+    *   }
+    *
+    *   return this
+    * */
+}
+
+Buffer.prototype = Father.prototype;
+
+Son.prototype = new Buffer();
+
+
+function Son(){
+    this.name = 'son';
+    /*
+    *   this:{
+    *       name:'son',
+    *       __proto__:Son.prototype,
+    *   }
+    *   return this
+    * */
+}
+var son = new Son();
+// console.log(son.name);
+// console.log(son.fav);
+son.fav.push('打篮球');
+console.log(son.fav);
+console.log(father.fav);
+
+</script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        #box{
+            position:absolute;
+            left:10px;
+            top:10px;
+            width:200px;
+            height:200px;
+            background: blue;
+            opacity:0.2;
+            /*transition:2s;*/
+        }
+    </style>
+</head>
+<body>
+<div id="box"></div>
+<script>
+    /*
+    *   让box的多个css属性从初始值 变化到终点值  所有时间是2s
+    *
+    * */
+    var oBox = document.getElementById('box')
+
+    /*
+    *   dom是要运动的元素
+    *   target 是一个对象  存放了所有属性的终点值
+    *   time dom元素运动的时间
+    * */
+    function animation(dom,target,time,callBack){
+        //遍历对象 attr是对象的属性名
+        var start = {};//存放dom样式的初始值
+        var speed = {};//存放dom样式的速度
+       for(var attr in target){
+          start[attr] = parseFloat(getStyle(dom,attr));
+           speed[attr] = (target[attr] - start[attr])/(time*1000);
+       }
+        var startTime = new Date(); //获取dom运动的初始时间
+        var timer = setInterval(function(){ //回调函数的作用是让dom元素运动
+            var movedTime = new Date(); //获取最新的时间
+            var _t = movedTime - startTime; //计算dom元素运动的时间差 单位是ms
+            for(var attr in target){
+                if(attr==='opacity'){
+                    dom.style[attr] = start[attr]+speed[attr]*_t;
+                }else{
+                    dom.style[attr] = start[attr]+speed[attr]*_t+'px';
+                }
+            }
+             //如果dom运动的时间差值大于 指定的时间time 那就清除掉定时器clearInterval(timer);
+            if(_t/1000>=time){
+                clearInterval(timer);
+                for(var attr in target){
+                    if(attr==='opacity'){
+                        dom.style[attr] = target[attr];
+                    }else{
+                        dom.style[attr] = target[attr]+'px';
+                    }
+                };
+                //当运动到终点值的时候  执行回调函数
+                // if(callBack){
+                //     callBack(dom,start,time)
+                // }
+                callBack&&callBack.call(dom,start,time)
+            }
+        },16)
+
+        //获取元素的初始值
+       function getStyle(dom,attr){
+            if(dom.currentStyle){   //如果是IE8以下
+                return dom.currentStyle[attr]
+            }else{  //如果是IE8以上
+                return window.getComputedStyle(dom,null)[attr]
+            }
+       }
+    }
+    animation(oBox,{
+        width:250,
+        height:300,
+        left:100,
+        top:250,
+        opacity:1
+    },1,function(start,time){ //这个回调函数的功能是回到初始位置
+        // console.log(dom,start,time)
+        // animation(dom,start,time)
+        // console.log(this);
+        animation(this,start,time,function(){//当回到初始位置之后执行回调函数 让dom的颜色变红
+            this.style.backgroundColor = 'red';
+        });
+    })
+    // animation(oBox,{
+    //     width:100,
+    //     height:80
+    // },1)
+</script>
+</body>
+</html>

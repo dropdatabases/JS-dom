@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;
+            padding: 0;
+        }
+
+        canvas{
+            display: block;
+            border:2px solid blue;
+            margin:50px auto;
+        }
+    </style>
+</head>
+<body>
+    <video src="../h5的第三天/video/许廷铿 - 面具.mp4" width="500" controls></video>
+    <canvas id="canvas" width="500" height="400"></canvas>
+    <script>
+    	var canvas = document.getElementById('canvas');
+    	var cxt = canvas.getContext('2d');
+
+    	//绘制视频和绘制图片是完成一致的
+    	var video = document.querySelector('video');
+
+    	//对于绘制静止的视频就是相当于图片的
+
+    	// cxt.drawImage(视频节点,绘制视频的水平方向,绘制视频的竖直方向,绘制视频的宽度,绘制视频的高度)
+
+        // video 是一个资源 必须等到该资源下载完成才能够绘制视频
+
+        //每隔13ms  就绘制视频中的一帧(视频中的某一个画面)
+        // setInterval(function () {
+        //       cxt.drawImage(video,0,0,500,400)
+        // },13);//浏览器最快的时间间隔是13毫秒
+
+     // video 是一个资源必须等到该资源下载完成才能够绘制视频
+     video.oncanplay = function(){
+        cxt.drawImage(video,0,0,500,400)
+     }
+
+    //以上方法绘制视频就不会出现视频留白现象了
+    </script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        #box{
+            position: absolute;
+            width:50px;
+            height:50px;
+            background-color: blue;
+            border-radius: 50%;
+        }
+
+    </style>
+</head>
+<body>
+<div id="box"></div>
+<script>
+    /*
+    *   keydown  当键盘（任意键）按下时触发对应的事件处理函数
+    *
+    *   keypress  当键盘（非功能键）按下时触发对应的事件处理函数
+    *
+    *   keyup  当键盘（任意键）抬起时触发对应的事件处理函数
+    *
+    *
+    *   w 119  上
+    *   s 115  下
+    *   a 97   左
+    *   d 100  右
+    * */
+    // document.onkeydown = function(){
+    //     console.log('鼠标按下了')
+    // }
+
+    var oBox = document.getElementById('box')
+    document.onkeypress = function(e){
+        var which = e.which;
+
+        switch(which){
+            case 119:
+                oBox.style.top = oBox.offsetTop-10+'px'
+                console.log('向上')
+                break;
+            case 115:
+                oBox.style.top = oBox.offsetTop+10+'px'
+                console.log('向下')
+                break;
+            case 97:
+                oBox.style.left = oBox.offsetLeft-10+'px'
+                console.log('向左')
+                break;
+            case 100:
+                oBox.style.left = oBox.offsetLeft+10+'px'
+                console.log('向右')
+                break;
+        }
+        // console.log('鼠标按下了')
+    }
+
+
+    document.onkeyup = function(){
+        console.log('keyup')
+    }
+</script>
+</body>
+</html>

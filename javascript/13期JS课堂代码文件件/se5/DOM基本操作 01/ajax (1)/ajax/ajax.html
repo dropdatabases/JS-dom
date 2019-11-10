@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+    /*
+    *  AJAX :Asynchronous javascript and XML
+    *
+    * JSON.parse(类似于数组/对象的字符串) 序列化数据
+    * JSON.stringify(数组/对象) 反序列化数据  结果是字符串
+    *
+    *
+    *   xhr.readyState
+    *       0  AJAX对象已创建，但还没有调用open方法
+    *       1  open方法调用成功，但还没有调用send方法
+    *       2  send方法已经调用，尚未接收服务器发送过来的数据
+    *       3  正在接收服务器发送的数据，但还没有接收完成
+    *       4  已经接收完所有从服务器发送过来的数据
+    * */
+
+
+    var xhr = new XMLHttpRequest();//生成ajax对象
+
+    //以get方式异步（true）的向https://www.baidu.com/发送数据(类似于填写快递单)
+    xhr.open('get','https://jsonplaceholder.typicode.com/posts?username=heaven',true);
+    //发送数据
+    xhr.send(null);
+
+    // xhr.open('post','https://jsonplaceholder.typicode.com/posts',true);
+    // //设置请求头
+    // xhr.setRequestHeader('content-type','application/x-www-urlencoded');
+    // xhr.send('name=heaven')
+    //当ajax对象上的readyState改变的时候
+    xhr.onreadystatechange = function(){
+        if(xhr.readyState===4){
+           if(xhr.status>=200&&xhr.status<300||xhr.status==304){  //xhr.status存放http状态码
+               console.log(JSON.parse(xhr.responseText))
+           }
+        }
+    }
+
+
+
+
+
+</script>
+</body>
+</html>

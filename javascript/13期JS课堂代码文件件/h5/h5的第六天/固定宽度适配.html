@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 固定视口宽度适配
+         首先要固定视口的宽度
+         让视口的宽的等于设计图的宽度 让后在获取设备的宽度 让后在把视口的宽度等比例缩放
+         1.视口的宽度和设计图等宽
+         2.让视口缩放一等比例k k = 设备的宽度/设计图的宽度
+
+        width=device-width  表示视口的宽度和设备等宽
+        user-scalable=no    不支持双击放大页面
+        initial-scale=值    表示视口的缩放比例
+    -->
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="./js/FixedWidth.js" async></script>
+    <title>Document</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        header{
+            height: 75px;
+            background-color: hotpink;
+        }
+    </style>
+</head>
+<body>
+    <header class="header"></header>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    /*
+    *   JS报错的分类
+    *       语法错误
+    *           非法的标识
+    *       引用错误
+    *           在顺着作用域链没找到该变量
+    *       类型错误
+    *          在顺着作用域链找到了该变量
+    *           但是却使用错误
+    *
+    *    JS引擎最先找到语法错误
+    *    如果没有该变量直接判定为引用错误
+    *    如果有该变量就判断是否为类型错误
+    *
+    * */
+    // try{
+    //     console.log(a)
+    // }catch(e){
+    //     console.log(e.name+'    '+e.message)
+    // }
+    //
+    // console.log(2)
+
+    var test = function fn(){}
+
+    //console.log(fn);
+    fn();
+</script>
+</body>
+</html>

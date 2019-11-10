@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+
+    // setTimeout(function(){
+    //     console.log('开始');
+    //     setTimeout(function(){
+    //         console.log('执行');
+    //
+    //         setTimeout(function(){
+    //             console.log('结束');
+    //         },200)
+    //     },500)
+    //
+    // },1000)
+    /*
+    *   promise 是为了解决回调地狱的
+    *
+    *   promise 就是一个机器
+    *       机器是有三种状态的
+    *           待机  pending
+    *           工作  resolved
+    *           故障  rejected
+    *
+    *
+    *  resolved状态的promise机器 会触发then的第一个回调函数
+    *   resolved状态的的数据 会作为参数传递到第一个回调函数中
+    *
+    *
+    *   then函数返回的结果也是一个promise机器
+    *       这个机器的状态取决于  触发的回调函数的返回值
+    *       只有回调函数返回一个失败状态的promise
+    *       则then函数的返回结果才是失败状态的promise
+    *       否则 返回结果都是成功状态的promise
+    * */
+
+    // let p = new Promise(function(resolve,reject){
+    //     // resolve('我成功了')
+    //     reject('我失败了')
+    // }).then( (data)=>{
+    //     console.log(data);
+    // },(data)=>{
+    //     console.log(data)
+    //     return new Promise( function(resolve,reject){
+    //          reject('我失败了')
+    //      } )
+    // } )
+
+
+    // let p = new Promise(function(resolve,reject){
+    //     // resolve('我成功了')
+    //     reject('我失败了')
+    // }).then( (data)=>{
+    //     console.log(data)
+    // } ).catch( (data)=>{
+    //     console.log(data)
+    //     return 2
+    // } )
+
+
+
+
+
+    new Promise(function(res,rej){
+        setTimeout( ()=>{
+            console.log('开始')
+            res('第一台机器');
+        } ,Math.random()*1000)
+    }).then( ()=>{
+       return new Promise( (res,rej)=>{
+           setTimeout( ()=>{
+               console.log('执行')
+               res('第二台机器');
+           },Math.random()*1000 )
+       } )
+
+    } ).then(()=>{
+        setTimeout( ()=>{
+            console.log('结束')
+        },Math.random()*1000 )
+    })
+
+
+
+</script>
+</body>
+</html>

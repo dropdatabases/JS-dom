@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        .banner{
+            position:relative;
+            width:658px;
+            height:411px;
+            margin:100px auto 0;
+            border:3px solid blue;
+        }
+        .banner ul{
+            list-style-type:none;
+            height:100%;
+        }
+        .banner ul li{
+            display:none;
+            position:absolute;
+            left:0;
+            top:0;
+            transition:1s;
+        }
+        .banner ul li.on{
+            display:block;
+        }
+        .banner ul li img{
+            display:block;
+        }
+        .banner .btn span{
+            position:absolute;
+            top:0;
+            bottom:0;
+            width:50px;
+            height:70px;
+            margin:auto;
+            background-color:#fff;
+            font-size:30px;
+            line-height:70px;
+            text-align:center;
+            cursor:pointer;
+        }
+        .banner .btn .next{
+            right:0;
+        }
+        .banner .top{
+            position:absolute;
+            bottom:0;
+            width:100%;
+            height:50px;
+            background-color:rgba(0,0,0,.5);
+            color:#fff;
+            text-align:center;
+            font-size:30px;
+            line-height:50px;
+        }
+        .banner .check{
+            position:absolute;
+            bottom:	-60px;
+            width:100%;
+            text-align:center;
+        }
+        .banner .check span{
+            display:inline-block;
+            width:90px;
+            height:40px;
+            margin:0 20px;
+            background-color:#000;
+            line-height:40px;
+            color:#fff;
+            cursor:pointer;
+        }
+        .banner .check span.on{
+            background-color:#f33;
+        }
+
+    </style>
+</head>
+<body>
+<div class="banner">
+    <ul class="imglist">
+        <li class='on'><img src="images/1.jpg" alt="" /></li>
+        <li><img src="images/2.jpg" alt="" /></li>
+        <li><img src="images/3.jpg" alt="" /></li>
+        <li><img src="images/4.jpg" alt="" /></li>
+        <li><img src="images/5.jpg" alt="" /></li>
+    </ul>
+    <div class="btn">
+        <span class="pre">&lt;</span>
+        <span class="next">&gt;</span>
+    </div>
+    <p class='top'><span class='text'>1</span>/5</p>
+    <div class="check">
+        <span class="on" id='left'>单边播放</span>
+        <span id='right'>循环播放</span>
+    </div>
+</div>
+<script>
+    var oNext = document.getElementsByClassName('next')[0];
+    var oPre = document.getElementsByClassName('pre')[0];
+    var aLi = document.getElementsByTagName('li');
+    var index = 0;//存放当前的图片序列号
+    oNext.onclick = function(){
+        //aLi[index].style.display = 'none';  //隐藏
+        //控制dom节点的class名字
+        aLi[index].className = '';  //点击清除class='on'
+        index ++;
+        if(index==aLi.length){
+            index = aLi.length-1;
+        }
+        console.log(index);
+        //aLi[index].style.display = 'block';  //显示
+        aLi[index]. cxv  = 'on'
+    }
+
+    oPre.onclick = function(){
+        //aLi[index].style.display = 'none';  //隐藏
+        //控制dom节点的class名字
+        aLi[index].className = '';  //点击清除class='on'
+        index --;
+        if(index==-1){
+            index = 0;
+        }
+        console.log(index);
+        //aLi[index].style.display = 'block';  //显示
+        aLi[index].className = 'on'
+    }
+
+
+</script>
+</body>
+</html>

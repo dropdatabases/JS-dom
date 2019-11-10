@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        body{
+            text-align: center;
+        }
+        #box{
+            border:3px solid #000;
+        }
+        #box{
+            overflow:hidden;
+            text-align:left;
+        }
+        #box span{
+            float:left;
+            width:150px;
+            height:60px;
+            text-align: center;
+            line-height:60px;
+        }
+    </style>
+</head>
+<body>
+<button id="run">run</button>
+<button id="stop">stop</button>
+<div id="box"></div>
+<script>
+    var oRun = document.getElementById('run');
+    var oStop = document.getElementById('stop');
+    var oBox = document.getElementById('box');
+    var timer = 0;  //存放定时器的序列号
+    oRun.onclick = function(){
+        //每次点击都要把上次的定时器清除
+        clearInterval(timer);
+        timer = setInterval(function(){ //出现盒子
+            //创建div节点
+            var oSpan = document.createElement('span');
+            //设置dom节点的颜色Math.random() [0,256)  rgb实现随机颜色值
+
+            // var r = Math.floor(Math.random()*256);
+            // var g = Math.floor(Math.random()*256);
+            // var b = Math.floor(Math.random()*256);
+            // // oSpan.style.backgroundColor = 'rgb('+r+','+g+','+b+')';
+            // oSpan.innerText = 'rgb('+r+','+g+','+b+')';
+
+            //十六进制获取随机颜色
+            var random = '#'+Math.random().toString(16).substr(2,6);
+            oSpan.style.backgroundColor = random;
+            //往oBox里面添加oDiv节点
+            oBox.appendChild(oSpan);
+        },1000)
+    }
+
+
+    oStop.onclick = function(){
+        clearInterval(timer);
+    }
+
+
+    /**
+     *  var x = 20
+     *  x.toString(16)
+     *      把十进制的20转成16进制的数字  -->  '14'
+     * */
+</script>
+</body>
+</html>

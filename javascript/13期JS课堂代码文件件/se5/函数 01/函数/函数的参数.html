@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    /*
+        一个变量声明之后没有赋值 则值是undefined
+        var a  a --> undefined
+    *   洗衣机
+    *       1.脏衣服输入到洗衣圆桶里面
+    *       2.按启动按钮
+    *       3.过段时间 洗衣机把洗干净的衣服输出出来
+    *
+    *    在JS中
+    *       只有函数名字加上()才能执行
+    *
+    *       形参可以有无数个
+    *       实参也可以有无数个
+    *       形参和实参是一一对应的
+    *
+    *       实参的数量>形参的数量  不会报错的
+    *       实参的数量<形参的数量
+    *          没有接受到实参的形参值是undefined
+    *
+    *
+
+    *
+    * */
+
+    function auto(a,b,c){
+        // var a;   在函数的花括号内部会隐式的声明形参
+        // var b;
+        // var c;
+        //a是函数的形式参数 -->形参
+         // console.log('heaven');
+        // console.log(a);
+        // console.log(b);
+        // console.log(c);
+
+    }
+
+    // auto('heaven');
+    // auto(null)
+    // auto([1,2,3])
+
+   auto(2,'heaven',null,[1,2]);    //2是函数执行时 传递的实际参数 -->实参
+
+
+</script>
+</body>
+</html>

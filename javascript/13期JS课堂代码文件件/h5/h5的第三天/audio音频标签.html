@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<!-- 音频的格式是mp3 视频的格式是mp4 -->
+	<!-- audio音频标签 src表示音频标签的音频的路径 -->
+	<!-- user agent stylesheet 表示用户代理样式表(浏览器默认的样式表) -->
+	<!-- 
+		audio:not([controls]) {//除了没有controls属性的audio标签
+             display: none !important;
+        }
+        表示选择到audio标签并且没有controls这个属性的表示的样式的是display:none 用!important吧这个权限提上到最高
+	 -->
+	 <!-- 
+	 	 audio 在页面中插入一段音频  默认不可见
+         必须加上controls才可见
+
+         视频和音频上面的方法和属性是完全一致的
+	  -->
+	<audio src="./audio/1.mp3" controls id="audio"></audio>
+	<!-- audio音频标签 src表示音频标签的音频的路径 -->
+	<audio src="./audio/赵雷 - 成都.mp3" controls loop></audio>
+	<script>
+		//设置音频的播放速度
+		audio.playbackRate = 5;
+		//设置音频的音量
+		audio.volume = 0.2;
+	</script>
+</body>
+</html>

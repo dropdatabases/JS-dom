@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<script>
+    //对象解构的完整写法
+    // let {name:a,age:b} = {name:'heaven',age:28};
+    //
+    // console.log(a,b)
+
+    //对象解构的简洁写法
+    // let {age,name} = {name:'heaven',age:28};
+    // console.log(name,age)
+
+
+    // let [a,b,c=4] = [1,2];
+    //
+    // console.log(a,b,c)
+    // let {age:age=28} = {name:'heaven'}
+    //
+    // console.log(age)
+
+
+    let {name,age} = {name:'heaven',age:28};
+
+    console.log(name, age);
+
+
+    let {min,max} = Math;
+
+    console.log(min,max);
+
+
+    // let obj = {
+    //     name:'heaven',
+    //     fav:['beauty','money']
+    // };
+    //
+    // let {a:name} = obj;
+    //
+    // console.log(name);
+
+    // let obj = {
+    //     name:'heaven',
+    //     fav:['beauty','money']
+    // };
+    //
+    // let {name:a} = obj;
+    //
+    // console.log(a);
+
+
+    // let obj = {
+    //     name:'heaven',
+    //     fav:['beauty','money']
+    // };
+    //
+    // let {name:n,fav:f} = obj;
+    //
+    // console.log(n, f);
+
+    // let obj = {
+    //     p:[
+    //         'hello',
+    //         {y:'world'}
+    //     ]
+    // }
+    //
+    // let { p : [x, { y }] } = obj;
+    //
+    // console.log(x, y);
+    //
+    // let obj = {
+    //     p:[
+    //         'hello',
+    //         {y:'world'}
+    //     ]
+    // }
+    //
+    // let { p,p:[ x,{y} ] } = obj;
+    //
+    // console.log(p, x, y);
+
+
+    // let {x:a=3} = {x:undefined}
+    //
+    // console.log(a);
+    //
+    //
+    // let [b=2] = [null];
+    // console.log(b);
+
+    // let {x:a=3} = {x:null}
+    //
+    // console.log(a);
+
+    // const node = {
+    //     loc:{
+    //         start:{
+    //             line:1,
+    //             column:5
+    //         }
+    //     }
+    // }
+    //
+    // let { loc:loc, loc:{start:start}, loc:{ start:{line:line} } } = node;
+    //
+    // console.log(line);
+
+
+
+</script>
+</body>
+</html>

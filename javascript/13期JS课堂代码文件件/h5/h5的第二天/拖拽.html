@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        div{
+            position:absolute;
+            width:100px;
+            height:200px;
+        }
+        #left{
+            left:0;
+            top:0;
+            background-color: hotpink;
+        }
+        #right{
+            right:0;
+            top:0;
+            background-color: skyblue;
+        }
+    </style>
+</head>
+<body>
+    <div id="left">目标区域</div>
+	<div id="right" draggable='true'>拖拽元素</div>
+    <!-- 当前元素是可以被拖拽的(元素默认是不可以被拖拽的) -->
+    <!-- 元素默认是不可以被拖拽的  如果想要其可以拖拽 必须加上draggable="true" -->
+	<script>
+		/*
+            H5新增的属性个个浏览器都兼容的不是很好，兼容都没有统一
+
+            H5的拖拽 有两部分组成的
+            1.拖拽源对象
+            2.拖拽目标元素
+
+            H5规定了任何想要拖拽的元素必须加上draggable='true'这个属性表示当前这个元素是可以被拖拽的
+
+            img图片默认是可以被拖拽的(不需要加上draggable='true'属性)
+		*/
+
+        var oRight = document.getElementById('right');
+
+
+        /*
+         1.拖拽源对象
+
+           dragstart  当鼠标在拖拽元素上按下时 触发
+
+           drag  持续触发 当鼠标在拖拽元素上时触发 不论鼠标有没有运动
+
+           dragend   当鼠标在拖拽元素上抬起时  触发
+        */
+
+        //当你一开始拖拽元素就会触发这个事件(鼠标按下)
+        oRight.ondragstart = function(){
+            //一旦拖拽这个元素就触发ondragstart事件
+            // console.log('ondragstart事件')
+        };
+
+        //当鼠标在拖拽元素上面拖拽时触发这个事件(鼠标移动)
+        oRight.ondrag = function(){
+            // console.log('ondrag事件');
+            //在拖拽元素之上(拖拽元素的虚影)就会触发ondrag事件
+        };
+
+        //当鼠标在拖拽元素上面抬起时触发这个事件(鼠标抬起)
+        oRight.ondragend = function(){
+            // console.log('ondragend事件');
+            //当鼠标在拖拽元素抬起时触发这个事件
+        };//end(结束)
+
+
+        var oLeft = document.getElementById('left');
+
+        /*
+         2.拖拽目标元素（拖拽区域）
+
+         都是绑定在目标元素里面的，都是根据鼠标有没有进入目标元素来判断是否激活当前事件
+
+         ondragenter   当鼠标进入到拖拽区域时触发
+
+         ondragleave   当鼠标离开到拖拽区域时触发
+
+         ondragover  常用 当鼠标在拖拽区域时持续触发  不论鼠标有没有运动
+
+         ondrop      常用  当鼠标在目标区域抬起时触发 需要在dragover事件中阻止默认行为
+         默认情况下  浏览器会阻止这个事件的触发
+        */
+
+        //当鼠标进入目标元素里面就会触发dragenter事件
+        oLeft.ondragenter = function(){
+            console.log('ondragenter事件');
+            //鼠标进入目标元素里面触发dragenter事件
+        };
+
+        //当鼠标离开目标元素里面触发dragleave事件
+        oLeft.ondragleave = function(e){
+            console.log('ondragleave事件');
+            //鼠标离开目标元素就会触发这个事件
+        };
+
+        //当鼠标在目标区域中移动触发dragover事件
+        oLeft.ondragover = function(e){
+            // console.log('ondragover事件');//当鼠标在目标区域上面时触发ondragover事件
+
+           //这样写很保险的阻止掉了默认行为
+           e.preventDefault();//阻止默认行为(必写)
+           e.stopPropagation();//阻止事件冒泡
+           return false;
+        };
+
+        //当鼠标在目标元素上面抬起触发ondrop事件
+        oLeft.ondrop = function(){
+            //默认是浏览器无法感知ondrop这个事件的(这种情况是浏览器的默认行为)我们需要在dragover事件中阻止默认行为
+            console.log('ondrop事件');
+        };
+	</script>
+</body>
+</html>

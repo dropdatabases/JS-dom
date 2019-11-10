@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+
+    /*
+    *   es6新增数据类型 symbol
+    *
+    *       本质上只要是不同symbol数据，===比较时就是false
+    *       为了认为区分长的一样的symbol数据 所以可以人为给
+    *       symbol设置标识
+    * */
+
+    // var s1 = Symbol('name');
+    // var s2 =Symbol('province')
+    //
+    //
+    // let obj = {
+    //     [s1]:'heaven',
+    //     [s2]:'安徽',
+    //     age:28,
+    //     sex:'male'
+    // }
+    //
+    // let arr = Object.getOwnPropertySymbols(obj);
+    // for(let key of arr){
+    //     console.log(key,typeof key,obj[key]);
+    // }
+
+
+    // obj.name = '海文'
+
+    // console.log(obj[s1]);
+    //
+    // console.log(obj['s1']);
+
+
+    // for(var key in obj){
+    //     console.log(key);
+    // }
+    // var s1 = Symbol('s1');
+    // var s2 = Symbol('s2');
+
+    // console.log(s1===s2) ;
+    // console.log(Object.is(s1, s2));
+
+    // var s1 = Symbol('s3');
+    var s3 = Symbol.for('s3');
+    var s4 = Symbol.for('s3');
+
+    // console.log(s1 === s3);
+
+    console.log(Symbol.keyFor(s3));
+    console.log(Symbol.keyFor(s4));
+
+</script>
+</body>
+</html>

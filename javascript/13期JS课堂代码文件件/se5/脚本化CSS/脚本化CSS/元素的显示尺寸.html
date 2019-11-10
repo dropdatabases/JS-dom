@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        #box{
+            width:200px;
+            height:50px;
+            /*padding:20px 30px;*/
+            /*border:10px solid yellow;*/
+            background-color: pink;
+        }
+    </style>
+</head>
+<body>
+<div id="box">我是海文我是海文我是海文
+    我是海文我是海文我是海文我是海文我
+    是海文我是海文我是海文我是海文我是
+    海文我是海文我是海文我是海文我是海
+    文我是海文我是海文我是海文我是海文
+    我是海文我是海文我是海文我是海文我
+    是海文我是海文我是海文我是海文我是
+    海文我是海文我是海文我是海文我是海
+    文我是海文我是海文我是海文我是海文
+    我是海文我是海文我是海文我是海文我
+    是海文我是海文我是海文我是海文我是
+    海文我是海文我是海文</div>
+<script>
+    /*
+      获取元素的显示尺寸      只能读取不能设置
+    *   dom.clientWidth  width+左右的padding
+    *   dom.clientHeight  height+上下的padding
+    *
+    *    dom.offsetWidth  width+左右的padding+左右的border
+    *    dom.offsetHeight  height+上下的padding+上下的border
+    *
+    *   当dom的内容 超过dom的尺寸时
+    *    dom.scrollWidth       获取dom的内容宽度
+    *    dom.scrollHeight      获取dom的内容高度
+    * */
+ var oBox = document.getElementById('box');
+
+ console.log(oBox.scrollHeight)
+
+
+</script>
+</body>
+</html>

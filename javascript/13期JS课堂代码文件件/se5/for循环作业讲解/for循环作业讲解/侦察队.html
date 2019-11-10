@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    /*
+    *   A  去 1
+    *      不去 0
+    *   B  去 1
+    *      不去 0
+    *
+    *   C  去 1
+    *      不去 0
+    *   D  去 1
+    *      不去 0
+    *
+    *   E  去 1
+    *      不去 0
+    *   F  去 1
+    *      不去 0
+    * */
+
+    for(var a=0;a<=1;a++){
+        for(var b=0;b<=1;b++){
+            for(var c=0;c<=1;c++){
+                for(var d=0;d<=1;d++){
+                    for(var e=0;e<=1;e++){
+                        for(var f=0;f<=1;f++){
+                           if(a+b>=1&&a+d!=2&&a+e+f==2&&b==c&&c+d==1&&d+e==0){
+                                console.log(a,b,c,d,e,f);
+                           }
+                        }
+                    }
+                }
+
+            }
+
+        }
+    }
+</script>
+</body>
+</html>

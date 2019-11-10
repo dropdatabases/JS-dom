@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    /*
+    *   解构赋值 ： 拆解数据解构 来给变量赋值
+    *
+    *   如果左边模式只匹配到右边模式的所有，则这个解构是完全解构
+    *   如果左边模式只匹配到右边模式的一部分，则这个解构是不完全解构
+    *   如果左侧模式中的个别变量没有匹配到右边模式，则这个解构是不成功解构
+    *       该变量是undefined ,我们可以人为设置变量的默认值
+    *
+    *       结论：在设置变量的默认值时，总是惰性求值的。
+    *   ...变量
+    *       1.这个变量必须写在匹配模式的最后面
+    *       2.这个变量会匹配到剩余的所有数据
+    *
+    *
+    *
+    *
+    * */
+
+    // var arr = [0,1,2];
+    // var a = arr[0];
+    // var b = arr[1];
+    // var c = arr[2];
+
+    // let [a,...b] = [0,1,2];
+    // console.log(a,b);
+    function auto(){
+        console.log('执行');
+        return 'heaven'
+    }
+    let [a,b=auto()] = [1];
+    console.log(a,b)
+</script>
+</body>
+</html>

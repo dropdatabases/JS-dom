@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;
+            padding: 0;
+        }
+
+        canvas{
+            display: block;
+            border:2px solid blue;
+            margin:50px auto;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas" width="500" height="400"></canvas>
+	<script>
+		var canvas = document.getElementById('canvas');
+		var cxt = canvas.getContext('2d');
+
+		//创建径向渐变
+		var color = cxt.createRadialGradient(250,200,10,200,200,80);
+
+		// var color = cxt.createRadialGradient(内部圆心的X方向,内部圆心的Y方向,内部圆心的半经,外部圆的X方向,外部圆的Y方向,外部圆的半经,);
+
+        //先添加里层的圆 在添加外部的圆
+        
+		//添加颜色的终止点 在直径方向发生渐变
+		color.addColorStop(0,'red');
+		color.addColorStop(1,'blue');
+
+		//让画笔应用于于径向渐变
+		cxt.fillStyle = color;
+		cxt.fillRect(100,100,200,200);
+	</script>
+</body>
+</html>

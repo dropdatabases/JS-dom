@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+    /*
+    *  AJAX :Asynchronous javascript and XML
+    * */
+
+    var xhr = new XMLHttpRequest();//生成ajax对象
+
+    //以get方式异步（true）的向https://www.baidu.com/发送数据(类似于填写快递单)
+    xhr.open('get','https://www.baidu.com/?username=heaven',true);
+    //发送数据
+    xhr.send(null);
+
+
+
+
+</script>
+</body>
+</html>

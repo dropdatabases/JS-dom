@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<a href="https://www.baidu.com/">百度</a>
+<script>
+
+    /*
+        什么是网页的默认事件
+            右键出菜单
+            图片拖动
+            a标签跳转
+           表单提交这些网页的默认事件
+        阻止默认事件
+    *       e.preventDefault()  谷歌
+    *       e.returnValue = false  IE低版本
+    *
+    *       return false 但是只能阻止DOM0级事件的默认行为
+    * */
+
+    var oA = document.getElementsByTagName('a')[0];
+    // document.oncontextmenu = function(e){
+    //     console.log('heaven');
+    //     // e.preventDefault();
+    //     // cancelHandler(e)
+    //     return false;
+    // }
+
+    // oA.onclick = function(e){
+    //     // e.preventDefault();
+    //     return false;
+    // }
+
+    document.addEventListener('contextmenu',function(){
+        console.log('heaven');
+        return false;
+    },false)
+    /*
+    *   这个函数的作用是阻止浏览器默认行为 并且兼容不同的浏览器
+    * */
+    function cancelHandler(e){
+        if(e.preventDefault){  //谷歌
+            e.preventDefault()
+        }else{              //IE低版本
+            e.returnValue = false
+        }
+    }
+
+</script>
+</body>
+</html>

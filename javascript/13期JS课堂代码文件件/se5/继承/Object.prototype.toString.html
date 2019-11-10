@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    /*
+    *   Object.prototype.toString.call(数据)
+    *   这个方法可以检测数据的类型
+    **/
+
+    /*这个函数的作用是检测JS的不同数据类型
+    *   [1,2] -->  'array'
+    *   {}    --> 'object'
+    *   function (){}  -->'function'
+    *   /asda/  --> 'regexp'
+    *
+    *
+    *
+    * */
+    function type(data){
+
+        // var obj = {
+        //     '[object Object]':'object',
+        //     '[object Array]':'array',
+        //     '[object RegExp]':'regexp',
+        //     '[object Date]':'date',
+        // }
+        if(typeof data==='object'){ //如果是对象
+            data = Object.prototype.toString.call(data);
+            // if(data==='[object Object]'){
+            //     return 'object'
+            // }else if(data==='[object Array]'){
+            //     return 'array'
+            // }else if(data==='[object RegExp]'){
+            //     return 'regexp'
+            // }else if(data==='[object Date]'){
+            //     return 'date'
+            // }
+            // return obj[data];
+            return data.slice(8,data.length-1);
+        }else{
+            return typeof data;
+        }
+
+    }
+
+    var result = type([]);
+</script>
+</body>
+</html>

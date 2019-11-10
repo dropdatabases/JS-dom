@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin:0;
+			padding:0;
+		}
+		#box{
+			width: 200px;
+			height:200px;
+			background-color: pink;
+		}
+	</style>
+</head>
+<body>
+	<div id="box" class="active"></div>
+	<button id="add">add</button>
+	<button id="remove">remove</button>
+	<button id="toggle">toggle</button>
+	<button id="contains">contains</button>
+	<script>
+		 
+		// 在es5中的DOM的时候我们需要操作他的元素类名来实现元素样式的改变
+
+		// 通过JS是可以改变元素的类名的，就是改变元素的css样式
+		
+		/*
+		  这些方法通过classList操控类名都是原生JS的方法
+
+          dom.classList  存放的是 dom节点的类名集合
+          dom.classList.add(类名)      给dom添加指定类名
+          dom.classList.remove(类名)   去除dom的指定类名
+          dom.classList.toggle(类名)   切换dom的指定类名
+          dom.classList.contains(类名) 判断dom有没有包含指定类名
+		*/
+		var oBox = document.getElementById('box');
+
+		console.log(oBox.classList);
+		//他前是一个类数组，一个节点上面的classList属性他是一个类数组
+		//当前这个数组存储了你的类名的集合
+
+		//前提都是DOM节点上面的类名列表对象上面的方法
+
+		//在当前元素上添加类型
+		add.onclick = function(){
+			oBox.classList.add('on');
+		}
+
+		//在当前元素上去掉类名
+		remove.onclick = function(){
+			oBox.classList.remove('on');
+		}
+
+		//判断当前元素有没有指定类名
+		contains.onclick = function(){
+			alert(oBox.classList.contains('on'));
+		}
+
+		//切换指定的类名
+		//切换是指  原本有--->没有 原本没有-->有
+		toggle.onclick = function(){
+			oBox.classList.toggle('on');
+		}
+
+
+		//获取元素
+		//1.通过document.getElementById('box')方式获取元素
+		// 2.通过:如果在HTML标签里面id的名字是box的话，那么在JS里面就可以直接的使用HTML标签里面的id名字了，不用获取元素
+		// 通过: 如果在HTML标签里面id的名字是box的话，那么在JS里面就可以直接的使用HTML标签里面的id名字了，不用获取元素
+		// console.log(box) 当你这个元素是通过id来取的名字在JS就可以直接使用到他
+	</script>
+</body>
+</html>

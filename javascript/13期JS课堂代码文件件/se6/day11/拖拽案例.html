@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        #box{
+            position:absolute;
+            left:0;
+            top:0;
+            width:100px;
+            height: 100px;
+            background: pink;
+        }
+        #right{
+            position:absolute;
+            right:0;
+            top:0;
+            width:100px;
+            height: 100px;
+            background: blue;
+        }
+    </style>
+</head>
+<body>
+<div id="box"></div>
+<div id="right"></div>
+<script>
+    class Drag{ //类
+        constructor(selector){
+            this.dom = document.querySelector(selector);
+            this.init();
+        }
+        init(){
+           this.dom.addEventListener('mousedown',this.handleMousedown.bind(this),false)
+        }
+        handleMousedown(e){
+            //记录鼠标按下时 距离dom元素的水平距离
+            this.disX = e.clientX - this.dom.offsetLeft;
+            this.disY = e.clientY - this.dom.offsetTop;
+            console.log(this.disX,this.disY)
+
+            this.handleMousmove = this.handleMousmove.bind(this)
+            this.handleMouseup = this.handleMouseup.bind(this)
+            document.addEventListener('mousemove',this.handleMousmove,false)
+
+            document.addEventListener('mouseup',this.handleMouseup,false)
+        }
+        handleMousmove(e){
+            this.dom.style.left = e.clientX - this.disX+'px'
+            this.dom.style.top = e.clientY - this.disY+'px'
+        }
+        handleMouseup(){
+            document.removeEventListener('mousemove',this.handleMousmove,false)
+            document.removeEventListener('mouseup',this.handleMouseup,false)
+        }
+    }
+
+    new Drag('#box')
+
+
+    //limitDrag这个类 继承Drag类
+    class limitDrag extends Drag{
+        handleMousmove(e){   //重写父类的handleMousmove  再添加边界检测
+            super.handleMousmove(e)
+
+            let nowLeft = this.dom.offsetLeft;
+            let nowTop = this.dom.offsetTop;
+
+            nowTop = Math.max(0,nowTop) //左边界
+            nowTop = Math.min(nowTop,window.innerHeight-this.dom.clientHeight)
+
+            nowLeft = Math.max(0,nowLeft) //左边界
+            nowLeft = Math.min(nowLeft,window.innerWidth-this.dom.clientWidth)
+
+            this.dom.style.left = nowLeft +'px';
+            this.dom.style.top = nowTop +'px';
+        }
+    }
+
+    new limitDrag('#right')
+
+</script>
+</body>
+</html>

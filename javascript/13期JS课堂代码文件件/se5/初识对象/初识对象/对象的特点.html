@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    /*
+        对象上不存在的属性  结果是undefined
+    *  对象的特点
+        1.对象的属性名（键名）是不能重复的
+        2.对象属性名的排列顺序
+            数字从小到大
+            字母从A-Z a-z排列
+
+        3.对象的属性名（键值）必须是字符串  如果不是字符串 会隐式转成字符串
+
+        for(var key in 要遍历的对象){
+            key这个变量存放的是对象的属性名
+        }
+
+    * */
+    var person = {
+        name:'heaven',
+        age:28,
+        sex:'男',
+        2:2,
+        22:22,
+        9:9,
+        1:1,
+        11:11,
+    }
+
+    // console.log(person.name);
+    // console.log(person.age);
+    // console.log(person.sex)
+
+    for(var key in person){
+        // console.log(person.key)
+        console.log(key,person[key],typeof key);
+    }
+
+    var obj1 = {};
+    var obj2 = {};
+
+    var obj = {};
+
+    obj[obj1] = 345;
+    //  obj['object Object'] = 345
+
+    console.log( obj[obj2] )  //345
+    //obj[obj2]  -->  obj['object Object']
+
+
+
+</script>
+</body>
+</html>

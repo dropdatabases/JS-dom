@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="box">我是box</div>
+<ul>
+    <li class="item1">1</li>
+    <li>2</li>
+    <li class="item2">3</li>
+    <li>4</li>
+    <li>5</li>
+</ul>
+
+<!-- autofocus 自动获取焦点 -->
+<input type="text" autofocus>
+
+<script src="./jquery-3.4.1.js"></script>
+
+<script>
+    /*
+    *   $(选择器)  可以获取到jquery dom元素
+    *
+    * */
+    //jquery的入口
+    $(document).ready(function(){
+
+        //console.log($('li').first());
+        console.log($('li').last());
+
+        console.log($('li').eq(2));
+
+        //截取指定返回的li元素
+        console.log($('li').slice(2, 4));
+
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="box">我是box</div>
+<ul>
+    <li class="item1">1</li>
+    <li>2</li>
+    <li class="item2">3</li>
+    <li>4</li>
+    <li>5</li>
+</ul>
+<ul>
+    <li>1</li>
+</ul>
+<script src="./jquery-3.4.1.js"></script>
+
+<script>
+    /*
+    *   $(选择器)  可以获取到jquery dom元素
+    *
+    *
+    *
+    *
+    * */
+    //jquery的入口
+    $(document).ready(function(){
+
+
+        //console.log($('body .item1'));  //后代选择器
+
+        //console.log($('ul>.item1'));  //子代选择器
+
+        //console.log($('div+ul'));   //相邻兄弟选择器
+
+        console.log($('div~ul'));  //普通兄弟选择器
+    })
+</script>
+</body>
+</html>

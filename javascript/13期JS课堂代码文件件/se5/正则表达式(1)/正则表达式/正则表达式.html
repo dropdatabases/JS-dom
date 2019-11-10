@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+
+    /*
+    *   正则表达式的作用：专门用来匹配字符串
+    *
+    *   正则是一个引用数据类型
+    *   typeof 正则 --> 'object'
+    *
+    *
+    *   str.match(正则)
+    *       按照指定的正则规则 匹配出str中的符合规则的字符
+    *       如果没有匹配出来 则返回null
+    *   reg.test(字符串)
+    *      检验字符串中有没有reg对应的规则
+    *      如果有 则返回true
+    *      如果没有 则返回false
+    *
+    *
+    *     正则的修饰符  修饰符的顺序可以颠倒
+    *       i  忽略大小写  ingorecase
+    *       g  全局匹配    global
+    *
+    *
+    *     表达式       表示的是字符区间
+    *     [acde]       表示acde中的任何一个数据
+    *     [^acde]      表示除了acde中的任何一个数据
+    *     [a-z]        表示a-z中的任何一个数据
+    *     [A-Z]        表示A-Z中的任何一个数据
+    *     [A-z]        表示A-z中的任何一个数据
+    *     [0-9]        表示0-9中的任何一个数据
+    *
+    * */
+
+    var reg = /a/;
+    console.log(reg)
+</script>
+</body>
+</html>

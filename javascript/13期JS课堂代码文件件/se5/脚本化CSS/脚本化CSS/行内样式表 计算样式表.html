@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        #box{
+            width:200px!important;  /*!important 让当前这个属性的权重最大*/
+            height:100px;
+            background-color: pink;
+
+        }
+        #box:after{
+            content:'';
+            display:block;
+            width:20px;
+            height:50px;
+            background-color:lightblue;
+        }
+    </style>
+</head>
+<body>
+<div id="box" style="width:100px"></div>
+<script>
+    /*
+    *  元素节点.style  获取的是行内样式表
+    *       1.一般使用行内样式表来设置某些css属性
+    *       2.含有连词符的css属性 需要使用小驼峰写法
+    *       3.float是js里面的保留字 一般使用cssFloat
+    *
+    *
+    *  window.getComputedStyle(dom,null)  IE8及以上
+    *       获取的是计算样式表（computed面板 属性名和属性值组成的对象）
+    *       1.一般计算样式表用来获取css属性
+    *       2.null可以换成after或者before 这样能够获取伪元素的计算样式表
+    *
+    *  dom.currentStyle     IE8以下
+    *       获取计算样式表
+    *
+    * */
+ var oBox = document.getElementById('box');
+    // oBox.style.height = '200px';
+    // oBox.style.backgroundColor = 'lightblue';
+    // oBox.style.cssFloat = 'left';
+ //console.log(oBox.style.height);color
+
+
+    //console.log(window.getComputedStyle(oBox, 'after').height);
+
+    // console.log(oBox.currentStyle)
+
+
+    function getStyle(dom,attr){    //获取计算样式表中的属性
+        if(dom.currentStyle){   //IE8以下
+            return dom.currentStyle[attr];
+        }else{           //IE8及以上
+            return window.getComputedStyle(dom,null)[attr]
+        }
+    }
+
+    console.log(getStyle(oBox, 'height'));
+
+
+</script>
+</body>
+</html>

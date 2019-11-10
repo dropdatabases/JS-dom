@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+
+<script>
+    /*
+    *   在IE低版本中  script是没有onload事件的
+    *
+    *   onreadystatechange
+    * */
+    //  'var oScript = document.createElement('script');
+    //  oScript.src = './1.js';//下载1.js文件  这一步是异步执行的
+    //  document.body.appendChild(oScript);
+    //
+    //  //谷歌监听script加载完成时触发
+    //  oScript.onload = function(){
+    //      auto();
+    //  }
+    //
+    // //IE低监听script加载完成时触发
+    // oScript.onreadystatechange = function(){
+    //     if(this.readyState==='complete'){
+    //         auto();
+    //     }
+    // }'
+
+
+    /*
+    *   loadScript的作用是要  让指定的js文件异步加载
+    * */
+
+    function loadScript(url,callBack){
+        var oScript = document.createElement('script');
+        oScript.src = url;
+        document.body.appendChild(oScript);
+        if(oScript.onreadystatechange){ //IE低版本
+            oScript.onreadystatechange = function(){
+                if(this.readyState==='complete'){
+                    callBack();
+                }
+            }
+        }else{      //谷歌
+            oScript.onload = function(){
+                callBack();
+            }
+        }
+    }
+    loadScript('./1.js',function(){
+        auto();
+    })
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

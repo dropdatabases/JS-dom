@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+
+    /*
+        0  1 -1 1.0 0.5 NaN(not a number)  这些都是数字类型的
+    *   Number 函数  能够把其他JS的数据类型转成数字类型
+    *
+    *   原始值：
+        *   字符串中只要含有非数字(除了数字 负号 和小数点之外的)
+        *   在使用Number函数转成数字类型时都是NaN
+        *       Number('')  -->  0
+        *       Number(' ')  -->  0
+        *
+        *   布尔类型使用Number函数转换成数字类型
+        *       Number(true)  --> 1
+        *       Number(false) --> 0
+        *
+        *    null类型使用Number函数转换成数字类型
+        *          Number(null)  ->  0
+        *
+        *    undefined类型使用Number函数转换成数字类型
+        *          Number(undefined)  ->  NaN
+        *
+    *
+    * 引用值：
+    *   引用值使用Number函数转换成数字类型有两步
+        *   1.先把引用值隐式转换成字符串
+        *   2.再把隐式转换好的字符串放到Number中
+    *   普通对象使用Number函数转换成数字类型
+    *
+    * Number([1])  -->  Number('1')  -->  1
+    *
+    * Number([1,2,3])  -->  Number('1,2,3')  --> NaN
+    *
+    *
+    * Number(function(){}) --> Number('function(){}')  --> NaN
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    * */
+</script>
+</body>
+</html>

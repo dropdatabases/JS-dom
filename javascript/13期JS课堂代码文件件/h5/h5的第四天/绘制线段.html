@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin:0;
+			padding:0;
+		}
+		canvas{
+			display: block;
+			border: 2px solid blue;
+			margin: 50px auto;
+		}
+	</style>
+</head>
+<body>
+	<canvas width="500" height="500" id="canvas"></canvas>
+	<script>
+		//获取画布
+		// var canvas = document.getElementById('canvas');
+		//获取2D画笔
+		// var cxt = canvas.getContext('2d');
+
+		/*
+		  绘制线段
+
+		  移动画笔到 20 20这个点
+		  cxt.moveTo(20,20);
+		  再次移动到 100 100 这个点
+		  cxt.lineTo(100,100)
+		  然后这个两个点已经是一条线段了
+		  //绘制线段
+		  cxt.stroke();
+		*/
+
+		//定义线段的轨迹
+
+		//先有一个初始点在有一个终点，然后就可以得出两个点了(两点之间确定一条直线)
+
+		//让画笔移动到某个点上(初始点)
+		// cxt.moveTo(距离画布水平方向,距离画布竖直方向)
+		// cxt.moveTo(20,20);
+
+		//在让画笔移动到终点上面(最终点)
+		// cxt.lineTo(距离画布水平方向,距离画布竖直方向)
+		// cxt.lineTo(100,100)
+
+		//绘制线段
+		// cxt.stroke();
+
+		//设置画笔的样式
+		//我们在用canvas画东西的时候 分为两种绘制的方法(方法和设置画笔的属性都要对应上)
+		// 1.画笔.stroke绘制实心的东西 2.画笔.fill绘制空心的东西
+		// 设置画笔的颜色和设置画笔的宽度都是根据 画笔的种类来进行设置的{ 1.stroke实心 2.fill空心}
+
+		//设置画笔的线宽
+		//画是画笔画出来的，让画笔的线宽变粗 自然就可以让线条变粗了
+		//获取画布
+		// var canvas = document.getElementById('canvas');
+		//获取2D画笔
+		// var cxt = canvas.getContext('2d');
+
+		// 画笔.lineWidth设置画笔的画笔的线条宽度 line(线)
+		// cxt.lineWidth = 20;
+		// cxt.moveTo(20,20);
+		// cxt.lineTo(100,100);
+		// cxt.stroke();
+
+		//设置画笔的颜色绘制线段(stroke)
+
+		// var canvas = document.getElementById('canvas');
+		// var cxt = canvas.getContext('2d');
+
+		//画笔.strokeStyle设置画笔的颜色
+		//stroke表示实心 设置实心心画笔的颜色
+		// cxt.strokeStyle = 'pink';
+
+		// cxt.moveTo(20,20);
+		// cxt.lineTo(100,100);
+		// cxt.stroke();
+
+		//设置画笔的颜色绘制线段(fill)
+		// var canvas = document.getElementById('canvas');
+		// var cxt = canvas.getContext('2d');
+
+		//画笔.fillStyle设置画笔的颜色
+		//fill表示空心 设置空心画笔的颜色
+		// cxt.fillStyle = 'pink';
+
+		// cxt.moveTo(20,20);
+		// cxt.lineTo(100,200);
+		// cxt.fill();//一般绘制线条都是默认(stroke)实心的，空心线条不会显示出来没有人这样用
+
+
+
+		//用线条绘制一个图形
+	/*
+        cxt.beginPath()   开始绘制路径
+            必须要写   断开和上次路径之前的关系
+    *   cxt.closePath()   闭合当前的路径
+        这两个函数是配套的
+    * */
+		// var canvas = document.getElementById('canvas');
+
+		// var cxt = canvas.getContext('2d');
+
+		// cxt.strokeStyle = 'pink';
+		// cxt.lineWidth =  10;
+
+		// //设置两条线段连接处的样式
+		// //miter默认值 round圆角 bevel平角
+		// cxt.lineJoin = 'round';//设置线段的两端样式
+
+
+
+		//在绘制路径之前最好调用beginPath函数断开之前路径
+		// cxt.beginPath();//表示开始断开路径
+
+		// //也可以连续用lineTo方法绘制多个线段
+		// cxt.moveTo(20,20);
+		// cxt.lineTo(20,100);
+		// cxt.lineTo(50,80);
+		// //都是相当于画布的左上角的
+
+		// //cxt.closePath()闭合当前路径
+		// cxt.closePath();//自动把当前这个点把路径给关闭了(闭合当前路径)
+
+		// cxt.stroke();
+
+		//绘制圆
+		// 圆也是一个路径 也绘制一个新的路径时调用beginPath来闭合上一次路径
+		// cxt.beginPath();//绘制一个新的路径时必须调用beginPath函数
+		// //表示开始绘制圆的路径
+		// cxt.arc(150,150,100,0,Math.PI);
+		// cxt.closePath()   //闭合当前的路径(圆也是路径也需要闭合)
+		// cxt.stroke();
+
+
+		//绘制一条线段
+		var canvas = document.getElementById('canvas');
+		var cxt = canvas.getContext('2d');
+
+		cxt.strokeStyle = 'pink';
+		cxt.lineWidth = 10;
+		//设置一条线段的两端样式
+		//butt为默认值 round圆角 square往线的两端追加长度(长度是你当前线宽的一半) 上面添加5 和 下面添加5 = 当前线宽10
+		cxt.lineCap = 'round';
+
+		cxt.beginPath();
+
+		cxt.moveTo(20,20);
+		cxt.lineTo(20,100);
+
+		cxt.stroke();
+	</script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        #box{
+            width:200px;
+            height:200px;
+            background-color:pink;
+        }
+    </style>
+</head>
+<body>
+<div id="box"></div>
+<script>
+    /*
+    * 事件是可以被 JavaScript 检测到的用户行为
+    * */
+
+    var oBox = document.getElementById('box');
+    console.log(oBox);
+    /*
+    *   给oBox绑定了一个点击事件  等号右侧是事件处理函数
+    *   通过事件监听的形式 dom元素可以有多个事件处理函数  则这种形式叫做DOM2级事件
+    * */
+    /*在IE低版本给oBox这个节点添加事件监听器
+        事件字符串需要加on
+    *   回调函数内部的this指向window
+    * */
+    oBox.attachEvent('onclick',function(){
+        console.log('heaven');
+    })
+
+
+    /*
+    *   这个函数的作用是给dom元素添加事件处理函数
+    *   dom 是要监听的节点
+    *   type 要监听的事件类型
+    *   callBack 事件处理函数
+    * */
+
+    function addEvent(dom,type,callBack){
+        if(dom.addEventListener){   //如果是谷歌
+            dom.addEventListener(type,callBack)
+        }else{       //如果是IE低版本
+            dom.attachEvent('on'+type,function(){//这个匿名的回调函数this-->window
+                console.log(this===window);
+                callBack.call(dom);//修改callBack的this指向
+
+            })
+        }
+    }
+    addEvent(oBox,'click',function(){
+        // console.log(this);
+        console.log('我被点击了')
+    })
+
+
+</script>
+</body>
+</html>

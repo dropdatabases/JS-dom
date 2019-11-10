@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    /*
+    *   GO{
+    *       outer:function(){},
+    *       result:function inner(){}
+    *   }
+    *
+    *   outer:AO{
+    *       b:4,
+    *       inner:function(){}
+    *   }
+    *
+    *   inner:AO{
+    *
+    *   }
+    *
+    *
+    *   什么是闭包：
+        当内部函数被抛出在外部时，由于内部函数的作用域链上存在内部函数创建时的环境(即父级
+        函数和祖先函数的AO对象，全局对象GO)，导致内部函数可以顺着作用域链寻找变量，所以形成了
+        闭包，同时内部函数的作用域链上(即父级函数和祖先函数的AO对象，全局对象GO)无法被垃圾回
+        收机制回收，导致了内存泄漏
+
+    * */
+    function outer(){
+        var b = 3;
+        function inner(){
+            b++;
+            console.log(b); //4 在outer的AO中找到的
+        }
+        return inner;
+    }
+    var result = outer();
+    // console.log(result);
+    result();
+
+</script>
+</body>
+</html>

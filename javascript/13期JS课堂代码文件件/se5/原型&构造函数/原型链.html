@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    /*只要是对象就会有__proto__属性  指向对象的原型(爸爸)
+    *   Person.prototype
+    *       初始存在constructor这个属性,该属性记录了原始模型的构造函数（所在工厂）
+    *       还存储了__proto__属性
+    *
+    *
+    *   在对象上查找属性的步骤
+    *       先从自身查找属性，如果自身没有找到这个属性，那就从自身的__proto__上查找，
+	        如果还是没有找到这个属性，那就继续往沿着__proto__上查找，我们把这种查找规则称为原型链查找，
+	        如果在Object.prototype（原型链终端）上没有找到指定属性 则结果是undefined
+	        把由__proto__组成的链式结构称为原型链
+
+	        Object.prototype.__proto__===null
+    *
+    * */
+
+    // function Person(){
+    //     /*
+    //     *   this:{
+    //     *       __proto__:Person.prototype
+    //     *   }
+    //     *   return this
+    //     * */
+    // }
+    // var person1 = new Person();
+    //
+    // console.log(Person.prototype.__proto__===Object.prototype);
+    //console.log(Person.prototype.constructor===Person);//查看原始模型
+
+    //console.log(person1.constructor)
+
+
+
+    function Grand(){
+        /*
+        *   this:{
+        *       __proto__:Grand.prototype
+        *   }
+        *   return this
+        * */
+    }
+    /*
+    *   Grand.prototype = {
+    *       sex:'male',
+    *       __proto__:Object.prototype
+    *   }
+    * */
+    Grand.prototype.sex='male';
+    var grand = new Grand();
+
+    function Father(){
+        this.age = 50;
+        /*
+        *   this:{
+        *       age:50,
+        *       __proto__:Father.prototype
+        *   }
+        * */
+    }
+
+    /*
+    *   Father.prototype =  grand
+    * */
+
+    Father.prototype = grand;
+    var father = new Father();
+
+
+    function Son(){
+        this.name = 'heaven';
+        /*
+        *   this:{
+        *       __proto__:Son.prototype,
+        *       name:'heaven'
+        *   }
+        * */
+    }
+
+    /*
+    *   Son.prototype = father
+    *
+    * */
+    Son.prototype = father;
+    var son = new Son();
+    console.log(son.name);
+    console.log(son.age);
+    console.log(son.sex);
+    console.log(son.hasOwnProperty('sex'));
+    console.log(son.toString)
+    console.log(son.heaven);
+
+</script>
+</body>
+</html>

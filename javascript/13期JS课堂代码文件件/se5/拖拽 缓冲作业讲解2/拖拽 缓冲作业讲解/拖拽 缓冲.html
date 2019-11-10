@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        body{
+            user-select:none;
+            background-color:#6ccff5;
+        }
+        .content{
+            position:fixed;
+            left:0;
+            right:0;
+            top:0;
+            bottom:0;
+            width:320px;
+            height:245px;
+            margin:auto;
+        }
+        .content ul{
+            list-style-type:none;
+        }
+        .content ul li{
+            position:absolute;
+        }
+        .content ul li img{
+            display:block;
+            width:300px;
+            border:10px solid #a5bc25;
+            cursor:pointer;
+        }
+
+        .on{
+            position:absolute;
+            width:10px;
+            height:10px;
+            background: red;
+            border-radius: 50%;
+
+        }
+    </style>
+
+</head>
+<body>
+
+<div class="content">
+    <ul>
+        <li><img src="images/1.jpg" alt="" /></li>
+        <li><img src="images/2.jpg" alt="" /></li>
+        <li><img src="images/3.jpg" alt="" /></li>
+        <li><img src="images/4.jpg" alt="" /></li>
+        <li><img src="images/5.jpg" alt="" /></li>
+    </ul>
+</div>
+
+<script>
+    var aLi = document.getElementsByTagName('li');
+
+    var leftMin;
+    var topMin;
+
+    //监听浏览器尺寸变化  每次浏览器窗口尺寸变化的时候 该更新左边界 上边界
+    // window.onresize = (function(){
+    //     leftMin = -(window.innerWidth - 320) / 2;
+    //     topMin = -(window.innerHeight - 245) / 2;
+    //     console.log(arguments.callee);
+    //     return arguments.callee; //返回匿名函数的引用
+    // })();
+
+    // window.onresize = getSize;
+    getSize();
+    function getSize(){
+        leftMin = -(window.innerWidth - 320) / 2;
+        topMin = -(window.innerHeight - 245) / 2;
+    }
+
+    var zIndex= 1;//存储层级
+    document.body.addEventListener('mousedown',function(e){
+        e = e||window.event;//兼容事件对象
+        getSize();
+        var startX = e.clientX;//存放鼠标按下时的起始水平位置
+        var startY = e.clientY;//存放鼠标按下时的起始竖直位置
+
+        var target = e.target||e.srcElement;//兼容事件源对象
+        var parent = target.parentNode;//存放父节点
+        parent.style.zIndex = ++zIndex; //设置li的层级
+        var startLeft = parent.offsetLeft;  //存放li的初始水平位置
+        var startTop = parent.offsetTop;    //存放li的初始竖直位置
+        cancelHandler(e);   //阻止默认事件
+
+        var lastX = 0;   //存储上一次的鼠标移动时水平位置
+        var lastY = 0;   //存储上一次的鼠标移动时竖直位置
+        var changeX = 0;  //存储相邻两次鼠标移动的水平差值
+        var changeY = 0;
+        document.addEventListener('mousemove',move)
+
+
+        //鼠标move的事件处理函数  两次move事件处理函数的clientX的差值可以反映用户的力气大小
+        function move(e){
+            // var oDiv = document.createElement('div');
+            // oDiv.className = 'on';
+            // oDiv.style.left = e.clientX+'px';
+            // oDiv.style.top = e.clientY+'px';
+            // document.body.appendChild(oDiv)
+            e = e||window.event;//兼容事件对象
+            var moveX = e.clientX; //记录鼠标移动时的水平位置
+            var moveY = e.clientY; //记录鼠标移动时的竖直位置
+
+
+            changeX = moveX - lastX;    //计算鼠标移动的水平差值
+            changeY = moveY - lastY;    //计算鼠标移动的竖直差值
+
+            lastX = moveX;
+            lastY = moveY;
+            var nowLeft = startLeft+moveX-startX;
+            var nowTop = startTop+moveY-startY;
+
+            nowLeft = Math.max(nowLeft,leftMin);//在两个变量中取较大的值
+            nowLeft = Math.min(nowLeft,-leftMin);//在两个变量中取较小的值
+
+            nowTop = Math.max(nowTop,topMin);//在两个变量中取较大的值
+            nowTop = Math.min(nowTop,-topMin);//在两个变量中取较小的值
+
+            parent.style.left = nowLeft+'px';
+            parent.style.top = nowTop+'px';
+        }
+
+    /*鼠标抬起的时候 清除掉mousemove的事件处理函数
+    *   鼠标1.按下
+     *      2.抬起  fn--> null
+     *      3.移动
+    * */
+        parent.addEventListener('mouseup',function(){
+            document.removeEventListener('mousemove',move);
+            var timer = setInterval(function(){ //让元素缓慢停止
+
+                changeX *= 0.9;     //衰减changeX
+                changeY *= 0.9;     //衰减changeX
+
+                var nowLeft = parent.offsetLeft+changeX;    //记录元素最新的水平位置
+                var nowTop = parent.offsetTop+changeY;     //记录元素最新的竖直位置
+
+                // if(Math.abs(nowLeft)>=Math.abs(leftMin)){  //如果超过左右边界 那就changeX取反
+                //     changeX = -changeX;
+                // }
+
+                Math.abs(nowLeft)>=Math.abs(leftMin)&&(changeX = -changeX);
+
+                // if(Math.abs(nowTop)>=Math.abs(topMin)){  //如果超过左右边界 那就changeX取反
+                //     changeY = -changeY;
+                // }
+
+                Math.abs(nowTop)>=Math.abs(topMin)&&(changeY = -changeY);
+
+                nowLeft = Math.max(nowLeft,leftMin);//在两个变量中取较大的值
+                nowLeft = Math.min(nowLeft,-leftMin);//在两个变量中取较小的值
+
+                nowTop = Math.max(nowTop,topMin);//在两个变量中取较大的值
+                nowTop = Math.min(nowTop,-topMin);//在两个变量中取较小的值
+
+                parent.style.left = nowLeft+'px';
+                parent.style.top = nowTop+'px';
+
+                if(Math.abs(changeX)<=0.5&&Math.abs(changeY)<=0.5){ //如果水平和竖直的差值都衰减到0.5之内
+                    clearInterval(timer)
+                }
+            },20)
+        })
+
+
+    },false)
+
+
+    function cancelHandler(e){
+        if(e.preventDefault){  //谷歌
+            e.preventDefault()
+        }else{              //IE低版本
+            e.returnValue = false
+        }
+    }
+</script>
+
+</body>
+</html>

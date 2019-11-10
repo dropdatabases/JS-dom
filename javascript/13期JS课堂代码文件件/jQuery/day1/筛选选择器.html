@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="box">我是box</div>
+<h1></h1>
+<h3></h3>
+<h2></h2>
+<h4></h4>
+<h5></h5>
+<h6></h6>
+<ul>
+    <li class="item1">1</li>
+    <li>2</li>
+    <li class="item2">3</li>
+    <li>4</li>
+    <li>5</li>
+</ul>
+
+<!-- autofocus 自动获取焦点 -->
+<input type="text" autofocus>
+
+<script src="./jquery-3.4.1.js"></script>
+
+<script>
+    /*
+    *   $(选择器)  可以获取到jquery dom元素
+    *
+    * */
+    //jquery的入口
+    $(document).ready(function(){
+
+        //选到 除了not(选择器)之外的li元素
+        console.log($('li:not(:eq(2))'));
+        //console.log($('li:first')); //筛选中第一个li
+        //console.log($('li:last'));
+        //console.log($('li:even'));  //筛选中索引为偶数的li 索引从0开始
+        //console.log($('li:odd'));  //筛选中索引为奇数的li 索引从0开始
+        //console.log($('li:eq(2)'));//筛选中索引等于2的li 索引从0开始
+        //console.log($('li:gt(2)'));//筛选中索引高于2的li 索引从0开始
+        //console.log($('li:lt(2)')) //筛选中索引底于2的li 索引从0开始
+        //console.log($(':header'))   //选择到所有的标题标签
+
+        //console.log($(':focus'))    //选到已经焦点的元素
+    })
+</script>
+</body>
+</html>

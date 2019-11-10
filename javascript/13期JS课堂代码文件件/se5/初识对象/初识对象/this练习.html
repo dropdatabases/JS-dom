@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var name = 'heaven';
+    function showName(){
+        console.log(this);
+        console.log(this.name);
+    }
+
+    var person1 = {
+        name:'oldsix',
+        sayName:showName
+    }
+    var person2 = {
+        name:'xiaoming',
+        sayName:function(){
+            var fun = person1.sayName;
+            fun()
+        }
+    }
+
+    // person1.sayName();  // 'olsix'
+    person2.sayName();
+
+
+</script>
+</body>
+</html>

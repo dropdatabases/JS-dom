@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    class Person{   //父类
+        constructor(name){
+            this.name = name;
+        };
+
+        sayName(){
+            console.log(this.name)
+        }
+    }
+
+    //student 类继承 Person类
+    /*
+    *   如果不在类中写constructor函数  系统会自动加上
+    *   必须在一个继承父类的子类的constructor函数写上super()  这时super是一个函数
+    *
+    *   super在子类的constructor中指的是  父类的constructor
+    *
+    *   在除了constructor方法的所有方法中 使用super 此时super表示父类的原型
+    *
+    * */
+    class Student extends Person{
+        constructor(name){
+            super(name);    //继承父类constructor函数中的属性
+        }
+        sayName(){      //在执行子类的方法的同时  还需要执行父类的同名方法
+            super.sayName()
+            console.log('子类的方法');
+        }
+    }
+
+    var student = new Student('heaven')
+
+</script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    /*
+    *   async 函数的返回结果是promise
+    *       状态默认是成功的
+    *       值是函数的返回值
+    *
+    *   await  关键词后面一般都是跟着promise机器
+    *          等到该机器状态为resolve 才会执行await下面的代码
+    *          如果该机器状态为reject  就不会执行await后面的代码
+    *          为了避免报错 可以把出错的代码放到try代码块中
+    *          则错误会被捕捉到catch代码块中
+    *
+    *
+    *   JS中的异步任务
+    *       定时器的回调函数
+    *       事件处理函数
+    *       ajax
+    *       then的回调函数
+    *       catch的回调函数
+    *
+    *
+    * */
+
+
+    // function fn (callBack,time){
+    //     return  new Promise(function(res){
+    //         setTimeout(function(){
+    //             callBack();
+    //             res();
+    //         },time)
+    //     })
+    // }
+    // async function heaven(){
+    //     await fn(function(){
+    //         console.log('开始')
+    //     },1000)
+    //
+    //     await fn(function(){
+    //         console.log('执行')
+    //     },500)
+    //
+    //     fn(function(){
+    //         console.log('结束')
+    //     },300)
+    //
+    //     //console.log('我是await关键词后面的代码')
+    // }
+    //
+    // var result = heaven();
+
+
+
+    async function heaven (){
+        console.log(2);
+        try{
+            await new Promise(function(res,rej){
+                console.log(3);
+                setTimeout(function () {
+                    console.log(4);
+                    rej('我是失败的机器')
+                },20)
+            })
+        }catch(e){
+            console.log(typeof e);
+        }
+        console.log(5);
+    }
+
+    heaven();
+    console.log(1)
+</script>
+</body>
+</html>

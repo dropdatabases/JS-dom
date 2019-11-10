@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+
+    /*
+    *   WeakSet(必须是数组)
+    *       而且数组中必须全部都是引用值
+    *
+    *   WeakSet这种数据格式没有Symbol.iterator
+    *       所有不能生成遍历器
+    *
+    * */
+
+    var arr = [1,2,3];
+    var arr1 = arr;
+
+    let ws = new WeakSet([
+        arr
+    ]);
+
+    arr = null;
+    arr1 = null;
+
+    // ws.add({name:'heaven'})
+
+
+</script>
+</body>
+</html>

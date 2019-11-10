@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+
+/*
+    在函数中可以使用全局变量
+*   在全局中不能够使用函数中的变量
+*   在JS中  变量有两个存放的区域
+*       1.全局作用域
+*           全局变量会自动成为window对象的属性
+*           window对象也可以叫做Global Object GO对象
+*          打开浏览器 自动生成window对象
+*          关闭浏览器  window对象就自动销毁了
+*
+* */
+    var b = 'heaven';
+    // function auto(){
+    //     var b = 2;
+    //     // console.log(a);
+    // }
+    // auto()
+
+
+    var heaven = function(){
+        console.log('heaven');
+    }
+
+    console.log(heaven);
+    /*
+    * GO {
+    *   b:'heaven',
+    *   auto:function(){},
+    *   heaven:function(){}
+    * }
+    * */
+</script>
+</body>
+</html>

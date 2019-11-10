@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin:0;
+			padding:0;
+		}
+		canvas{
+			display: block;
+			border: 2px solid blue;
+			margin: 50px auto;
+		}
+	</style>
+</head>
+<body>
+	<canvas width="500" height="500" id="canvas"></canvas>
+
+	<script>
+		//获取画布
+		var canvas = document.getElementById('canvas');
+		//获取2D画笔 基于画布获取到画笔
+		var cxt = canvas.getContext('2d');
+
+		/*
+		 绘制圆形
+
+		 cxt.arc(x,y,r,圆的起始角度,圆的终止角度,true) false 为默认值  表示顺时针绘制圆 true表示逆时针绘制圆
+		 绘制圆形轨迹
+
+		 第一个参数和第二个参数表示圆的圆心
+		 cxt.arc(圆心距离画布的水平距离,圆心距离画布的竖直距离,表示圆的半径,绘制圆的起点,绘制圆的终点,表示顺时针绘制还是逆时针绘制)默认值是false  false表示顺时针绘制圆 true表示逆时针绘制圆
+		*/
+		
+		cxt.arc(200,150,50,Math.PI/4,Math.PI,false);//定义一个圆形的轨迹
+		//Math.PI(π) = 180°
+
+		//绘制空心圆形
+		// cxt.stroke();
+
+		//绘制实心圆形
+		cxt.fill();
+	</script>
+</body>
+</html>

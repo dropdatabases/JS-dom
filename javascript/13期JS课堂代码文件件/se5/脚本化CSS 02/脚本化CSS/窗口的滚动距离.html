@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        #box1{
+            width:2000px;
+            height:600px;
+            background: pink;
+        }
+        #box2{
+            width:300px;
+            height:800px;
+            background: lightblue;
+        }
+    </style>
+</head>
+<body>
+<div id="box1"></div>
+<div id="box2"></div>
+<script>
+    /*
+        IE8以上
+    *   window.pageYOffset  获取浏览器窗口Y轴滚动的距离
+    *   window.pageXOffset  获取浏览器窗口X轴滚动的距离
+    *
+    *   IE8 以下
+    *   document.documentElement.scrollLeft
+        document.documentElement.scrollTop
+
+        document.body.scrollLeft
+        document.body.scrollTop
+        在IE8以下兼容性比较混乱,在使用时两个值相加，因为这两对值不能同时存在
+
+
+        window.scrollBy(x,y)  让滚动条水平滚动X 竖直滚动Y
+        window.scrollTo(x,y)  让滚动条水平滚动到X 竖直滚动到Y
+
+    *
+    * */
+    //console.log(window.pageYOffset);
+    console.log(document.documentElement.scrollLeft+document.body.scrollLeft)
+    console.log(document.documentElement.scrollTop+document.body.scrollTop)
+
+
+    /* 函数执行后返回{x:水平滚动距离,y:竖直滚动距离}*/
+    function getScrollOffset(){
+        if(window.pageXOffset==0||window.pageXOffset){ //如果是IE8以上
+            return {
+                x:window.pageXOffset,
+                y:window.pageYOffset
+            }
+        }else{  //如果是IE8以下
+            return {
+                x:document.documentElement.scrollLeft+document.body.scrollLeft,
+                y:document.documentElement.scrollTop+document.body.scrollTop
+            }
+        }
+    }
+
+    console.log(getScrollOffset());
+</script>
+</body>
+</html>

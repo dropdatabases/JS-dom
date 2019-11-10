@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+    <video src="video/1.mp4"
+         width="500"
+         controls
+	></video>
+	<button id="btn01">play</button>
+	<button id="btn02">pause</button>
+	<button id="btn03">load</button>
+	<script>
+		//视频是一个需要加载的资源等你加载请求完毕就可以使用了
+
+	    var video = document.querySelector('video');
+      /*
+		视频/音频上的事件
+           oncanplay       当视频/音频 加载好会触发回调函数
+           onplay          从暂停切换到播放状态时 会触发
+           onpause         从播放切换到暂停状态时 会触发
+           ontimeupdate    当视频的播放时间变化时 会触发
+           onended         当视频播放完成时    会触发
+     */
+         //当加载(请求资源)好视频可以播放的时候触发oncanplay事件
+         video.oncanplay = function(){
+         	console.log('oncanplay事件')
+         }
+
+         //从视频的暂停状态到视频的播放状态触发onplay事件
+         video.onplay = function(){
+         	console.log('onplay事件')
+         }
+
+         //从视频的播放状态到视频的暂停状态触发onpause事件
+         video.onpause = function(){
+         	console.log('onpause事件')
+         }
+
+         //当视频的播放时间发生变换时触发ontimeupdate事件
+         video.ontimeupdate = function(){
+         	//每次视频播放时间发生变化时就会打印当前的时间
+         	console.log(video.currentTime);
+         }
+
+         //当视频播放完成时触发onended事件
+         video.onended = function(){
+         	console.log('视频播放完成');
+         }
+	</script>
+</body>
+</html>

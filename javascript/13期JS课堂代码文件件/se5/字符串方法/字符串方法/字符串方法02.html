@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    /*
+    *   str.substr(n,m)     返回从str的索引n开始截取m个字符
+    *   str.slice(n,m)      返回从str的索引n开始截取m-n个字符
+    *       h  e   a   v  e   n
+    *       0  1   2   3  4   5
+    *      -6  -5  -4  -3  -2 -1
+    *       slice(-2,-1)    从索引-2开始截取-1-(-2) 个字符
+    *   str.substring(n,m)      返回从str的索引n开始截取m-n个字符
+    *
+    *
+    *   str.split(分隔符)      用指定分隔符分隔str 返回一个新的数组
+    *
+    *   str.replace(字符串1,字符串2)
+    *       用字符串2 替换字符串1
+    * */
+    var str = 'heaven';
+
+    //var newStr1 = str.substr(2,4);  // 'aven'
+
+    var newStr2 = str.slice(2,5)    //  'ave'
+
+    var newStr3 = str.substring(2,5)
+
+    var arr = str.split('e');
+
+
+    var newStr4 = str.replace('a','海文')
+
+    var str1 = '   hea   evn   ';
+    var newStr5 = str1.trimLeft();      //去掉字符串的左侧空格
+    var newStr6 = str1.trimRight();      //去掉字符串的右侧空格
+    var newStr7 = str1.trim();           //去掉字符串的左右两侧空格
+
+    var newStr8 = str.concat('字符串1','字符串2')
+
+    console.log(str,arr)
+
+</script>
+</body>
+</html>

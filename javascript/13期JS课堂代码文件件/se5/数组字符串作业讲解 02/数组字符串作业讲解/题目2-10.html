@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    /*
+    *   例11：封装函数  删除数组中的假值
+    *   [7, "ate", "", false, 9]
+    *   i=2 arr[2] --> arr.splice(2,1)   [7, "ate", false, 9]
+    *  i++  i-->3 arr[3]
+    *   数组坍塌：因为数组的某一项被删除了，而i还在继续增加
+    *   导致在循环时 跳过数组中的某一项
+    * */
+
+    // function bouncer(arr) {
+    //     for(var i=0;i<arr.length;i++){
+    //         if(!arr[i]){    //如果是假值
+    //             arr.splice(i,1);//删除数组的第i项
+    //             i--;
+    //         }
+    //     };
+    //     return arr;
+    // }
+    // bouncer([7, "ate", "", false, 9]);    //[7,"ate",9]
+
+    /*
+    *
+        例16： 封装函数  查找出第一个只出现一次的字符
+            indexOf 和lastIndexOf  的结果是一样的
+            就说明该字符只出现了一次
+
+    * */
+    function unquie(str){
+        for(var i=0;i<str.length;i++){
+            if( str.indexOf(str[i])==str.lastIndexOf(str[i]) ){
+                return str[i];
+            }
+        }
+    }
+
+    /*
+    *   例17： 封装函数  实现字符串去重
+    *   第一个方法：
+    *       把字符串变成数组
+    *       lastIndexOf  indexOf  搭配使用  去掉重复的字符
+    *
+    *   第二个方法:
+    *       声明newStr空串
+    *       遍历字符串str
+    *        如果newStr里面没有str[i] 那就把str[i]添加到newStr中
+    *
+    *    第三个方法
+    *          使用str.split函数把str变成数组
+    *          遍历数组 获取arr.slice(i+1)
+    *          判断arr.slice(i+1)里面有没有arr[i] 如果有 就删除arr[i]
+    *
+    *
+    * */
+
+    function deweightStr(str){
+        //方法1
+        // var arr = str.split('');
+        // console.log(arr);
+        // for(var i=0;i<arr.length;i++){
+        //     if(arr.indexOf(arr[i])!=arr.lastIndexOf(arr[i])){  //如果该字符重复 那就删除
+        //         arr.splice(i,1);
+        //         i--;
+        //     }
+        // }
+        // return arr.join('')
+        //方法2
+        // var newStr = '';
+        // for(var i=0;i<str.length;i++){
+        //     if(newStr.indexOf(str[i])==-1){ //如果newStr里面没有str[i]
+        //         newStr = newStr + str[i];
+        //     }
+        // }
+        // return newStr
+
+        //方法3
+        var arr = str.split('');//把str变成数组
+        for(var i=0;i<arr.length;i++){
+           if(arr.slice(i+1).indexOf(arr[i])!=-1){  //如果arr.slice(i+1)里面有arr[i]那就删除arr[i]
+                arr.splice(i,1);
+                i--;
+           }
+        }
+        return arr.join('')
+
+    }
+
+
+    /*
+    * 例18： 封装函数  实现数组去重
+    *   利用对象的属性名不能重复的特点  实现数组的去重
+    * */
+    function deweightArr(arr){
+        var obj = {};
+        for(var i=0;i<arr.length;i++){
+            obj[arr[i]] = arr[i]
+        }
+        var arr = [];
+        for(var key in obj){    //遍历对象
+            arr.push(obj[key])
+        }
+       return arr
+    }
+    /*
+    *
+    * 例19：封装函数 输出指定字符串的长度：
+
+        提示：1. 一个中文占2个字节，一个英文占一个字节
+
+               2.如果Unicode编码值小于等于255是英文，如果unicode编码值大于255是中文
+    */
+
+
+    function byteLen(str){
+        var length = str.length; //储存str的长度
+        for(var i=0;i<str.length;i++){
+            var charCode = str.charCodeAt(i);//获取每个字符的unicode码
+            if(charCode>255){   //如果是中文
+                length ++;
+            }
+        }
+        return length;
+    }
+
+    /*
+    *   例20：封装函数 获取浏览器url中的数据    要求：函数返回值是一个对象
+    * */
+
+    function getUrl(str){
+        var arr = str.split('?')[1].split('&');
+        var obj = {};   //存放所有的属性名和属性值的
+        for(var i=0;i<arr.length;i++){
+            var newArr = arr[i].split('=');
+            console.log(newArr);
+            obj[newArr[0]] = newArr[1];
+        };
+        return obj;
+    }
+    var url = 'https://www.baidu.com/s?ie=utf-8&f=3&rsv_bp=1&tn=baidu&wd=海文\t&rsv_pq=becd1331000082fd&rsv_t=0f84&rqlang=cn&rsv_enter=1&rsv_sug3=14&rsv_sug1=12&rsv_sug7=100&rsv_sug2=0&rsp=0&inputT=9344&rsv_sug4=3518432'
+
+
+    /*
+    *   例14： 封装函数  实现push方法
+    * */
+
+    var arr = [1,23,3];
+    function myPush(){
+        console.log(arguments);
+
+        for(var i=0;i<arguments.length;i++){
+            this[this.length] = arguments[i];
+        }
+        return this;
+    }
+    myPush.apply(arr,['海文','heaven'])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    /*
+    *   GO{
+    *       result1:function inner(){},
+    *       result2:function inner(){},
+    *       outer:function(){}
+    *   }
+    *
+    *   outer:AO{           line :45
+    *       a:4399,  --> 4400
+    *       inner:function(){}
+    *   }
+    *
+    *   inner:AO{
+    *
+    *   }
+    *
+    *
+    *   outer:AO{           line:47
+    *       a:4399,   --> 4400
+    *       inner:function(){}
+    *   }
+    *
+    *   inner:AO{
+    *
+    *   }
+    *
+    * */
+    function outer() {
+        var a = 4399;
+        function inner() {
+            a++;
+            console.log(a); //4400  4401
+        }
+        return inner;
+    }
+
+    var result1 = outer();
+    result1();
+    var result2 = outer();
+    result2();
+
+
+    var result = outer();
+    result();
+    result();
+
+    /*
+    *   GO{
+    *       result:function inner(){},
+    *       outer:function(){}
+    *   }
+    *
+    *   outer:AO{
+    *       a:4399,  --> 4400  --> 4401
+    *       inner:function(){}
+    *   }
+    *
+    *
+    *   inner:AO{           line 52
+    *
+    *   }
+    *
+    *
+    *   inner:AO{           line 53
+    *
+    *   }
+    *
+    * */
+</script>
+</body>
+</html>

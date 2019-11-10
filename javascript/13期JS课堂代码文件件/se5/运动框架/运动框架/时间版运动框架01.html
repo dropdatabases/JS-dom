@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        #box{
+            position:absolute;
+            left:10px;
+            top:10px;
+            width:200px;
+            height:200px;
+            background: pink;
+            /*transition:2s;*/
+        }
+    </style>
+</head>
+<body>
+<div id="box"></div>
+<script>
+    /*
+    *   让box的宽度从200px 变化到400px  所有时间是2s
+    *
+    * */
+    var oBox = document.getElementById('box');
+    console.log(oBox);
+
+
+    //这个函数的功能就是让dom元素
+    // 从初始位置 运动到终点位置（target）
+    // 所有时间是time （2s）
+    //attr 表示要变化的属性
+    function animation(dom,attr,target,time){
+       var start = parseFloat(getStyle(dom,attr));//   存放初始属性值
+       var speed = (target - start)/(time*1000);
+
+        var startTime = new Date(); //获取dom运动的初始时间
+
+        var timer = setInterval(function(){//回调函数的作用是让dom元素运动的
+            var movedTime = new Date(); //获取最新的时间
+            var _t = movedTime - startTime; //计算dom元素运动的时间差 单位是ms
+
+            //使用行内样式表 设置dom元素的attr属性
+            dom.style[attr] = start + speed*_t +'px';
+            // if(parseFloat(getStyle(dom,attr))>=target){//如果dom的attr属性 大于target 那就关掉定时器
+            //     clearInterval(timer);
+            //     dom.style[attr] = target +'px'; //强制等于终点值
+            // }
+            if(_t/1000>=time){  //如果dom运动的时间差值大于 指定的时间time 那就清除掉定时器clearInterval(timer);
+                clearInterval(timer);
+               dom.style[attr] = target +'px'; //强制等于终点值
+            }
+
+        },16)
+        //获取元素的初始样式值
+        function getStyle(dom,attr){
+            if(dom.currentStyle){   //如果是IE8以下
+                return dom.currentStyle[attr];
+            }else{      //如果是IE8以上
+                return getComputedStyle(dom,null)[attr]
+            }
+        }
+    }
+    animation(oBox,'width',250,2);
+    animation(oBox,'height',500,2);
+    animation(oBox,'left',50,2);
+    animation(oBox,'top',250,2);
+
+    // animation(oBox,{
+    //     width:250,
+    //     height:500,
+    //     left:50,
+    //     top:250
+    // },2)
+</script>
+</body>
+</html>

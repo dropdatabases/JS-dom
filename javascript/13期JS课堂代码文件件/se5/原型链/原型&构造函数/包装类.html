@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    /*
+    *   在JS中只有对象才能够属性和方法
+    *
+    *       JS中存在3个包装类
+    *           new Number(num) -->  把原始值num变成数字对象
+    *           new Boolean(bool) -->  把原始值bool变成布尔对象
+    *           new String(str) -->  把原始值str变成字符串对象
+    * */
+
+
+    // var str = 'heaven';
+    // console.log(str.length); // new String(str)
+    // console.log(str.indexOf('e'));
+
+    // var num = 2;
+    // console.log(num.toString())
+
+    // var bool = false;
+
+    var str = 'heaven';
+    str = str + 3; //   str  -->  'heaven3'
+    var result = typeof str;  //  result --> 'string'
+    if(result.length===6){
+        result.len = '返回的结果是string'
+    }
+    console.log(result.len);  //  undefined
+    console.log(result.length);//  6
+
+
+</script>
+</body>
+</html>

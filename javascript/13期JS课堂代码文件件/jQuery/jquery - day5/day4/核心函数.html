@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;
+            padding: 0;
+        }
+
+    </style>
+</head>
+<body>
+<ul>
+    <P>0</P>
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+</ul>
+<button id="btn01">animate</button>
+<script src="./jquery-3.4.1.js"></script>
+<script>
+    $(document).ready(function(){
+
+        $('li').click(function(){
+            /*
+            *   节点.index()  查看节点在父元素的索引
+            *
+            *   节点.each(回调函数)
+            *       回调函数的参数  index ele(原生dom)
+            *
+            *
+            *    节点.get(索引)    ==>  节点[索引]
+            *       获取索引位置的原生dom
+            *
+            *       get()  不传参数 可以得到原生dom组成的纯数组
+            * */
+            console.log($(this).index());
+        })
+
+
+
+
+    })
+</script>
+</body>
+</html>

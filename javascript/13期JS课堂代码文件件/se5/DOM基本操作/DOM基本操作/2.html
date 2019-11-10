@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        #box{
+
+        }
+
+
+    </style>
+</head>
+<body>
+    <div id="box">海文
+        <!--heaven-->
+        <span class="on" title="我是span节点">heaven</span>
+        <p title="我是p节点">啦啦啦</p>
+        <h2>测试标题</h2>
+    </div>
+<script>
+    /*
+    *
+    *     节点的分类             nodeType
+    *       文本节点                3
+    *       注释节点                8
+    *       元素节点                1
+    *       属性节点                2
+    *       文档节点(document)      9
+    *
+    *     节点的属性
+    *       nodeType   区分节点的类型
+    *       nodeName   获取节点的名称
+    *       nodeValue  获取注释节点和文本节点的内容
+    *       attributes 获取元素节点的属性节点集合
+    *
+    * */
+
+    var oBox = document.getElementById('box');  //通过id名字获取节点
+
+    for(var i=0;i<oBox.childNodes.length;i++){
+        if(oBox.childNodes[i].nodeType===1){
+            console.log(oBox.childNodes[i].attributes[0].nodeType)
+        }
+    }
+</script>
+</body>
+</html>
