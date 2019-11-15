@@ -70,4 +70,19 @@ Rainbow Brackets，可以将同一对花括号给定相同的颜色，可以一�
 
 遇到颜色代码时，Pigment会将颜色渲染在这段代码的下面。
 
- 
+ **vscode主题的颜色**
+
+1.Horla Light Them：浅色主题，非常好 
+
+![img](https://img-blog.csdnimg.cn/20190312232732787.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1VGT2Z1Y2s=,size_16,color_FFFFFF,t_70)
+
+2.Monokai pro：暗色主题，这个还是不错的，图标也可以换 
+
+![img](https://img-blog.csdnimg.cn/20190312233246846.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1VGT2Z1Y2s=,size_16,color_FFFFFF,t_70)
+
+3.One Dark pro：这个是所有人都比较喜欢的一款暗色主题 
+
+![img](https://img-blog.csdnimg.cn/20190312233533318.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1VGT2Z1Y2s=,size_16,color_FFFFFF,t_70)
+
+4.Nebula Theme：暗色主题，我觉得这个主题女生会更喜欢，男的也可以哦，满足你的少女心。 ![img](https://img-blog.csdnimg.cn/20190312233904978.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1VGT2Z1Y2s=,size_16,color_FFFFFF,t_70)
+
