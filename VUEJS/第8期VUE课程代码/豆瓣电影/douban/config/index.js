@@ -11,20 +11,13 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      // '/apis': {
-      //   target: 'https://api.douban.com/',  // 接口域名
-      //   changeOrigin: true,  //是否跨域
-      //   pathRewrite: {
-      //     '^/apis': ''   //需要rewrite重写的,
-      //   }
-      // }
-      '/api': {
-        target: 'https://api.douban.com/',  //目标接口域名
+      '/apis': {
+        target: 'https://api.douban.com/',  // 接口域名
         changeOrigin: true,  //是否跨域
         pathRewrite: {
-          '^/api': ''   //重写接口
+          '^/apis': ''   //需要rewrite重写的,
         }
-      },
+      }
     },
 
     // Various Dev Server settings
