@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script src="./js/deWeight.js"></script>
+    <script src="./js/push.js"></script>
+    <script src="./js/pop.js"></script>
+    <script src="./js/reverse.js"></script>
+    <script src="./js/unshift.js"></script>
+    <script src="./js/shift.js"></script>
+    <script src="./js/join.js"></script>
+    <script src="./js/splice.js"></script>
+    <script>
+     // 数组去重 deWeight该方法不改变原数组
+     var arr = [1,2,3,4,4,3,2,1];
+     console.log(arr.deWeight());
+
+     // 仿写push方法 myPush该方法改变了原数组
+     var arrPush = [1,2,3,4];
+     arrPush.myPush(5,"字符串",false,null,undefined,[1,2,3],{name:"huasheng"},function(){});
+     console.log(arrPush);
+
+     // 仿写pop方法 myPop该方法改变了原数组
+     var arrPop = [1,{name:"huasheng"},function(){}];
+     arrPop.myPop();
+     console.log(arrPop);
+
+     // 仿写reverse方法 myReverse方法是改变了原数组
+     var arrReverse = [5,3,7,3,2,8];
+     arrReverse.myReverse();
+     console.log(arrReverse);
+
+     // 仿写unshift方法 myUnshift方法是改变了原数组
+     var arrUnshift = [1,"字符串",{name:"huasheng"}];
+     arrUnshift.myUnshift(function(){});
+     console.log(arrUnshift);
+
+     // 仿写shift方法  myShift方法是改变了原数组
+     var arrShift = [1,2,function(){}];
+     arrShift.myShift();
+     console.log(arrShift);
+
+     // 仿写join方法  myJoin方法是不改变原数组的
+     var arrJoin = [1,2,3];
+     console.log(arrJoin.myJoin("我是拼接的字符串"));
+
+     // 仿写splice方法
+     var arrSplice = [1,2,function(){},{name:"huasheng"}];
+     arrSplice.mySplice(1,1,"花生");
+     console.log(arrSplice);
+    </script>
+</body>
+</html>
