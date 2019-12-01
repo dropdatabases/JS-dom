@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 鸡兔同笼
+        // 定义函数第一个参数是头数 第二个参数是脚数
+        function fn(head,font){
+            var x = 0;
+            var y = 0;
+            var war = font - head * 2;
+            y = war/2;
+            x = head - y;
+            return '鸡的个数为'+x+'兔的个数为'+y;
+        };
+        var str = fn(842,1940);
+        console.log(str);
+    </script>
+</body>
+</html>

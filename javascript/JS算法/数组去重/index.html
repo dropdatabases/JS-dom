@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var array = [1,2,3,4,4,3,2,1];
+        function fun(arr){  
+            // 存储去重的数组
+            var newArr = [];
+            // 遍历老数组 获取数组中的每一项进行去重
+            for(var i=0;i<arr.length;i++){
+                // indexOf数组中没有改值则是-1
+                // 那么如果新数组里面没有指定的值 那么就=-1 走if代码
+                if(newArr.indexOf(arr[i])===-1){
+                    // 给新数组添加没有重复的元素
+                    newArr.push(arr[i]);
+                };
+            };
+            // 返回一个没有重复的数组
+            return newArr;
+        };
+        var count = fun(array);
+        console.log(count);
+    </script>
+</body>
+</html>
