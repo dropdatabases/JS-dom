@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+            1，算法简介
+                二分插入排序时一种直接在插入排序上进行小改动的算法，
+                与直接插排最大的区别在于查找插入位置时使用的是二分查找的方式。 
+            2，算法描述
+                1，从第一个元素开始，认为该元素已排序。
+                2，取出下一个元素，在已排序序列中二分查找到第一个比它大的数的位置
+                3，将元素插入到该位置后
+                4，重复上述两步
+                3，算法分析
+                由于只是改进了插入位置查找方法，所以空间复杂度仍然是O(1)，插入每个记录需要查找logi次，最多移动i+1次，
+                因此，最佳情况时间复杂度是O(nlogn),最差和平均情况是O(n^2)。
+        */
+        // 4，代码实现
+        var array = [5,3,2,6,8,1];
+        function fun(arr){
+            var len = arr.length;
+            for(var i=1;i<len;i++){
+                var key = arr[i],
+                    left = 0,
+                    right = i-1;
+                //在已排序的元素中二分查找第一个比它大的值
+                while(left <= right){
+                    // 二分法查找的中间值
+                    var mid = parseInt((left+right)/2);
+                    // 当前值比中间值小 则在左边的子数组中继续寻找
+                    if(key<arr[mid]){
+                        right = mid-1;
+                    }
+                    // 当前值比中间值大 在右边的子数组继续寻找
+                    else{
+                        left = mid+1;
+                    }
+                }
+                for(var j=i-1;j>=left;j--){
+                    arr[j+1] = arr[j];
+                }
+                arr[left] = key;
+            }
+            return arr;
+        }
+        var count = fun(array);
+        console.log(count);
+
+        // 5，考察点、重点、频度分析
+        // 和直接插排一样，二分插排效率依旧可能不高，这依赖于初始序列，但是二分查找思想是一个很好的思想，重点掌握。
+    </script>
+</body>
+</html>

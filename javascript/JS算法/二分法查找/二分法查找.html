@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var array = [1,2,3,4,5,6,7,8,9];
+        function fun(num,arr){
+            // 获取当前数组中的最大索引值 -1
+            var end = arr.length - 1;
+            // 获取最小的索引值，默认是0
+            var begin = 0;
+            // 当begin小于等于end的时候执行while循环
+            while(begin <= end){
+                // 获取当前数组中的平均索引值
+                var i = Math.floor((end + begin) /2);
+                // 如果数组中的每一项元素小于begin时执行 if语句
+                if(arr[i] < num){
+                    begin = i + 1;
+                }
+                // 如果数组中每一项元素大于end时执行else if语句
+                else if(arr[i] > num){
+                    end = i - 1;
+                }
+                // 如果获取到了中间值 表示不符合上面的条件 走else语句
+                else{
+                    return i;
+                }
+            }
+            // 如果num值不存在数组当中那么 返回-1
+            return -1;
+        }
+        var count = fun(8,array);
+        console.log(count);
+    </script>
+</body>
+</html>
