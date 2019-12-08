@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>mvvm的基本概念</title>
+</head>
+<body>
+    <div id="app">
+        <h4 id="h4Dom"></h4>
+        <!-- 
+            input 事件触发
+            输入文本框的值发生变化后 直接触发的事件
+        -->
+        <input type="text" value="" id="inputDom">
+    </div>
+    
+</body>
+<script>
+    var msg="变量msg";
+    var h4Dom=document.querySelector("#h4Dom");
+    var inputDom=document.querySelector("#inputDom");
+    h4Dom.innerHTML = msg;
+    inputDom.value = msg;
+    // 绑定动态事件;
+    inputDom.addEventListener("input",function(){
+        msg=this.value;
+        h4Dom.innerHTML = msg;
+    })
+    /*
+        1.mvvm: Model-View-ViewModel;
+            + Model: js中的变量和方法；
+            + View: html页面中的容器；(元素块)
+            + ViewModel: 让 js代码中的变量和方法 与 页面中的元素 关联的 Dom 操作；
+    */
+</script>
+</html>

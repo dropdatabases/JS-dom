@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>基础指令中的事件绑定v-on</title>
+    <script src="./js/vue.js"></script>
+    <!--
+        指令中
+            **参数：对当前指令操作范围进行限制  
+        6、v-on
+            **缩写：@，项目中可以用 @ 代替 v-on: ;
+            **语法：v-on[:参数][.修饰符]="取值" || @[参数][.修饰符]="取值" ；
+            **参数：eventName；
+            **原理：js中的事件监听；
+            **取值：
+                - Function: 函数类型；
+                - Inline Statement: 行内表达式；
+                - Object: 对象类型；
+                - Array: 数组类型；
+            **v-on绑定的事件必须是vue方法仓库中的方法；
+    -->
+    <!--  
+        静态事件绑定：以标签属性关联事件方法；
+            ** on[事件名]=function(){}
+        动态事件绑定：以JS语法方式为元素关联事件定义;
+            ** {}.addEventListener(eventName,callback,options)
+                + options: 事件行为描述配置(事件冒泡，事件捕获，默认事件)；
+                    - 默认事件：HTML和js为一些特殊标签赋予的 指定功能的事件绑定；
+                        a标签 input[type="submit"] input[type="reset"]
+                        button[type="submit"] button[type="reset"]
+                    - 事件捕获：true；
+                    - 事件冒泡：false；
+            
+    -->
+</head>
+<body>
+    <div id="app">
+        <!-- 单事件绑定，**Function -->
+        <input type="button" value="事件绑定1" v-on:click="show()"><br>
+        <!--
+            同类型事件的多处理函数绑定方式，执行顺序取决于定义方法的先后；
+                ** Function,Array  
+                1、多事件绑定以 , 分割分离；
+                2、通过 v-on 的取数组类型值进行定义
+        -->
+        <input type="button" value="事件绑定2" v-on:click="show(),print()"> 
+        <input type="button" value="事件绑定3" v-on:click="[show(),print()]"><br>
+        <!--  
+            不同类型事件处理函数绑定，执行顺序取决于事件的调用先手；
+                ** Function,Object
+                1、直接在标签上以vue 事件绑定语法进行多次绑定事件即可；
+                2、通过 v-on 的取对象类型值进行定义
+                    - 当 v-on 取值为对象时，不能使用 参数 修饰事件类型
+                    - key描述事件类型，value用于指定事件处理函数；
+        -->
+        <input type="button" value="事件绑定3" @click="show()" @mouseup="print()">
+        <input type="button" value="事件绑定3" v-on="{click:show,mouseup:print}"><br>
+        <!--  
+            行内表达式；
+                **Inline Statement;
+                **一定是一个赋值表达式；
+        -->
+        <p>{{ msg }}</p>
+        <input type="button" value="修改msg" v-on:click=" msg='旧值' ">
+    </div>
+</body>
+<script>
+    new Vue({
+        el:"#app",
+        // 当前实例的方法仓库；
+        data:{
+            msg:"新值"
+        },
+        methods:{
+            // key:value
+            // key 自定义方法
+            // value 取值function 类型，描述该函数的执行体
+            show(){
+                console.log("vue中自定义方法show");
+            },
+            print(){
+                console.log("vue中自定义方法print");
+            },
+        }
+
+    });
+</script>
+</html>

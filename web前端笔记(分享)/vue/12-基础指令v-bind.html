@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>基础指令v-bind</title>
+    <style>
+        .name1{
+            color: blue;
+        }
+        .name2{
+            font-size: 20px;
+        }
+    </style>
+    <script src="./js/vue.js"></script>
+</head>
+<body>
+    <!--  
+        10、v-bind 
+            *缩写： :  ;项目中可用 : 代替 v-bind:
+            *语法：
+                + <标签 v-bind[:参数][.修饰符]></标签>
+                + <标签 :[参数][.修饰符]></标签>
+            *取值：any(对应属性取值) | Object(对应属性取值)
+            *参数：attr 或者 Prop(optional);
+            *作用：为指定标签绑定需要完成操作的属性值；
+            *修饰符：
+                + .prop - 被用于绑定DOM属性(property)；
+                + .camel - kebab-case 特性名称转换为 camelCase；
+                **+ .sync - 语法糖，会扩展成为一个更新父组件绑定值的 v-on 侦听器；(组件化)
+            *用法：
+                + 动态地绑定一个或者多个特性，或一个组件 prop 到表达式；
+                + 在绑定class或者style特性时，支持其他类型的值，如数组或者对象；
+                + 在绑定prop时，prop必须在子组件中声明，可以用修饰符指定不同的绑定类型；
+                + 没有参数时，可以绑定到一个包含键值对的对象，注意此时class和style绑定不支持数组和对象；
+        拓展：
+            属性操作方法attr 和 prop；
+                attr ：HTML标签属性；(W3C规范定义的可以直接在标签上定义的具有功能的属性)
+                prop ：HTML标签对应的Dom属性；(标签转为JS DOM对象后，所具有的属性)
+            input标签中disabled 和 readonly;
+                - disabled属性阻止对元素的一切操作，例如获取焦点，点击事件等等。
+                - disabled属性可以让表单元素的值无法被提交。
+                - readonly属性只是将元素设置为只读，其他操作正常。
+                - readonly属性则不影响提交问题。
+
+    -->
+    <div id="app">
+    <!--  
+        绑定常规属性
+            1、单独为属性进行绑定
+            2、采用v-bind=object值的方式进行绑定
+                - 当前值为object时不能直接使用 : 简写方式
+                - 如果需要通过 object 方式进行多属性绑定，无需要提供参数
+    -->
+        <p v-bind="{id:'pid',name:'pname'}">绑定多个属性</p>
+        <hr>
+        <h3>特殊属性操作 boolean类型的属性、class、style</h3>
+        <p>boolean类型的属性绑定</p>
+        <!--  
+            v-bind 完成元素属性定义时 绑定vue中的动态变量功能
+
+                + 对于vue未特别定义的属性，同意绑定html属性(attr)；
+                + 对于boolean属性，vue会同意使用v-bind 绑定DOM属性(prop);
+                    - 取值为一个boolean类型的结果值
+                    - v-bind对于Boolean类型的属性操作，不再使用js转换规则，使用vue定义的规则    
+                        => null、undefined 统一描述为 false；
+                        => 除了true，false，null，undefined以外统一描述成true； 
+        -->
+        <input type="text" v-bind:disabled="true">
+        <!--  
+            v-bind 对 class 的绑定 通过方法处理后的属性绑定
+                1、v-bind:class=string
+                    - 使用css样式定义的字符串格式
+                2、v-bind:class=array
+                    - 以数组元素描述需要加载的样式名称，v-bind会自动循环拼接；
+                    - 定义数组可以通过 数组方法快速完成 样式操作；
+                3、v-bind:class=object
+                    - object={key:value};
+                        + key: 样式名；
+                        + value：取值boolean，用于描述当前样式是否需要被装载；
+                    - 通过value的boolean结果判断样式是否需要被装载(主动清空样式)    
+        -->
+        <!--  
+            v-bind 对 class 的绑定 通过方法处理后的属性绑定
+                1、v-bind:class=string
+                    - 直接绑定遵循style行内样式语法的字符串
+                2、v-bind:class=array
+                    - 组合对象行内样式 
+                    - Array = [{},{},{},{},{},……] 对象数组
+                        作用：将两个行内样式取值对象同时赋值给一个元素的style
+                3、v-bind:class=object
+                    - object={key:value}
+                        + key：样式名
+                        + value：样式对应的合法取值；
+                    - 动态控制行内样式的定义
+        -->
+        <!--  
+            拓展：对象数组和数组对象：
+                对象数组：[{},{},{},{},{},{},……]；
+                数组对象：{arr1:[],arr2:[],arr3:[],……}
+        -->
+        <p style="color:red;font-size:20px;">绑定行内样式</p>
+        <p :style=" arrStyle ">绑定行内样式</p>
+        <!--  
+            拓展： HTML代码中不区分大小写,大写字母在页面中以小写字母形式显示
+        -->
+        <h1>h1</h1>
+        <H1>h1</H1>
+        <!--  
+            v-bind 的修饰符；
+                + .prop：强制v-bind完成Dom属性操作；
+                    - 定义的驼峰命名方式的属性 会直接全部转为小写
+                    - 解决方式：采用连字符方式定义
+
+        -->
+        <p :class-name.prop=" 'name1 name2' ">强制添加DOM属性</p>
+    </div>
+</body>
+<script>
+    new Vue({
+        el:"#app",
+        data:{
+            arrStyle:{
+                color:"red",
+                fontSize:"20px",
+            },
+        },
+        methods:{
+
+        }
+    });
+</script>
+</html>

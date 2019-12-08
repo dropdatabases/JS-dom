@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>构造继承函数的应用之提示插件</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .tip {
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translate(-50%, -100%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 5px 30px;
+            border-radius: 6px;
+            max-width: 60%;
+            white-space: pre-wrap;
+            word-break: break-word;
+            box-sizing: border-box;
+            animation-name: move;
+            animation-duration: 3000ms;
+            animation-iteration-count: 1;
+            opacity: 0;
+        }
+
+        @keyframes move {
+            0% {
+                transform: translate(-50%, -200%);
+                opacity: 0;
+            }
+
+            16% {
+                transform: translate(-50%, 30%);
+                opacity: 1;
+            }
+
+            84% {
+                transform: translate(-50%, 30%);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translate(-50%, -200%);
+                opacity: 0;
+            }
+        }
+    </style>
+    <script src="./js/vue.js"></script>
+    <script>
+        // 基于vue开发的插件功能,可以在任意的场景下使用
+        var TipFun = Vue.extend({
+            template: "<div class='tip' :style='\"animation-duration:\"+time+\"ms;\"'>{{ msg }}</div>",
+            data() {
+                return {
+                    msg: "",
+                    time: 3000
+                }
+            },
+            // created() {
+            //     // console.log('created');
+            //     this.$mount();
+            // },
+            mounted() {
+                document.body.appendChild(this.$el);
+                setTimeout(()=>{
+                    document.body.removeChild(this.$el);
+                    this.$destroy();
+                }, this.time)
+            }
+        });
+        function showTipBox(msg = "默认值",time=3000) {
+            let tip = new TipFun();
+            tip.msg = msg;
+            tip.time = time;
+            tip.$mount();
+            // document.body.appendChild(tip.$el);
+            // setTimeout(()=>{
+            //     document.body.removeChild(tip.$el);
+            //     tip.$destroy();
+            // }, 3000)
+        }
+    </script>
+</head>
+
+<body>
+    <input type="button" value="基于vue语法所开发的提示窗" onclick="showTipBox('数据加载完成',3000)">
+    <input type="button" value="基于vue语法所开发的提示窗" onclick="showTipBox('评论发表成功',4000)">
+    <input type="button" value="基于vue语法所开发的提示窗" onclick="showTipBox('已加入购物车',5000)">
+</body>
+
+</html>

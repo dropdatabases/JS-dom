@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue组件化之构造继承函数</title>
+    <script src="./js/vue.js"></script>
+</head>
+<body>
+    <!--  
+        组件化
+            *组件是可复用的Vue实例,且带有名字,项目中把组件化作为自定义元素来使用;
+            *组件构成: 将项目中可能被重复使用的页面结构,转换为vue的一个组件实例,以组件组合的方式构成整个项目结构,或将特殊实现功能封装成组件进行特殊调用
+    -->
+    <!--  
+        组件化之构造器继承函数
+            *构造器继承函数Vue.extend(),通过以基础Vue构造器为蓝本,创建一个具有特殊配置的'子类'构造器;
+            *被创建的新构造器可以用于构建Vue实例,但被构建的实例具有预先定义的相关特性;
+            *项目中可通过该功能构建具有特殊用途的Vue的实例;
+            *构造器继承函数语法: Vue.extend(options)
+                + 返回一个新的具有Vue基本功能和特殊配置的新构造函数
+                + options:该参数用于定义新构造器的相关特性,该配置项等同于 new Vue(options)的options参数
+    -->
+    <!--  
+        实际应用:
+            **独立插件: 页面功能插件定义;
+            **组件配置项
+    -->
+    <div id="app">
+
+    </div>
+</body>
+<script>
+    new Vue({
+        el:"#app"
+    });
+
+</script>
+</html>

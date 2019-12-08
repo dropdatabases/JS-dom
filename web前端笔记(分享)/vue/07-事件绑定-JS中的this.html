@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>事件绑定-JS中的this</title>
+    <script src="./js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <p>{{ msg }}</p>
+        <input type="button" value="事件绑定" v-on:click="setMsg2()">
+    </div>
+</body>
+<script>
+    new Vue({
+        el:"#app",
+        data:{
+            msg:"旧值"
+        },
+        methods:{
+            setMsg1:()=>{
+                console.log(this);// vue源码中，将vue实例对象的**一级**箭头函数通过 call 方式将this指向了window；目的是为了迎合开发者；(实际上正确语法应该是这里的箭头函数会指向当前构造的实例)
+                // 1、vue将数据仓库和方法仓库中的定义值，直接构建在了当前vue实例的根属性上，所以获取实例数据仓库的变量和方法仓库中和方法，直接调用this即可;
+            },
+            setMsg2(){
+                console.log(this);
+                this.msg="新值";
+            }  
+        }
+    })
+    /*
+        JS环境下的this：
+            *this被定义在非箭头函数中时，this是当前方法的调用者对象
+            *this被定义在箭头函数中时，this指向与上一级非箭头函数的this，最后直到window
+        上述描述不严谨，并不是真正意义上的理解；
+        正确描述：
+            JS环境下的this指向与方法执行上下文
+                上下文：上下级代码定义关系；
+                new 关键字会构建新的上下文关系
+                箭头函数不具有this指向，箭头函数中的this指向与上一级非箭头函数的上下文
+    */
+</script>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>数据控制之监视器</title>
+    <script src="./js/vue.js"></script>
+</head>
+<body>
+    <!--  
+        监视器(watch): ***完成数据监控调用***
+            *功能:构建一个队bue实例中数据仓库中变量(data,computed,[props(组件化)])的监控方法,实现当数据变化时执行额外扩展方法;
+
+            *组件内构建方法: watch:{ key:value }
+                + key(string): 被监视的数据变量名称 或者 对象路径表示方式;
+                    **注意:对象路径表示形式只能用于vue监控器定义时**
+                    
+                + value(Function|Object): 定义监视器执行方式
+                    - 取值Function: 定义基础的数据监控方法;
+                    - 取值Object: 定义可扩展数据监控配置;
+                        {
+                            handler:Function 定义监控方法(回调函数)
+                            deep:Boolean 是否开启深度监控
+                            immediate: Boolean 是否开启初始化触发
+                        }
+            *组件外构建方法:
+    -->    
+    <div id="app">
+        <input type="text" v-model="msg">
+        <input type="button" value="百度一下">
+        <input type="button" value="添加结果" @click=" msg = 'html' ">
+    </div>
+    <hr>
+    <div id="root">
+        <!--  
+            引用类型的数据变量的监控
+        -->
+        <!--  
+            拓展: 
+                Object.defineProperty() 只会拦截 定义变量的值,不关系变量的属性
+                Object.defineProperty() 只会关心被定义的数据的*值*的变化
+        -->
+        <!--  
+            调用变异方法
+                变异方法是vue重写的数组方法:保留原方法功能的同时,提供监控调用;
+                    push(),pop(),shift(),unshift,sort(),reverse(),splice()
+            由于JS的限制,vue 不能检测一下数组的变动:
+                当你利用索引直接设置一个数组项时,例如:vm.items[indexOfItem]=newValue
+                当你修改数组长度时,例如: vm.items.length=newLength
+        -->
+        <pre>{{ user }}</pre>
+        <input type="text" v-model="user.name">
+        <input type="button" value="resetUser" @click="resetUser()">
+        <pre>{{ arr }}</pre>
+        <input type="button" value="resetArr" @click="arr[1]='aa'">
+    </div>
+</body>
+<script>
+    new Vue({
+        el:"#app",
+        data:{
+            msg:"变量msg",
+        },
+        watch:{
+            // 监控数据变量的变化操作
+            // key: value;
+            //      key 监控器名称=> 描述当前vue实例中数据仓库中 哪个变量需要监控
+            //      value 用于描述监控变化后的执行方法;
+            //          方法内部的 this 依然指向与 当前vue实例对象;
+            //          特性:方法默认具有两个形参值:一个为修改前的数据,一个为修改后的数据
+            msg:function(newValue,oldValue){
+                // console.log(newValue,oldValue);
+            },
+            msg:{
+                // 无差别监视=>当开启深度监视时,只要对象中的任意属性发生变化时,都会触发监控方法
+                // handler 等效于 监视器直接定义方法的功能; 
+                handler:function(newValue,oldValue){
+                    // console.log(newValue,oldValue);
+                },
+                deep:true,// 当前的引用类型监控器不仅监控该变量地址的变化,同时监控属性的变化
+                immediate: true
+            },
+        },
+    });
+    new Vue({
+        el:"#root",
+        data:{
+            user:{
+                name:"tom"
+            },
+            arr:[1,2,3,4]
+        },
+        // 监视器默认只会监控定义的引用变量,不会监控引用变量的属性变化;
+        watch:{
+            // 当监控的数据为引用类型变量时,nv和ov都是修改后的变量结果
+            user(nv,ov){
+                console.log("user变量变化");
+            },
+            arr(){
+                console.log("arr发生变化");
+            },
+            // 必须只监控一个对象中的一个固定属性时
+            //      key 取对象属性路径的字符串形式,描述只要监控的对象属性
+            "user.name":function(){
+                console.log("user.name的监视器");
+            }
+        },
+        methods:{
+            resetUser(){
+                this.user={
+                    name:"jack"
+                }
+            },
+        }
+    });
+</script>
+</html>

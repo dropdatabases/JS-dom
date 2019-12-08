@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>数据操作基础指令1</title>
+    <!--  
+        指令：为开发者提供在页面中进行特殊功能的属性描述方法
+            **语法：Vue指令以 v-名称 结构定义；
+            **位置：指令只能被用于html容器的标签属性上；
+            **功能：通过指令可实现 html标签写入，标签判断、标签循环、标签事件绑定、标签属性绑定......
+            **实现：指令本身实际上就是一个js方法的特殊封装，页面定义的指令只是对方法的调用和触发
+        完整语法：
+            **v-指令名:参数.修饰符=取值；
+            **v-指令名:参数.修饰符="取值"；
+        Tips：
+            1、普通指令取值范围和插值表达式基本一致，可取vue数据仓库中定义的变量、匿名变量、js内置对象、简单的运算；
+            2、对于特殊指令v-on只能板顶vue方法仓库中的自定义方法或绑定简单的js表达式
+        指令特性： 
+            无痕迹特性==代码开发时标签上的vue语法表达式在项目运行时会被删除，不会保留；
+            即：vue对象和容器完成语法解析后，不会在浏览器上保留语法定义规范；
+    -->
+    <script src="./js/vue.js"></script>
+</head>
+<body>
+    <!--  
+        无需取值即可使用功能的属性叫做boolean类型属性
+        <input type="text" disabled>中的disabled就是boolean类型的标签属性；
+    -->
+    <div id="app">
+        <p>msg:{{ msg }}</p>
+        <p v-text=" 'msg:'+msg "></p>
+        <!-- 
+            html特性：HTMl规范中并不强求标签属性取值一定要定义引号"" 
+        -->
+        <p v-text=msg></p>
+        <!--  
+            1、v-text 等同于 插值表达式
+            2、v-html 与 v-text 区别：v-html能解析标签格式的字符串；
+            3、v-pre 
+                **boolean类型指令，取值不需要表达式；
+                **不是pre标签功能，用于限定被当前属性绑定的标签和标签内部的vue语法不被执行；
+            4、v-once 
+                **boolean类型指令，取值不需要表达式；
+                **执行一次，之后标签内部的vue所有语法彻底失效；
+            5、v-cloak
+                **boolean类型指令，取值不需要表达式；
+                **没有任何功能，但需要配合css样式实现效果；
+                **它利用了vue指令的无痕迹特性==代码开发时标签上的vue语法表达式在项目运行时会被删除，不会保留；
+                **功能：不会让其vue语法暴露在页面中；
+            总结： 
+                1、v-pre和v-once为功能指令，针对所有vue语法；
+                2、实际上所有的vue指令都可以实现v-cloak功能
+        -->
+        <p v-text="htmlStr"></p>
+        <p v-html="htmlStr"></p>
+    </div>
+</body>
+<script>
+    new Vue({
+        el:"#app",
+        data:{
+            msg:"变量msg",
+            htmlStr:"<h3>h3标签</h3>"
+        }
+    });
+</script>
+</html>

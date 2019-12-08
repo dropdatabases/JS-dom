@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>基础指令v-show、v-if、v-else-if、v-else</title>
+    <script src="./js/vue.js"></script>
+</head>
+<body>
+    <!--  
+        v-show、v-if、v-else-if、v-else  元素控制；
+
+        7、v-show：根据取值boolean的结果来切换元素的 display CSS属性，控制元素的显示隐藏；
+            **原理：改变CSS的display控制元素显示隐藏；
+            **取值：any；
+                - 值会进行数据类型转换成boolean类型；
+        8、v-if、v-else-if、v-else：根据表达式的boolean结果，执行元素的创建和删除操作；
+            **原理：JS中createElement和removeElement;
+            **取值:
+                + v-if：any；
+                + v-else-if：any；
+                + v-else：不需要表达式，该指令为boolean类型；
+            **Tips：
+                + 使用v-else指令的上一个元素必须是使用了v-if或者v-else-if；
+                + 使用了v-else-if指令的上一个元素必须是使用了v-if；
+        Tips：
+            **v-show一般用于没有敏感信息的页面切换、样式切换、标签切换等；
+            **涉及到隐私的信息，需要用v-if、v-else-if、v-else；
+    -->
+    <div id="app">
+        <h1 v-show=" flag ">h1标签</h1>
+        <h1 v-show=" !flag ">h1标签</h1>
+        <hr>
+        <h2 v-if=" flag ">h2标签</h2>
+        <h2 v-if=" !flag ">h2标签</h2>
+        <hr>
+        <!-- 
+            v-if 的连续判断 
+                v-else-if v-else 用于相对复杂的if条件判断；
+                    **判断条件不止一个的情况下；
+        -->
+        <p v-if="num<10">小于10</p>
+        <p v-else-if="num==10">等于10</p>
+        <p v-else="num>10">大于10</p>
+        <button @click="sub()">-</button>
+        <button @click="add()">+</button>
+    </div>
+</body>
+<script>
+    new Vue({
+        el:"#app",
+        data:{
+            flag:true,
+            num:10,
+        },
+        methods:{
+            add(){
+                this.num++
+                console.log(this.num);
+            },
+            sub(){
+                this.num--
+                console.log(this.num);
+            }
+        }
+    });
+
+</script>
+</html>

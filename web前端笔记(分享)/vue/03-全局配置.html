@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>全局配置</title>
+    <script src="./js/vue.js"></script>
+    <script>
+        // 在创建实例之前设置好；
+        Vue.config.productionTip = false; // 关闭控制台的日志；
+        Vue.config.silent = true; // 开启控制警告信息；
+        Vue.config.devtools = true; // 描述浏览器调试工具是否可用；
+    </script>
+</head>
+<body>
+    <div id="app">
+        <h1>{{ msg }}</h1>
+    </div>
+</body>
+<script>
+    var vm=new Vue({
+        el:"#app",
+        data:{
+            msg:"变量msg"
+        }
+    });
+
+</script>
+</html>

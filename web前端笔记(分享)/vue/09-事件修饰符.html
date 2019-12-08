@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>事件修饰符</title>
+    <script src="./js/vue.js"></script>
+</head>
+<body>
+    <!-- 拓展：绑定事件 定义return false函数可以完成默认事件阻止操作 -->
+    <a href="https://www.baidu.com" onclick="return false">百度</a>
+    <hr>
+    <div id="app">
+        <p>{{ msg }}</p>
+        <input type="text" :value="msg" @keyup="inputInfo($event)">
+        <!-- vue的事件绑定，可以只用于描述触发限制，无需定义回调函数 -->
+        <a href="https://www.baidu.com" @click.prevent >百度一下,你就知道</a>
+    </div>
+</body>
+<script>
+    
+    /*
+        修饰符：
+            1、.stop - 调用 event.stopPropagation()阻止事件冒泡;
+            2、.prevent - 调用 event.preventDefault();
+            3、.capture - 添加事件侦听器时使用的capture模式(事件捕获模式，默认是冒泡)；
+            4、.self - 只当事件是从侦听器绑定的元素本身触发时才触发回调；
+            5、.{keyCode-按键编码 | keyAlias-按键描述} - 只当事件是从特定键触发时才触发回调；
+            **6、.native - 监听组件根元素的原生事件；
+            7、.once - 只触发一次回调；
+            8、.left - 只当点击鼠标左键时触发；(该修饰符和键盘方向左键共用)
+            9、.right - 只当点击鼠标右键时触发；(该修饰符和键盘方向右键共用)
+            10、.up - 只当键盘方向上键时触发；
+            11、.down - 只当键盘方向下键时触发；
+            12、.middle - 只当点击鼠标中键时触发；
+            **13、.passive - { passive:true }模式添加侦听器(启用默认事件功能)；
+        Tips：
+            1、修饰符可以连续多个调用；
+            2、多个修饰符之间有 && || 两种；
+                **按键修饰符取 || ;
+            3、在JS中，在执行事件时，系统会默认的扫描一遍代码，然后再执行；
+                -.passive: 停止JS的事件扫描，直接执行；
+    */
+    new Vue({
+        el:"#app",
+        data:{
+            msg:"初始值"
+        },
+        methods:{
+            inputInfo(e){
+                if(e.keyCode === 13){
+                    console.log(e,e.target.value);
+                };
+                if(e.keyCode === 65 && e.ctrlKey){
+                    msg = e.target.value;
+                }
+            }
+        }
+    })
+</script>
+</html>

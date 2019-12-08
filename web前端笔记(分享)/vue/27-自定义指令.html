@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>自定义指令</title>
+    <script src="./js/vue.js"></script>
+</head>
+<body>
+    <!--  
+        自定义指令
+            *除了核心功能默认内置的指令,Vue也允许注册自定义指令;
+            *功能:对页面展示效果功能的拓展 => 自定义指令主要完成的是页面DOM元素的操作
+                + MVVM设计模式核心思想:简化开发者对于DOM的操作,vue基本实现了相关操作,基本上不需要完成DOM的操作;
+                + vue简化开发者对于DOM的操作,实际上就是将DOM的操作封装成插值表达式或者指令
+            *自定义指令是Vue提供给开发者对DOM操作的接口(规范化的方法);
+            *特性:
+                - 自定义指令的取值参数修饰符任意一个发生变化都会重新执行指令方法,完成响应式特性;
+                - 如果在操作过程中,指令的值没有发生变化,指令方法不会重复执行;
+    -->
+    <!--  
+        + 全局指令定义: Vue.directive( id,definition );
+            
+            - id=name: 定义指令名称;(唯一);
+
+            - definition: 指令的处理函数,function( el,binding,newValue,oldValue ){};
+                *el: 调用指令的当前DOM对象;
+                *binding: 是一个对象,对象中包含了指令构成参数 修饰符 取值等;
+                    - name: 指令名称;
+                    - rawName: 指令调用的表达式;
+                    - expression: 指令取值, = 右侧的取值表达式;
+                    - arg: 指令参数, :后定义的参数名称;
+                    - oldArg: 是指令 :后定义的旧的参数名称;
+                    - value: 指令 = 右侧表达式的计算结果或变量;
+                    - oldValue: 指令绑定变量发生变化后,调用该方法时,存储的上次的结果值;
+                    - modifiers: 指令修饰符, .后定义的修饰符名称;
+                        + modifiers 为 Object(key,value) 类型数据
+                        + key 为修饰符名称,value取值为true;
+                *newValue: 指令更新后的虚拟DOM;
+                *oldValue: 指令更新后 旧的虚拟DOM;
+
+            - 使用条件:
+                + 自定义指令以 v- 开头构成指令;
+                + 指令必须被定义在标签属性上,用于描述指令被执行;
+                + 被定义的标签一定是vue实例容器中的标签;
+            
+    -->
+    <!-- 
+        + 局部指令定义:参考全局指令 
+    -->
+    <!--  
+        拓展: 
+            eval函数: 运行字符串里面的表达式;
+                eval("1+2");// 3;
+            2.6.0动态参数绑定:
+                v-指令名:[变量] 变量来自于当前容器对应的实例仓库中;
+    -->
+    <div id="app">
+        <p v-test>test指令</p>
+        <p v-html="str"></p>
+        <p v-myhtml="str"></p>
+        <!-- 指令修饰符modifiers -->
+        <div v-myhtml.a.b="修饰符"></div>
+    </div>
+</body>
+<script>
+    // 全局自定义指令
+    Vue.directive("test",function(el,binding,newValue,oldValue){
+        console.log("test指令",el,binding,newValue,oldValue);
+    })
+
+    // 实现和v-HTML一样的功能的自定义指令;
+    Vue.directive("myhtml",function(el,binding){
+        
+        el.innerHTML = binding.value;
+    })
+
+    new Vue({
+        el:"#app",
+        data:{
+            str:"<h3>测试标签</h3>"
+        },
+        // 局部自定义指令
+        directives:{
+            // key: value;
+            // key:名称;
+            // value:function(el,binding,newValue,oldValue);
+        }
+    });
+
+</script>
+</html>

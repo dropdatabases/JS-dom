@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>老师教学mvvm响应式原理封装实现</title>
+</head>
+
+<body>
+    <!--  
+        非侵入性：框架设计思路=框架定义完成后，后续框架升级，不会对开发者已经完成的项目造成较大区域的代码修改；
+
+        vue框架是一个非侵入性的响应式系统；
+
+        vue框架的浏览器适用性：Vue不支持ie8以及以更低版本的浏览器；
+    -->
+    <div id="app">
+        <p v-text="msg"></p>
+        <p v-text="msg"></p>
+        <p v-text="msg"></p>
+        <p v-text="info"></p>
+        <p v-text="info"></p>
+    </div>
+</body>
+<script>
+    // 7、记录监视DOM对象和定义DOM更新方法;
+    function Watcher(){}
+
+    // 9、设置变量对应的Dom元素,并存于监视实例对象中；
+    Watcher.prototype.setDom=function(rootDom,key){
+        let selStr=`[v-text="${key}"]`;
+        this[key]= rootDom.querySelectorAll(selStr);
+    }
+
+    // 11、对应变量的Dom更新操作；
+    Watcher.prototype.notify=function(key,value){
+        // 12、获取Dom集合
+        let domList = this[key];
+        for (let i=0;i<domList.length;i++) {
+            // 13、Dom元素 属性更新；
+            domList[i].textContent = value;
+        }
+    }
+
+    // 14、统一初始化数据更新方法；
+    Watcher.prototype.upDate=function(data){
+        for(let key in data){
+            this.notify(key,data[key]);
+        }
+    }
+    // 0、Vue框架中构造函数Vue的简化原型；
+    function Mvvm(options){
+        this.init(options.el,options.data);
+    }
+    // 5、在原型上将数据变量完成get set 数据劫持操作进行函数封装；
+    Mvvm.prototype.deps=function(data){
+        // 8、完成变量和元素的依赖定义；
+        let watcher=new Watcher();
+
+        // 无意义，用于调试；
+        this.temp=watcher;
+
+        // 解释：循环变量调用defineProperty，并完成Dom关联；
+        for(let key in data){
+
+            // 10、完成当前变量和Dom对应关系记录；
+            watcher.setDom(this.$el,key);
+
+            // 6、完成每个变量的数据劫持操作；调试vm；
+            Object.defineProperty(this,key,{
+                get(){
+                    return data[key];
+                },
+                set(value){
+                    data[key]=value;
+                    // 16、更新当前变量对应的Dom；
+                    watcher.notify(key,value);
+                }
+            })
+        }
+        // 15、页面数据初始化
+        watcher.upDate(data);
+    }
+
+    // 1、原型上定义一个实例初始化，render函数；
+    Mvvm.prototype.init=function(el,data){
+        // 2、实例对应的Dom元素(容器)；
+        this.$el=document.querySelector(el);
+        // 3、将数据私有化为临时变量=>为后续执行提供数据支持；调试vm；
+        this._data=data;
+        // 4、将数据变量完成get set 数据劫持操作；
+        this.deps(this._data);
+    }
+
+    var vm = new Mvvm({
+        el: "#app",
+        data: {
+            msg: "变量msg",
+            info: "变量info"
+        }
+    });
+</script>
+
+</html>

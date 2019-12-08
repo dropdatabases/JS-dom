@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue的基本使用</title>
+    <!-- 
+        vue核心库装载后，提供的全局vue 实际上是一个js环境下对象构造函数
+
+        页面使用是需要通过new 关键字 创建 基于vue构造器的 实例对象
+
+    -->
+    <script src="./js/vue.js"></script>
+</head>
+<body>
+    <!-- 容器 -->
+    <div id="app">
+        <!-- 差值表达式 -->
+        <h4>{{ msg }}</h4>
+        <!-- 指令 -->
+        <input type="text" v-model="msg">
+    </div>
+</body>
+<script>
+    var vm = new Vue({
+        // key:value;
+        // 该配置项key的取值为 Vue框架定义的具有特定意义的相关属性；
+        // el：element select Dom选择器；
+        //      取值：string ==> 符合css元素选择器语法规范的字符串；
+        el:"#app", // vue实例和页面容器的关联 ==> 当前实例可使用的vue语法的页面范围
+                    // ***只针对于第一匹配的元素生效***
+        // data：实例的数据仓库 ==> 容器内的元素可以使用的变量数据；
+        data:{
+            msg:"变量msg"
+        },
+        // methods：实例的方法仓库 ==> 容器内的元素可以使用的方法；
+        methods:{
+
+        }
+    });
+</script>
+</html>

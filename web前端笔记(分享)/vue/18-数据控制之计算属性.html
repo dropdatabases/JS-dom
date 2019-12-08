@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>数据控制之计算属性</title>
+    <script src="./js/vue.js"></script>
+</head>
+<body>
+    <!--  
+        数据控制:为开发提供自定义数据处理接口,通过开发者自定义代码完成相对复杂的数据处理和监控
+    -->
+    <!-- 
+        计算属性(computed): ***数据包装处理+数据变量监控***
+            - 构建方式:
+                vue实例中:computed:{//构建计算属性}
+            
+            - 类型: computed:{key:value};
+                *key: 取值类型string,用于*定义计算属性变量名称*,*计算属性具有vue普通数据仓库的变量功能,同时具有vue方法仓库中相同功能,this特性*
+                *value: 定义计算属性的相关取值
+                    + 取值为Funtion时,提供计算属性取值功能,此时该计算属性为 *只读属性*;
+                    + 取值为Object{get:Function,set:Function}时,提供计算属性取值和修改功能;
+            
+                    应用场景: 应用于叶明中兴对复杂的数据输出表达式;
+            
+            - 功能: 用于控制数据在页面输出前,对数据进行包装处理;
+            
+            - 特性:
+                *计算属性在对数据进行处理包装时,需要依赖一个当前vue对象中普通属性*
+                *计算属性的结果,会随着依赖的普通属性的变换发生变换(重新调用方法)*
+                *计算属性的变量名称不能和vue实例中其他数据仓库的名称一样*   
+    -->
+    <div id="app">
+        <div>
+            <label for="">name:</label>
+            <input type="text" v-model="name">
+        </div>
+        <div>
+            <label for="">age:</label>
+            <input type="text" v-model="age">
+        </div>
+        <div>
+            <label for="">sex:</label>
+            <input type="text" v-model="sex">
+        </div>
+        <div>
+            <label for="">eMail:</label>
+            <input type="text" v-model="eMail">
+        </div>
+        <hr>
+        <input type="button" value="提交注册" :disabled=" name==''||age==''||sex==''||eMail=='' "> 
+        <hr>     
+        <input type="button" value="提交注册" :disabled=" checkData ">
+        <hr>
+        <p>msg:{{ getMsg }}</p>
+        <input type="text" v-model="getMsg">    
+        <input type="text" value="修改getMsg" @click="getMsg='新值'">    
+    </div>
+</body>
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            name: "",
+            age: "",
+            sex: "",
+            eMail: "",
+            msg:"测试字符串"
+        },
+        // 属于实例中一个特殊的数据仓库;
+        computed: {
+            // 计算属性变量在页面中使用,会直接调用计算属性的执行方法
+            // 计算属性的处理方法如果需要实现功能,必须为方法提供return值;
+            checkData:function(){
+                // 完成name age sex email 值判断;
+                var nameFlag = this.name.length<3||this.name.length>6;
+                var ageFlag = this.age<0;
+                var sexFlag = this.sex=="";
+                var eMailReg=/^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+                var eMailFlag = !eMailReg.test(this.eMail);
+
+                return nameFlag || ageFlag || sexFlag || eMailFlag;
+                
+                // return boolean;
+            },
+            getMsg:{
+                // 当计算属性取值为对象Object时,必须遵循vue计算属性对象定义语法;
+                // get 属性对应的方法,是为当前计算属性提供取值的功能定义;
+                // set 属性对应的方法,是为当前计算属性提供赋值的功能定义;
+                get:function(){
+                    return this.msg;
+                },
+                // set 方法在构建时,vue对该方法默认提供一个形参,该形参是当前方法被调用时的修改值
+                set:function(nv){
+                    // console.log(nv);
+                    this.msg=nv;
+                }
+            }
+
+        }
+    });
+</script>
+
+</html>

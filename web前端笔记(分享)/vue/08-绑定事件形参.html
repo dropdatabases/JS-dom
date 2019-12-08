@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>绑定事件形参</title>
+    <script src="./js/vue.js"></script>
+</head>
+<body>
+    <!--  
+        input事件中：input事件和change事件：
+            **input：文本输入时触发；
+            **change：文本框内容改变 && 失去焦点 时触发；
+    -->
+    <!--  
+        Js的形参 实参
+            **形参：就是js方法定义时，描述的该方法所要接收的参数的参数名称
+            **实参：js方法执行时传入的固定参数
+    -->
+    <div id="app">
+        <!-- 定义方法中的形参 this 指向与 当前 dom对象 -->
+        <!-- 
+            实例容器中的标签，绑定事件如果传入this，此时的this恒定指向与window对象；
+            
+            vue事件默认从vue实例的数据仓库和方法中取对应的变量
+            vue将常用的事件源对象 重新定义为 $event 等同于 js中的event；
+            *如果在vue环境下容器中想要获取该Dom，不能用this，那么获取该Dom的方法在vue语法中是：$event.target*
+            获取input中输入的值是，$event.target.vale即可
+        -->
+        <input type="text" @input="printValue( $event.target.value )">
+        <input type="text" @change="printValue( $event.target.value )">
+        <hr>
+        <!-- 
+            vue的事件绑定 可以不用定义事件名称后的() 
+            ==> 这种事件绑定方式是vue提供给组件化数据传递使用的事件绑定方式
+        -->
+        <input type="text" @change="printValue()">
+        <input type="text" @change="printValue">
+        
+        <!--  
+            vue事件绑定时的形参传递，执行方法是可以根据需求直接传入实参值
+                1、vue事件绑定传入的方法参数，可以是符合js语法习惯的相关值和表达式;
+                2、vue的事件绑定可以直接以 当前实例的数据仓库中变量作为参数；
+        -->
+        <input type="button" value="输出info变量=btn1" @click="printInfo( 'btn1' )">
+        <input type="button" value="输出info变量=btn2" @click="printInfo( 'btn2' )">
+        <input type="button" value="输出info变量=btn3" @click="printInfo( 'btn3' )">
+        <!--  
+            总结：事件绑定的两大参数；
+                1、this；
+                2、事件源: $event;
+        -->
+    </div>
+</body>
+<script>
+    new Vue({
+        el:'#app',
+        data:{
+            info:"默认值"
+        },
+        methods:{
+            printInfo(arg){
+                console.log(arg,this.info);
+            },
+            printValue(arg){
+                console.log( arg );
+            }
+        }
+    })
+</script>
+</html>

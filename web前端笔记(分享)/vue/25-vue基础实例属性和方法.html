@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue基础实例属性和方法</title>
+    <script src="./js/vue.js"></script>
+</head>
+<body>
+    <!--  
+        实例属性和方法
+            *实例属性和实例方法就是项目运行过程中
+                + 通过 vue构造函数创建的对象(实例) 
+                + 通过实例可以 直接访问的属性和方法=>是vue对象的普通属性和方法
+                + 在满足上述两个条件的情况下,访问的属性和方法为vue环境提供特殊功能或者特殊值的参数==> 实例属性和方法
+                总结: 定义在Vue原型上的属性和方法;
+            *Vue中对部分特殊的属性和功能方法进行特殊指代定义,用于提供独立的执行和获取方式
+
+            *Vue的实例属性和方法以统一规范以 $ 开头
+
+            *相关实例属性和方法:
+                
+                属性值获取:
+                + vm.$el - 描述当前vue实例使用的根DOM元素
+                + vm.$data - 描述当前Vue实例观察的数据对象
+                + vm.$options - 构建当前Vue实例的初始化选项
+                    - 通过new Vue 传入的参数,构建初始化配置项
+                + vm.$refs - 返回一个对象,记录当前Vue实例模板中,定义了ref属性的所有DOM元素
+                    - 提供一个DOM元素获取的接口对象,为开发者提供简易的DOM元素调用方法
+                
+                方法调用:
+                + vm.$mount - 手动挂在Vue实例
+                    - 补充在构建vue实例时 未提供 el属性配置时使用;
+                    - vm.$mount(元素选择器);
+                        + 创建vue实例对应的DOM容器(vm.$mount());
+                        + 将容器DOM根据元素选择器写入页面(document.body.appendChild(vm.$el));
+                + vm.$destroy - 手动销毁Vue实例
+                    - 只销毁vue实例对象,不会销毁与其关联的页面容器
+                    - 不需要传参
+                + vm.$nextTick - 将执行函数体的延迟到页面DOM更新完成后执行
+                    - vm.$nextTick(function(){})
+                + vm.$set - 等同于Vue.set,手动为实例中没有数据监听的变量添加监视功能
+                    - 手动添加数据劫持操作( Object.defineProperty(obj,prop,descriptor) );
+                    - vm.$set(targetObj,key,value);
+                    - 不能完成对vue 的data(vm.$data)添加 新 属性劫持,只能操作已有的data属性;
+                + vm.$delete - 等同于Vue.delete,手动为实例中的变量删除监视功能
+                    - 手动删除数据劫持操作,包含数据的删除;
+                    - vm.$delete(targetObj,key);
+                    - 不能完成对vue 的data(vm.$data)属性劫持的删除操作;
+                + vm.$watch - 构建一个对Vue实例中数据仓库中变量(data,computed)的监控方法
+        -->
+    <div id="app">
+        <p>Dom 元素</p>
+        <p ref="pDom">ref获取的Dom 元素</p>
+        <input type="button" value="获取rootDom" @click="printRootDom()">
+        <input type="button" value="获取data" @click="printData()">
+        <input type="button" value="获取options" @click="printOptions()">
+        <input type="button" value="获取refs" @click="printRefs()">
+    </div>
+    <hr>
+</body>
+<script>
+    var vm=new Vue({
+            el:"#app",
+            data:{
+                msg:"变量msg",
+                info:"变量info"
+            },
+            methods:{
+                printRootDom(){
+                    console.log(this.$el); // 当前实例对应的DOM容器;
+                },
+                printData(){
+                    console.log(this.$data); // 当前实例对应的被劫持的数据仓库的变量集合;
+                },
+                printOptions(){
+                    console.log(this.$options); // 通过开发者传入的配置项,构建出来用于创建vue实例的整合结果
+                },
+                // 获取当前vue实例的DOM元素对象
+                // 只能获取当前vue实例对应的容器中具有ref属性的DOM元素
+                // 会以 ref属性取值的名字作为key,对应的DOM元素作为value存放在$refs对象中;
+                printRefs(){
+                    console.log(this.$refs);
+                    console.log(this.$refs.pDom);
+                }
+            }
+        });
+</script>
+</html>

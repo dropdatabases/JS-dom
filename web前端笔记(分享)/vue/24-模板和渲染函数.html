@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>页面模板和渲染函数</title>
+    <script src="./js/vue.js"></script>
+</head>
+<body>
+    <!--  
+        页面模板和render函数
+            + Vue对象构建时需要为对象指定页面构成,该构成称之为模板;
+            + 在基本构成vue对象时,通过el指定构成的页面模板,同时指定页面位置
+
+            1.模板属性(template)
+                *该属性用于提供组件化开发支持
+                *Vue实例添加template 属性,可以独立定义页面构成模板
+                *template 构成的模板最终会替换成el的指向位置
+                *template: StringDOm(HTML标签的字符串定义方式) | StringEl(HTML元素选择器)
+            2.模板渲染函数(render)
+                *该属性用于提供模块化开发支持
+                *Vue实例添加render 属性函数,可以独立定义JS模板构成函数
+                *render构成的模板具有最高优先权,最终会替换到el的指向位置,且template属性失效
+                *render:function(createElement){
+                    return createElement(tagName[,content[,childDom]])
+                }
+                    - render属性取值为一个固定函数function(createElement){},该函数返回构成的模板;
+                    - createElement为渲染函数的固定参数,该参数可用于以方法方式构建页面模板
+
+    -->
+    <div id="app">
+        <h2>msg:{{ msg }}</h2>
+    </div>
+    <hr>
+    <!-- <h3 id="aa">测试标签
+        <p>{{ msg }}</p>
+    </h3> -->
+    <!-- html5中的 特殊标签:template;用于构建页面模块化 -->
+    <template id="aa">
+        <!-- 内部元素必须保证有且只有一个根节点 -->
+        <div>变量
+            <p>{{ msg }}</p>
+        </div>
+    </template>>
+</body>
+<script>
+    // el:指定 vue实例 对应的页面模板 在 html 中的位置;
+    // ==> 判断当前vue实例中是否存在 template 属性
+            // 如果没有,使用el指向的标签构建vue实例容器
+            // 如果有,使用template 构建vue实例容器,将构建后的DOM 替换到el的指向上
+    
+    // render函数如果被重写(在构建vue实例时自行定义函数)
+    //      template 属性失去作用,el仅用于定义位置,页面容器由 render 函数返回值决定
+
+
+    // el  ==>  template  ==>   render
+    // 定位       模板            渲染
+    
+    // template用于构建vue实例容器中的模板;
+    
+    // 通过模板创建DOM元素,vue通过封装的 render()模板渲染函数
+    //     结合模板创建项目中需要实现vue语法的DOM结构
+    //     参数的createElement(tagName[,content[,childDom]]) 就是用于创建DOM元素结构
+    new Vue({
+        el:"#app",
+        // 该属性用于描述当前vue实例需要在页面中展示的标签结构;
+        // template:"<h2 itany='网博'><p>{{ msg }}</p></h2>",
+        template:"#aa",
+        data:{
+            msg:"变量msg"
+        }
+    });
+</script>
+</html>

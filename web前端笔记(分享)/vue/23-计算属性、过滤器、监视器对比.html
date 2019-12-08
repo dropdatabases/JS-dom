@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>数据控制对比</title>
+    <script src="./js/vue.js"></script>
+</head>
+<body>
+    <!-- 计算属性和过滤器的缓存特性 -->
+    <div id="app">
+        <p>{{ setMsg }}</p>
+        <p>{{ setMsg }}</p>
+        <p>{{ setMsg }}</p>
+        <p>{{ setMsg }}</p>
+        <p>{{ setMsg }}</p>
+        <p>{{ setMsg }}</p>
+        <input type="text" v-model="msg">
+        <hr>
+        <p>{{ msg | addEnd }}</p>
+        <p>{{ msg | addEnd }}</p>
+        <p>{{ msg | addEnd }}</p>
+        <p>{{ msg | addEnd }}</p>
+        <p>{{ msg | addEnd }}</p>
+        <p>{{ msg | addEnd }}</p>
+    </div>
+</body>
+<script>
+    // 全局过滤器
+    Vue.filter();
+
+    new Vue({
+        el:"#app",
+        data:{
+            msg:"msg变量:"
+        },
+        // 计算属性
+        computed:{
+            setMsg(){
+                console.log("计算属性");
+                return this.msg+Math.random();
+            }
+        },
+        // 局部过滤器
+        filters:{
+            addEnd(target){
+                console.log("过滤器")
+                return target+Math.random();
+            }
+        },
+        // 监视器
+        watch:{
+
+        }
+    });
+</script>
+<!--  
+    计算属性:
+        *依赖于vue实例,只能在实例中定义使用;
+        *调用时不能接受额外参数,必须依赖vue实例中一个或多个固定数据变量;
+        *计算属性默认是只读属性,但是可以在定义时使用对象模式,开启可写可读模式;
+        ***计算属性会对结果进行缓存操作:
+            1.如果依赖变量没有变化,计算属性方法不能被触发,直接从缓存中进行读取;
+            2.如果依赖变量发生变化,会重新执行一次方法;
+        *计算属性是被作为一个类属性(数据仓库变量)使用;
+
+    过滤器:
+        *可以根据需要选择全局过滤器或者局部过滤器;
+        *调用时可以接收多个参数,其中包含待处理数据,因此可以不依赖于固定vue实例;
+        *过滤器只能完成对于被过滤数据的读取操作,无法进行设置操作;
+        ***过滤不具有缓存特性,页面中定义调用一次必然会重新执行一次;
+        *过滤是被作为一个特殊的处理方法使用;
+
+    监视器:
+        *依赖于vue实例的固定变量,可以在实例中定义,也可以在全局中通过实例对象进行定义;
+        *监视器不能被人为调用,只能由vue检测变量变化自动执行,方法默认自带两个参数,newValue和oldValue;
+        *监视可以完成对固定变量的监控操作;
+        *监视器被作为vue功能的扩展接口使用
+-->
+</html>

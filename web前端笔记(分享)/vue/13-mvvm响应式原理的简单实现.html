@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>mvvm响应式原理的简单实现</title>
+    <!-- 简化过的vue的mvvm模式 -->
+</head>
+<body>
+    <div id="app">
+        <p v-text="msg"></p>
+    </div>
+</body>
+<script>
+    // 函数封装;
+    function Watcher(){}
+
+    // 原型上定义一个方法，用于循环变量所对应的元素添加对应的变量值；
+    Watcher.prototype.notify=function (key,value){
+        for(let i=0;i<this[key].length;i++){
+            this[key][i].textContent = value;
+        }
+    }
+    function Mvvm(options){
+        // 1、匹配实例中的el；
+        this.$el = document.querySelector(options.el);
+        // 2、将实例中的data属性改成私有属性；
+        this._data = options.data;
+
+        // 5、定义一个空对象，用于储存匹配到的元素属性的元素集合；
+        // var domList={};
+        // 创建实例；
+        var domList=new Watcher();
+        // console.log(domList);
+
+        // 6、循环data中的变量，用于匹配上容器内的元素的自定义v-text属性；
+        for(let key in this._data){
+            // 7、获取到匹配的自定义属性的元素集合，将其存储在一个对象里；
+            var selStr = `[v-text="${key}"]`;
+            var dom = this.$el.querySelectorAll(selStr);
+            domList[key]=dom;
+        }
+        // 3、循环实例data中的变量
+        for( let key in this._data){
+
+            // 8、先将页面渲染一次
+            // for(let i=0;i<domList[key].length;i++){
+            //     domList[key][i].textContent = this._data[key];
+            // }
+            domList.notify(key,this._data[key]);
+            // 4、数据劫持操作；
+            Object.defineProperty(this,key,{
+                get(){
+                    return this._data[key];
+                },
+                set(value){
+                    this._data[key]=value;
+
+                    // 9、匹配到的元素集合进行遍历，将修改好的变量值value添加到相应的元素中；
+                    // for(let i=0;i<domList[key].length;i++){
+                    //     domList[key][i].textContent = this._data[key];
+                    // }
+                    domList.notify(key,value);
+                }
+            })
+        }
+    }
+    
+
+    var vm=new Mvvm({
+            el:"#app",
+            data:{
+                msg:"vue框架mvvm响应式原理的简单实现"
+            }
+        })
+</script>
+</html>

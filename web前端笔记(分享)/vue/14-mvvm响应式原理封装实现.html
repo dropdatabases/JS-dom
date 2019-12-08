@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>mvvm响应式原理封装实现</title>
+</head>
+
+<body>
+    <div id="app">
+        <p v-text="msg"></p>
+        <p v-text="msg"></p>
+        <p v-text="msg"></p>
+        <p v-text="info"></p>
+    </div>
+</body>
+<script>
+    function Watcher(){}
+    Watcher.prototype.setDom = function (rootDom, key) {
+        let selStr = `[v-text="${key}"]`;
+        this[key] = rootDom.querySelectorAll(selStr);
+    }
+    Watcher.prototype.notify = function (key, value) {
+        let domList = this[key];
+        for (let i = 0; i < domList.length; i++) {
+            domList[i].textContent = value;
+        }
+    }
+    Watcher.prototype.upDate = function (data) {
+        for (let key in data) {
+            this.notify(key, data[key]);
+        }
+    }
+
+    function Mvvm(options) {
+        this.init(options.el, options.data);
+    }
+    Mvvm.prototype.deps = function (data) {
+        let watcher = new Watcher();
+        this.temp = watcher;
+        for (let key in data) {
+            watcher.setDom(this.$el, key);
+            Object.defineProperty(this, key, {
+                get() {
+                    return data[key];
+                },
+                set(value) {
+                    data[key] = value;
+                    watcher.notify(key, value);
+                }
+            })
+        }
+        watcher.upDate(data);
+    }
+    Mvvm.prototype.init = function (el, data) {
+        this.$el = document.querySelector(el);
+        this._data = data;
+        this.deps(this._data);
+    }
+
+    var vm = new Mvvm({
+        el: "#app",
+        data: {
+            msg: "变量msg",
+            info: "变量info"
+        }
+    });
+</script>
+
+</html>

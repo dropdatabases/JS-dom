@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>基础指令v-for</title>
+    <script src="./js/vue.js"></script>
+    <style>
+        body{
+            margin-bottom: 600px;
+        }
+    </style>
+</head>
+<body>
+    <!--  
+        9、v-for
+            **取值：Array、Object、Number、String
+            **功能：基于数据多次渲染元素或模块化
+            **语法： <标签 v-for="取值表达式 in 待循环值"></标签>
+                + 取值表达式：
+                    - 可直接定义的临时变量;
+                        v-for="item[,arg1] in items"
+                            1、item：当前数组的循环值;
+                            2、arg1：下标值(index索引);
+                    - 也可以为数组索引指定别名(或者用于对象中键值对的键)；
+                        v-for="(item,index) in items"
+                        v-for="(value,key) in object"
+                        v-for="(value,name,index) in object"
+            **总结：
+                1、items类型为Array时，v-for="item[,arg1] in items"
+                    + item：当前数组的循环值;
+                    + arg1：下标值(index索引);
+                2、items类型为Object时，v-for="(value,name,index) in object"
+                    + value：值；
+                    + name：键；
+                    + index：计数(对象没有下标，当做计数，从0开始计数)；
+                3、items类型为number时，number相当于数组的个数；
+                    + item：取值从1开始；
+                    + index：下标为0开始；
+                4、items类型为String时，string字符个数相当于数组的个数；
+                    + item: 取值从第一个任何字符开始，包括空字符；
+                    + index：下标为0开始;
+        辅助渲染： 
+            v-for 指令为提高性能采用部分标签渲染操作(只针对与需要添加和删除的标签进行渲染操作)
+                ***当为v-for里面的循环添加循环值时：
+                    **v-for 默认不改变整体，而是重复替换使用已有元素，该方式会导致页面排序功能显示出现问题；
+                    **为迫使其 v-for 重新排序元素，需要提供一个key的特殊属性，为每个元素提供唯一key值；
+                        + 使用方法：在其绑定 v-for 循环的标签上添加 :key="item" ；
+                        + 该key值一定当前循环范围内的*临时、唯一值*;可以选择使用item，而不能使用index；
+                        + 性能优化；
+    -->
+    <div id="app">
+        <p>{{ arr }}</p>
+        <ul>
+            <!-- 
+                临时变量的特性: 
+                    *具有vue实例数据仓库的读取特性；
+                    *只能在当前循环标签的属性和内部进行使用；
+                    *在相同的容器和实例范围内，循环的临时变量优先级高于vue实例的数据仓库中的变量 
+            -->
+            <li v-for="(item,index) in arr">{{ item }}</li>
+        </ul>
+        <hr>
+        <ul>
+            <li v-for="(val,name,index) in user">{{ index }}:{{ name }}:{{ val }}</li>
+        </ul>
+        <hr>
+        <ul>
+            <li v-for="(item,index) in num">{{ index }}:{{ item }}</li>
+        </ul>
+        <hr>
+        <ul>
+            <li v-for=" (item,index) in '  abcdefg  ' ">{{ index }}:{{ item }}</li>
+        </ul>
+    </div>
+</body>
+<script>
+    
+    new Vue({
+        el: "#app",
+        data:{
+            arr:["1","2","3","4","5","6"],
+            user:{
+                name:"tom",
+                age:23,
+            },
+            num:10,
+        },
+        methods:{
+
+        }
+    })
+
+</script>
+</html>

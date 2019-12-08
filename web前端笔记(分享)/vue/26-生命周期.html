@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue生命周期</title>
+    <script src="./js/vue.js"></script>
+</head>
+
+<body>
+    <!--  
+        生命周期
+            *生命周期:一段代码从创建到销毁的完成过程
+            *钩子函数: Vue对外提供的在一些特点代码执行段上的回调函数;
+                第一阶段: Vue 实例的构建阶段
+                    new Vue() // 启动Vue运行环境搭建的方法,整合构建实例的相关参数,构建了一      ↓        个Vue的空对象;
+                        ↓
+                    init Events & Lifecycle // 初始化Vue环境事件和实例钩子函数;
+                        ↓
+                        ↓ ← ← ← beforeCreate();
+                        ↓
+                    init injections & reactivity // 初始化vue实例:参数注入=> 数据 监视 计     ↓                           算属性......;响应式数据劫持生成;
+                        ↓                           (执行$options.data函数)
+                        ↓ ← ← ← created(); // 实例创建完成;
+                        ↓ 
+                第二阶段: 容器构建阶段(根据提供的页面结构生成和当前实例存在关系的相关容器结构)
+                    Has "el" option?
+                        ↓
+                        ↓
+            ← ← ← (YES)← → → →(NO)→ →
+            ↓                       ↓  等待执行过程;
+            ↓                       ↓
+            ↓            when vm.$mount(el) is called // 手动挂载并定义el属性,只挂载实例  ↓                       ↓
+            → → → → → → ↓ ← ← ← ← ← ←
+                        ↓
+                    Has "template" option? // 容器创建需要提供template属性;
+                        ↓
+                        ↓
+                        ↓
+            ← ← ← (YES)← → → →(NO)→ → → → → → → → → →
+            ↓                                       ↓  
+            ↓                                       ↓
+            ↓                                       ↓                           
+            ↓                                       ↓
+    Compile template into render function       Compile el's outerHTML as template
+    // compile: 编译函数; 作用: 根据template模板创建虚拟DOM;
+    // 虚拟DOM: 用JS对象方式描述的页面元素结构树,本质是一个JS对象;
+    // 如果有template,没有el,那么生命周期会等待vm.$mount("tagName")执行,将tagName对应的标签容器作为模板,在内存中创建虚拟DOM;
+    // 如果没有template,则将el所指向的容器作为模板,再创建虚拟DOM;
+    // 原理: compile将模板转成虚拟DOM; 
+            → → → → → → ↓ ← ← ← ← ← ← ← ← ← ← ← ← ← ←
+                        ↓
+                        ↓
+                    render() // 创建虚拟DOM,完成数据关联;
+                        ↓
+                        ↓ ← ← ← beforeMount();
+                        ↓
+                    Create vm.$el and replace "el" with it // "el"表示页面元素位置
+                    // 根据el,template,render(依次优先)创建vm.$el属性值,将虚拟DOM渲染页面;
+                        ↓
+                        ↓
+                        ↓ ← ← ← mounted(); // vue实例和容器创建完成;调用初始化项目数据请求
+                        ↓
+                第三阶段: 数据更新阶段;(用户交互,不能自动结束的阶段)
+                        ↓          ← ← ← when data changes;// 等待用户对于数据的操作
+                        ↓          ↓ // (watch=>beforeUpdate=>updated)
+                        ↓  → → → → ↓ → → → → →
+                        ↓ ↑                   ↓ ← ← ← beforeUpdate();//内存变化,页面没变;
+                        ↓ ↑                   ↓ 
+                    mounted                   ↓
+                        ↓ ↑ (内存数据变化) Virtual DOM re-render and patch;// 重新渲染;
+                        ↓ ↑                   ↓
+                        ↓ ↑                   ↓ ← ← ← updated(); //页面变化;
+                        ↓  ← ← ← ← ← ← ← ← ← ←    //  与此同时,$nextTick的执行时机;
+                第四阶段: 实例销毁阶段;
+                        ↓
+                        ↓
+                    when vm.$destroy() is called
+                        ↓
+                        ↓ ← ← ← beforeDestroy()
+                        ↓
+                Teardown watchers.child components and event listeners
+                        ↓
+                        ↓
+                        ↓
+                    Destroyed ← ← ← beforeDestroy();
+
+    -->
+    <div id="app">
+        <p> {{ msg }} </p>
+        <input type="text" v-model="msg">
+    </div>
+</body>
+<script>
+    var vm=new Vue({
+        el: "#app",
+        // template:"<h1>{{ msg }}</h1>",
+        data:{
+            msg:"msg变量"
+        },
+        // 在实例初始化之后,数据观测和事件配置之前被调用;
+        beforeCreate() {
+            console.group("==>beforeCreate");
+            console.log("实例:",this);
+            console.log("$el",this.$el);
+            console.log("$options",this.$options);
+            console.log("$data",this.$data);
+            console.log("msg",this.msg);
+            console.groupEnd();
+        },
+        // 在实例创建完成后被立即调用;
+        created() {
+            console.group("==>created");
+            console.log("实例:",this);
+            console.log("$el",this.$el);
+            console.log("$options",this.$options);
+            console.log("$data",this.$data); // 根据$options.data 创建数据劫持对象;
+            console.log("msg",this.msg); // 
+            console.groupEnd();
+        },
+        // 在挂载开始之前被调用,相关的render函数首次被调用;
+        beforeMount() {
+            console.group("==>beforeMount");
+            console.log("实例:",this);
+            console.log("$el",this.$el); // 构建在内存中的DOM,并没有写入页面;
+            console.log("$options",this.$options);
+            console.log("$data",this.$data);
+            console.log("msg",this.msg);
+            console.groupEnd();
+        },
+        // el 被新创建的 vm.$el 替换,并挂载到实例上去之后调用该钩子函数;
+        mounted() {
+            console.group("==>mounted");
+            console.log("实例:",this);
+            console.log("$el",this.$el);
+            console.log("$options",this.$options);
+            console.log("$data",this.$data);
+            console.log("msg",this.msg);
+            console.groupEnd();
+        },
+        // 数据更新时调用,发生在虚拟DOM打补丁之前,这里适合在更新之前访问现有的DOM;
+        beforeUpdate() {
+            console.group("==>beforeUpdate");
+            console.log("实例:",this);
+            console.log("$el",this.$el);
+            console.log("$options",this.$options);
+            console.log("$data",this.$data);
+            console.log("msg",this.msg);
+            console.groupEnd();
+        },
+        // 由于数据更新告知的虚拟DOM重新渲染和打补丁,在这之后会调用该钩子函数;
+        updated() {
+            console.group("==>updated");
+            console.log("实例:",this);
+            console.log("$el",this.$el);
+            console.log("$options",this.$options);
+            console.log("$data",this.$data);
+            console.log("msg",this.msg);
+            console.groupEnd();
+        },
+        // 实例销毁之前调用,在这一步,实例仍然完全可用;
+        // beforeDestroy() {
+            
+        // },
+        // Vue实例销毁后调用,调用后,Vue实例指示所有的东西都会解除绑定,所有的事件监听会被移除;
+        // destroyed() {
+            
+        // },
+    });
+    // vm.$mount("#app");
+
+</script>
+<!-- 
+    虚拟DOM: vue借鉴react提出的虚拟DOM
+        *减少内存使用量;
+        *提供快速的DOM变化比较
+        *减少页面中DOM的重新渲染次数
+        涉及:
+            算法:diff算法;(这是迈入技术支持的门槛)
+-->
+<!-- 虚拟DOM简单例子 -->
+<script>
+    var domObject={
+        tagName:"div",
+        content:"",
+        children:[
+            {
+                tagName:"h1",
+                content:"h1标签:测试数据",
+                children:[
+                    {
+                        tagName:"span",
+                        content:"span标签:子数据",
+                    }
+                ]
+            }
+        ]
+    };
+    function createElement(obj){
+        let tempDom = document.createElement(obj.tagName);
+        
+        tempDom.innerHTML = obj.content;
+        
+        if(obj.children && obj.children.length != 0){
+            for (let i = 0; i < obj.children.length; i++) {
+                let td = createElement(obj.children[i]);
+                tempDom.appendChild(td);
+            }
+        }
+        return tempDom;
+    }
+    var domTree = createElement(domObject);
+    console.log(domTree);
+    document.body.appendChild(domTree);
+</script>
+
+</html>

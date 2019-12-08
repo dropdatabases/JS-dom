@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>插值表达式</title>
+    <script src="./js/vue.js"></script>
+    <style>
+        body{
+            margin-bottom: 600px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 
+        html标签中可以定义哪些数据类型的值？
+            html页面中无论运行环境发生什么变化，被展示的数据最终都以字符串形式呈现；
+    -->
+    <div id="app">
+        <!-- 基本用法：{{ 仓库变量名称|JS表达式|JS内置对象 }} 进行数据获取展示 -->
+        <!--  
+            1、仓库变量；
+                取值范围：当前实例对应容器的数据仓库中的变量
+                取值类型：any；
+                vue框架对插值表达式的变量作为字符串转换操作；
+                    + null和undefined 最终会以''空字符串展示；
+                    + Array 和 [object Object] 会使用 JSON.stringify();
+                    + 除了上述数据其他数据一律使用强制类型转换 String();
+        -->
+        <p>string:{{ msg }}</p>
+        <p>number:{{ num }}</p>
+        <p>boolean:{{ flag }}</p>
+        <p>array:{{ arr }}</p>
+        <p>object:{{ user }}</p>
+        <p>null:{{ arg1 }}</p>
+        <p>undefined{{ arg2 }}</p>
+        <p>Image:{{ imgDom }}</p>
+        <p>Date:{{ day }}</p>
+        <hr>
+        <!--  
+            vue的插值表达式可以直接以JS语法调用 匿名变量
+        -->
+        <p>number匿名变量：{{ 100 }}</p>
+        <p>string匿名变量：{{ "字符串" }}</p>
+        <p>boolean匿名变量：{{ true }}</p>
+        <p>array匿名变量：{{ [1,2,3,4] }}</p>
+        <p>object匿名变量：{{ {a:2,b:4} }}</p>
+        <p>Date匿名变量：{{ new Date() }}</p>
+        <!--  
+            2、JS表达式
+                + 在插值表达式的定义范围内，可以进行简单的js运算；
+                    - 四则运算、逻辑运算、赋值运算、比较运算、三木运算;
+                + 总结: 插值表达式在vue环境下运算时，保留原变量类型，运算结束后向页面输出时转为字符串类型
+        -->
+        <p>四则：{{ 1-1 }}</p>
+        <p>四则：{{ num+1 }}</p>
+        <p>逻辑：{{ flag&&false }}</p>
+        <p>比较：{{ num<=99 }}</p>
+        <!-- 赋值运算具有响应式原理，改变仓库变量的值 -->
+        <p>赋值：{{ msg="新值" }}</p>
+        <p>三目：{{ flag?"真":"假" }}</p>
+        <p>对象：{{ user }}</p>
+        <p>对象的属性：{{ user.name }}</p>
+        <!--  
+            3、JS内置对象
+                + 常规内置对象的方法；
+        -->
+        <p>Math:{{ Math }}</p>
+        <!--  
+            Tips： 
+                1、当vue实例的变量名称和js内置对象名称相同时，优先使用仓库变量；
+                2、标签格式的字符串在插值表达式中以js中的textContent属性向标签中定义数据变量，并没有用js中的innerText和innerHTML的方式处理；
+                    - innerText 当中出现 \n 会将 \n 替换为<br>：文本解析属性；
+                    - textContent 当中出现 \n 直接保留换行特性向页面输出；但页面没效果；  
+        -->
+        <div>
+            {{ htmlStr }}
+        </div>
+    </div>
+</body>
+<script>
+    /*
+        对于不同类型的数据，为了保证页面输出正确结果，插值表达式对所有的变量调用了自定义的toString()方法：
+            var _toString = Object.prototype.toString;
+
+            function isPlainObject(obj){
+                return _toString.call(obj) === '[object Object]';
+            }
+
+            function toString(val){
+                return val == null? 
+                '':Array.isArray(val) || (isPlainObject(val) && val.toString === _toString)?
+                JSON.stringify(val,null,2):String(val)
+            }
+
+            第一个问号：判断传入的值是不是null或者undefined；
+                +：如果true，则返回'';
+                +: 如果false，则返回后面的值，再进行第二个问号判断；
+                    - 如果返回true，则JSON.stringify(val,null,2);
+                    - 如果返回false，则String(val);
+            拓展add:
+                1、JSON.stringify()方法是将 '对象'字符串转换成 对象；
+                2、JSON.parse()方法是将 对象 转换成字符串 '对象'；    
+    */
+    new Vue({
+        el:"#app",
+        data:{
+            msg: "测试数据",
+            num: 100,
+            flag: true,
+            arr:[1,2,4,5],
+            user:{
+                name:"tom",
+                age:"23"
+            },
+            arg1: null,
+            arg2: undefined,
+            imgDom: new Image(),
+            day: new Date(),
+            htmlStr: "<h3>h3标签</h3>"
+        }
+    })
+
+</script>
+</html>

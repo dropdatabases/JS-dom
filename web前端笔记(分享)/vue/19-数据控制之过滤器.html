@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>数据控制之过滤器</title>
+    <script src="./js/vue.js"></script>
+</head>
+<body>
+    <!--  
+        过滤器(filter): ***数据包装处理***
+            + 功能: 将向页面写入的数据,经过特定的方法进行包装处理,将处理后的记过展示到页面中,页面的最终结果上来说,过滤器和及宿舍呢属性功能相似
+            + 范围: 过滤器可以用在两个地方: 双花括号插值 和 v-bind 表达式;
+            + 语法: 在页面中通过管道符 | ,连接待处理变量和过滤器方法
+                - 插值表达式中:
+                    {{ 待处理变量 | 过滤器方法名称 }}
+                    {{ 待处理变量 | 过滤器方法名称() }}
+                - v-bind中:
+                    v-bind:id=" 待处理变量 | 过滤器方法名称 "
+                    v-bind:id=" 待处理变量 | 过滤器方法名称() "
+    -->
+    <!--  
+        1. 局部过滤器
+            *仅限于 定义过滤器时所参考的vue实例对象的容器中
+                - 定义方式:需要定义在一个已经存在的vue实例中;
+                - 使用范围:在定义过滤器的vue对象的容器中才可使用;
+    -->
+    <!--  
+        2. 全局过滤器
+            *使用 vue 装载新的 过滤器方法,提供给当前项目中所有的vue实例使用
+                - 定义方式: 通过vue 构造方法增加的新方法 完成过滤器的定义(全局配置)
+                - 适用范围: 所有vue实例的容器中都可以使用
+            *全局过滤器定义:
+                + 全局定义需要依赖vue 的构造对象
+                + 全局过滤器一定要在vue实例构建之前定义
+                + 语法: **Vue.filter(id,[definition])**单一过滤器
+                    id == name: 定义过滤器名称(过滤器方法名)取值为string,具有唯一性;
+                    definition: 过滤器的执行方法(和局部过滤的方法特性一样),是个匿名方法;
+                + 如果全局过滤器名称和局部过滤器名称相同
+                    + 过滤器可以共存,但定义局部过滤器的实例中无法使用全局过滤器,因为局部过滤器优先级高于全局过滤器
+    -->
+    <div id="app">
+        <p>当前时间: {{ day | formatData }}</p>
+    </div>
+    <div id="root">
+        <p>当前时间: {{ day | formatData }}</p>
+    </div>
+</body>
+<script>
+    // 过滤器工具方法;
+    //      1.严谨性
+    Vue.filter("formatData",function(target){
+        // 全局过滤器的执行方法,所需遵循的特性和局部过滤器方法一样;
+        // congsole.log("全局过滤器formatData");
+        if( !(target instanceof Date) ){
+            return target;
+        }
+        // 拓展:格式化日期
+        var y=target.getFullYear(),
+            m=target.getMonth()+1>=10? target.getMonth()+1 : "0"+(target.getMonth()+1),
+            d=target.getDate()>=10? target.getDate() : "0"+target.getDate(),
+            h=target.getHours()>=10? target.getHours() : "0"+target.getHours(),
+            mm=target.getMinutes()>=10? target.getMinutes() : "0"+target.getMinutes(),
+            s=target.getSeconds()>=10? target.getSeconds() : "0"+target.getSeconds();
+        return `${y}年${m}月${d}日 ${h}:${mm}:${s}`;
+    });
+    new Vue({
+        el:"#app",
+        data:{
+            day:new Date()
+        },
+        // 局部过滤器
+        filters:{
+            // key 描述过滤器名称(id-唯一性);
+            // value 描述过滤器 执行方法(函数调用);
+            //      vue中构建的所有过滤器方法必然存在第一个形参 target
+            //          *target 为 | 管道符左侧的待处理数据
+            //              - 过滤器方法形参定义,第一个形参始终为 | 管道符左侧的待处理数据;
+            //              - 从第二个形参开始,参数值来自于 | 管道符右侧,过滤方法执行时依次传入的额外参数;
+            //          *过滤器方法必须存在处理后的数据返回值
+            testFilter:function(target){
+                // arguments 为JS中所有方法形参的集合;
+                return ''; // 过滤器而言,因为需要将结果展示在页面中,所有方法必须存在返回值
+            }
+        }
+    });
+    new Vue({
+        el:"#root",
+        data:{
+            day: new Date()
+        }
+    });
+</script>
+</html>

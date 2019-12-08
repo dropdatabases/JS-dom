@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>双向数据绑定指令v-model</title>
+    <style>
+        body{
+            margin-bottom:600px;
+        }
+    </style>
+    <script src="./js/vue.js"></script>
+</head>
+<body>
+    <!--  
+        可以控制用户页面输入的表单元素可以分为5大类;
+            1. 单行文本框 => 文本框 颜色选择器 时间选择器 数值文本框...
+            2. 多行文本域
+            3. 单选按钮
+            4. 多选框
+            5. 下拉列表
+    -->
+    <!--  
+        11、v-model: 双向数据绑定指令 => JS变量变化主动渲染页面,页面数据变化更新JS变量;
+            *原理:
+                **model => view: 基于Object.defineProperty监听model数据变化,同步数据状态重写页面结构;
+                    + 响应式原理
+                    + 这是所有构成指令拥有的;
+                **model <= view: 基于元素监听、监控表达元素操作行为,通过JS Dom 语法更新model数据;
+                    + 事件监听
+                    + 这是v-model特有的;
+            *取值: 随表单控件类型不同而不同;
+            *限制: 仅限于可写入或者可选择的HTML表单元素: input,select,textarea;
+            *
+    -->
+    <div id="app">
+        <!-- 1.单行文本框 -->
+        <!-- v-model 等同于 v-bind 和 v-on 的统一定义 -->
+        <p>{{ msg }}</p>
+        <input type="text" v-model="msg">
+        <input type="text" :value="msg" @input=" msg=$event.target.value ">
+        <hr>
+        <input type="text">
+        <p :style=" 'color:'+colorStr+';' ">color:{{ colorStr }}</p>
+        <input type="color" v-model=" colorStr ">
+        <hr>
+        <!-- 
+            2.多行文本域    
+                *v-model 对于 多行文本域 操作的是 多行文本域DOM对象的value属性,而不是标签属性;
+        -->
+        <!--  
+            拓展: JS Dom对象中 标签中的值可以是由 innerHTML innerText textContent
+                
+                *html中textarea标签不存在 标签属性 value;
+                
+                *DOM元素的textarea 具有value属性;
+                    - textarea  Dom对象的value属性,用于控制多行文本域的默认值和用户输入值的
+                    - textarea 页面代码书写时,被定义在标签中的字符串,会作为默认值赋值给Dom的value属性
+        -->
+        <pre>{{ textMsg }}</pre>
+        <textarea cols="30" rows="10" v-model="textMsg"></textarea>
+        <textarea cols="30" rows="10" :value="textMsg" @input=" textMsg=$event.target.value "></textarea>
+        <hr>
+        <!--  
+            3.单选按钮
+                特性: 需要添加name属性;互斥原理;
+                HTML 单选按钮以name属性分组,以checked属性描述选中状态,以value属性选中值;
+                v-model 通过调用 单选按钮的 value 完成单选按钮取值操作,通过单选按钮定义的value和关联变量完成 checked 比较操作
+        -->
+        男:<input type="radio" value="m" :checked=" radioStr == 'm' " @change=" radioStr=$event.target.value ">
+        女:<input type="radio" value="f" :checked=" radioStr == 'f' " @change=" radioStr=$event.target.value ">
+        未知:<input type="radio" value="unkown" :checked=" radioStr == 'unkown' " @change=" radioStr=$event.target.value ">
+        <hr>
+        男:<input type="radio" value="m" v-model=" radioStr ">
+        女:<input type="radio" value="f" v-model=" radioStr ">
+        未知:<input type="radio" value="unkown" v-model=" radioStr ">
+        <hr>
+        <!--  
+            在vue的v-model 绑定单选按钮后,如果标签未提供 value 属性值,vue会默认为 value 取值为null;
+        -->
+        男:<input type="radio" v-model=" radioFlag ">
+        女:<input type="radio" v-model=" radioFlag ">
+        未知:<input type="radio" v-model=" radioFlag ">
+        <hr>
+        <!--  
+            4.多选框
+                HTML 复选按钮以 name属性分组,以checked属性描述选中状态,以value属性选中值;
+
+                在vue的v-model 绑定复选按钮后,如果标签未提供 value属性值,vue会以 true描述选中值,false描述未选中;
+                
+                ** v-model 对于复选按钮会根据绑定变量类型 切换操作方式;
+                    + 非数组
+                        - v-model 不再关心 标签value属性,此时vue会以true描述选中值,false描述未选中值;
+                        - checked 直接取 绑定的变量;
+                    + 数组
+                        - v-model 判断被选中的复选框是否存在value属性值:
+                            **如果存在,将属性值存于数组中;
+                            **如果不存在,会直接向数组中存null;
+                        - checked 判断每个复选按钮在绑定的数组中是否存在 相同取值;
+                ** v-model 在复选框绑定取值时,如果绑定的变量为数组类型,数组中会以标签选中顺序添加到数组;
+                ** 复选框的 v-model 操作时的辅助属性(复选按钮的单一用途上)
+                    + true-value 复选框选中时的值
+                    + false-value 复选框未选中时的值
+
+        -->
+        <input type="checkbox" value="a" v-model=" checkData1 ">
+        <input type="checkbox" value="b" v-model=" checkData1 ">
+        <input type="checkbox" v-model=" checkData1 ">
+        <input type="checkbox" v-model=" checkData1 ">
+        <input type="checkbox" v-model=" checkData1 ">
+        <input type="checkbox" v-model=" checkData1 ">
+        <hr>
+        <input type="checkbox" value="a" v-model=" checkData2 ">
+        <input type="checkbox" value="b" v-model=" checkData2 ">
+        <input type="checkbox" value="c" v-model=" checkData2 ">
+        <input type="checkbox" value="d" v-model=" checkData2 ">
+        <input type="checkbox" v-model=" checkData2 ">
+        <input type="checkbox" v-model=" checkData2 ">
+        <hr>
+        <input type="checkbox" true-value="选中" false-value="未选中" v-model="info">
+        <hr>
+        <!--  
+            5.下拉列表
+                HTML 中下拉列表所具有的的性质
+                    + select标签中只能接收option标签作为渲染依据;
+                    + optgroup 标签不参与select 选项操作;
+                    + option 只能定义 取值文本,不能定义相关标签字符;
+                    + 页面构成时,通过option标签 boolean类型属性 selected 属性 选中项;
+                    + 如果所有option都没有selected属性,那么会默认选择第一个option;
+                JS 中下拉列表对象 => 参考当页面的代码
+
+            v-model 对于 下拉列表具有下述操作行为要求
+                + v-model 只能被绑定在select 标签上
+                    - v-model 的拆分 => select Dom v-bind v-on:change 获取select的value值
+        -->
+        <!--  
+            修饰符:
+                - .lazy 取代 input监听 为 change事件;
+
+                - .number 输入字符串转换为有效的数字;
+                    + 输入值不能转换成数值,会直接获取string文本;
+                    + 输入值能转换成数值,会转成数值赋值给变量;
+                    + 如果输入值以数字开头,中间存在非数值,会调用 Number.parseFloat 完成逐位转换;
+
+                - .trim 输入首位空格过滤
+            v-model 会对输入框文本完成 两个事件的绑定,input change 
+                + 默认v-model使用 input;
+                + .lazy 切换input为change;
+        -->
+        <select name="" id="">
+            <optgroup label="组别A">
+                <option value="">opt1</option>
+                <option value="">opt2</option>
+            </optgroup>
+            <optgroup label="组别B">
+                <option value="">opt3</option>
+                <option value="">opt4</option>
+                <option value="">opt5</option>
+            </optgroup>
+
+        </select>
+    </div>
+</body>
+<script>
+
+    new Vue({
+        el:"#app",
+        data:{
+            msg:"变量msg",
+            colorStr:"#000000",
+            textMsg:"变量textMsg",
+            radioFlag:"true",
+            radioStr:"unkown",
+            checkData1:"",
+            checkData2:[],
+            info:''
+        }
+    })
+</script>
+</html>

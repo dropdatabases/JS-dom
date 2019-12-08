@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>作业讲解</title>
+    <style>
+        table,tr,td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+    </style>
+    <script src="./js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div>
+            <label for="">:name</label>
+            <input type="text" v-model="name">
+            <span style="color:red;">{{ nameMsg }}</span>
+        </div>
+        <div>
+            <label for="">:age</label>
+            <input type="text" v-model="age">
+            <span style="color:red;">{{ ageMsg }}</span>
+        </div>
+        <!-- 事件防抖 -->
+        <input type="button" value="添加用户" @click="addUser()" :disabled=" name=='' || age=='' ">
+        <hr>
+        <table>
+            <thead>
+                <tr>
+                    <td>
+                        <input type="checkbox">
+                    </td>
+                    <td>number</td>
+                    <td>name</td>
+                    <td>age</td>
+                    <td>操作</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(user,i) in userList">
+                    <td>
+                        <input type="checkbox">
+                    </td>
+                    <td>{{ i+1 }}</td>
+                    <td>{{ user.name }}</td>
+                    <td>{{ user.age }}</td>
+                    <td>
+                        <input type="button" value="删除">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            userList: [
+                { name: "tom", age: 23 }
+            ],
+            name: "",
+            age: "",
+            nameMsg: "",
+            ageMsg: ""
+        },
+        methods: {
+            addUser() {
+                if (this.name == '') {
+                    this.nameMsg = "name不能为空";
+                    return;
+                }
+                this.nameMsg = "";
+                if (this.age == '') {
+                    this.ageMsg = "age不能为空";
+                    return;
+                }
+                this.ageMsg = "";
+                this.userList.push({
+                    name: this.name,
+                    age: this.age
+                });
+                this.name = "";
+                this.age = "";
+            }
+        }
+    });
+</script>
+<!--  
+    作业: 
+        1. 全选全不选;
+        2. 选中的元素点击可以删除;
+
+-->
+</html>
