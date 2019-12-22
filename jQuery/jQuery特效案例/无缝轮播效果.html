@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>无缝轮播效果</title>
+ <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        ul {
+            list-style: none;
+        }
+        .banner {
+            overflow: hidden;
+            position: relative;
+            width: 400px;
+            height: 258px;
+            margin: 50px auto;
+            border: 1px solid red;
+        }
+        .banner .imgList {
+            position: absolute;
+        }
+        .banner .imgList li {
+            float: left;
+            width: 400px;
+        }
+        .banner .imgList li img {
+            display: block;
+            width: 100%;
+        }
+        .banner .btn {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 30px;
+            height: 60px;
+            margin: auto;
+            background-color: rgba(0, 0, 0, .5);
+            font-size: 20px;
+            color: #fff;
+            text-align: center;
+            line-height: 60px;
+            cursor: pointer;
+        }
+        .banner .btn-right {
+            right: 0;
+        }
+        .banner .btnList {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 0
+        }
+        .banner .btnList span {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            margin: 3px;
+            background-color: #fff;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .banner .btnList .current {
+            position: absolute;
+            background-color: #f60;
+        }
+    </style>
+</head>
+<body>
+    <div class="banner">
+        <ul class='imgList'>
+            <li><img src="./images/0310_img0.jpg" alt=""></li>
+            <li><img src="./images/0310_img1.jpg" alt=""></li>
+            <li><img src="./images/0310_img2.jpg" alt=""></li>
+            <li><img src="./images/0310_img3.jpg" alt=""></li>
+            <li><img src="./images/0310_img4.jpg" alt=""></li>
+        </ul>
+        <a class="btn btn-left">&lt;</a>
+        <a class="btn btn-right">&gt;</a>
+        <div class="btnList">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            var $oLi = $('.imgList li');
+            //克隆第一张图片和最后一天图片
+            var $oFirst = $oLi.first().clone();
+            var $oLast = $oLi.last().clone();
+            var $imgList = $('.imgList');
+            var $width = $oLi.width();
+            var $length = $oLi.length;//4
+            var $index = 0;
+            //插入节点设置轮播的初始样式
+            $imgList.prepend($oLast).append($oFirst).css({
+                width: $width * ($length + 2),
+                left: -$width,
+            })
+            $('<span></span>').addClass('current').prependTo('.btnList');
+            var $current = $('.current');
+            var $currentLeft = $current.position().left;
+            var $date = new Date;
+            $('.btn-right').click(function () {
+                if(new Date - $date < 600) return;
+                $date = new Date;
+                $index++;
+                $imgList.animate({
+                    left: -$width * ($index + 1),
+                }, function () {
+                    if ($index === $length) {
+                        $index = 0;
+                        $imgList.css({
+                            left: -$width,
+                        })
+                    }
+                })
+                if ($index === $length) {
+                    $current.animate({//淡入
+                        left: $currentLeft + ($index * 22),
+                        opacity: 0,
+                    }, function () {//淡出
+                        $current.animate({
+                            left: $currentLeft - 22,
+                        })
+                        $current.animate({
+                            left: $currentLeft,
+                            opacity: 1,
+                        })
+                    })
+                } else {
+                    $current.animate({
+                        left: $currentLeft + ($index * 22),
+                    })
+                }
+            })
+            $('.btn-left').click(function(){
+                if(new Date - $date < 600) return;
+                $date = new Date;
+                
+                $index --;
+                $imgList.animate({
+                    left:-$width * ($index + 1),
+                },function(){
+                    if($index===-1){
+                        $index = $length-1;
+                        $imgList.css({
+                            left:-$width * $length,
+                        })
+                    }
+                })
+                if($index===-1){
+                    $current.animate({//淡入
+                        left:$currentLeft-22,
+                        opacity:0,
+                    },function(){//淡出
+                        $current.animate({
+                            left: $currentLeft + ($index * 22) + 28,
+                        })
+                        $current.animate({
+                            left: $currentLeft + ($index * 22),
+                            opacity:1,
+                        })
+                    })
+                }else{
+                    $current.animate({
+                        left: $currentLeft + ($index * 22),
+                    })
+                }
+            })
+            $('.btnList').on('click','span:not(.current)',function(){
+                $index = $(this).index()-1
+                $imgList.animate({
+                    left:-$width * ($index + 1),
+                })
+                $current.animate({
+                    left:$currentLeft + ($index * 22),
+                })
+            })
+        })
+    </script>
+</body>
+</html>

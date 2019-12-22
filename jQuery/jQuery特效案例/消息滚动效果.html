@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>消息滚动效果</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .banner{
+            overflow: hidden;
+            width: 200px;
+        }
+        .banner li{
+            width: 100%;
+            height: 30px;
+            background-color: rgba(0, 0, 0, 0.3);
+            color: #ffffff;
+            text-align: center;
+            line-height: 30px;
+            margin-bottom: 15px;
+            cursor: default;
+        }
+    </style>
+</head>
+<body>
+    <ul class="banner">
+        <li>消息滚动1</li>
+        <li>消息滚动2</li>
+        <li>消息滚动3</li>
+        <li>消息滚动4</li>
+        <li>消息滚动5</li>
+        <li>消息滚动6</li>
+        <li>消息滚动7</li>
+        <li>消息滚动8</li>
+        <li>消息滚动9</li>
+        <li>消息滚动10</li>
+    </ul>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            // 显示消息的个数
+            var $num = 4;
+            // 获取到第一个li元素
+            var $first = $(".banner").children().first();
+            // 并且获得第一个li的高度 含 marginBottom
+            var $firstHeight = $first.outerHeight() + parseFloat($first.css("marginBottom"));
+            // 设置对应ul的高度
+            $(".banner").css({
+                height:$num * $firstHeight,
+            });
+            // 用slice方法截取对应的元素并且让其隐藏
+            $(".banner").children().slice($num).hide();
+            // 开启setInterval 实现消息滚动效果
+            setInterval(function(){
+                // 让显示消息的最后一个li元素隐藏
+                $(".banner").children().eq($num-1).fadeOut(1000,function(){
+                    // 把ul下面的字节点的最后一个节点插入到最前面
+                    $(".banner").children().last().prependTo(".banner").slideDown(1000);
+                });
+            },2000);
+        });
+    </script>
+</body>
+</html>

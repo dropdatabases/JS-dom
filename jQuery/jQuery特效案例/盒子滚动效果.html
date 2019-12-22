@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>盒子滚动效果</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .banner{
+            overflow: hidden;
+            list-style-type: none;
+            height: 40px;
+        }
+        .banner li{
+            float: left;
+            width: 80px;
+            background-color: pink;
+        }
+        .link{
+            display: block;
+            width: 100%;
+            height: 40px;
+            background-color: red;
+            text-align: center;
+            line-height: 40px;
+            text-decoration: none;
+            color: #000;
+        }
+        .banner li > p{
+            width: 100%;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            cursor: default;
+        }
+        .banner::after{
+            content: "";
+            display: block;
+            clear: both;
+            visibility: hidden;
+            height: 0;
+        }
+    </style>
+</head>
+<body>
+    <ul class="banner">
+        <li>
+            <a href="#" class="link">新闻</a>
+            <p>新闻内容</p>
+        </li>
+        <li>
+            <a href="#" class="link">电子</a>
+            <p>电子内容</p>
+        </li>
+        <li>
+            <a href="#" class="link">商业</a>
+            <p>商业内容</p>
+        </li>
+        <li>
+            <a href="#" class="link">商品</a>
+            <p>商品内容</p>
+        </li>
+    </ul>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            // 当鼠标移入到li时触发 mouseenter事件
+            $(".banner > li").mouseenter(function(){
+                // 并且用find方法找到.link节点 并且调用animate函数
+                // 让他的margin-top值是-40时间是1000秒
+                $(this).find(".link").animate({
+                    marginTop:-40,
+                },1000);
+            })
+            // 当鼠标离开时触发mouseleave事件
+            .mouseleave(function(){
+                // 并且用find方法找到.link节点 并且调用animate函数
+                // 让他的margin-top值是0时间是1000秒
+                $(this).find(".link").animate({
+                    marginTop:0,
+                },1000);
+            });
+        });
+    </script>
+</body>
+</html>

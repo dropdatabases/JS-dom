@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>图片放大效果</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .banner{
+            list-style-type: none;
+        }
+        .banner li{
+            float: left;
+        }
+        .banner li img{
+            width: 100px;
+            height: 100px;
+            cursor: pointer;
+        }
+        .banner::after{
+            content: "";
+            display: block;
+            clear: both;
+            visibility: hidden;
+            height: 0;
+        }
+        .on{
+            position: absolute;
+            width: 200px;
+            height: 200px;
+        }
+    </style>
+</head>
+<body>
+    <ul class="banner">
+        <li>
+            <img src="./images/0310_img0.jpg" alt="">
+        </li>
+        <li>
+            <img src="./images/0310_img1.jpg" alt="">
+        </li>
+        <li>
+            <img src="./images/0310_img2.jpg" alt="">
+        </li>
+        <li>
+            <img src="./images/0310_img3.jpg" alt="">
+        </li>
+        <li>
+            <img src="./images/0310_img4.jpg" alt="">
+        </li>
+    </ul>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            // 当鼠标移入触发mouseenter事件
+            $(".banner li img").mouseenter(function(){
+                // 获取当前鼠标进入img节点的src值
+                let $src = $(this).attr("src");
+                // 创建一个新的img节点
+                let $newImg = $("<img>");
+                // 并且在新的img节点上面添加src值
+                $newImg.attr("src",$src);
+                // 并且添加到页面当中
+                $("body").append($newImg);
+                // 并且给新的img节点添加类名
+                $newImg.addClass("on");
+            })
+            // 当鼠标移动出来mousemove事件
+            .mousemove(function(e){
+                // 并且获取相对应的坐标x,y
+                let $x = e.pageX;
+                let $y = e.pageY;
+                // 并且修改.on的css样式
+                $(".on").css({
+                    left:$x+20,
+                    top:$y+20,
+                });
+            })
+            // 当鼠标移除出来mouseleave事件
+            .mouseleave(function(){
+                // 并且删除.on的节点
+                $(".on").remove();
+            })
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>下拉菜单效果</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        ul{
+            list-style-type: none;
+        }
+        .select{
+            display: flex;
+            justify-content: space-evenly;
+            width: 500px;
+            margin: auto;
+        }
+        .select > li{
+            width: 100px;
+        }
+        .select > li a{
+            display: block;
+            width: 100%;
+            height: 30px;
+            background-color: rgba(0, 0, 0, 0.2);
+            text-align: center;
+            line-height: 30px;
+            color: seashell;
+            text-decoration: none;
+        }
+        .option{
+            display: none;
+            width: 100%;
+        }
+        .option li{
+            width: 100%;
+            height: 30px;
+            text-align: center;
+            line-height: 30px;
+            color: springgreen;
+            background-color: rgba(0, 0, 0, 0.4);
+            cursor: default;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <ul class="select">
+        <li>
+            <a href="#">动画</a>
+            <ul class="option">
+                <li>slideDown</li>
+                <li>slideUp</li>
+                <li>slideToggle</li>
+            </ul>
+        </li>
+        <li>
+            <a href="#">过滤</a>
+            <ul class="option">
+                <li>eq</li>
+                <li>first</li>
+                <li>last</li>
+            </ul>
+        </li>
+        <li>
+            <a href="#">查找</a>
+            <ul class="option">
+                <li>children</li>
+                <li>next</li>
+                <li>finder</li>
+            </ul>
+        </li>
+        <li>
+            <a href="#">事件</a>
+            <ul class="option">
+                <li>hover</li>
+                <li>mouseenter</li>
+                <li>mouseleave</li>
+            </ul>
+        </li>
+    </ul>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            // 当鼠标移入到.select里面的li时触发 mouseenter事件
+            $(".select > li").mouseenter(function(){
+                // 并且获得该节点的index值
+                let $index = $(this).index();
+                // 并且让.option中的第几个slideDown下去
+                $(".option").eq($index).slideDown(1000);
+            })
+            // 当鼠标离开li元素触发mouseleave事件
+            .mouseleave(function(){
+                // 并且让.option slideUp上去
+                $(".option").slideUp(1000);
+            });
+        });
+    </script>
+</body>
+</html>

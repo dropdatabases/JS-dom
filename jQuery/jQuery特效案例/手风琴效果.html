@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>手风琴效果</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .content{
+            width: 200px;
+        }
+        .content h3{
+            width: 100%;
+            height: 40px;
+            border: 2px solid green;
+            font-weight: initial;
+            background-color: pink;
+            text-align: center;
+            line-height: 35px;
+            cursor: pointer;
+        }
+        .content h3:hover{
+            background-color: yellow;
+            border: 2px solid cadetblue;
+        }
+        .content ul{
+            display: none;
+            width: 100%;
+            list-style-type: none;
+        }
+        .content ul li{
+            width: 100%;
+            height: 40px;
+            background-color: oldlace;
+            border: 2px solid palegoldenrod;
+            line-height: 40px;
+            text-align: center;
+            cursor: default;
+        }
+        .content ul li:hover{
+            background-color: palegreen;
+            border: 2px solid mediumspringgreen;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h3>动画</h3>
+        <ul>
+            <li>fadeOut</li>
+            <li>fadeIn</li>
+            <li>fadeToggle</li>
+        </ul>
+        <h3>插入</h3>
+        <ul>
+            <li>append</li>
+            <li>appendTo</li>
+            <li>prependTo</li>
+        </ul>
+        <h3>过滤</h3>
+        <ul>
+            <li>eq</li>
+            <li>first</li>
+            <li>last</li>
+        </ul>
+        <h3>查找</h3>
+        <ul>
+            <li>children</li>
+            <li>find</li>
+            <li>next</li>
+        </ul>
+        <h3>CSS类</h3>
+        <ul>
+            <li>addClass</li>
+            <li>removeClass</li>
+            <li>toggleClass</li>
+        </ul>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            // 当点击到h3时触发事件处理函数
+            $("h3").click(function(){
+                // 用next()方法找到h3下面的ul元素 并且slideDown 找到同级的ul元素 并且slideUp
+                $(this).next().slideDown(1000).siblings("ul").slideUp(1000);
+            });
+        });
+    </script>
+</body>
+</html>

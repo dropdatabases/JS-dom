@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>点击图片循环切换效果</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        img{
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+    <button class="btnOne">上一张</button>
+    <img>
+    <button class="btnTwo">下一张</button>
+
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            // 存储要切换图片的src值
+            let $arrSrc =
+            ["./images/0310_img0.jpg","./images/0310_img1.jpg","./images/0310_img2.jpg","./images/0310_img3.jpg","./images/0310_img4.jpg"]
+            // 设置初始图片的src值
+            $("img").attr("src",$arrSrc[0]);
+
+            // 点击上一张按钮 切换图片
+            $(".btnOne").click(function(){
+                // 获取当前点击图片的src值
+                let $newSrc = $("img").attr("src");
+                // 循环遍历数组切换图片
+                for(let i=0;i<$arrSrc.length;i++){
+                    // 如果当前点击按钮的src属性和数组里面的src属性一致的化
+                    // 那么就代表图片相同开始切换图片
+                    if($newSrc === $arrSrc[i]){
+                        $("img").attr("src",$arrSrc[i+1]);
+                        // 如果切换到最后一张的话 那么让他的src值等于第一张图片的src值
+                        if(i === $arrSrc.length-1){
+                            $("img").attr("src",$arrSrc[0]);
+                        };
+                    };
+                };
+            });
+
+            // 点击下一张按钮  切换图片
+            $(".btnTwo").click(function(){
+                let $newSrc = $("img").attr("src");
+                for(let i=0;i<$arrSrc.length;i++){
+                    if($newSrc === $arrSrc[i]){
+                        $("img").attr("src",$arrSrc[i-1]);
+                        // 当图片循环到第一张的时候 让src值等于最后一张图片的src属性
+                        if(i === 0){
+                            $("img").attr("src",$arrSrc[$arrSrc.length-1]);
+                        };
+                    }
+                }
+            })
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>模态框效果</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .content{
+            display: none;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .boxShow{
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000000;
+            opacity: 0.2;
+        }
+        .contentText{
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 400px;
+            height: 300px;
+            margin: auto;
+            background-color: #fff;
+            border: 2px solid yellow;
+        }
+    </style>
+</head>
+<body>
+    <button class="show">开启模态框</button>
+    <div class="content">
+        <div class="boxShow"></div>
+        <div class="contentText">
+            <h1>模态框的标题</h1>
+            <button class="hide">关闭模态框</button>
+        </div>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            // 点击按钮让content里面的内容 fadeIn出来
+            $(".show").click(function(){
+                $(".content").fadeIn(1000);
+            });
+
+            // 点击按钮让content里面的内容  fadeOut出去
+            $(".hide").click(function(){
+                $(".content").fadeOut(1000);
+            });
+        });
+    </script>
+</body>
+</html>

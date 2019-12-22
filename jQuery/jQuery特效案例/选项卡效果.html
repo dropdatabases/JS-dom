@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>选项卡效果</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .content{
+            width: 500px;
+            margin: 0 auto;
+        }
+        .tab{
+            width: 100%;
+            height: 30px;
+            list-style-type: none;
+        }
+        .tab li{
+            float: left;
+            width: 20%;
+            height: 100%;
+            border: 1px solid #000000;
+            border-left: none;
+            text-align: center;
+            line-height: 30px;
+        }
+        .tab:nth-child(1){
+            border-left: 1px solid #000000;
+        }
+        .tab li a{
+            display: block;
+            width: 100%;
+            height: 100%;
+            color: #000;
+            text-decoration: none;
+        }
+        .on{
+            background-color: pink;
+        }
+        .banner{
+            width: 100%;
+            list-style-type: none;
+        }
+        .banner li{
+            display: none;
+            width: 100%;
+            height: 300px;
+            border: 1px solid #000000;
+        }
+        .banner .block{
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <ul class="tab">
+            <li class="on"><a href="#">新闻</a></li>
+            <li><a href="#">娱乐</a></li>
+            <li><a href="#">商业</a></li>
+            <li><a href="#">机器</a></li>
+            <li><a href="#">美食</a></li>
+        </ul>
+        <ul class="banner">
+            <li class="block">
+                <h3>新闻标题</h3>
+            </li>
+            <li>
+                <h3>娱乐标题</h3>
+            </li>
+            <li>
+                <h3>商业标题</h3>
+            </li>
+            <li>
+                <h3>机器标题</h3>
+            </li>
+            <li>
+                <h3>美食标题</h3>
+            </li>
+        </ul>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            // 点击tab 下面的 li实现选项卡效果
+            $(".tab").on("click","li",function(){
+                // 实现tab 下面的 li切换类名的效果
+                $(this).addClass("on").siblings().removeClass("on");
+
+                // 实现tab 下面的 li切换类名的效果
+                let $index = $(this).index(); //获取相对应的索引值
+                $(".banner").children().eq($index).addClass("block").siblings().removeClass("block");
+            });
+        });
+    </script>
+</body>
+</html>

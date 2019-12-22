@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>手风琴展现图片效果</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        ul,li{
+            list-style-type: none;
+        }
+        .banner{
+            width: 44%;
+            height: 400px;
+            margin: auto;
+        }
+        .banner li {
+            width: 200px;
+            height: 100%;
+            float: left;
+        }
+    </style>
+</head>
+<body>
+    <ul class="banner">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            // 获取到所需展现图片的元素
+            let $aLi = $(".banner li");
+            // 遍历数组设置手风琴图片展示效果
+            for(let i=0;i<$aLi.length;i++){
+                // 数组li的背景图片
+                $aLi.eq(i).css("background",`url(./images/0310_img${i}.jpg)`);
+                // 当鼠标移入到li里面触发mouseenter事件
+                $aLi.mouseenter(function(){
+                    // 给$aLi数组设置mouseenter事件 并且让他的width值是600 和让同级的宽度值是100
+                    $(this).stop().animate({width:600}).siblings().stop().animate({width:100});
+                });
+                // 当鼠标移除展示区域的时候 触发mouseleave事件
+                $(".banner").mouseleave(function(){
+                    // 并且让他的宽度值是200
+                    $aLi.stop().animate({width:200});
+                });
+            };
+        });
+    </script>
+</body>
+</html>
