@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>仿写iterator接口</title>
+</head>
+<body>
+   <script type="text/javascript">
+        //仿写iterator接口
+        
+        //数组篇
+        Array.prototype.arrayIterator = function(){
+           var i = 0;//存储返回的次数
+           return{//iterator返回结果是一个对象
+             //next返回结果是一个对象
+              next:()=>{
+                 var value = this[i];
+                 if (this[i++]!==undefined) {
+                 	done=false;
+                 }else {
+                 	done=true;
+                 }
+                 return{
+                    value,
+                    done,
+                 }
+              } 
+           }
+        }
+        var arr = [0,1,2,3,4];
+        var arrayIterator = arr['arrayIterator']();
+        console.log(arrayIterator.next())
+
+        
+
+        //字符串篇
+        String.prototype.stringInerator = function(){
+        	var j = 0;
+        	// 返回的是一个对象
+        	return {
+        		next:function(){
+        			var value = this[j];
+        			var done = this[j++]?false:true;
+        			return {
+        				value,
+        				done,
+        			}
+        		}.bind(this)
+        	}
+        }
+        var str = 'huashneg';
+        var stringInerator = str['stringInerator']();
+        console.log(stringInerator.next())
+   </script>
+</body>
+</html>

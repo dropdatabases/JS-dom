@@ -229,7 +229,7 @@ nextTick 相当于一个延时器  在下次 DOM 更新循环结束之后执行�
   </body>
 ```
 
-### 过滤器 filter1
+#### 过滤器 Vue.filter全局过滤器
 
 ```js
   <body>
@@ -525,6 +525,7 @@ nextTick 相当于一个延时器  在下次 DOM 更新循环结束之后执行�
     </div>
     <script src="./js/vue.js"></script>
     <script>
+        // 在Vue原型上面定义$可以更好的使用jQuery
         Vue.prototype.$ = $
 
         let vm = new Vue({

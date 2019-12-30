@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <div class="col_app_content">
+            <h2>商品列表</h2>
+            <table>
+                <tr>
+                    <th>商品名称</th>
+                    <th>商品单价</th>
+                    <th>商品数量</th>
+                    <th>添加至购物车</th>
+                </tr>
+                <tr v-for="(value,index) in gooseList">
+                    <td>{{value.name}}</td>
+                    <td>{{value.price}}</td>
+                    <td>
+                        <button v-on:click="sub(index)">-</button>
+                        <span>{{value.count}}</span>
+                        <button v-on:click="add(index)">+</button>
+                    </td>
+                    <td>
+                        <button v-on:click="insert(index)">添加购物车</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="col_app_cat">
+            <h2>购物车</h2>
+            <table>
+                <tr>
+                    <th>商品名称</th>
+                    <th>商品单价</th>
+                    <th>商品数量</th>
+                    <th>删除</th>
+                </tr>
+                <tr v-for="(value,index) in gooseArr">
+                    <td>{{value.name}}</td>
+                    <td>{{value.price}}</td>
+                    <td>
+                        <button v-on:click="catInsert(index)">-</button>
+                        <span>{{value.count}}</span>
+                        <button v-on:click="catSub(index)">+</button>
+                    </td>
+                    <td>
+                        <button v-on:click="spliceArr(index)">删除</button>
+                    </td>
+                </tr>
+            </table>
+            <button v-on:click="count">结账</button>
+        </div>
+    </div>
+    <script src="../vue.js"></script>
+    <script>
+         new Vue({
+             el:"#app",
+             data:{
+                //商品的初始数据
+                 gooseList:[
+                    {
+                        name:"香蕉",
+                        price:10.5,
+                        count:0,
+                    },
+                    {
+                        name:"苹果",
+                        price:5.7,
+                        count:0,
+                    },
+                    {
+                        name:"鸭梨",
+                        price:2.1,
+                        count:0,
+                    },
+                    {
+                        name:"西瓜",
+                        price:12.6,
+                        count:0,
+                    },
+                ],
+                gooseArr:[],
+             },
+             methods:{
+                //点击按钮添加商品数量
+                add:function(i){
+                    this.gooseList[i].count++;
+                },
+                sub:function(i){
+                    //当count大于0那么--
+                    if(this.gooseList[i].count>0){
+                        this.gooseList[i].count--;
+                    };
+                },
+                //点击购物车的 - 删除商品
+                catSub:function(i){
+                    this.gooseArr[i].count++;
+                },
+                catInsert:function(i){
+                    //购物车里面的数量不能少于0
+                    if(this.gooseArr[i].count>1){
+                        this.gooseArr[i].count--;
+                    }
+                },
+                //浅克隆对象 解决引用值地址相同的问题
+                clone:function(obj){
+                    var newObj = {};
+                    for(var i in obj){
+                        newObj[i] = obj[i];
+                    }
+                    return newObj;
+                },
+                //点击 添加到购物车 按钮时把数据添加到购物车上
+                insert:function(index){
+                    //解决数量上0还添加的问题
+                    if(this.gooseList[index].count === 0){
+                        alert("请选择数量！");
+                        return;
+                    };
+                    //解决购物车商品相同的问题
+                    for(var i=0;i<this.gooseArr.length;i++){
+                        if(this.gooseList[index].name === this.gooseArr[i].name){
+                            this.gooseArr[i].count += this.gooseList[index].count;
+                            return;
+                        };
+                    };
+                    var newGoose = this.clone(this.gooseList[index]);
+                    this.gooseArr.push(newGoose);
+                },
+                //删除商品
+                spliceArr:function(index){
+                    this.gooseArr.splice(index,1);
+                },
+                //实现结账功能
+                count:function(){
+                    //所有商品的总价
+                    var allPrice = 0;
+                    this.gooseArr.map(function(value,index){
+                         var totalPrice = value.price * value.count;
+                         allPrice += totalPrice;
+                    });
+                    alert(`你共计消费了${allPrice}元`);
+                }
+             }
+         })
+    </script>
+</body>
+</html>

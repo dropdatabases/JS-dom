@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>ajax获取数据</title>
+</head>
+<body>
+   <div id="btn">点击获取数据</div>
+   <div id="content"></div>
+   <script src="js/ajax.js"></script>
+   <script>
+   // 设置点击事件
+    var oBtn = document.getElementById('btn');
+    var oContent = document.getElementById("content");
+    oBtn.addEventListener("click",handleClick,false);
+
+    function handleClick(){
+         ajax({//放置在对象里，避免两个形参搞混
+              method:'get',//以get方式获取数据
+              url:"https://jsonplaceholder.typicode.com/photos",//去这个地址获取数据（只要是这个网站给咱们的数据变了那么这张页面就变了）
+              date:{//通过get方式要发送的数据
+                    username:"huasheng",
+                    age:28,
+         },
+         success:function(res){//当你获取到数据之后（成功），执行回调函数
+              var str = "";//储存变量完成的文章
+              //遍历对象（获取到的一个大对象）
+              for(var i=3999;i<res.length;i++){
+                 var title = res[i].title;//获取每一项的title属性
+                 var img = res[i].thumbnailUrl;//获取每一项的thumbnailUrl属性
+                 var span = res[i].id;//储存片数
+                 str +=  '<h3>'+title+'</h3><img src="'+img+'"><span>第'+span+'张</span>';
+              }
+              oContent.innerHTML = str;//映射到页面中
+         },//当你获取数据失败时
+              error:function(status){
+              alert(status);
+         }
+      });
+       oBtn.style.display = 'none';
+   };
+   </script>
+</body>
+</html>

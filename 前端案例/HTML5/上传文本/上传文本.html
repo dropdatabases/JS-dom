@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>上传文本</title>
+	<style>
+		*{
+			margin:0;
+			padding:0;
+		}
+		body{
+			user-select: none;
+		}
+	</style>
+</head>
+<body>
+	<div id="box"></div>
+	<input type="file" multiple>
+	<script>
+		var input = document.querySelector('input');
+		var oBox = document.getElementById('box');
+
+		//当文件上传时 会触发回调函数
+		//图片png jpg等图片 文本文件tet md html css js等文件
+		input.onchange = function(){
+			var file = this.files[0];
+
+			//生成一个有读取文件能力的对象
+			var reader = new FileReader();//文件读取对象
+
+			//读取文本
+			reader.readAsText(file);//异步操作
+
+			reader.onload = function(){
+				//等到reader里面的result数据读取完毕就会触发onload事件
+
+				// console.log(this.result);//result属性存储了文件使用数据
+
+				oBox.innerText = this.result;//添加到页面上
+
+			};	//读取文本文件的时候一定要保证文件的格式编码是UTF-8才能读取文本文件
+		}
+	</script>
+</body>
+</html>

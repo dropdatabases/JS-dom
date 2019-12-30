@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        ul{
+            list-style-type: none;
+        }
+        ul li{
+            float: left;
+        }
+        ul li img{
+            display: block;
+        }
+        ul::after{
+            content: "";
+            display: block;
+            clear: both;
+            height: 0;
+            visibility: hidden;
+        }
+        .on{
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+    <ul>
+        <li>
+            <img src="./images/0110four.jpg" alt="">
+        </li>
+        <li>
+            <img src="./images/0110one.jpg" alt="">
+        </li>
+        <li>
+            <img src="./images/0110three.jpg" alt="">
+        </li>
+        <li>
+            <img src="./images/0110two.jpg" alt="">
+        </li>
+    </ul>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+    <script>
+        $(document).ready(function(){
+            // 当鼠标移入图片内部时执行以下代码
+            $("ul li img").mouseenter(function(){
+                // 获取鼠标移入的src属性
+                var $src = $(this).attr("src");
+                // 并且创建一个新的img标签
+                var $newImg = $("<img>");
+                // 把新的img标签添加到视图当中
+                $("body").append($newImg);
+                // 并且添加一个类名
+                $($newImg).addClass("on").siblings().removeClass("on");
+                //并且赋值src属性
+                $(".on").attr("src",$src);
+            })
+             // 当鼠标到图片内部移动时触mousemove事件 
+            .mousemove(e=>{
+                // 获取鼠标距离图片的x,y轴坐标
+                var $x = e.clientX;
+                var $y = e.clientY;
+                // 并且设置css的样式
+                $(".on").css({
+                    left:$x+20,
+                    top:$y+20,
+                })
+            })
+            // 当鼠标离开触发mouseleave事件删除该节点
+            .mouseleave(function(){
+                $(".on").remove();
+            })
+        })
+    </script>
+</body>
+</html>

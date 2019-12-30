@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin:0;
+			padding:0;
+		}
+		body{
+			user-select: none;
+		}
+		#tips{
+			display: none;
+			width: 200px;
+			height: 50px;
+			margin: 100px auto;
+			text-align: center;
+			line-height: 50px;
+			background-color: rgba(0,0,0,.5);
+			color: #fff;
+		}
+	</style>
+</head>
+<body>
+	<div id="tips"></div>
+	<!-- 引用jQuery -->
+	<script src="../jquery-3.4.1.js"></script>
+	<script>
+    /*
+       H5 提供了检测设备网络状态的事件
+
+       HTML5提供两个事件来检测网络状态这两个事件检测的都是window对象
+
+       online  当从断网到连网  会触发回调函数
+    
+       offline  当从连网到断网  会触发回调函数
+    */
+
+     //当你一旦连接网络了，就提示恭喜你，网络已重连(当从断网到连网) 网络已连接
+	 //当你一旦断开网络了，就提示对不住了，网络已断开(从连网到断网) 网络已断开
+     $(document).ready(function(){
+     	 //当从断网到连网
+     	 window.addEventListener('online',function(){
+     	 	//tips淡入  2000ms 之后淡出
+     	 	$('#tips').text('恭喜你，网络已重连').fadeIn().delay(2000).fadeOut();
+     	 },false)
+
+     	 //当从连网到断网
+     	 window.addEventListener('offline',function(){
+     	 	//tips淡入  2000ms 之后淡出
+     	 	$('#tips').text('对不住了，网络已断开').fadeIn().delay(2000).fadeOut();
+     	 },false)
+     });
+	</script>
+</body>
+</html>

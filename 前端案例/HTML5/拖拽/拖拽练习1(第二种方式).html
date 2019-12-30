@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>拖拽练习1(第二种方式)</title>
+	<style>
+		*{
+			margin:0;
+			padding:0;
+		}
+		body{
+			display: flex;
+			justify-content: space-between;
+		}
+		div{
+			width:150px;
+			height:150px;
+			border:2px solid blue;
+		}
+		p{
+			height: 30px;
+			background-color: hotpink;
+			text-align: center;
+			line-height: 30px;
+			user-select: none;/*禁止选中文本*/
+		}
+	</style>
+</head>
+<body>
+	<div id="left">
+        <p id="item1" draggable="true">拖拽元素1</p>
+        <p id="item2" draggable="true">拖拽元素2</p>
+        <p id="item3" draggable="true">拖拽元素3</p>
+        <p id="item4" draggable="true">拖拽元素4</p>
+    </div>
+    <!-- 文字默认状态下是可以被拖拽的 -->
+    <div id="middle"></div>
+    <div id="right"></div>
+    <script>
+    	/*
+    	    设计拖拽元素事件对象是为了，拖拽到目标的时候能够更好的使用拖拽时的初始元素
+
+			事件对象.dataTransfer这个属性是用来存储你初始的拖拽数据的
+        *   dataTransfer.setData(属性名,属性值)  属性值是字符串 属性值:存储拖拽元素的初始数据(他是键值对的形式)
+        *   dataTransfer.getData(属性名) 获取每次存储的数据
+        *
+        *
+        * */
+    	document.addEventListener('dragstart',function(e){
+    		e = e || window.event;
+
+    		//当鼠标在拖拽元素中按下的时候，H5就提供了一个对象，这个对象是专门用来存储数据的(存储你在某个元素的初始的数据)
+
+    		/*
+    		 e这个事件对象是H5提供的拖拽的事件对象
+    		 事件对象.dataTransfer这个属性是用来存储你初始的拖拽数据的 data(数据) Transfer(转换转义)
+    		*/
+
+    		//存储拖拽时参数数据 只可以存储字符串格式的
+    		var dt = e.dataTransfer.setData('key',e.target.id);
+			//存储文件的初始数据.setDate()方法存储初始数据 
+    		//他的参数是一个键值对形式的setDate('属性名,e.target)
+
+    	},false);
+
+    	//清除默认事件
+    	document.addEventListener('dragover',function(e){
+    		e = e || window.event;
+
+    		//阻止掉默认行为 让drop事件生效
+    		e.preventDefault();
+    	},false);
+
+    	//当拖拽元素到目标元素时抬起
+    	document.addEventListener('drop',function(e){
+    		e = e || window.event;
+
+    		if (e.target.nodeName==='BODY'||e.target.nodeName==='HTML') return;
+  
+    		//因为你初始存储数据的时候是按照(e.dataTransfer.setData('key',e.target.id))这种键值对的方式存储的
+
+    		//当你获取数据的时候需要e.dataTransfer上面的getData方法，参数是存储数据的对象名即可
+
+    		//获取节点的id名
+    		// console.log(e.dataTransfer.getData('key'));//他是一个字符串(存储数据只能存储字符串格式的数据)
+
+    		//获取存储的数据
+    		var id = e.dataTransfer.getData('key');
+    		//获取每次拖拽元素
+    		var dom = document.getElementById(id);
+    		// 一旦鼠标挑起把指定id元素添加到里面
+    		e.target.appendChild(dom);
+    	},false);
+    </script>
+</body>
+</html>

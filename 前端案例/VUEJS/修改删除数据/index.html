@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <ul>
+            <li v-for="(value,index) in arr">
+                {{index}}--{{value.name}}--{{value.age}}
+                <button @click="remove(index)">删除</button>
+                <button @click="sub(index,{name:'huasheng',age:14})">修改</button>
+            </li>
+        </ul>
+    </div>
+    <script src="../vue.js"></script>
+    <script>
+        let vm = new Vue({
+            el:"#app",
+            data:{
+                //存储要显示的数据
+                arr:[
+                    {name:"Danny",age:25},
+                    {name:"Jack",age:27},
+                    {name:"Mack",age:26},
+                    {name:"Mary",age:29},
+                ]
+            },
+            methods:{
+                //点击按钮删除数据
+                remove(index){
+                    this.arr.splice(index,1);
+                },
+                //点击按钮修改数据
+                sub(index,data){
+                    //方法一选择数组改变他的值
+                    // this.arr[index].name = data.name;
+                    // this.arr[index].age = data.age;
+
+                    //方法二用数组splice来进行剪切并且添加数据
+                    //语法数组.splice(剪切的索引位置,剪切几个,要替换的元素)
+                    this.arr.splice(index,1,data);
+                }
+            }
+        })
+    </script>
+</body>
+</html>

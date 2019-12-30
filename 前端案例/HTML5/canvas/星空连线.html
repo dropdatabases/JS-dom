@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>星空连线</title>
+	<style>
+		*{
+			margin:0;
+			padding:0;
+		}
+		canvas{
+			display: block;
+			background-color: #000;
+		}
+	</style>
+</head>
+<body>
+   <canvas id="canvas"></canvas>
+
+   <script>
+   	   /*
+   	      画布和浏览器等宽等高 画布中一个有200个小点
+
+   	      每个小圆点的基本信息有
+   	        1.水平位置x
+   	        2.竖直位置y
+   	        3.圆点的半径r
+   	        4.圆点的水平速度speedx
+   	        5.圆点的竖直速度speedy
+
+		 如何判断判断两点之间是否连线
+		 	当两个点之间的距离小于某个值的（自定义）时候就 两点之间就连线
+		 
+   	   */
+
+   	   function myCanvas(num){
+   	   	  //获取画布
+   	   	  this.ele = document.getElementById('canvas'); 
+   	   	  //获取画笔
+   	   	  this.cxt = this.ele.getContext('2d');
+   	   	//   //设置画布的宽高
+   	   	//   this.ele.width = window.innerWidth;
+   	   	//   this.ele.height = window.innerHeight;
+		  this.handeleReize();
+   	   	  //记录小圆点的个数
+   	   	  this.num = num;
+   	   	  //存储200个小圆点的信息
+   	   	  this.data = [];
+		  //记录着鼠标是否移动
+		  this.isMoved = false;
+   	   	  //初始化界面
+   	   	  this.init();
+   	   };
+
+   	   myCanvas.prototype = {//原型
+   	   	  //初始化界面
+   	   	  init(){ 
+			//添加星空连线的初始数据
+			this.saveData();
+			//连线功能
+			this.drow();
+			//小圆点运动
+			this.move();
+			//绑定mousemove事件让线条连线
+			document.addEventListener('mousemove',this.handleMouse.bind(this),false);
+			//当浏览器尺寸方式变换时 触发回调函数
+			window.addEventListener('resize',this.handeleReize.bind(this),false)
+   	   	  },
+		  // 当浏览器尺寸发送变换时 修正画布宽高
+		  handeleReize(){
+			  this.ele.width = window.innerWidth;
+			  this.ele.height = window.innerHeight;
+		  },
+		  //绑定mousemove事件让线条连线
+		  handleMouse(e){
+			  //鼠标移动时 改变isMoved的属性(颜色)
+			  this.isMoved = true;
+			  //存储鼠标移动的水平坐标和竖直坐标
+			  var x1 = e.clientX;
+			  var y1 = e.clientY;
+
+			  //连线
+			  for(var i=0;i<this.num;i++){
+				  var x2 = this.data[i].x;
+				  var y2 = this.data[i].y;
+				  //判断两个点的距离 是否连线 （难1）
+				  if (Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2) <= 130 * 130) {
+					  //两点之间了连线
+					  this.line(x1, y1, x2, y2);
+				  };
+			  }
+		  },
+		  //添加星空连线的初始数据
+		  saveData(){
+			  //遍历num 往date里面添加数据
+			  for(var i = 0; i < this.num; i++) {
+				  this.data.push({//这个对象记录的小圆点的基本信息
+					  x: Math.random() * window.innerWidth,//小圆点x轴的随机数
+					  y: Math.random() * window.innerHeight,//小圆点y轴的随机数
+					  r: Math.random() * 2 + 1,//小圆点半径的随机数
+					  //水平/竖直速度 -0.5 到 0.3
+					  speedX:Math.random()-0.5,//水平方向小圆点的速度
+					  speedY:Math.random()-0.5,//竖直方向小圆点的速度
+				  });
+			  };
+		  },
+		  //在页面中绘制圆形
+		  circle(x,y,r){
+			  /*
+			    x表示圆的水平坐标
+				y表示圆的竖直坐标
+				r表示圆的半径
+			  */
+			  this.cxt.beginPath();
+			  this.cxt.fillStyle = 'pink';
+			  this.cxt.arc(x,y,r,0,Math.PI*2);
+			  this.cxt.closePath();
+			  this.cxt.fill();
+		  },
+		  //连线功能
+		  line(x1,y1,x2,y2){
+			  //绘制线条
+			  this.cxt.beginPath();
+
+			  //创建线性渐变
+			  var color = this.cxt.createLinearGradient(x1,y1,x2,y2);
+			  color.addColorStop(0, '#333');
+			  //鼠标移动的线条颜色是orange 没有移动是pink
+			  color.addColorStop(1, this.isMoved?'orange':'pink');
+			  this.cxt.strokeStyle = color;
+
+			  this.cxt.lineWidth = 2;
+			  this.cxt.moveTo(x1,y1);
+			  this.cxt.lineTo(x2,y2);
+			  this.cxt.closePath();
+			  this.cxt.stroke();
+		  },
+		  //让小圆点运动
+		  move(){
+			  setInterval(this.drow.bind(this),20);
+		  },
+		  //绘制圆形和两点之间连线的功能
+		  drow(){
+			this.isMoved = false;//初始值归位
+			//执行完drown函数清除画布
+			this.cxt.clearRect(0,0,window.innerWidth,window.innerHeight);//清除画布
+
+			//比较两个点之间的距离
+
+			//找到所有的点
+			for(var i=0;i<this.num;i++){
+				//第一个点的 x y r 数值
+				var x1 = this.data[i].x;
+				var y1 = this.data[i].y;
+				var r1 = this.data[i].r;
+
+				//绘制圆形
+				this.circle(x1,y1,r1);
+
+				//比较两点之间的距离
+				for(var j=i+1;j<this.num;j++){
+				     //最后一个点的 x y r 数值
+					 var x2 = this.data[j].x;
+					 var y2 = this.data[j].y;
+					 var r2 = this.data[j].r;
+
+					 //判断两个点的距离 是否连线 （难1）
+					 if(Math.pow(x1-x2,2)+Math.pow(y1-y2,2)<=60*60){
+						 //两点之间了连线
+						 this.line(x1,y1,x2,y2);
+					 };
+				};
+
+				//让小圆点的水平坐标和竖直坐标在原来的基础上都加上速度值
+				//更新小圆点的圆心坐标
+				this.data[i].x += this.data[i].speedX;
+				this.data[i].y += this.data[i].speedY;
+
+				//小圆点的边界检测
+				//水平方向的反弹
+				if(this.data[i].x<=0||this.data[i].x>=window.innerWidth){
+					this.data[i].speedX = -this.data[i].speedX;;
+				}
+				//竖直方向的反弹
+				if (this.data[i].y <= 0 || this.data[i].y >= window.innerHeight) {
+					this.data[i].speedY = -this.data[i].speedY;;
+				}
+			};
+		  }
+   	   }
+
+   	   var mycanvas = new myCanvas(200);// 200表示星空连线的点数(初始数据)
+   </script>
+</body>
+</html>

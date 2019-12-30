@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h3>请输入你要做的事情</h3>
+        <input type="text" v-model="newModel" @keydown.enter="fn">
+        <ul>
+            <li v-for="(value,index) in newArr">
+                {{value}}
+                <button @click="arrSplice(index)">删除</button>
+            </li>
+        </ul>
+    </div>
+    <script src="../vue.js"></script>
+    <script>
+        let vm = new Vue({
+            el:"#app",//文档的根节点(可以理解为函数的作用域)
+            data:{
+                //存储input中的值 实现双向数据绑定
+                newModel:'',
+                //存储数据
+                newArr:[],
+            },
+            methods:{
+                //当键盘按下触发keydown事件
+                fn(){
+                    //当newModel的值是'‘时那么return不让整个函数执行
+                    if(this.newModel === '')return;
+                    //往数组里面push数据
+                    this.newArr.push(this.newModel);
+                    //让newModel中的值为''
+                    this.newModel = '';
+                },
+                //当点击删除按钮 用数组的splice方法删除节点
+                arrSplice(index){
+                    this.newArr.splice(index,1);
+                }
+            }
+        })
+    </script>
+</body>
+</html>

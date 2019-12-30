@@ -1,0 +1,299 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>3D案例</title>
+		<meta name="description" content="描述:对网页文档的大概的介绍">
+		<meta name="keywords" content="关键词1,关键词2">
+		<style>
+			*{
+				margin:0;
+				padding:0;
+			}
+			body{
+				position:absolute;
+				overflow:hidden;
+				width:100%;
+				height:100%;
+				background:#023b3b url('img/bg.png') 0 0/cover;
+				perspective:2000px;
+				transform-style:preserve-3d;
+				user-select:none;
+			}
+			#box{
+				position:absolute;
+				left:0;
+				right:0;
+				top:0;
+				bottom:0;
+				width:120px;
+				height:160px;
+				margin:auto;
+				transform-style:preserve-3d;
+				/*background:url('img/test.png') 0 0/cover;*/
+			}
+			#box ul{
+				position:absolute;
+				list-style-type:none;
+				width:100%;
+				height:100%;
+				transform-style:preserve-3d;
+			}
+			#box ul li{
+				position:absolute;
+				width:100%;
+				height:100%;
+				font-size:20px;
+				text-align:center;
+				cursor:pointer;
+				background-color:rgba(0,127,127,0.5);
+				box-shadow:0 0 12px rgba(0,255,255,0.5);
+				transition:2s;
+				color:#fff;
+				line-height: 160px;
+			}
+			
+			.list{
+				list-style-type:none;
+				position:fixed;
+				left:20px;
+				bottom:20px;
+				width:600px;
+				height:50px;
+			}
+			.list li{
+				float:left;
+				width:60px;
+				height:100%;
+				box-shadow:0 0 12px rgba(0,255,255,0.5);
+				margin:10px;
+				background-color:#46a1a5cc;
+				color:#fff;
+				text-align:center;
+				line-height:50px;
+				font-size:16px;
+			}
+
+		</style>
+	</head>
+	<body><!--身体 网页上可见的区域-->
+
+		<div id="box"></div>
+		<ul class='list'>
+			<li id='table'>table</li>
+			<li id='circle'>circle</li>
+			<li id='helix'>helix</li>
+			<li id='square'>square</li>
+			<li id='random'>random</li>
+		</ul>
+		<script>
+			var num = 125;//存储生成多少个小方块
+			var oBox = document.getElementById('box');
+			var aLi = document.getElementsByClassName('on');//动态获取要移动的li(动态获取在你每一个使用这个变量的时候他会每一次会更新的)
+			var oRandom = document.getElementById('random');
+			var oCircle = document.getElementById('circle');
+			var oHelix = document.getElementById('helix');
+			var oSquare = document.getElementById('square');
+			var oTable = document.getElementById('table');
+
+			//在初始化界面的时候，一般用立即执行函数来做(立即执行函数的特点：函数执行完毕执行就直接在内存中销毁了，只执行一次)
+
+			//前面括号的作用是把一个函数声明变成一个函数表达式，后面括号的作用是让这个函数执行
+			(function init(n){//初始化界面生成125个长方形
+
+				var Ul = document.createElement('ul');//先创建ul节点
+				for(var i=0;i<n;i++){
+					var li = document.createElement('li');//再在for循环中创建li节点
+					li.className = 'on';//给生成的li添加类名
+					li.innerText = i;
+					Ul.appendChild(li);//把li节点添加到ul内部
+				}
+				oBox.appendChild(Ul);//把生成好的ul添加到div中
+
+			})(num);//把num传进这个立即执行函数中
+
+			function square(disx,disy,disz){//矩阵模块
+				//遍历生成好了的li
+				for(var i=0;i<aLi.length;i++){
+					var x = i%5-2; //x轴位移
+					var y = ~~(i/5)%5-2; //y轴位移
+					var z = 2-~~(i/25);//z轴位移
+
+					aLi[i].style.transform = 'translate3D('+x*(120+disx)+'px,'+y*(160+disy)+'px,'+z*disz+'px)';
+				};
+			};
+
+			function helix(n,disZ,disY){ //螺旋模块
+				
+				for(var i=0;i<aLi.length;i++){
+					var yDeg = 360*i*n/aLi.length;// n表示圈数
+					var y = i - ~~(aLi.length/2);
+					aLi[i].style.transform = 'rotateY('+yDeg+'deg) translateZ('+disZ+'px) translateY('+y*disY+'px)';//disZ表示半径 disY表示圈数的半径
+					aLi[i].style.transition = '5s cubic-bezier(.4,-0.46,.73,-0.54)';
+				};
+			};
+
+			setTimeout(()=>{
+				helix(3,1000,15);
+			},1000)
+
+			//元素周期表模块
+			function table(){
+				var arr = [[-8,-3],[9,-3]];
+				var arr2 = [[-8,-2],[-7,-2],[4,-2],[5,-2],[6,-2],[7,-2],[8,-2],[9,-2]];
+				var arr3 = [[-8,-1],[-7,-1],[4,-1],[5,-1],[6,-1],[7,-1],[8,-1],[9,-1]];
+
+				var arr4 = [];
+				for(var i=0;i<18*6;i++){
+					arr4.push([i%18-8,~~(i/18)]);
+
+				}
+
+				var newArr = arr.concat(arr2,arr3,arr4)
+				for(var i=0;i<aLi.length;i++){
+					aLi[i].style.transform = 'translate('+newArr[i][0]*120+'px,'+newArr[i][1]*160+'px)'
+				};
+			};
+
+
+			// 随机模块
+			function random(){
+
+				var arr = [];
+				for(var i=0;i<aLi.length;i++){
+					arr.push(i)
+				}
+				arr.sort(function(){
+					return Math.random()-0.5;
+				});
+
+				for(var i=0;i<aLi.length;i++){
+					var str = getComputedStyle(aLi[i],null).transform;
+					aLi[arr[i]].style.transform = str;
+				};
+			};
+
+			//球体模块
+			function circle(){
+				var arr = [1,5,7,11,14,16,19,17,13,9,7,5,1];//存储每层li的个数
+
+				var lay = 0;//设置层数
+
+				var num = 0;//记录第lay层的第几个
+
+				for(var i=0;i<aLi.length;i++){
+					var sum = 0;//记录前几层的li总数和
+					for(var j=0;j<arr.length;j++){
+						sum += arr[j];
+						if(sum>i){
+							lay = j;
+							num = arr[lay] - (sum-i);//记录第lay层第几个
+							break;
+						};
+					};
+					var yDeg = 360*num/arr[lay];//每层li旋转的y轴角度
+					var xDeg = 90+lay*180/(arr.length-1);//[90,270]
+					aLi[i].style.transform = 'rotateY('+yDeg+'deg) rotateX('+xDeg+'deg) translateZ('+1000+'px)';
+				}
+			}
+
+			(function drag(dom){ //拖拽模块
+
+				//存放当前的旋转角度值
+				var xDeg = 0;
+				var yDeg = 0;
+				dom.addEventListener('mousedown',function(e){
+					e  = e || window.event;
+					//获取点击事件的起始位置
+					var statusX = e.clientX;
+					var statusY = e.clientY;
+
+					//存放上一次的旋转角度(不能获取当前的角度值所以用当前变量先存储着)
+					var sXDeg = xDeg;
+					var sYDeg = yDeg;
+
+					//记录上一次鼠标move的坐标位置
+					var laseX = 0;
+					var laseY = 0;
+
+					//记录两次move的鼠标差值
+					var changeX = 0;
+					var changeY = 0;
+
+					document.addEventListener('mousemove',move,false);
+
+					function move(e){
+						e = e || window.event;
+						//移动的时候的位置的差值
+						var moveX = (e.clientX - statusX)*0.08;
+						var moveY = -(e.clientY - statusY)*0.08;
+
+						xDeg = sXDeg + moveX;
+						yDeg = sYDeg + moveY;
+
+						changeX = e.clientX - laseX || 0;
+						changeY = e.clientY - laseY || 0;
+
+						laseX = e.clientX;
+						laseY = e.clientY;
+
+						dom.style.transform = 'rotateY('+xDeg+'deg) rotateX('+yDeg+'deg)';
+					}
+
+					document.addEventListener('mouseup',()=>{
+						document.removeEventListener('mousemove',move,false);
+						document.removeEventListener('mouseup',arguments.callee,false);
+						var timer = setInterval(function(){
+							changeX *= 0.8;
+							changeY *= 0.8;
+
+							xDeg += changeX;
+							yDeg -= changeY;
+							dom.style.transform = 'rotateY('+xDeg+'deg) rotateX('+yDeg+'deg)';
+
+							if (Math.abs(changeX)<=0.05&&Math.abs(changeY)<=0.05) {
+								clearInterval(timer);
+
+							};
+						},20)
+					},false)
+				},false);
+			})(oBox.children[0])
+
+			//鼠标滚轮滚动让整个矩形整发生发达和缩小变化
+			var zIndex = 0;
+			document.onmousewheel = function(e){
+				e = e || window.event;
+				if (e.wheelDelta>=120) {//滚轮向上滚动
+					zIndex += 100;
+				}else {//滚轮向下滚动
+					zIndex -= 100;
+				}
+				zIndex = Math.max(zIndex,-7000);
+				zIndex = Math.min(zIndex,100);
+				oBox.style.transform = 'translateZ('+zIndex+'px)'
+			};
+
+			//点击切换多个模块
+
+			oTable.addEventListener('click',()=>{
+				table();
+			},false);
+
+			oCircle.addEventListener('click',()=>{
+				circle();
+			},false)
+
+			oHelix.addEventListener('click',()=>{
+				helix(3,1000,15);
+			},false)
+
+			oSquare.addEventListener('click',()=>{
+				square(30,30,200);
+			},false)
+			oRandom.addEventListener('click',()=>{
+				random();
+			},false);
+		</script>
+	</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div class="content">
+    <button class="under">下一张</button>
+    <img src="./images/0110four.jpg">
+    <button class="on">上一张</button>
+</div>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+<script>
+    $(document).ready(function () {
+        var $arr = ["./images/0110four.jpg","./images/0110one.jpg","./images/0110three.jpg","./images/0110two.jpg","./images/1.jpg","./images/4.jpg","./images/5.jpg","./images/as.jpg","./images/zx.jpg"];
+        var $length = $arr.length;
+        var $index = 0;
+
+        $(".on").click(function(){
+
+            if($index === $length-1){
+                $index = 0;
+            }
+
+            $index++;
+            $("img").attr("src",$arr[$index]);
+        });
+
+        $(".under").click(function(){
+            if($index === 0){
+                $index = $length;
+            }
+            $index --;
+            $("img").attr("src",$arr[$index]);
+        });
+    })
+</script>
+</body>
+</html>

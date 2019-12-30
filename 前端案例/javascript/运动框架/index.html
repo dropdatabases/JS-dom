@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>运动框架</title>
+	<style type="text/css">
+		*{
+			margin:0;
+			padding:0;
+		}
+		#box{
+			position: absolute;
+			left: 10px;
+			top:10px;
+			width: 200px;
+			height: 200px;
+			opacity: 0.2;
+			background-color: blue;
+		}
+	</style>
+</head>
+<body>
+	<div id="box"></div>
+	<script type="text/javascript">
+	        // 公式
+			//速度 = (终点值 - 初始值) / 时间
+			// 元素移动的值 = 初始位置 + 速度* 时间（时间差）
+		var oBox = document.getElementById('box');//获取元素的id属性
+		// 封装animation函数让多个CSS属性到指定的属性
+		function animation(dom,target,time,callBack){
+			/*
+              dom是oBox变量
+              target是终点值
+              time是到终点值所需的时间 单位是秒
+			*/
+			var start = {};//存储元素的初始值
+			var speed = {};//存储元素的速度
+			for(var attr in target){
+				start[attr] = parseFloat(getStyle(dom,attr));//提取初始值的数值
+				speed[attr] = (target[attr] - start[attr]) / (time*1000);//获取速度值
+			}
+			var date = new Date();//获取当前时间
+			var timer = setInterval(function(){
+			    var Timerdate = new Date();//获取16秒后的时间
+			    var Ctime = Timerdate - date;//获取时间差
+
+			    for(var attr in target){//让oBox运动
+				   if (attr==="opacity") {
+					  dom.style[attr] = start[attr] + speed[attr]*Ctime;
+				   }else {
+				      dom.style[attr] = start[attr] + speed[attr]*Ctime+"px";
+				   }
+			   }
+			   if (Ctime/1000>=time) {
+			   	  clearInterval(timer)//停止计时器
+			   	  for(var attr in target){//强制等于target
+			   	  	if (attr==="opacity") {
+			   	  		dom.style[attr] = target[attr];
+			   	  	}else {
+			   	  		dom.style[attr] = target[attr] + "px";
+			   	  	}
+			   	  }
+			   	  callBack&&callBack.call(dom,start,time);
+			   }
+			},16)
+			//此函数的作用是获取元素的初始值
+			function getStyle(dom,attr){
+				if (dom.currentStyle) {//如果是IE8以下
+					return dom.currentStyle;
+				}else {//如果是IE8以上
+					return window.getComputedStyle(dom,null)[attr];
+				}
+			}
+		}
+		animation(oBox,{
+			width:250,
+			height:300,
+			left:100,
+			top:250,
+			opacity:1,
+		},2,function(start,time){
+			//此回调函数的作用是让oBox回去
+			animation(this,start,time,function(){
+				this.style.backgroundColor = 'red';
+			});
+		})
+	</script>
+</body>
+</html>

@@ -2,7 +2,6 @@
 
 巧克力很苦的学习笔记：[笔记](https://blog.csdn.net/qq_44607694 )
 
-巧克力很苦的视频案例教程：[视频](https://space.bilibili.com/410669411?spm_id_from=333.33.b_62696c692d6865616465722d6d.10 )
 
 #### vscode 常用插件推荐
 

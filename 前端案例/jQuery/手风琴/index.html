@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>手风琴</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        a{
+            text-decoration: none;
+        }
+        ul{
+            list-style: none;
+        }
+        .nav-list {
+            width:220px;
+            margin-top:20px;
+            margin-left:20px;
+            border-bottom:1px solid #ccc;
+        }
+        .nav-list h3{
+            padding:10px 20px;
+            background-color:#435f41;
+            border-top:1px solid #ccc;
+            color:#fff;
+            line-height:20px;
+            font-weight:normal;
+            font-size:16px;
+            cursor:pointer;
+        }
+        .nav-list h3:hover{
+            background-color:#6bc66c;
+        }
+        .nav-list li a{
+            display: block;
+            padding:10px 20px;
+            background-color:#f5f5f5;
+            border:1px solid #ccc;
+            border-bottom:none;
+            font-size:14px;
+            color:#333;
+        }
+        .nav-list li a:hover{
+            background-color:#ccc;
+        }
+        .nav-list ul{
+            display:none;
+        }
+    </style>
+</head>
+<body>
+<div class="nav-list">
+    <h3>选择器</h3>
+    <ul>
+        <li><a href="#">基本选择器</a></li>
+        <li><a href="#">层级选择器</a></li>
+        <li><a href="#">过滤选择器</a></li>
+        <li><a href="#">内容选择器</a></li>
+        <li><a href="#">可见性选择器</a></li>
+        <li><a href="#">子元素选择器</a></li>
+    </ul>
+    <h3>文档处理</h3>
+    <ul>
+        <li><a href='#'>内部插入</a></li>
+        <li><a href='#'>外部插入</a></li>
+        <li><a href='#'>包裹</a></li>
+        <li><a href='#'>替换</a></li>
+        <li><a href='#'>删除</a></li>
+        <li><a href='#'>克隆</a></li>
+    </ul>
+    <h3>筛选</h3>
+    <ul>
+        <li><a href='#'>过滤</a></li>
+        <li><a href='#'>查找</a></li>
+        <li><a href='#'>串联</a></li>
+    </ul>
+    <h3>效果</h3>
+    <ul>
+        <li><a href='#'>滑动</a></li>
+        <li><a href='#'>淡入淡出</a></li>
+        <li><a href='#'>自定义</a></li>
+    </ul>
+</div>
+
+
+<script src="../jquery-3.4.1.js"></script>
+<script>
+$(document).ready(function () {//设置jQuery入口代码
+    $('h3').click(function () {
+        /*
+            1：给h3标签设置点击事件
+            2：再用next函数筛选出来同级元素的ul
+            3：再用slideToggle函数让ul 下拉-->上拉 上拉-->下拉
+            4：在调用siblings函数筛选出ul并且用slideUp让这个元素上拉
+        */
+        $(this).next('ul').slideToggle().siblings('ul').slideUp();
+    })
+})
+</script>
+</body>
+</html>

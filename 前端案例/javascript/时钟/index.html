@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>时钟</title>
+	<style>
+		*{
+			margin:0;
+			padding: 0;
+		}
+		#box{
+			width:800px;
+			height:200px;
+			border:3px #000 solid;
+			margin:auto;
+		}
+		ul{
+			overflow: hidden;
+			height:61px;
+		}
+		li{
+			float: left;
+			width: 41px;
+			height:125px;
+			list-style-type: none;
+		}
+	</style>
+</head>
+<body>
+	<div id="box">
+		<ul>
+			<li class="on">
+				<img src="images/0.png" class="to_img">
+				<img src="images/0.png" class="bot_img">
+			</li>
+			<li class="on">
+				<img src="images/0.png" class="to_img">
+				<img src="images/0.png" class="bot_img">
+			</li>
+			<li>
+				<img src="images/d.png">
+				<img src="images/d.png">
+			</li>
+			<li class="on">
+				<img src="images/0.png" class="to_img">
+				<img src="images/0.png" class="bot_img">
+			</li>
+			<li class="on">
+				<img src="images/0.png" class="to_img"> 
+				<img src="images/0.png" class="bot_img">
+			</li>
+			<li>
+				<img src="images/d.png">
+				<img src="images/d.png">
+			</li>
+			<li class="on">
+				<img src="images/0.png" class="to_img">
+				<img src="images/0.png" class="bot_img">
+			</li>
+			<li class="on">
+				<img src="images/0.png" class="to_img">
+				<img src="images/0.png" class="bot_img">
+			</li>
+		</ul>
+	</div>
+	<script type="text/javascript" src="js/animation.js"></script><!--- 引用运动框架 -->
+	<script type="text/javascript">
+		var Toimg = document.getElementsByClassName('to_img');
+		var Booimg = document.getElementsByClassName('bot_img');
+		var oLi = document.getElementsByClassName("on");
+		var Time = setInterval(function(){
+			var Timedate = new Date();//获取当前时间
+
+		    var hours = Timedate.getHours();//获取点前小时
+		    var minute = Timedate.getMinutes();//获取当前分钟
+		    var second = Timedate.getSeconds();//获取当前秒钟
+		    var str = "";//把获取的当前秒数、分钟、秒钟以字符串形式展示
+		    str = toTow(hours) + toTow(minute) + toTow(second);
+
+		    Timedate.setSeconds(Timedate.getSeconds()+1);//修改秒数+1
+
+		    var oHours = Timedate.getHours();
+		    var ominute = Timedate.getMinutes();
+		    var osecond = Timedate.getSeconds();
+		    var ostr = "";
+		    ostr = toTow(oHours) + toTow(ominute) + toTow(osecond);
+		   
+
+		     for(var i=0;i<str.length;i++){
+		     	Toimg[i].src = "images/" + str[i] + ".png";
+		     }
+		     for(var i=0;i<ostr.length;i++){
+               Booimg[i].src = "images/" + ostr[i] + ".png";
+		     }
+             for(var i=0;i<ostr.length;i++){
+            	if (str[i]!==ostr[i]) {
+            		 (function(i){
+            		 	animation(oLi[i],{
+            		    	marginTop : -65,
+            		   },0.5,function(){
+            	 	        this.style.marginTop = 0;
+            	 	        Toimg[i].src = "images/" + ostr[i] + ".png";
+            		    });
+            		 })(i);
+            	};
+            };
+            
+		},1000);
+		//这个函数的作用 0--->01
+		function toTow (num){
+			if (num<10) {
+				return "0" + num;
+			}else {
+				return num + "";
+			};
+		};
+
+	</script>
+</body>
+</html>

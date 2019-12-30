@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>消息滚动1</title>
+    <meta name="description" content="描述:对网页文档的大概的介绍">
+    <meta name="keywords" content="关键词1,关键词2">
+    <style>
+        ul {
+            list-style: none;
+            width: 500px;
+            margin: 0;
+            padding: 0;
+        }
+
+        #wrapList {
+            margin: 100px auto;
+            overflow: hidden;
+        }
+
+        li {
+            background: #ccc;
+            margin-bottom: 10px;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <ul id='wrapList'>
+        <li>这是这一段落1</li>
+        <li>这是这一段落2</li>
+        <li>这是这一段落3</li>
+        <li>这是这一段落4</li>
+        <li>这是这一段落5</li>
+        <li>这是这一段落6</li>
+        <li>这是这一段落7</li>
+        <li>这是这一段落8</li>
+        <li>这是这一段落9</li>
+        <li>这是这一段落10</li>
+        <li>这是这一段落11</li>
+        <li>这是这一段落12</li>
+        <li>这是这一段落13</li>
+        <li>这是这一段落14</li>
+        <li>这是这一段落15</li>
+    </ul>
+    <script src="../jquery-3.4.1.js"></script>
+    <script>
+        $(document).ready(function(){//设置jQuery入口代码
+           //存储消息滚动的个数
+           var $limit = 4;
+           //获取第一个li
+           var $single = $('#wrapList').children().first();
+           //获取li的高度
+           var $singleHeight = $single.outerHeight() + parseFloat($single.css('margin-bottom'));
+           //设置ul的高度
+           $('#wrapList').css({
+               height : $limit*$singleHeight,
+           })
+           //元素滚动
+           setInterval(function(){
+               $('#wrapList').children().last().hide().prependTo('#wrapList').slideDown()
+           },1500)
+        })
+    </script>
+</body>
+</html>

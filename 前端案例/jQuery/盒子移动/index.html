@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .banner{
+            overflow: hidden;
+            width: 300px;
+            height: 30px;
+        }
+        .banner_li{
+            width: 75px;
+            float: left;
+            list-style-type: none;
+        }
+        .banner::after{
+            content: "";
+            display: block;
+            clear: both;
+            height: 0;
+            visibility: hidden;
+        }
+        .banner_li > a,.banner_li > ul{
+            width: 100%;
+            height: 30px;
+            color: #000;
+            text-align: center;
+            line-height: 30px;
+            font-size: 12px;
+        }
+        .banner_li > a{
+            display: block;
+            text-decoration: none;
+            background-color: red;
+        }
+        .banner_li > ul{
+            background-color: blue;
+            list-style-type: none;
+            cursor: default;
+        }
+    </style>
+</head>
+<body>
+    <ul class="banner">
+        <li class="banner_li">
+            <a href="#">红色盒子</a>
+            <ul>
+                <li>蓝色盒子</li>
+            </ul>
+        </li>
+        <li class="banner_li">
+            <a href="#">红色盒子</a>
+            <ul>
+                <li>蓝色盒子</li>
+            </ul>
+        </li>
+        <li class="banner_li">
+            <a href="#">红色盒子</a>
+            <ul>
+                <li>蓝色盒子</li>
+            </ul>
+        </li>
+        <li class="banner_li">
+            <a href="#">红色盒子</a>
+            <ul>
+                <li>蓝色盒子</li>
+            </ul>
+        </li>
+    </ul>
+    <script src="./js/jquery.js"></script>
+    <script>
+        // 第一中方法
+        // $(document).ready(function(){
+        //     $(".banner_li").hover(function(){
+        //          $(this).animate({
+        //              marginTop:-30,
+        //          },1000)
+        //     },function(){
+        //         $(this).animate({
+        //              marginTop:0,
+        //         },1000)
+        //     })
+        // })
+
+
+       // 第二种方法   
+       // find(选择器) find找到父级下面的单个子元素
+       $(document).ready(function(){
+            // 第一步
+            // 当鼠标移入(mouseenter)到红色盒子上面 开始 蓝色盒子渐渐出来 红色盒子渐渐的消失
+            // 第二步
+            // 当鼠标移除(mouseleave)当蓝色盒子上面 开始 让 红色盒子渐渐的出来 蓝色盒子渐渐的消失
+            $(".banner_li").mouseenter(function(){
+                // this --> li (事件中this指向是你的绑定的元素)
+                // 利用animate函数 开始动画
+                $(this).animate({
+                    marginTop:-30,//上 margin-top 在JS中必须用驼峰写法 marginTop
+                },1000);
+                // 接下来我们用链式操作 返回的结果是一个他上一个操作的元素节点那么就可以链式操作
+            }).mouseleave(function(){
+                // this --> li
+                $(this).animate({
+                    marginTop:0,
+                },1000)
+            })
+       })
+    </script>
+</body>
+</html>

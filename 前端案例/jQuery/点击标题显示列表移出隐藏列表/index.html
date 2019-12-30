@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+			margin:0px;
+			padding:0px;
+		}
+        ul{
+			list-style: none;
+		}
+        #nav>li{
+            float: left;
+			list-style: none;
+			width:100px;
+			height:30px;
+			border:1px solid #aaa;
+			line-height: 30px;
+			text-align: center;
+        }
+        #nav::after{
+            content: "";
+            display: block;
+            clear: both;
+            visibility: hidden;
+            height: 0;
+        }
+        .ul{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <ul id="nav">
+        <li>
+            <a href="#">JavaScript</a>
+            <ul class="ul">
+                <li>object</li>
+                <li>function</li>
+                <li>array</li>
+            </ul>
+        </li>
+        <li>
+            <a href="#">jQuery</a>
+            <ul class="ul">
+                <li>$</li>
+                <li>mouseenter</li>
+                <li>mouseleave</li>
+            </ul>
+        </li>
+        <li>
+            <a href="#">VUE</a>
+            <ul class="ul">
+                <li>el</li>
+                <li>data</li>
+                <li>template</li>
+            </ul>
+        </li>
+    </ul>
+    <script src="../jquery-3.4.1.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#nav>li").click(function(){
+                $(this).find(".ul").slideDown(500);
+            }).mouseleave(function(){
+                $(this).find(".ul").slideUp(500);
+            });
+        })
+    </script>
+</body>
+</html>

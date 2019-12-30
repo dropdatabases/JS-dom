@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <button class="button1">上一张</button>
+    <img src="./images/0110four.jpg">
+    <button class="button2">下一张</button>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+    <script>
+
+    //设置要切换图片的src路径
+    var src_arr=["./images/0110one.jpg","./images/0110four.jpg","./images/0110three.jpg","./images/0110two.jpg","./images/1.jpg","./images/4.jpg","./images/5.jpg","./images/as.jpg","./images/zx.jpg"];
+    
+    $(".button1").click(function(){
+        //给img图片设置一个src值
+        var img=$("img").attr("src");
+        //遍历数组判断img中的src值是否和数组中的src值相等
+        for(var i=0;i<src_arr.length;i++){
+            if(img===src_arr[i]){
+                /*
+                  给img标签设置src属性 
+                  属性值 当存放src的数组 内部如果i-1===-1那么就会看 src_arr.length-1
+                  数组的索引值一般是以0开始的 而length值一般是以1开始的 设置两个条件双保险
+                */
+                $("img").attr("src",src_arr[i-1]||src_arr[src_arr.length-1]);
+                //如果i===0那么 就代表第一张图片 那么就length-1为0
+                if(i==0){
+                    $("img").attr("src",src_arr[src_arr.length-1]);
+                }
+            }
+        }
+    })
+    $(".button2").click(function(){
+        var img=$("img").attr("src");
+        for(var i=0;i<src_arr.length;i++){
+            if(img===src_arr[i]){
+                //0代表的是第一张图片
+                $("img").attr("src",src_arr[i+1]||src_arr[0]);
+                //如果i=length-1最后一张图片那么就src属性值切换到第一张图片上面
+                if(i===src_arr.length-1){
+                    $("img").attr("src",src_arr[0]);
+                }
+            }
+        }
+    })
+    </script>
+</body>
+</html>

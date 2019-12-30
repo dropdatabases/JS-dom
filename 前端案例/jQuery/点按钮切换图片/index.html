@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .banner{
+            width: 213px;
+            margin: 0 auto;
+        }
+        .content{
+            width: 100%;
+            height: 136px;
+            margin: auto;
+        }
+        .imagesList{
+            list-style-type: none;
+            width: 210px;
+            height: 100%;
+            border: 1px solid black;
+        }
+        .imagesList li img{
+            display: block;
+        }
+        .btn{
+            display: flex;
+            justify-content: space-evenly;
+            list-style-type: none;
+            width: 210px;
+            margin: 10px auto 0 auto;
+        }
+        .btn li{
+            width: 20px;
+            height: 20px;
+            border: 1px solid red;
+            font-size: 12px;
+            text-align: center;
+            line-height: 20px;
+            cursor: pointer;
+        }
+        .on{
+            background-color: red;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="banner">
+        <div class="content">
+            <ul class="imagesList">
+                <li>
+                    <img>
+                </li>
+            </ul>
+        </div>
+        <ul class="btn">
+            <li class="on">1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+        </ul>
+    </div>
+    <script src="./js/jquery.js"></script>
+    <script>
+        /*
+            效果：点击按钮切换对应的图片 
+                 如：点击第一个按钮切换第一张图片以此类推
+        */
+        $(document).ready(function(){
+            /*
+                步骤：
+                    1.声明一个变量存储要切换图片的路径
+                    2.先用attr方法给img节点设置一个src的值(默认值)
+                    3.利用on的事件委派给ul设置点击事件 并且委派给li 就可以把4个li都可以设置点击事件了
+                      3.1声明一个变量来存储的按钮的当前集合的索引位置
+                      3.2给img节点设置一个src的属性 值是$srcArr变量的第几个(索引位置)
+                      3.3给按钮用addClass方法设置一个on的类名，在用siblings方法来找到同级的li元素
+                         在用removeClass方法删除同级li元素的on类名了，就可以实现类名切换的效果了
+            */
+            // 存储要切换图片的路径
+            var $scrArr = ["./images/0110four.jpg","./images/0110one.jpg","./images/0110three.jpg","./images/0110two.jpg"];
+            // 给img节点设置一个src的默认值
+            $("img").attr("src",$scrArr[0]);
+
+            // 利用事件委派给li实现点击事件
+            $(".btn").on("click","li",function(){
+
+                // 存储按钮当前集合的索引位置
+                var $index = $(this).index();
+                // 给img节点用attr方法设置src的属性值
+                $("img").attr("src",$scrArr[$index]);
+
+                // 切换类名
+                $(this).addClass("on").siblings("li").removeClass("on");
+            });
+        });
+    </script>
+</body>
+</html>

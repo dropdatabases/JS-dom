@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>canvas时钟</title>
+    <style>
+        *{
+            margin:0;
+            padding: 0;
+        }
+
+        canvas{
+            display: block;
+            border:2px solid blue;
+            margin:50px auto;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas" width="500" height="500"></canvas>
+    
+    <script>
+    	var canvas = document.getElementById('canvas');
+    	var cxt = canvas.getContext('2d');
+    	function getTime(){
+    		//修改时针的背景颜色
+    		canvas.style.backgroundColor = "#" + Math.random().toString(16).slice(2,8)
+
+    		//清除长方形(清除图形)
+    		//cxt.clearRect(清除图片的水平距离,清除图片的竖直距离,清除宽度,清除高度)
+    		// 清除画布 clearRect(x,y,w,h)
+    		cxt.clearRect(0,0,500,500);
+
+            //绘制外部的大圆形
+            cxt.strokeStyle = 'red';//设置画笔的颜色
+            cxt.lineWidth = 2;//设置画笔的线宽
+            cxt.beginPath();//闭合上一次路径
+            cxt.arc(250, 250, 250, 0, Math.PI * 2);//绘制圆形轨迹
+            cxt.closePath();//闭合下一次路径
+            cxt.stroke();//绘制空心圆形
+
+            //绘制内部的圆饼
+            cxt.beginPath();
+            cxt.fillStyle = 'blue';
+            cxt.arc(250, 250, 10, 0, Math.PI * 2);
+            cxt.closePath();
+            cxt.fill();//绘制实心的圆形
+            //通过fill画出空心的圆，其实空心的圆外部还有条圆线可以通过stroke给他画出来
+            //绘制圆饼的线条
+            cxt.stroke();
+    		
+    		//绘制指针
+            var nowTime = new Date;//获取现在时间
+            var h = nowTime.getHours();//获取小时
+            var m = nowTime.getMinutes();//获取分钟
+            var s = nowTime.getSeconds();//获取秒钟
+
+            //绘制时间文字
+            cxt.font = '25px 微软雅黑';
+            cxt.fillStyle = 'red';
+            cxt.textAlign = 'center';
+            cxt.fillText(toTwo(h)+':'+toTwo(m)+':'+ toTwo(s),252,400);
+
+            //处理获取的小时 变成12进制的时间
+            h = h>12 ? h-12 : h;
+
+            //12个小时 对应的是 360° 则应该1小时旋转30°
+            var rotateH = h*Math.PI/6;
+            //60分钟对应的是 360° 则应该1分钟旋转6°
+            var rotateM = m*Math.PI/30;
+            //60秒对应的是 360° 则应该1秒旋转6°
+            var rotateS = s*Math.PI/30;
+
+
+            for(var i=1;i<=12;i++){//for循环中的变量i是index的缩写
+            	cxt.save();//保存上一次画布的状态
+            	cxt.translate(250,250);//设置画布(字)的起始位置
+
+            	cxt.fillStyle = 'black';//设置字体的颜色
+            	//设置字体
+            	cxt.font = '20px 微软雅黑';
+
+            	cxt.textAlign = 'center';
+            	cxt.textBaseline = 'middle'
+
+            	var x = 230*Math.sin(Math.PI*i/6)
+                var y = 230*Math.cos(Math.PI*i/6)
+            	//画出实心的字体
+            	cxt.fillText(i,x,-y);
+
+            	cxt.restore();//释放上一次画布的状态
+            };
+
+            //绘制时针
+            drawPointer({
+            	rotate:rotateH,//旋转角度
+            	color:'green',//颜色
+            	width:5,//针的宽度
+            	length:100,//针的长度
+            })
+            //绘制分针
+            drawPointer({
+            	rotate:rotateM,//旋转角度
+            	color:'blue',//颜色
+            	width:4,//针的宽度
+            	length:150,//针的长度
+            })
+            //绘制秒针
+            drawPointer({
+            	rotate:rotateS,//旋转角度
+            	color:'purple',//颜色
+            	width:3,//针的宽度
+            	length:200,//针的长度
+            })
+    	}
+
+        //把 1这样的数字变成 01 给个位数补充一个字符串0
+        function toTwo(num){
+            return num<10 ? '0' + num : num;
+        }
+
+    	//绘制分针 时针 秒针
+    	function drawPointer(options){
+            cxt.save(); 
+            cxt.translate(250,250);//设置画布(针)的起始位置
+            cxt.beginPath();
+            //设置针的旋转角度
+            cxt.rotate(options.rotate);
+            cxt.strokeStyle = options.color;//设置秒针的颜色
+            cxt.lineWidth = options.width;//设置秒针的线宽
+            cxt.moveTo(0,0);
+            cxt.lineTo(0,-options.length);
+            cxt.closePath();
+            cxt.stroke();
+            cxt.restore();//释放上一次画布的状态
+
+            //cxt.translate和cxt.rotate方法都是有叠加效果的
+    	}
+    	//开启定时器每个一段时间 获取 时 分秒  
+        getTime();
+    	setInterval(getTime,1000);
+    </script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text">
+    <button class="add">添加数据</button>
+    <ul>
+        <li>香蕉</li>
+        <li>苹果</li>
+        <li>鸭梨</li>
+    </ul>
+    <script src="./js/jquery.js"></script>
+    <script>
+        $(document).ready(function(){
+            // 点击add按钮往ul内部添加元素节点
+            $(".add").click(function(){
+                // 获取input中的value值
+                var $val = $("input").val();
+                // 如何input节点中的value值是""即是空的话，那么return让整个回调函数不执行
+                if($val === '') return;
+                // 创建li节点
+                var $li = '<li>'+$val+'</li>';
+                // 找到ul元素节点用append方法往ul内部中最后面添加li元素节点
+                $("ul").append($($li)); 
+                // 让Input元素节点中的value值为""即空
+                $("input").val("");
+            });
+            // 利用on事件委派的特点 把ul的点击事件委派给li
+            $("ul").on("click","li",function(){
+                // this-->li
+                // 删除li元素节点
+                $(this).remove();
+            });
+        });
+    </script>
+</body>
+</html>
