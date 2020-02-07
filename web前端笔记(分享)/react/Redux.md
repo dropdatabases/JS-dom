@@ -37,7 +37,7 @@
 **使用Redux需要下载Redux的包**
 
 ```shell
-npm i Redux -S
+npm install --save redux
 ```
 
 ### 2.1 Store
@@ -503,6 +503,41 @@ const store = createStore(
 */
 ```
 
+```jsx
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App';
+// 引用异步的中间件 （redux-thunk第三方的插件专门用于处理异步的方法）
+import thunk from 'redux-thunk'
+// redux的仓库
+// applyMiddleware 和 compose 处理异步的方法
+import {
+    createStore,
+    applyMiddleware,
+    compose
+} from 'redux'
+import {reducer,add,remove,removeAsync} from './redux/index'
+
+const store = createStore(
+    reducer,
+    // 配置解决异步的方法
+    compose(applyMiddleware(thunk))
+)
+
+listener()
+function listener(){
+    ReactDOM.render(<App
+        store={store}
+        add={add}
+        remove={remove}
+        removeAsync={removeAsync}
+    />, document.getElementById('root'));
+}
+store.subscribe(listener)
+
+```
+
 **注意：**
 
 - `createStore`方法可以接受整个应用的初始状态作为参数，那样的话，`applyMiddleware`就应该是第三个参数了
@@ -610,7 +645,7 @@ State 的属性isFetching表示是否在抓取数据。didInvalidate表示数据
 **使用[`redux-thunk`](https://github.com/gaearon/redux-thunk)中间件可以让我们在store.dispatch中传入一个函数作为参数（正常情况下只能传入对象作为参数），这样我们就能在传入的函数中进行异步操作**
 
 ```shell
-npm i redux-thunk -S
+npm i redux-thunk -S 他是node当中的中间件
 ```
 
 ```js
